@@ -1,0 +1,76 @@
+/* .ctc_demo_load {
+    background: yellow;
+    padding: 40px;
+    min-width: 400px;
+    min-height: 200px;
+} */
+
+.ctc_run_demo_btn {
+	cursor: pointer;
+	width: fit-content;
+	border-bottom: 1px solid #ddd;
+}
+
+.ctc_ad_show_hide_demo {
+	cursor: pointer;
+}
+
+/* to appear scrollbar even when no greetings is selected. to avoid sudden shift on demo widget */
+.click-to-chat_page_click-to-chat-greetings #wpbody-content {
+	padding-bottom: 565px !important;
+}
+
+/* Greetings */
+.ht_ctc_chat_greetings_box
+	*:not(ul):not(ol):not(.ht_ctc_default):not(.ht_ctc_defaults *):not(.iti *) {
+	padding: 0px;
+	margin: 0px;
+	box-sizing: border-box;
+}
+
+.ht_ctc_chat_greetings_box ul,
+.ht_ctc_chat_greetings_box ol {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.ctc_g_content,
+.ctc_g_sentbutton,
+.ctc_g_bottom {
+	margin-top: -0.9px !important;
+}
+
+.ctc_g_content {
+	max-height: calc(80vh - 140px);
+	overflow-y: auto;
+}
+
+.greetings_header_image img {
+	object-fit: cover;
+}
+
+.greetings_header_image {
+	position: relative;
+	display: inline-block;
+}
+
+/* rtl left: 0px; added with in php page. */
+.g_header_badge_online {
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	z-index: 1;
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	/* background-color: #06e376;
+    border: 2px solid #075e54; */
+}
+
+/* less than 1200 */
+@media only screen and (max-width: 1200px) {
+	.ctc_ad_page_link,
+	.ctc_run_demo_btn {
+		display: none !important;
+	}
+}

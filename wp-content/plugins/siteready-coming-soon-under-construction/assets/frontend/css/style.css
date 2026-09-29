@@ -1,0 +1,76 @@
+/* Template1  */
+.coming-soon-subtitle {
+font-size: 33px;
+}
+.coming-title {
+    font-size: 140px;
+}
+#days-num {
+   font-size: 50px;
+}
+#hours-num {
+    font-size: 50px;
+}
+#minutes-num {
+     font-size: 50px; 
+}
+#seconds-num {
+     font-size: 50px; 
+}
+.time-box span {
+    font-size: 12px;
+}
+.coming-soon-stay-tuned {
+     font-size: 35px;
+}
+.coming-soon-description {
+     font-size: 14px;
+}
+
+/* Template 2 */
+.uc-divider .uc-title {
+    font-size: 50px;
+}
+.uc-heading {
+    font-size: 50px;
+}
+
+/* Template 3 */
+.uc-sub-heading {
+    font-size: 30px;
+}
+.uc-heading {
+     font-size: 39px;
+}
+.uc-text {
+    font-size: 14px; 
+}
+.uc-btn {
+    font-size: 16px;
+}
+ 
+/* Template 4 */
+.uc4-subtitle {
+    font-size: 45px;
+} 
+.uc4-highlight {
+      font-size: 55px;
+}  
+
+/* Template 5 */
+.uc5-title {
+   font-size: 70px;  
+}
+.uc5-highlight {
+    font-size: 40px;
+}
+.uc5-subtitle {
+    font-size: 25px;
+}
+.uc5-description {
+     font-size: 16px;
+}
+.uc5-contact {
+        font-size: 16px;
+}
+

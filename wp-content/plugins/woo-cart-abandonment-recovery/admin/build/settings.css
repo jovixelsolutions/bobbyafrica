@@ -1,0 +1,5086 @@
+*, ::before, ::after {
+	--tw-border-spacing-x: 0;
+	--tw-border-spacing-y: 0;
+	--tw-translate-x: 0;
+	--tw-translate-y: 0;
+	--tw-rotate: 0;
+	--tw-skew-x: 0;
+	--tw-skew-y: 0;
+	--tw-scale-x: 1;
+	--tw-scale-y: 1;
+	--tw-pan-x:  ;
+	--tw-pan-y:  ;
+	--tw-pinch-zoom:  ;
+	--tw-scroll-snap-strictness: proximity;
+	--tw-gradient-from-position:  ;
+	--tw-gradient-via-position:  ;
+	--tw-gradient-to-position:  ;
+	--tw-ordinal:  ;
+	--tw-slashed-zero:  ;
+	--tw-numeric-figure:  ;
+	--tw-numeric-spacing:  ;
+	--tw-numeric-fraction:  ;
+	--tw-ring-inset:  ;
+	--tw-ring-offset-width: 0px;
+	--tw-ring-offset-color: #fff;
+	--tw-ring-color: rgb(59 130 246 / 0.5);
+	--tw-ring-offset-shadow: 0 0 #0000;
+	--tw-ring-shadow: 0 0 #0000;
+	--tw-shadow: 0 0 #0000;
+	--tw-shadow-colored: 0 0 #0000;
+	--tw-blur:  ;
+	--tw-brightness:  ;
+	--tw-contrast:  ;
+	--tw-grayscale:  ;
+	--tw-hue-rotate:  ;
+	--tw-invert:  ;
+	--tw-saturate:  ;
+	--tw-sepia:  ;
+	--tw-drop-shadow:  ;
+	--tw-backdrop-blur:  ;
+	--tw-backdrop-brightness:  ;
+	--tw-backdrop-contrast:  ;
+	--tw-backdrop-grayscale:  ;
+	--tw-backdrop-hue-rotate:  ;
+	--tw-backdrop-invert:  ;
+	--tw-backdrop-opacity:  ;
+	--tw-backdrop-saturate:  ;
+	--tw-backdrop-sepia:  ;
+	--tw-contain-size:  ;
+	--tw-contain-layout:  ;
+	--tw-contain-paint:  ;
+	--tw-contain-style:  ;
+}
+::backdrop {
+	--tw-border-spacing-x: 0;
+	--tw-border-spacing-y: 0;
+	--tw-translate-x: 0;
+	--tw-translate-y: 0;
+	--tw-rotate: 0;
+	--tw-skew-x: 0;
+	--tw-skew-y: 0;
+	--tw-scale-x: 1;
+	--tw-scale-y: 1;
+	--tw-pan-x:  ;
+	--tw-pan-y:  ;
+	--tw-pinch-zoom:  ;
+	--tw-scroll-snap-strictness: proximity;
+	--tw-gradient-from-position:  ;
+	--tw-gradient-via-position:  ;
+	--tw-gradient-to-position:  ;
+	--tw-ordinal:  ;
+	--tw-slashed-zero:  ;
+	--tw-numeric-figure:  ;
+	--tw-numeric-spacing:  ;
+	--tw-numeric-fraction:  ;
+	--tw-ring-inset:  ;
+	--tw-ring-offset-width: 0px;
+	--tw-ring-offset-color: #fff;
+	--tw-ring-color: rgb(59 130 246 / 0.5);
+	--tw-ring-offset-shadow: 0 0 #0000;
+	--tw-ring-shadow: 0 0 #0000;
+	--tw-shadow: 0 0 #0000;
+	--tw-shadow-colored: 0 0 #0000;
+	--tw-blur:  ;
+	--tw-brightness:  ;
+	--tw-contrast:  ;
+	--tw-grayscale:  ;
+	--tw-hue-rotate:  ;
+	--tw-invert:  ;
+	--tw-saturate:  ;
+	--tw-sepia:  ;
+	--tw-drop-shadow:  ;
+	--tw-backdrop-blur:  ;
+	--tw-backdrop-brightness:  ;
+	--tw-backdrop-contrast:  ;
+	--tw-backdrop-grayscale:  ;
+	--tw-backdrop-hue-rotate:  ;
+	--tw-backdrop-invert:  ;
+	--tw-backdrop-opacity:  ;
+	--tw-backdrop-saturate:  ;
+	--tw-backdrop-sepia:  ;
+	--tw-contain-size:  ;
+	--tw-contain-layout:  ;
+	--tw-contain-paint:  ;
+	--tw-contain-style:  ;
+}
+.container {
+	width: 100%;
+}
+@media (min-width: 420px) {
+	.container {
+		max-width: 420px;
+	}
+}
+@media (min-width: 640px) {
+	.container {
+		max-width: 640px;
+	}
+}
+@media (min-width: 768px) {
+	.container {
+		max-width: 768px;
+	}
+}
+@media (min-width: 1024px) {
+	.container {
+		max-width: 1024px;
+	}
+}
+@media (min-width: 1280px) {
+	.container {
+		max-width: 1280px;
+	}
+}
+@media (min-width: 1536px) {
+	.container {
+		max-width: 1536px;
+	}
+}
+:is(#wcar-admin-app) .sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}
+:is(#wcar-admin-app) .pointer-events-none {
+	pointer-events: none;
+}
+:is(#wcar-admin-app) .pointer-events-auto {
+	pointer-events: auto;
+}
+:is(#wcar-admin-app) .visible {
+	visibility: visible;
+}
+:is(#wcar-admin-app) .invisible {
+	visibility: hidden;
+}
+:is(#wcar-admin-app) .static {
+	position: static;
+}
+:is(#wcar-admin-app) .fixed {
+	position: fixed;
+}
+:is(#wcar-admin-app) .absolute {
+	position: absolute;
+}
+:is(#wcar-admin-app) .relative {
+	position: relative;
+}
+:is(#wcar-admin-app) .sticky {
+	position: sticky;
+}
+:is(#wcar-admin-app) .-inset-1 {
+	inset: -0.25rem;
+}
+:is(#wcar-admin-app) .inset-0 {
+	inset: 0px;
+}
+:is(#wcar-admin-app) .inset-x-0 {
+	left: 0px;
+	right: 0px;
+}
+:is(#wcar-admin-app) .inset-y-0 {
+	top: 0px;
+	bottom: 0px;
+}
+:is(#wcar-admin-app) .-bottom-px {
+	bottom: -1px;
+}
+:is(#wcar-admin-app) .bottom-0 {
+	bottom: 0px;
+}
+:is(#wcar-admin-app) .bottom-1 {
+	bottom: 0.25rem;
+}
+:is(#wcar-admin-app) .bottom-1\.5 {
+	bottom: 0.375rem;
+}
+:is(#wcar-admin-app) .left-0 {
+	left: 0px;
+}
+:is(#wcar-admin-app) .left-1\/2 {
+	left: 50%;
+}
+:is(#wcar-admin-app) .left-\[calc\(50\%\+10px\)\] {
+	left: calc(50% + 10px);
+}
+:is(#wcar-admin-app) .left-\[calc\(50\%\+12px\)\] {
+	left: calc(50% + 12px);
+}
+:is(#wcar-admin-app) .left-\[calc\(50\%\+14px\)\] {
+	left: calc(50% + 14px);
+}
+:is(#wcar-admin-app) .right-0 {
+	right: 0px;
+}
+:is(#wcar-admin-app) .right-1\/2 {
+	right: 50%;
+}
+:is(#wcar-admin-app) .right-3 {
+	right: 0.75rem;
+}
+:is(#wcar-admin-app) .right-4 {
+	right: 1rem;
+}
+:is(#wcar-admin-app) .right-\[calc\(-50\%\+10px\)\] {
+	right: calc(-50% + 10px);
+}
+:is(#wcar-admin-app) .right-\[calc\(-50\%\+12px\)\] {
+	right: calc(-50% + 12px);
+}
+:is(#wcar-admin-app) .right-\[calc\(-50\%\+14px\)\] {
+	right: calc(-50% + 14px);
+}
+:is(#wcar-admin-app) .top-0 {
+	top: 0px;
+}
+:is(#wcar-admin-app) .top-10 {
+	top: 2.5rem;
+}
+:is(#wcar-admin-app) .top-2 {
+	top: 0.5rem;
+}
+:is(#wcar-admin-app) .top-2\.5 {
+	top: 0.625rem;
+}
+:is(#wcar-admin-app) .top-2\/4 {
+	top: 50%;
+}
+:is(#wcar-admin-app) .top-3 {
+	top: 0.75rem;
+}
+:is(#wcar-admin-app) .top-3\.5 {
+	top: 0.875rem;
+}
+:is(#wcar-admin-app) .top-4 {
+	top: 1rem;
+}
+:is(#wcar-admin-app) .top-\[0\.3rem\] {
+	top: 0.3rem;
+}
+:is(#wcar-admin-app) .top-full {
+	top: 100%;
+}
+:is(#wcar-admin-app) .-z-10 {
+	z-index: -10;
+}
+:is(#wcar-admin-app) .z-10 {
+	z-index: 10;
+}
+:is(#wcar-admin-app) .z-20 {
+	z-index: 20;
+}
+:is(#wcar-admin-app) .z-30 {
+	z-index: 30;
+}
+:is(#wcar-admin-app) .z-50 {
+	z-index: 50;
+}
+:is(#wcar-admin-app) .z-999999 {
+	z-index: 999999;
+}
+:is(#wcar-admin-app) .z-\[100000\] {
+	z-index: 100000;
+}
+:is(#wcar-admin-app) .z-\[1\] {
+	z-index: 1;
+}
+:is(#wcar-admin-app) .z-\[9\] {
+	z-index: 9;
+}
+:is(#wcar-admin-app) .order-1 {
+	order: 1;
+}
+:is(#wcar-admin-app) .order-10 {
+	order: 10;
+}
+:is(#wcar-admin-app) .order-11 {
+	order: 11;
+}
+:is(#wcar-admin-app) .order-12 {
+	order: 12;
+}
+:is(#wcar-admin-app) .order-2 {
+	order: 2;
+}
+:is(#wcar-admin-app) .order-3 {
+	order: 3;
+}
+:is(#wcar-admin-app) .order-4 {
+	order: 4;
+}
+:is(#wcar-admin-app) .order-5 {
+	order: 5;
+}
+:is(#wcar-admin-app) .order-6 {
+	order: 6;
+}
+:is(#wcar-admin-app) .order-7 {
+	order: 7;
+}
+:is(#wcar-admin-app) .order-8 {
+	order: 8;
+}
+:is(#wcar-admin-app) .order-9 {
+	order: 9;
+}
+:is(#wcar-admin-app) .order-first {
+	order: -9999;
+}
+:is(#wcar-admin-app) .order-last {
+	order: 9999;
+}
+:is(#wcar-admin-app) .order-none {
+	order: 0;
+}
+:is(#wcar-admin-app) .col-span-1 {
+	grid-column: span 1 / span 1;
+}
+:is(#wcar-admin-app) .col-span-10 {
+	grid-column: span 10 / span 10;
+}
+:is(#wcar-admin-app) .col-span-11 {
+	grid-column: span 11 / span 11;
+}
+:is(#wcar-admin-app) .col-span-12 {
+	grid-column: span 12 / span 12;
+}
+:is(#wcar-admin-app) .col-span-2 {
+	grid-column: span 2 / span 2;
+}
+:is(#wcar-admin-app) .col-span-3 {
+	grid-column: span 3 / span 3;
+}
+:is(#wcar-admin-app) .col-span-4 {
+	grid-column: span 4 / span 4;
+}
+:is(#wcar-admin-app) .col-span-5 {
+	grid-column: span 5 / span 5;
+}
+:is(#wcar-admin-app) .col-span-6 {
+	grid-column: span 6 / span 6;
+}
+:is(#wcar-admin-app) .col-span-7 {
+	grid-column: span 7 / span 7;
+}
+:is(#wcar-admin-app) .col-span-8 {
+	grid-column: span 8 / span 8;
+}
+:is(#wcar-admin-app) .col-span-9 {
+	grid-column: span 9 / span 9;
+}
+:is(#wcar-admin-app) .col-start-1 {
+	grid-column-start: 1;
+}
+:is(#wcar-admin-app) .col-start-10 {
+	grid-column-start: 10;
+}
+:is(#wcar-admin-app) .col-start-11 {
+	grid-column-start: 11;
+}
+:is(#wcar-admin-app) .col-start-12 {
+	grid-column-start: 12;
+}
+:is(#wcar-admin-app) .col-start-2 {
+	grid-column-start: 2;
+}
+:is(#wcar-admin-app) .col-start-3 {
+	grid-column-start: 3;
+}
+:is(#wcar-admin-app) .col-start-4 {
+	grid-column-start: 4;
+}
+:is(#wcar-admin-app) .col-start-5 {
+	grid-column-start: 5;
+}
+:is(#wcar-admin-app) .col-start-6 {
+	grid-column-start: 6;
+}
+:is(#wcar-admin-app) .col-start-7 {
+	grid-column-start: 7;
+}
+:is(#wcar-admin-app) .col-start-8 {
+	grid-column-start: 8;
+}
+:is(#wcar-admin-app) .col-start-9 {
+	grid-column-start: 9;
+}
+:is(#wcar-admin-app) .m-0 {
+	margin: 0px;
+}
+:is(#wcar-admin-app) .m-1 {
+	margin: 0.25rem;
+}
+:is(#wcar-admin-app) .m-5 {
+	margin: 1.25rem;
+}
+:is(#wcar-admin-app) .mx-1 {
+	margin-left: 0.25rem;
+	margin-right: 0.25rem;
+}
+:is(#wcar-admin-app) .mx-2 {
+	margin-left: 0.5rem;
+	margin-right: 0.5rem;
+}
+:is(#wcar-admin-app) .mx-4 {
+	margin-left: 1rem;
+	margin-right: 1rem;
+}
+:is(#wcar-admin-app) .mx-auto {
+	margin-left: auto;
+	margin-right: auto;
+}
+:is(#wcar-admin-app) .my-0 {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+:is(#wcar-admin-app) .my-12 {
+	margin-top: 3rem;
+	margin-bottom: 3rem;
+}
+:is(#wcar-admin-app) .my-2 {
+	margin-top: 0.5rem;
+	margin-bottom: 0.5rem;
+}
+:is(#wcar-admin-app) .my-5 {
+	margin-top: 1.25rem;
+	margin-bottom: 1.25rem;
+}
+:is(#wcar-admin-app) .my-auto {
+	margin-top: auto;
+	margin-bottom: auto;
+}
+:is(#wcar-admin-app) .-mt-5 {
+	margin-top: -1.25rem;
+}
+:is(#wcar-admin-app) .mb-0 {
+	margin-bottom: 0px;
+}
+:is(#wcar-admin-app) .mb-1 {
+	margin-bottom: 0.25rem;
+}
+:is(#wcar-admin-app) .mb-2 {
+	margin-bottom: 0.5rem;
+}
+:is(#wcar-admin-app) .mb-3 {
+	margin-bottom: 0.75rem;
+}
+:is(#wcar-admin-app) .mb-4 {
+	margin-bottom: 1rem;
+}
+:is(#wcar-admin-app) .mb-5 {
+	margin-bottom: 1.25rem;
+}
+:is(#wcar-admin-app) .mb-6 {
+	margin-bottom: 1.5rem;
+}
+:is(#wcar-admin-app) .ml-0 {
+	margin-left: 0px;
+}
+:is(#wcar-admin-app) .ml-1 {
+	margin-left: 0.25rem;
+}
+:is(#wcar-admin-app) .ml-10 {
+	margin-left: 2.5rem;
+}
+:is(#wcar-admin-app) .ml-2 {
+	margin-left: 0.5rem;
+}
+:is(#wcar-admin-app) .ml-3 {
+	margin-left: 0.75rem;
+}
+:is(#wcar-admin-app) .ml-4 {
+	margin-left: 1rem;
+}
+:is(#wcar-admin-app) .ml-auto {
+	margin-left: auto;
+}
+:is(#wcar-admin-app) .mr-0 {
+	margin-right: 0px;
+}
+:is(#wcar-admin-app) .mr-0\.5 {
+	margin-right: 0.125rem;
+}
+:is(#wcar-admin-app) .mr-1 {
+	margin-right: 0.25rem;
+}
+:is(#wcar-admin-app) .mr-10 {
+	margin-right: 2.5rem;
+}
+:is(#wcar-admin-app) .mr-2 {
+	margin-right: 0.5rem;
+}
+:is(#wcar-admin-app) .mr-3 {
+	margin-right: 0.75rem;
+}
+:is(#wcar-admin-app) .mr-6 {
+	margin-right: 1.5rem;
+}
+:is(#wcar-admin-app) .mr-7 {
+	margin-right: 1.75rem;
+}
+:is(#wcar-admin-app) .mt-0 {
+	margin-top: 0px;
+}
+:is(#wcar-admin-app) .mt-1 {
+	margin-top: 0.25rem;
+}
+:is(#wcar-admin-app) .mt-1\.5 {
+	margin-top: 0.375rem;
+}
+:is(#wcar-admin-app) .mt-14 {
+	margin-top: 3.5rem;
+}
+:is(#wcar-admin-app) .mt-2 {
+	margin-top: 0.5rem;
+}
+:is(#wcar-admin-app) .mt-2\.5 {
+	margin-top: 0.625rem;
+}
+:is(#wcar-admin-app) .mt-4 {
+	margin-top: 1rem;
+}
+:is(#wcar-admin-app) .mt-6 {
+	margin-top: 1.5rem;
+}
+:is(#wcar-admin-app) .mt-7 {
+	margin-top: 1.75rem;
+}
+:is(#wcar-admin-app) .mt-8 {
+	margin-top: 2rem;
+}
+:is(#wcar-admin-app) .mt-\[2px\] {
+	margin-top: 2px;
+}
+:is(#wcar-admin-app) .mt-auto {
+	margin-top: auto;
+}
+:is(#wcar-admin-app) .mt-px {
+	margin-top: 1px;
+}
+:is(#wcar-admin-app) .box-border {
+	box-sizing: border-box;
+}
+:is(#wcar-admin-app) .box-content {
+	box-sizing: content-box;
+}
+:is(#wcar-admin-app) .block {
+	display: block;
+}
+:is(#wcar-admin-app) .inline-block {
+	display: inline-block;
+}
+:is(#wcar-admin-app) .inline {
+	display: inline;
+}
+:is(#wcar-admin-app) .flex {
+	display: flex;
+}
+:is(#wcar-admin-app) .inline-flex {
+	display: inline-flex;
+}
+:is(#wcar-admin-app) .table {
+	display: table;
+}
+:is(#wcar-admin-app) .flow-root {
+	display: flow-root;
+}
+:is(#wcar-admin-app) .grid {
+	display: grid;
+}
+:is(#wcar-admin-app) .contents {
+	display: contents;
+}
+:is(#wcar-admin-app) .hidden {
+	display: none;
+}
+:is(#wcar-admin-app) .aspect-video {
+	aspect-ratio: 16 / 9;
+}
+:is(#wcar-admin-app) .size-1\.5 {
+	width: 0.375rem;
+	height: 0.375rem;
+}
+:is(#wcar-admin-app) .size-10 {
+	width: 2.5rem;
+	height: 2.5rem;
+}
+:is(#wcar-admin-app) .size-12 {
+	width: 3rem;
+	height: 3rem;
+}
+:is(#wcar-admin-app) .size-2 {
+	width: 0.5rem;
+	height: 0.5rem;
+}
+:is(#wcar-admin-app) .size-2\.5 {
+	width: 0.625rem;
+	height: 0.625rem;
+}
+:is(#wcar-admin-app) .size-3 {
+	width: 0.75rem;
+	height: 0.75rem;
+}
+:is(#wcar-admin-app) .size-3\.5 {
+	width: 0.875rem;
+	height: 0.875rem;
+}
+:is(#wcar-admin-app) .size-4 {
+	width: 1rem;
+	height: 1rem;
+}
+:is(#wcar-admin-app) .size-5 {
+	width: 1.25rem;
+	height: 1.25rem;
+}
+:is(#wcar-admin-app) .size-6 {
+	width: 1.5rem;
+	height: 1.5rem;
+}
+:is(#wcar-admin-app) .size-7 {
+	width: 1.75rem;
+	height: 1.75rem;
+}
+:is(#wcar-admin-app) .size-8 {
+	width: 2rem;
+	height: 2rem;
+}
+:is(#wcar-admin-app) .\!h-5 {
+	height: 1.25rem !important;
+}
+:is(#wcar-admin-app) .\!h-full {
+	height: 100% !important;
+}
+:is(#wcar-admin-app) .h-1 {
+	height: 0.25rem;
+}
+:is(#wcar-admin-app) .h-10 {
+	height: 2.5rem;
+}
+:is(#wcar-admin-app) .h-12 {
+	height: 3rem;
+}
+:is(#wcar-admin-app) .h-16 {
+	height: 4rem;
+}
+:is(#wcar-admin-app) .h-2 {
+	height: 0.5rem;
+}
+:is(#wcar-admin-app) .h-2\.5 {
+	height: 0.625rem;
+}
+:is(#wcar-admin-app) .h-24 {
+	height: 6rem;
+}
+:is(#wcar-admin-app) .h-3 {
+	height: 0.75rem;
+}
+:is(#wcar-admin-app) .h-3\.5 {
+	height: 0.875rem;
+}
+:is(#wcar-admin-app) .h-4 {
+	height: 1rem;
+}
+:is(#wcar-admin-app) .h-40 {
+	height: 10rem;
+}
+:is(#wcar-admin-app) .h-5 {
+	height: 1.25rem;
+}
+:is(#wcar-admin-app) .h-6 {
+	height: 1.5rem;
+}
+:is(#wcar-admin-app) .h-7 {
+	height: 1.75rem;
+}
+:is(#wcar-admin-app) .h-8 {
+	height: 2rem;
+}
+:is(#wcar-admin-app) .h-80 {
+	height: 20rem;
+}
+:is(#wcar-admin-app) .h-9 {
+	height: 2.25rem;
+}
+:is(#wcar-admin-app) .h-\[52px\] {
+	height: 52px;
+}
+:is(#wcar-admin-app) .h-\[75vh\] {
+	height: 75vh;
+}
+:is(#wcar-admin-app) .h-auto {
+	height: auto;
+}
+:is(#wcar-admin-app) .h-fit {
+	height: -moz-fit-content;
+	height: fit-content;
+}
+:is(#wcar-admin-app) .h-full {
+	height: 100%;
+}
+:is(#wcar-admin-app) .h-px {
+	height: 1px;
+}
+:is(#wcar-admin-app) .h-screen {
+	height: 100vh;
+}
+:is(#wcar-admin-app) .max-h-0 {
+	max-height: 0px;
+}
+:is(#wcar-admin-app) .max-h-10 {
+	max-height: 2.5rem;
+}
+:is(#wcar-admin-app) .max-h-72 {
+	max-height: 18rem;
+}
+:is(#wcar-admin-app) .max-h-\[10\.75rem\] {
+	max-height: 10.75rem;
+}
+:is(#wcar-admin-app) .max-h-\[13\.5rem\] {
+	max-height: 13.5rem;
+}
+:is(#wcar-admin-app) .max-h-\[550px\] {
+	max-height: 550px;
+}
+:is(#wcar-admin-app) .max-h-\[calc\(100\%_-_6rem\)\] {
+	max-height: calc(100% - 6rem);
+}
+:is(#wcar-admin-app) .min-h-16 {
+	min-height: 4rem;
+}
+:is(#wcar-admin-app) .min-h-5 {
+	min-height: 1.25rem;
+}
+:is(#wcar-admin-app) .min-h-6 {
+	min-height: 1.5rem;
+}
+:is(#wcar-admin-app) .min-h-64 {
+	min-height: 16rem;
+}
+:is(#wcar-admin-app) .min-h-\[2\.5rem\] {
+	min-height: 2.5rem;
+}
+:is(#wcar-admin-app) .min-h-\[2rem\] {
+	min-height: 2rem;
+}
+:is(#wcar-admin-app) .min-h-\[3rem\] {
+	min-height: 3rem;
+}
+:is(#wcar-admin-app) .min-h-\[unset\] {
+	min-height: unset;
+}
+:is(#wcar-admin-app) .min-h-fit {
+	min-height: -moz-fit-content;
+	min-height: fit-content;
+}
+:is(#wcar-admin-app) .min-h-full {
+	min-height: 100%;
+}
+:is(#wcar-admin-app) .min-h-screen {
+	min-height: 100vh;
+}
+:is(#wcar-admin-app) .\!w-4 {
+	width: 1rem !important;
+}
+:is(#wcar-admin-app) .w-0 {
+	width: 0px;
+}
+:is(#wcar-admin-app) .w-1 {
+	width: 0.25rem;
+}
+:is(#wcar-admin-app) .w-1\/10 {
+	width: 10%;
+}
+:is(#wcar-admin-app) .w-1\/11 {
+	width: 9.0909091%;
+}
+:is(#wcar-admin-app) .w-1\/12 {
+	width: 8.3333333%;
+}
+:is(#wcar-admin-app) .w-1\/2 {
+	width: 50%;
+}
+:is(#wcar-admin-app) .w-1\/3 {
+	width: 33.333333%;
+}
+:is(#wcar-admin-app) .w-1\/4 {
+	width: 25%;
+}
+:is(#wcar-admin-app) .w-1\/5 {
+	width: 20%;
+}
+:is(#wcar-admin-app) .w-1\/6 {
+	width: 16.666667%;
+}
+:is(#wcar-admin-app) .w-1\/7 {
+	width: 14.2857143%;
+}
+:is(#wcar-admin-app) .w-1\/8 {
+	width: 12.5%;
+}
+:is(#wcar-admin-app) .w-1\/9 {
+	width: 11.1111111%;
+}
+:is(#wcar-admin-app) .w-10 {
+	width: 2.5rem;
+}
+:is(#wcar-admin-app) .w-11 {
+	width: 2.75rem;
+}
+:is(#wcar-admin-app) .w-12 {
+	width: 3rem;
+}
+:is(#wcar-admin-app) .w-120 {
+	width: 30rem;
+}
+:is(#wcar-admin-app) .w-16 {
+	width: 4rem;
+}
+:is(#wcar-admin-app) .w-2 {
+	width: 0.5rem;
+}
+:is(#wcar-admin-app) .w-2\.5 {
+	width: 0.625rem;
+}
+:is(#wcar-admin-app) .w-20 {
+	width: 5rem;
+}
+:is(#wcar-admin-app) .w-24 {
+	width: 6rem;
+}
+:is(#wcar-admin-app) .w-3 {
+	width: 0.75rem;
+}
+:is(#wcar-admin-app) .w-3\.5 {
+	width: 0.875rem;
+}
+:is(#wcar-admin-app) .w-4 {
+	width: 1rem;
+}
+:is(#wcar-admin-app) .w-5 {
+	width: 1.25rem;
+}
+:is(#wcar-admin-app) .w-6 {
+	width: 1.5rem;
+}
+:is(#wcar-admin-app) .w-72 {
+	width: 18rem;
+}
+:is(#wcar-admin-app) .w-8 {
+	width: 2rem;
+}
+:is(#wcar-admin-app) .w-80 {
+	width: 20rem;
+}
+:is(#wcar-admin-app) .w-96 {
+	width: 24rem;
+}
+:is(#wcar-admin-app) .w-\[18\.5rem\] {
+	width: 18.5rem;
+}
+:is(#wcar-admin-app) .w-\[22\.5rem\] {
+	width: 22.5rem;
+}
+:is(#wcar-admin-app) .w-\[4\.375rem\] {
+	width: 4.375rem;
+}
+:is(#wcar-admin-app) .w-\[97\%\] {
+	width: 97%;
+}
+:is(#wcar-admin-app) .w-\[calc\(100\%\+0\.75rem\)\] {
+	width: calc(100% + 0.75rem);
+}
+:is(#wcar-admin-app) .w-\[calc\(100\%\+1rem\)\] {
+	width: calc(100% + 1rem);
+}
+:is(#wcar-admin-app) .w-\[calc\(100\%_-_5\.5rem\)\] {
+	width: calc(100% - 5.5rem);
+}
+:is(#wcar-admin-app) .w-auto {
+	width: auto;
+}
+:is(#wcar-admin-app) .w-fit {
+	width: -moz-fit-content;
+	width: fit-content;
+}
+:is(#wcar-admin-app) .w-full {
+	width: 100%;
+}
+:is(#wcar-admin-app) .min-w-10 {
+	min-width: 2.5rem;
+}
+:is(#wcar-admin-app) .min-w-12 {
+	min-width: 3rem;
+}
+:is(#wcar-admin-app) .min-w-32 {
+	min-width: 8rem;
+}
+:is(#wcar-admin-app) .min-w-6 {
+	min-width: 1.5rem;
+}
+:is(#wcar-admin-app) .min-w-8 {
+	min-width: 2rem;
+}
+:is(#wcar-admin-app) .min-w-80 {
+	min-width: 20rem;
+}
+:is(#wcar-admin-app) .min-w-\[180px\] {
+	min-width: 180px;
+}
+:is(#wcar-admin-app) .min-w-\[8rem\] {
+	min-width: 8rem;
+}
+:is(#wcar-admin-app) .min-w-full {
+	min-width: 100%;
+}
+:is(#wcar-admin-app) .max-w-32 {
+	max-width: 8rem;
+}
+:is(#wcar-admin-app) .max-w-48 {
+	max-width: 12rem;
+}
+:is(#wcar-admin-app) .max-w-7xl {
+	max-width: 80rem;
+}
+:is(#wcar-admin-app) .max-w-80 {
+	max-width: 20rem;
+}
+:is(#wcar-admin-app) .max-w-\[43\.5rem\] {
+	max-width: 43.5rem;
+}
+:is(#wcar-admin-app) .max-w-full {
+	max-width: 100%;
+}
+:is(#wcar-admin-app) .max-w-lg {
+	max-width: 32rem;
+}
+:is(#wcar-admin-app) .max-w-md {
+	max-width: 28rem;
+}
+:is(#wcar-admin-app) .max-w-xl {
+	max-width: 36rem;
+}
+:is(#wcar-admin-app) .max-w-xs {
+	max-width: 20rem;
+}
+:is(#wcar-admin-app) .flex-1 {
+	flex: 1 1 0%;
+}
+:is(#wcar-admin-app) .flex-shrink-0 {
+	flex-shrink: 0;
+}
+:is(#wcar-admin-app) .shrink {
+	flex-shrink: 1;
+}
+:is(#wcar-admin-app) .shrink-0 {
+	flex-shrink: 0;
+}
+:is(#wcar-admin-app) .flex-grow {
+	flex-grow: 1;
+}
+:is(#wcar-admin-app) .grow {
+	flex-grow: 1;
+}
+:is(#wcar-admin-app) .grow-0 {
+	flex-grow: 0;
+}
+:is(#wcar-admin-app) .table-fixed {
+	table-layout: fixed;
+}
+:is(#wcar-admin-app) .border-collapse {
+	border-collapse: collapse;
+}
+:is(#wcar-admin-app) .border-separate {
+	border-collapse: separate;
+}
+:is(#wcar-admin-app) .border-spacing-0 {
+	--tw-border-spacing-x: 0px;
+	--tw-border-spacing-y: 0px;
+	border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);
+}
+:is(#wcar-admin-app) .origin-left {
+	transform-origin: left;
+}
+:is(#wcar-admin-app) .-translate-x-2\/4 {
+	--tw-translate-x: -50%;
+	transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+:is(#wcar-admin-app) .-translate-y-2\/4 {
+	--tw-translate-y: -50%;
+	transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+:is(#wcar-admin-app) .translate-x-\[-0\.375rem\] {
+	--tw-translate-x: -0.375rem;
+	transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+:is(#wcar-admin-app) .translate-x-\[-0\.5rem\] {
+	--tw-translate-x: -0.5rem;
+	transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+:is(#wcar-admin-app) .rotate-0 {
+	--tw-rotate: 0deg;
+	transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+:is(#wcar-admin-app) .rotate-180 {
+	--tw-rotate: 180deg;
+	transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+:is(#wcar-admin-app) .transform {
+	transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+@keyframes pulse {
+	50% {
+		opacity: .5;
+	}
+}
+:is(#wcar-admin-app) .animate-pulse {
+	animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+:is(#wcar-admin-app) .animate-spin {
+	animation: spin 1s linear infinite;
+}
+:is(#wcar-admin-app) .cursor-auto {
+	cursor: auto;
+}
+:is(#wcar-admin-app) .cursor-default {
+	cursor: default;
+}
+:is(#wcar-admin-app) .cursor-not-allowed {
+	cursor: not-allowed;
+}
+:is(#wcar-admin-app) .cursor-pointer {
+	cursor: pointer;
+}
+:is(#wcar-admin-app) .select-none {
+	-webkit-user-select: none;
+	        user-select: none;
+}
+:is(#wcar-admin-app) .resize {
+	resize: both;
+}
+:is(#wcar-admin-app) .list-none {
+	list-style-type: none;
+}
+:is(#wcar-admin-app) .appearance-none {
+	appearance: none;
+}
+:is(#wcar-admin-app) .auto-cols-auto {
+	grid-auto-columns: auto;
+}
+:is(#wcar-admin-app) .grid-flow-row {
+	grid-auto-flow: row;
+}
+:is(#wcar-admin-app) .grid-flow-col {
+	grid-auto-flow: column;
+}
+:is(#wcar-admin-app) .grid-flow-row-dense {
+	grid-auto-flow: row dense;
+}
+:is(#wcar-admin-app) .grid-flow-col-dense {
+	grid-auto-flow: column dense;
+}
+:is(#wcar-admin-app) .auto-rows-auto {
+	grid-auto-rows: auto;
+}
+:is(#wcar-admin-app) .grid-cols-1 {
+	grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+:is(#wcar-admin-app) .grid-cols-10 {
+	grid-template-columns: repeat(10, minmax(0, 1fr));
+}
+:is(#wcar-admin-app) .grid-cols-11 {
+	grid-template-columns: repeat(11, minmax(0, 1fr));
+}
+:is(#wcar-admin-app) .grid-cols-12 {
+	grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+:is(#wcar-admin-app) .grid-cols-2 {
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+:is(#wcar-admin-app) .grid-cols-3 {
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+:is(#wcar-admin-app) .grid-cols-4 {
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+:is(#wcar-admin-app) .grid-cols-5 {
+	grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+:is(#wcar-admin-app) .grid-cols-6 {
+	grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+:is(#wcar-admin-app) .grid-cols-7 {
+	grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+:is(#wcar-admin-app) .grid-cols-8 {
+	grid-template-columns: repeat(8, minmax(0, 1fr));
+}
+:is(#wcar-admin-app) .grid-cols-9 {
+	grid-template-columns: repeat(9, minmax(0, 1fr));
+}
+:is(#wcar-admin-app) .grid-cols-subgrid {
+	grid-template-columns: subgrid;
+}
+:is(#wcar-admin-app) .grid-rows-\[auto_1fr\] {
+	grid-template-rows: auto 1fr;
+}
+:is(#wcar-admin-app) .grid-rows-subgrid {
+	grid-template-rows: subgrid;
+}
+:is(#wcar-admin-app) .flex-row {
+	flex-direction: row;
+}
+:is(#wcar-admin-app) .flex-row-reverse {
+	flex-direction: row-reverse;
+}
+:is(#wcar-admin-app) .flex-col {
+	flex-direction: column;
+}
+:is(#wcar-admin-app) .flex-col-reverse {
+	flex-direction: column-reverse;
+}
+:is(#wcar-admin-app) .flex-wrap {
+	flex-wrap: wrap;
+}
+:is(#wcar-admin-app) .flex-wrap-reverse {
+	flex-wrap: wrap-reverse;
+}
+:is(#wcar-admin-app) .flex-nowrap {
+	flex-wrap: nowrap;
+}
+:is(#wcar-admin-app) .place-content-center {
+	place-content: center;
+}
+:is(#wcar-admin-app) .content-center {
+	align-content: center;
+}
+:is(#wcar-admin-app) .content-start {
+	align-content: flex-start;
+}
+:is(#wcar-admin-app) .items-start {
+	align-items: flex-start;
+}
+:is(#wcar-admin-app) .items-end {
+	align-items: flex-end;
+}
+:is(#wcar-admin-app) .items-center {
+	align-items: center;
+}
+:is(#wcar-admin-app) .items-baseline {
+	align-items: baseline;
+}
+:is(#wcar-admin-app) .items-stretch {
+	align-items: stretch;
+}
+:is(#wcar-admin-app) .justify-normal {
+	justify-content: normal;
+}
+:is(#wcar-admin-app) .justify-start {
+	justify-content: flex-start;
+}
+:is(#wcar-admin-app) .justify-end {
+	justify-content: flex-end;
+}
+:is(#wcar-admin-app) .justify-center {
+	justify-content: center;
+}
+:is(#wcar-admin-app) .justify-between {
+	justify-content: space-between;
+}
+:is(#wcar-admin-app) .justify-around {
+	justify-content: space-around;
+}
+:is(#wcar-admin-app) .justify-evenly {
+	justify-content: space-evenly;
+}
+:is(#wcar-admin-app) .justify-stretch {
+	justify-content: stretch;
+}
+:is(#wcar-admin-app) .gap-0 {
+	gap: 0px;
+}
+:is(#wcar-admin-app) .gap-0\.5 {
+	gap: 0.125rem;
+}
+:is(#wcar-admin-app) .gap-1 {
+	gap: 0.25rem;
+}
+:is(#wcar-admin-app) .gap-1\.5 {
+	gap: 0.375rem;
+}
+:is(#wcar-admin-app) .gap-2 {
+	gap: 0.5rem;
+}
+:is(#wcar-admin-app) .gap-2\.5 {
+	gap: 0.625rem;
+}
+:is(#wcar-admin-app) .gap-3 {
+	gap: 0.75rem;
+}
+:is(#wcar-admin-app) .gap-4 {
+	gap: 1rem;
+}
+:is(#wcar-admin-app) .gap-5 {
+	gap: 1.25rem;
+}
+:is(#wcar-admin-app) .gap-6 {
+	gap: 1.5rem;
+}
+:is(#wcar-admin-app) .gap-8 {
+	gap: 2rem;
+}
+:is(#wcar-admin-app) .gap-\[12px\] {
+	gap: 12px;
+}
+:is(#wcar-admin-app) .gap-\[1px\] {
+	gap: 1px;
+}
+:is(#wcar-admin-app) .gap-\[2px\] {
+	gap: 2px;
+}
+:is(#wcar-admin-app) .gap-x-2 {
+	column-gap: 0.5rem;
+}
+:is(#wcar-admin-app) .gap-x-4 {
+	column-gap: 1rem;
+}
+:is(#wcar-admin-app) .gap-x-5 {
+	column-gap: 1.25rem;
+}
+:is(#wcar-admin-app) .gap-x-6 {
+	column-gap: 1.5rem;
+}
+:is(#wcar-admin-app) .gap-x-8 {
+	column-gap: 2rem;
+}
+:is(#wcar-admin-app) .gap-y-2 {
+	row-gap: 0.5rem;
+}
+:is(#wcar-admin-app) .gap-y-4 {
+	row-gap: 1rem;
+}
+:is(#wcar-admin-app) .gap-y-5 {
+	row-gap: 1.25rem;
+}
+:is(#wcar-admin-app) .gap-y-6 {
+	row-gap: 1.5rem;
+}
+:is(#wcar-admin-app) .gap-y-8 {
+	row-gap: 2rem;
+}
+:is(#wcar-admin-app) :is(.space-x-1 > :not([hidden]) ~ :not([hidden])) {
+	--tw-space-x-reverse: 0;
+	margin-right: calc(0.25rem * var(--tw-space-x-reverse));
+	margin-left: calc(0.25rem * calc(1 - var(--tw-space-x-reverse)));
+}
+:is(#wcar-admin-app) :is(.space-y-0\.5 > :not([hidden]) ~ :not([hidden])) {
+	--tw-space-y-reverse: 0;
+	margin-top: calc(0.125rem * calc(1 - var(--tw-space-y-reverse)));
+	margin-bottom: calc(0.125rem * var(--tw-space-y-reverse));
+}
+:is(#wcar-admin-app) :is(.space-y-1 > :not([hidden]) ~ :not([hidden])) {
+	--tw-space-y-reverse: 0;
+	margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
+	margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
+}
+:is(#wcar-admin-app) :is(.space-y-1\.5 > :not([hidden]) ~ :not([hidden])) {
+	--tw-space-y-reverse: 0;
+	margin-top: calc(0.375rem * calc(1 - var(--tw-space-y-reverse)));
+	margin-bottom: calc(0.375rem * var(--tw-space-y-reverse));
+}
+:is(#wcar-admin-app) :is(.space-y-2 > :not([hidden]) ~ :not([hidden])) {
+	--tw-space-y-reverse: 0;
+	margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
+	margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
+}
+:is(#wcar-admin-app) :is(.space-y-3 > :not([hidden]) ~ :not([hidden])) {
+	--tw-space-y-reverse: 0;
+	margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
+	margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
+}
+:is(#wcar-admin-app) :is(.space-y-4 > :not([hidden]) ~ :not([hidden])) {
+	--tw-space-y-reverse: 0;
+	margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+	margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
+:is(#wcar-admin-app) :is(.space-y-6 > :not([hidden]) ~ :not([hidden])) {
+	--tw-space-y-reverse: 0;
+	margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
+	margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+}
+:is(#wcar-admin-app) :is(.space-y-7 > :not([hidden]) ~ :not([hidden])) {
+	--tw-space-y-reverse: 0;
+	margin-top: calc(1.75rem * calc(1 - var(--tw-space-y-reverse)));
+	margin-bottom: calc(1.75rem * var(--tw-space-y-reverse));
+}
+:is(#wcar-admin-app) :is(.divide-x-0 > :not([hidden]) ~ :not([hidden])) {
+	--tw-divide-x-reverse: 0;
+	border-right-width: calc(0px * var(--tw-divide-x-reverse));
+	border-left-width: calc(0px * calc(1 - var(--tw-divide-x-reverse)));
+}
+:is(#wcar-admin-app) :is(.divide-y > :not([hidden]) ~ :not([hidden])) {
+	--tw-divide-y-reverse: 0;
+	border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
+	border-bottom-width: calc(1px * var(--tw-divide-y-reverse));
+}
+:is(#wcar-admin-app) :is(.divide-y-0\.5 > :not([hidden]) ~ :not([hidden])) {
+	--tw-divide-y-reverse: 0;
+	border-top-width: calc(0.5px * calc(1 - var(--tw-divide-y-reverse)));
+	border-bottom-width: calc(0.5px * var(--tw-divide-y-reverse));
+}
+:is(#wcar-admin-app) :is(.divide-solid > :not([hidden]) ~ :not([hidden])) {
+	border-style: solid;
+}
+:is(#wcar-admin-app) :is(.divide-border-subtle > :not([hidden]) ~ :not([hidden])) {
+	--tw-divide-opacity: 1;
+	border-color: rgb(229 231 235 / var(--tw-divide-opacity, 1));
+}
+:is(#wcar-admin-app) .self-start {
+	align-self: flex-start;
+}
+:is(#wcar-admin-app) .self-end {
+	align-self: flex-end;
+}
+:is(#wcar-admin-app) .self-center {
+	align-self: center;
+}
+:is(#wcar-admin-app) .self-stretch {
+	align-self: stretch;
+}
+:is(#wcar-admin-app) .self-baseline {
+	align-self: baseline;
+}
+:is(#wcar-admin-app) .justify-self-auto {
+	justify-self: auto;
+}
+:is(#wcar-admin-app) .justify-self-start {
+	justify-self: start;
+}
+:is(#wcar-admin-app) .justify-self-end {
+	justify-self: end;
+}
+:is(#wcar-admin-app) .justify-self-center {
+	justify-self: center;
+}
+:is(#wcar-admin-app) .justify-self-stretch {
+	justify-self: stretch;
+}
+:is(#wcar-admin-app) .overflow-auto {
+	overflow: auto;
+}
+:is(#wcar-admin-app) .overflow-hidden {
+	overflow: hidden;
+}
+:is(#wcar-admin-app) .overflow-x-auto {
+	overflow-x: auto;
+}
+:is(#wcar-admin-app) .overflow-y-auto {
+	overflow-y: auto;
+}
+:is(#wcar-admin-app) .overflow-x-hidden {
+	overflow-x: hidden;
+}
+:is(#wcar-admin-app) .truncate {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+:is(#wcar-admin-app) .whitespace-nowrap {
+	white-space: nowrap;
+}
+:is(#wcar-admin-app) .text-wrap {
+	text-wrap: wrap;
+}
+:is(#wcar-admin-app) .text-nowrap {
+	text-wrap: nowrap;
+}
+:is(#wcar-admin-app) .rounded {
+	border-radius: 0.25rem;
+}
+:is(#wcar-admin-app) .rounded-full {
+	border-radius: 9999px;
+}
+:is(#wcar-admin-app) .rounded-lg {
+	border-radius: 0.5rem;
+}
+:is(#wcar-admin-app) .rounded-md {
+	border-radius: 0.375rem;
+}
+:is(#wcar-admin-app) .rounded-none {
+	border-radius: 0px;
+}
+:is(#wcar-admin-app) .rounded-sm {
+	border-radius: 0.125rem;
+}
+:is(#wcar-admin-app) .rounded-xl {
+	border-radius: 0.75rem;
+}
+:is(#wcar-admin-app) .rounded-b-none {
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 0px;
+}
+:is(#wcar-admin-app) .rounded-r-md {
+	border-top-right-radius: 0.375rem;
+	border-bottom-right-radius: 0.375rem;
+}
+:is(#wcar-admin-app) .rounded-bl {
+	border-bottom-left-radius: 0.25rem;
+}
+:is(#wcar-admin-app) .rounded-bl-md {
+	border-bottom-left-radius: 0.375rem;
+}
+:is(#wcar-admin-app) .rounded-br {
+	border-bottom-right-radius: 0.25rem;
+}
+:is(#wcar-admin-app) .rounded-br-md {
+	border-bottom-right-radius: 0.375rem;
+}
+:is(#wcar-admin-app) .rounded-tl {
+	border-top-left-radius: 0.25rem;
+}
+:is(#wcar-admin-app) .rounded-tl-md {
+	border-top-left-radius: 0.375rem;
+}
+:is(#wcar-admin-app) .rounded-tl-none {
+	border-top-left-radius: 0px;
+}
+:is(#wcar-admin-app) .rounded-tr {
+	border-top-right-radius: 0.25rem;
+}
+:is(#wcar-admin-app) .rounded-tr-md {
+	border-top-right-radius: 0.375rem;
+}
+:is(#wcar-admin-app) .rounded-tr-none {
+	border-top-right-radius: 0px;
+}
+:is(#wcar-admin-app) .border {
+	border-width: 1px;
+}
+:is(#wcar-admin-app) .border-0 {
+	border-width: 0px;
+}
+:is(#wcar-admin-app) .border-0\.5 {
+	border-width: 0.5px;
+}
+:is(#wcar-admin-app) .border-\[0\.5px\] {
+	border-width: 0.5px;
+}
+:is(#wcar-admin-app) .border-x-0 {
+	border-left-width: 0px;
+	border-right-width: 0px;
+}
+:is(#wcar-admin-app) .border-y {
+	border-top-width: 1px;
+	border-bottom-width: 1px;
+}
+:is(#wcar-admin-app) .border-y-0 {
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+}
+:is(#wcar-admin-app) .border-b {
+	border-bottom-width: 1px;
+}
+:is(#wcar-admin-app) .border-b-0 {
+	border-bottom-width: 0px;
+}
+:is(#wcar-admin-app) .border-b-0\.5 {
+	border-bottom-width: 0.5px;
+}
+:is(#wcar-admin-app) .border-b-2 {
+	border-bottom-width: 2px;
+}
+:is(#wcar-admin-app) .border-l {
+	border-left-width: 1px;
+}
+:is(#wcar-admin-app) .border-l-0 {
+	border-left-width: 0px;
+}
+:is(#wcar-admin-app) .border-r {
+	border-right-width: 1px;
+}
+:is(#wcar-admin-app) .border-r-0 {
+	border-right-width: 0px;
+}
+:is(#wcar-admin-app) .border-t {
+	border-top-width: 1px;
+}
+:is(#wcar-admin-app) .border-t-0 {
+	border-top-width: 0px;
+}
+:is(#wcar-admin-app) .border-solid {
+	border-style: solid;
+}
+:is(#wcar-admin-app) .border-dashed {
+	border-style: dashed;
+}
+:is(#wcar-admin-app) .border-dotted {
+	border-style: dotted;
+}
+:is(#wcar-admin-app) .border-double {
+	border-style: double;
+}
+:is(#wcar-admin-app) .border-hidden {
+	border-style: hidden;
+}
+:is(#wcar-admin-app) .border-none {
+	border-style: none;
+}
+:is(#wcar-admin-app) .\!border-red-300 {
+	--tw-border-opacity: 1 !important;
+	border-color: rgb(252 165 165 / var(--tw-border-opacity, 1)) !important;
+}
+:is(#wcar-admin-app) .border-alert-border-danger {
+	--tw-border-opacity: 1;
+	border-color: rgb(254 202 202 / var(--tw-border-opacity, 1));
+}
+:is(#wcar-admin-app) .border-alert-border-green {
+	--tw-border-opacity: 1;
+	border-color: rgb(187 247 208 / var(--tw-border-opacity, 1));
+}
+:is(#wcar-admin-app) .border-alert-border-info {
+	--tw-border-opacity: 1;
+	border-color: rgb(186 230 253 / var(--tw-border-opacity, 1));
+}
+:is(#wcar-admin-app) .border-alert-border-neutral {
+	--tw-border-opacity: 1;
+	border-color: rgb(229 231 235 / var(--tw-border-opacity, 1));
+}
+:is(#wcar-admin-app) .border-alert-border-warning {
+	--tw-border-opacity: 1;
+	border-color: rgb(254 240 138 / var(--tw-border-opacity, 1));
+}
+:is(#wcar-admin-app) .border-background-inverse {
+	--tw-border-opacity: 1;
+	border-color: rgb(17 24 39 / var(--tw-border-opacity, 1));
+}
+:is(#wcar-admin-app) .border-badge-border-disabled {
+	--tw-border-opacity: 1;
+	border-color: rgb(229 231 235 / var(--tw-border-opacity, 1));
+}
+:is(#wcar-admin-app) .border-badge-border-gray {
+	--tw-border-opacity: 1;
+	border-color: rgb(229 231 235 / var(--tw-border-opacity, 1));
+}
+:is(#wcar-admin-app) .border-badge-border-green {
+	--tw-border-opacity: 1;
+	border-color: rgb(187 247 208 / var(--tw-border-opacity, 1));
+}
+:is(#wcar-admin-app) .border-badge-border-red {
+	--tw-border-opacity: 1;
+	border-color: rgb(254 202 202 / var(--tw-border-opacity, 1));
+}
+:is(#wcar-admin-app) .border-badge-border-sky {
+	--tw-border-opacity: 1;
+	border-color: rgb(186 230 253 / var(--tw-border-opacity, 1));
+}
+:is(#wcar-admin-app) .border-badge-border-yellow {
+	--tw-border-opacity: 1;
+	border-color: rgb(254 240 138 / var(--tw-border-opacity, 1));
+}
+:is(#wcar-admin-app) .border-border-disabled {
+	--tw-border-opacity: 1;
+	border-color: rgb(229 231 235 / var(--tw-border-opacity, 1));
+}
+:is(#wcar-admin-app) .border-border-strong {
+	--tw-border-opacity: 1;
+	border-color: rgb(107 114 128 / var(--tw-border-opacity, 1));
+}
+:is(#wcar-admin-app) .border-border-subtle {
+	--tw-border-opacity: 1;
+	border-color: rgb(229 231 235 / var(--tw-border-opacity, 1));
+}
+:is(#wcar-admin-app) .border-brand-primary-600 {
+	--tw-border-opacity: 1;
+	border-color: rgb(229 78 26 / var(--tw-border-opacity, 1));
+}
+:is(#wcar-admin-app) .border-button-primary {
+	--tw-border-opacity: 1;
+	border-color: rgb(240 100 52 / var(--tw-border-opacity, 1));
+}
+:is(#wcar-admin-app) .border-field-border {
+	--tw-border-opacity: 1;
+	border-color: rgb(229 231 235 / var(--tw-border-opacity, 1));
+}
+:is(#wcar-admin-app) .border-field-dropzone-color {
+	--tw-border-opacity: 1;
+	border-color: rgb(37 99 235 / var(--tw-border-opacity, 1));
+}
+:is(#wcar-admin-app) .border-flamingo-200 {
+	--tw-border-opacity: 1;
+	border-color: rgb(250 200 174 / var(--tw-border-opacity, 1));
+}
+:is(#wcar-admin-app) .border-flamingo-400 {
+	--tw-border-opacity: 1;
+	border-color: rgb(240 100 52 / var(--tw-border-opacity, 1));
+}
+:is(#wcar-admin-app) .border-flamingo-500 {
+	--tw-border-opacity: 1;
+	border-color: rgb(237 77 34 / var(--tw-border-opacity, 1));
+}
+:is(#wcar-admin-app) .border-focus-error-border {
+	--tw-border-opacity: 1;
+	border-color: rgb(254 202 202 / var(--tw-border-opacity, 1));
+}
+:is(#wcar-admin-app) .border-gray-200 {
+	--tw-border-opacity: 1;
+	border-color: rgb(229 231 235 / var(--tw-border-opacity, 1));
+}
+:is(#wcar-admin-app) .border-red-500 {
+	--tw-border-opacity: 1;
+	border-color: rgb(239 68 68 / var(--tw-border-opacity, 1));
+}
+:is(#wcar-admin-app) .border-tab-border {
+	--tw-border-opacity: 1;
+	border-color: rgb(229 231 235 / var(--tw-border-opacity, 1));
+}
+:is(#wcar-admin-app) .border-text-inverse {
+	--tw-border-opacity: 1;
+	border-color: rgb(255 255 255 / var(--tw-border-opacity, 1));
+}
+:is(#wcar-admin-app) .border-toggle-off-border {
+	--tw-border-opacity: 1;
+	border-color: rgb(189 193 199 / var(--tw-border-opacity, 1));
+}
+:is(#wcar-admin-app) .border-transparent {
+	border-color: transparent;
+}
+:is(#wcar-admin-app) .bg-\[\#FDE6D7\] {
+	--tw-bg-opacity: 1;
+	background-color: rgb(253 230 215 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-alert-background-danger {
+	--tw-bg-opacity: 1;
+	background-color: rgb(254 242 242 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-alert-background-green {
+	--tw-bg-opacity: 1;
+	background-color: rgb(240 253 244 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-alert-background-info {
+	--tw-bg-opacity: 1;
+	background-color: rgb(240 249 255 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-alert-background-neutral {
+	--tw-bg-opacity: 1;
+	background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-alert-background-warning {
+	--tw-bg-opacity: 1;
+	background-color: rgb(254 252 232 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-amber-400 {
+	--tw-bg-opacity: 1;
+	background-color: rgb(251 191 36 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-background-brand {
+	--tw-bg-opacity: 1;
+	background-color: rgb(240 100 52 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-background-inverse {
+	--tw-bg-opacity: 1;
+	background-color: rgb(17 24 39 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-background-inverse\/90 {
+	background-color: rgb(17 24 39 / 0.9);
+}
+:is(#wcar-admin-app) .bg-background-primary {
+	--tw-bg-opacity: 1;
+	background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-background-secondary {
+	--tw-bg-opacity: 1;
+	background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-badge-background-disabled {
+	--tw-bg-opacity: 1;
+	background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-badge-background-gray {
+	--tw-bg-opacity: 1;
+	background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-badge-background-green {
+	--tw-bg-opacity: 1;
+	background-color: rgb(240 253 244 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-badge-background-red {
+	--tw-bg-opacity: 1;
+	background-color: rgb(254 242 242 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-badge-background-sky {
+	--tw-bg-opacity: 1;
+	background-color: rgb(240 249 255 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-badge-background-yellow {
+	--tw-bg-opacity: 1;
+	background-color: rgb(254 252 232 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-badge-hover-disabled {
+	--tw-bg-opacity: 1;
+	background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-badge-hover-gray {
+	--tw-bg-opacity: 1;
+	background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-badge-hover-green {
+	--tw-bg-opacity: 1;
+	background-color: rgb(220 252 231 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-badge-hover-red {
+	--tw-bg-opacity: 1;
+	background-color: rgb(254 226 226 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-badge-hover-sky {
+	--tw-bg-opacity: 1;
+	background-color: rgb(224 242 254 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-badge-hover-yellow {
+	--tw-bg-opacity: 1;
+	background-color: rgb(254 249 195 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-border-interactive {
+	--tw-bg-opacity: 1;
+	background-color: rgb(240 100 52 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-brand-background-50 {
+	--tw-bg-opacity: 1;
+	background-color: rgb(254 244 238 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-brand-primary-600 {
+	--tw-bg-opacity: 1;
+	background-color: rgb(229 78 26 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-button-danger {
+	--tw-bg-opacity: 1;
+	background-color: rgb(220 38 38 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-button-disabled {
+	--tw-bg-opacity: 1;
+	background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-button-primary {
+	--tw-bg-opacity: 1;
+	background-color: rgb(240 100 52 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-button-secondary {
+	--tw-bg-opacity: 1;
+	background-color: rgb(31 41 55 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-button-tertiary {
+	--tw-bg-opacity: 1;
+	background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-button-tertiary-hover {
+	--tw-bg-opacity: 1;
+	background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-current {
+	background-color: currentColor;
+}
+:is(#wcar-admin-app) .bg-field-background-disabled {
+	--tw-bg-opacity: 1;
+	background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-field-background-error {
+	--tw-bg-opacity: 1;
+	background-color: rgb(254 242 242 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-field-dropzone-background-hover {
+	--tw-bg-opacity: 1;
+	background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-field-primary-background {
+	--tw-bg-opacity: 1;
+	background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-field-secondary-background {
+	--tw-bg-opacity: 1;
+	background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-flamingo-400 {
+	--tw-bg-opacity: 1;
+	background-color: rgb(240 100 52 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-flamingo-50 {
+	--tw-bg-opacity: 1;
+	background-color: rgb(254 244 238 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-gray-200 {
+	--tw-bg-opacity: 1;
+	background-color: rgb(229 231 235 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-icon-interactive {
+	--tw-bg-opacity: 1;
+	background-color: rgb(240 100 52 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-light-background {
+	--tw-bg-opacity: 1;
+	background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-misc-progress-background {
+	--tw-bg-opacity: 1;
+	background-color: rgb(229 231 235 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-primary-25 {
+	--tw-bg-opacity: 1;
+	background-color: rgb(254 248 245 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-primary-600 {
+	--tw-bg-opacity: 1;
+	background-color: rgb(229 78 26 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-primary-background {
+	--tw-bg-opacity: 1;
+	background-color: rgb(238 242 247 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-red-50 {
+	--tw-bg-opacity: 1;
+	background-color: rgb(254 242 242 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-tab-background {
+	--tw-bg-opacity: 1;
+	background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-text-tertiary {
+	--tw-bg-opacity: 1;
+	background-color: rgb(107 114 128 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-toggle-dial-background {
+	--tw-bg-opacity: 1;
+	background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-toggle-off {
+	--tw-bg-opacity: 1;
+	background-color: rgb(229 231 235 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-toggle-off-disabled {
+	--tw-bg-opacity: 1;
+	background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-tooltip-background-dark {
+	--tw-bg-opacity: 1;
+	background-color: rgb(17 24 39 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-tooltip-background-light {
+	--tw-bg-opacity: 1;
+	background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-transparent {
+	background-color: transparent;
+}
+:is(#wcar-admin-app) .bg-white {
+	--tw-bg-opacity: 1;
+	background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+:is(#wcar-admin-app) .bg-white\/20 {
+	background-color: rgb(255 255 255 / 0.2);
+}
+:is(#wcar-admin-app) .bg-white\/30 {
+	background-color: rgb(255 255 255 / 0.3);
+}
+:is(#wcar-admin-app) .bg-opacity-50 {
+	--tw-bg-opacity: 0.5;
+}
+:is(#wcar-admin-app) .bg-gradient-to-r {
+	background-image: linear-gradient(to right, var(--tw-gradient-stops));
+}
+:is(#wcar-admin-app) .from-primary-600 {
+	--tw-gradient-from: #E54E1A var(--tw-gradient-from-position);
+	--tw-gradient-to: rgb(229 78 26 / 0) var(--tw-gradient-to-position);
+	--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+:is(#wcar-admin-app) .via-flamingo-400 {
+	--tw-gradient-to: rgb(240 100 52 / 0)  var(--tw-gradient-to-position);
+	--tw-gradient-stops: var(--tw-gradient-from), #F06434 var(--tw-gradient-via-position), var(--tw-gradient-to);
+}
+:is(#wcar-admin-app) .to-primary-600 {
+	--tw-gradient-to: #E54E1A var(--tw-gradient-to-position);
+}
+:is(#wcar-admin-app) .fill-current {
+	fill: currentColor;
+}
+:is(#wcar-admin-app) .stroke-icon-primary {
+	stroke: #111827;
+}
+:is(#wcar-admin-app) .stroke-1 {
+	stroke-width: 1;
+}
+:is(#wcar-admin-app) .stroke-2 {
+	stroke-width: 2;
+}
+:is(#wcar-admin-app) .stroke-\[2\] {
+	stroke-width: 2;
+}
+:is(#wcar-admin-app) .stroke-\[3px\] {
+	stroke-width: 3px;
+}
+:is(#wcar-admin-app) .object-contain {
+	object-fit: contain;
+}
+:is(#wcar-admin-app) .object-cover {
+	object-fit: cover;
+}
+:is(#wcar-admin-app) .object-center {
+	object-position: center;
+}
+:is(#wcar-admin-app) .\!p-0 {
+	padding: 0px !important;
+}
+:is(#wcar-admin-app) .p-0 {
+	padding: 0px;
+}
+:is(#wcar-admin-app) .p-0\.5 {
+	padding: 0.125rem;
+}
+:is(#wcar-admin-app) .p-1 {
+	padding: 0.25rem;
+}
+:is(#wcar-admin-app) .p-1\.5 {
+	padding: 0.375rem;
+}
+:is(#wcar-admin-app) .p-10 {
+	padding: 2.5rem;
+}
+:is(#wcar-admin-app) .p-2 {
+	padding: 0.5rem;
+}
+:is(#wcar-admin-app) .p-2\.5 {
+	padding: 0.625rem;
+}
+:is(#wcar-admin-app) .p-3 {
+	padding: 0.75rem;
+}
+:is(#wcar-admin-app) .p-3\.5 {
+	padding: 0.875rem;
+}
+:is(#wcar-admin-app) .p-4 {
+	padding: 1rem;
+}
+:is(#wcar-admin-app) .p-5 {
+	padding: 1.25rem;
+}
+:is(#wcar-admin-app) .p-6 {
+	padding: 1.5rem;
+}
+:is(#wcar-admin-app) .p-7 {
+	padding: 1.75rem;
+}
+:is(#wcar-admin-app) .p-8 {
+	padding: 2rem;
+}
+:is(#wcar-admin-app) .px-0 {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+:is(#wcar-admin-app) .px-0\.5 {
+	padding-left: 0.125rem;
+	padding-right: 0.125rem;
+}
+:is(#wcar-admin-app) .px-1 {
+	padding-left: 0.25rem;
+	padding-right: 0.25rem;
+}
+:is(#wcar-admin-app) .px-1\.5 {
+	padding-left: 0.375rem;
+	padding-right: 0.375rem;
+}
+:is(#wcar-admin-app) .px-2 {
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
+}
+:is(#wcar-admin-app) .px-2\.5 {
+	padding-left: 0.625rem;
+	padding-right: 0.625rem;
+}
+:is(#wcar-admin-app) .px-3 {
+	padding-left: 0.75rem;
+	padding-right: 0.75rem;
+}
+:is(#wcar-admin-app) .px-3\.5 {
+	padding-left: 0.875rem;
+	padding-right: 0.875rem;
+}
+:is(#wcar-admin-app) .px-4 {
+	padding-left: 1rem;
+	padding-right: 1rem;
+}
+:is(#wcar-admin-app) .px-5 {
+	padding-left: 1.25rem;
+	padding-right: 1.25rem;
+}
+:is(#wcar-admin-app) .px-5\.5 {
+	padding-left: 1.375rem;
+	padding-right: 1.375rem;
+}
+:is(#wcar-admin-app) .px-6 {
+	padding-left: 1.5rem;
+	padding-right: 1.5rem;
+}
+:is(#wcar-admin-app) .px-8 {
+	padding-left: 2rem;
+	padding-right: 2rem;
+}
+:is(#wcar-admin-app) .py-0 {
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+:is(#wcar-admin-app) .py-0\.5 {
+	padding-top: 0.125rem;
+	padding-bottom: 0.125rem;
+}
+:is(#wcar-admin-app) .py-1 {
+	padding-top: 0.25rem;
+	padding-bottom: 0.25rem;
+}
+:is(#wcar-admin-app) .py-1\.5 {
+	padding-top: 0.375rem;
+	padding-bottom: 0.375rem;
+}
+:is(#wcar-admin-app) .py-2 {
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+}
+:is(#wcar-admin-app) .py-2\.5 {
+	padding-top: 0.625rem;
+	padding-bottom: 0.625rem;
+}
+:is(#wcar-admin-app) .py-3 {
+	padding-top: 0.75rem;
+	padding-bottom: 0.75rem;
+}
+:is(#wcar-admin-app) .py-3\.5 {
+	padding-top: 0.875rem;
+	padding-bottom: 0.875rem;
+}
+:is(#wcar-admin-app) .py-4 {
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+:is(#wcar-admin-app) .py-5 {
+	padding-top: 1.25rem;
+	padding-bottom: 1.25rem;
+}
+:is(#wcar-admin-app) .pb-1 {
+	padding-bottom: 0.25rem;
+}
+:is(#wcar-admin-app) .pb-10 {
+	padding-bottom: 2.5rem;
+}
+:is(#wcar-admin-app) .pb-2 {
+	padding-bottom: 0.5rem;
+}
+:is(#wcar-admin-app) .pb-3 {
+	padding-bottom: 0.75rem;
+}
+:is(#wcar-admin-app) .pb-4 {
+	padding-bottom: 1rem;
+}
+:is(#wcar-admin-app) .pb-5 {
+	padding-bottom: 1.25rem;
+}
+:is(#wcar-admin-app) .pl-0 {
+	padding-left: 0px;
+}
+:is(#wcar-admin-app) .pl-10 {
+	padding-left: 2.5rem;
+}
+:is(#wcar-admin-app) .pl-2 {
+	padding-left: 0.5rem;
+}
+:is(#wcar-admin-app) .pl-2\.5 {
+	padding-left: 0.625rem;
+}
+:is(#wcar-admin-app) .pl-3 {
+	padding-left: 0.75rem;
+}
+:is(#wcar-admin-app) .pl-3\.5 {
+	padding-left: 0.875rem;
+}
+:is(#wcar-admin-app) .pl-4 {
+	padding-left: 1rem;
+}
+:is(#wcar-admin-app) .pl-8 {
+	padding-left: 2rem;
+}
+:is(#wcar-admin-app) .pl-9 {
+	padding-left: 2.25rem;
+}
+:is(#wcar-admin-app) .pr-10 {
+	padding-right: 2.5rem;
+}
+:is(#wcar-admin-app) .pr-12 {
+	padding-right: 3rem;
+}
+:is(#wcar-admin-app) .pr-2 {
+	padding-right: 0.5rem;
+}
+:is(#wcar-admin-app) .pr-2\.5 {
+	padding-right: 0.625rem;
+}
+:is(#wcar-admin-app) .pr-3 {
+	padding-right: 0.75rem;
+}
+:is(#wcar-admin-app) .pr-4 {
+	padding-right: 1rem;
+}
+:is(#wcar-admin-app) .pr-8 {
+	padding-right: 2rem;
+}
+:is(#wcar-admin-app) .pr-9 {
+	padding-right: 2.25rem;
+}
+:is(#wcar-admin-app) .pt-2 {
+	padding-top: 0.5rem;
+}
+:is(#wcar-admin-app) .pt-3 {
+	padding-top: 0.75rem;
+}
+:is(#wcar-admin-app) .pt-4 {
+	padding-top: 1rem;
+}
+:is(#wcar-admin-app) .pt-5 {
+	padding-top: 1.25rem;
+}
+:is(#wcar-admin-app) .text-left {
+	text-align: left;
+}
+:is(#wcar-admin-app) .text-center {
+	text-align: center;
+}
+:is(#wcar-admin-app) .text-right {
+	text-align: right;
+}
+:is(#wcar-admin-app) .font-mono {
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+:is(#wcar-admin-app) .text-2xl {
+	font-size: 1.5rem;
+	line-height: 2rem;
+}
+:is(#wcar-admin-app) .text-3xl {
+	font-size: 1.875rem;
+	line-height: 2.25rem;
+}
+:is(#wcar-admin-app) .text-4xl {
+	font-size: 2.25rem;
+	line-height: 2.5rem;
+}
+:is(#wcar-admin-app) .text-\[13px\] {
+	font-size: 13px;
+}
+:is(#wcar-admin-app) .text-base {
+	font-size: 1rem;
+	line-height: 1.5rem;
+}
+:is(#wcar-admin-app) .text-lg {
+	font-size: 1.125rem;
+	line-height: 1.75rem;
+}
+:is(#wcar-admin-app) .text-sm {
+	font-size: 0.875rem;
+	line-height: 1.25rem;
+}
+:is(#wcar-admin-app) .text-tiny {
+	font-size: 0.625rem;
+}
+:is(#wcar-admin-app) .text-xl {
+	font-size: 1.25rem;
+	line-height: 1.75rem;
+}
+:is(#wcar-admin-app) .text-xs {
+	font-size: 0.75rem;
+	line-height: 1rem;
+}
+:is(#wcar-admin-app) .font-bold {
+	font-weight: 700;
+}
+:is(#wcar-admin-app) .font-medium {
+	font-weight: 500;
+}
+:is(#wcar-admin-app) .font-normal {
+	font-weight: 400;
+}
+:is(#wcar-admin-app) .font-semibold {
+	font-weight: 600;
+}
+:is(#wcar-admin-app) .capitalize {
+	text-transform: capitalize;
+}
+:is(#wcar-admin-app) .italic {
+	font-style: italic;
+}
+:is(#wcar-admin-app) .leading-11 {
+	line-height: 2.75rem;
+}
+:is(#wcar-admin-app) .leading-4 {
+	line-height: 1rem;
+}
+:is(#wcar-admin-app) .leading-5 {
+	line-height: 1.25rem;
+}
+:is(#wcar-admin-app) .leading-6 {
+	line-height: 1.5rem;
+}
+:is(#wcar-admin-app) .leading-7 {
+	line-height: 1.75rem;
+}
+:is(#wcar-admin-app) .leading-7\.5 {
+	line-height: 1.875rem;
+}
+:is(#wcar-admin-app) .leading-8 {
+	line-height: 2rem;
+}
+:is(#wcar-admin-app) .leading-9\.5 {
+	line-height: 2.375rem;
+}
+:is(#wcar-admin-app) .leading-none {
+	line-height: 1;
+}
+:is(#wcar-admin-app) .leading-normal {
+	line-height: 1.5;
+}
+:is(#wcar-admin-app) .leading-relaxed {
+	line-height: 1.625;
+}
+:is(#wcar-admin-app) .tracking-2 {
+	letter-spacing: 0.125em;
+}
+:is(#wcar-admin-app) .\!text-gray-500 {
+	--tw-text-opacity: 1 !important;
+	color: rgb(107 114 128 / var(--tw-text-opacity, 1)) !important;
+}
+:is(#wcar-admin-app) .\!text-gray-600 {
+	--tw-text-opacity: 1 !important;
+	color: rgb(75 85 99 / var(--tw-text-opacity, 1)) !important;
+}
+:is(#wcar-admin-app) .text-background-primary {
+	--tw-text-opacity: 1;
+	color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-badge-color-disabled {
+	--tw-text-opacity: 1;
+	color: rgb(189 193 199 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-badge-color-gray {
+	--tw-text-opacity: 1;
+	color: rgb(31 41 55 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-badge-color-green {
+	--tw-text-opacity: 1;
+	color: rgb(21 128 61 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-badge-color-red {
+	--tw-text-opacity: 1;
+	color: rgb(185 28 28 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-badge-color-sky {
+	--tw-text-opacity: 1;
+	color: rgb(3 105 161 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-badge-color-yellow {
+	--tw-text-opacity: 1;
+	color: rgb(161 98 7 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-border-strong {
+	--tw-text-opacity: 1;
+	color: rgb(107 114 128 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-brand-800 {
+	--tw-text-opacity: 1;
+	color: rgb(30 64 175 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-brand-primary-600 {
+	--tw-text-opacity: 1;
+	color: rgb(229 78 26 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-button-danger {
+	--tw-text-opacity: 1;
+	color: rgb(220 38 38 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-button-primary {
+	--tw-text-opacity: 1;
+	color: rgb(240 100 52 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-button-secondary {
+	--tw-text-opacity: 1;
+	color: rgb(31 41 55 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-button-tertiary-color {
+	--tw-text-opacity: 1;
+	color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-field-color-disabled {
+	--tw-text-opacity: 1;
+	color: rgb(189 193 199 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-field-dropzone-color {
+	--tw-text-opacity: 1;
+	color: rgb(37 99 235 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-field-helper {
+	--tw-text-opacity: 1;
+	color: rgb(107 114 128 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-field-input {
+	--tw-text-opacity: 1;
+	color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-field-label {
+	--tw-text-opacity: 1;
+	color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-field-placeholder {
+	--tw-text-opacity: 1;
+	color: rgb(107 114 128 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-flamingo-400 {
+	--tw-text-opacity: 1;
+	color: rgb(240 100 52 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-flamingo-500 {
+	--tw-text-opacity: 1;
+	color: rgb(237 77 34 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-gray-400 {
+	--tw-text-opacity: 1;
+	color: rgb(156 163 175 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-gray-500 {
+	--tw-text-opacity: 1;
+	color: rgb(107 114 128 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-gray-600 {
+	--tw-text-opacity: 1;
+	color: rgb(75 85 99 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-gray-700 {
+	--tw-text-opacity: 1;
+	color: rgb(55 65 81 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-gray-800 {
+	--tw-text-opacity: 1;
+	color: rgb(31 41 55 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-gray-900 {
+	--tw-text-opacity: 1;
+	color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-green-500 {
+	--tw-text-opacity: 1;
+	color: rgb(34 197 94 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-green-700 {
+	--tw-text-opacity: 1;
+	color: rgb(21 128 61 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-icon-disabled {
+	--tw-text-opacity: 1;
+	color: rgb(189 193 199 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-icon-inverse {
+	--tw-text-opacity: 1;
+	color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-icon-on-color-disabled {
+	--tw-text-opacity: 1;
+	color: rgb(156 163 175 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-icon-primary {
+	--tw-text-opacity: 1;
+	color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-icon-secondary {
+	--tw-text-opacity: 1;
+	color: rgb(75 85 99 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-inherit {
+	color: inherit;
+}
+:is(#wcar-admin-app) .text-link-primary {
+	--tw-text-opacity: 1;
+	color: rgb(37 99 235 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-primary-600 {
+	--tw-text-opacity: 1;
+	color: rgb(229 78 26 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-red-500 {
+	--tw-text-opacity: 1;
+	color: rgb(239 68 68 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-red-600 {
+	--tw-text-opacity: 1;
+	color: rgb(220 38 38 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-red-800 {
+	--tw-text-opacity: 1;
+	color: rgb(153 27 27 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-support-error {
+	--tw-text-opacity: 1;
+	color: rgb(220 38 38 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-support-error-inverse {
+	--tw-text-opacity: 1;
+	color: rgb(248 113 113 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-support-info {
+	--tw-text-opacity: 1;
+	color: rgb(2 132 199 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-support-info-inverse {
+	--tw-text-opacity: 1;
+	color: rgb(56 189 248 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-support-success {
+	--tw-text-opacity: 1;
+	color: rgb(22 163 74 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-support-success-inverse {
+	--tw-text-opacity: 1;
+	color: rgb(74 222 128 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-support-warning {
+	--tw-text-opacity: 1;
+	color: rgb(234 179 8 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-support-warning-inverse {
+	--tw-text-opacity: 1;
+	color: rgb(253 224 71 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-text-disabled {
+	--tw-text-opacity: 1;
+	color: rgb(189 193 199 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-text-inverse {
+	--tw-text-opacity: 1;
+	color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-text-on-color {
+	--tw-text-opacity: 1;
+	color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-text-primary {
+	--tw-text-opacity: 1;
+	color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-text-secondary {
+	--tw-text-opacity: 1;
+	color: rgb(107 114 128 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-text-tertiary {
+	--tw-text-opacity: 1;
+	color: rgb(107 114 128 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-tooltip-background-dark {
+	--tw-text-opacity: 1;
+	color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-tooltip-background-light {
+	--tw-text-opacity: 1;
+	color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-white {
+	--tw-text-opacity: 1;
+	color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .text-yellow-500 {
+	--tw-text-opacity: 1;
+	color: rgb(234 179 8 / var(--tw-text-opacity, 1));
+}
+:is(#wcar-admin-app) .underline {
+	-webkit-text-decoration-line: underline;
+	        text-decoration-line: underline;
+}
+:is(#wcar-admin-app) .no-underline {
+	-webkit-text-decoration-line: none;
+	        text-decoration-line: none;
+}
+:is(#wcar-admin-app) .placeholder-text-tertiary::placeholder {
+	--tw-placeholder-opacity: 1;
+	color: rgb(107 114 128 / var(--tw-placeholder-opacity, 1));
+}
+:is(#wcar-admin-app) .opacity-0 {
+	opacity: 0;
+}
+:is(#wcar-admin-app) .opacity-40 {
+	opacity: 0.4;
+}
+:is(#wcar-admin-app) .opacity-50 {
+	opacity: 0.5;
+}
+:is(#wcar-admin-app) .opacity-60 {
+	opacity: 0.6;
+}
+:is(#wcar-admin-app) .\!shadow-none {
+	--tw-shadow: 0 0 #0000 !important;
+	--tw-shadow-colored: 0 0 #0000 !important;
+	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+}
+:is(#wcar-admin-app) .shadow-2xl {
+	--tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+	--tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
+	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+:is(#wcar-admin-app) .shadow-lg {
+	--tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+	--tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+:is(#wcar-admin-app) .shadow-md {
+	--tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+	--tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+:is(#wcar-admin-app) .shadow-none {
+	--tw-shadow: 0 0 #0000;
+	--tw-shadow-colored: 0 0 #0000;
+	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+:is(#wcar-admin-app) .shadow-sm {
+	--tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+	--tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+:is(#wcar-admin-app) .shadow-soft-shadow-2xl {
+	--tw-shadow: 0px 24px 64px -12px rgba(149, 160, 178, 0.32);
+	--tw-shadow-colored: 0px 24px 64px -12px var(--tw-shadow-color);
+	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+:is(#wcar-admin-app) .shadow-soft-shadow-inner {
+	--tw-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.05);
+	--tw-shadow-colored: 0px 1px 1px 0px var(--tw-shadow-color);
+	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+:is(#wcar-admin-app) .shadow-soft-shadow-lg {
+	--tw-shadow: 0px 12px 32px -12px rgba(149, 160, 178, 0.24);
+	--tw-shadow-colored: 0px 12px 32px -12px var(--tw-shadow-color);
+	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+:is(#wcar-admin-app) .shadow-xl {
+	--tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+	--tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
+	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+:is(#wcar-admin-app) .shadow-xs {
+	--tw-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+	--tw-shadow-colored: 0px 1px 2px 0px var(--tw-shadow-color);
+	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+:is(#wcar-admin-app) .\!outline-none {
+	outline: 2px solid transparent !important;
+	outline-offset: 2px !important;
+}
+:is(#wcar-admin-app) .outline-none {
+	outline: 2px solid transparent;
+	outline-offset: 2px;
+}
+:is(#wcar-admin-app) .outline {
+	outline-style: solid;
+}
+:is(#wcar-admin-app) .\!outline-0 {
+	outline-width: 0px !important;
+}
+:is(#wcar-admin-app) .outline-0 {
+	outline-width: 0px;
+}
+:is(#wcar-admin-app) .outline-1 {
+	outline-width: 1px;
+}
+:is(#wcar-admin-app) .outline-border-disabled {
+	outline-color: #E5E7EB;
+}
+:is(#wcar-admin-app) .outline-border-interactive {
+	outline-color: #F06434;
+}
+:is(#wcar-admin-app) .outline-border-subtle {
+	outline-color: #E5E7EB;
+}
+:is(#wcar-admin-app) .outline-button-danger {
+	outline-color: #DC2626;
+}
+:is(#wcar-admin-app) .outline-button-danger-hover {
+	outline-color: #B91C1C;
+}
+:is(#wcar-admin-app) .outline-button-disabled {
+	outline-color: #F3F4F6;
+}
+:is(#wcar-admin-app) .outline-button-primary {
+	outline-color: #F06434;
+}
+:is(#wcar-admin-app) .outline-button-secondary {
+	outline-color: #1F2937;
+}
+:is(#wcar-admin-app) .outline-field-border {
+	outline-color: #E5E7EB;
+}
+:is(#wcar-admin-app) .outline-field-border-disabled {
+	outline-color: #F3F4F6;
+}
+:is(#wcar-admin-app) .outline-focus-error-border {
+	outline-color: #FECACA;
+}
+:is(#wcar-admin-app) .outline-primary-300 {
+	outline-color: #F6A285;
+}
+:is(#wcar-admin-app) .outline-red-600 {
+	outline-color: #dc2626;
+}
+:is(#wcar-admin-app) .outline-transparent {
+	outline-color: transparent;
+}
+:is(#wcar-admin-app) .ring {
+	--tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+	--tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+	box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+:is(#wcar-admin-app) .ring-0 {
+	--tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+	--tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+	box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+:is(#wcar-admin-app) .ring-1 {
+	--tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+	--tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+	box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+:is(#wcar-admin-app) .ring-alert-border-danger {
+	--tw-ring-opacity: 1;
+	--tw-ring-color: rgb(254 202 202 / var(--tw-ring-opacity, 1));
+}
+:is(#wcar-admin-app) .ring-alert-border-green {
+	--tw-ring-opacity: 1;
+	--tw-ring-color: rgb(187 247 208 / var(--tw-ring-opacity, 1));
+}
+:is(#wcar-admin-app) .ring-alert-border-info {
+	--tw-ring-opacity: 1;
+	--tw-ring-color: rgb(186 230 253 / var(--tw-ring-opacity, 1));
+}
+:is(#wcar-admin-app) .ring-alert-border-neutral {
+	--tw-ring-opacity: 1;
+	--tw-ring-color: rgb(229 231 235 / var(--tw-ring-opacity, 1));
+}
+:is(#wcar-admin-app) .ring-alert-border-warning {
+	--tw-ring-opacity: 1;
+	--tw-ring-color: rgb(254 240 138 / var(--tw-ring-opacity, 1));
+}
+:is(#wcar-admin-app) .ring-background-inverse {
+	--tw-ring-opacity: 1;
+	--tw-ring-color: rgb(17 24 39 / var(--tw-ring-opacity, 1));
+}
+:is(#wcar-admin-app) .ring-black {
+	--tw-ring-opacity: 1;
+	--tw-ring-color: rgb(0 0 0 / var(--tw-ring-opacity, 1));
+}
+:is(#wcar-admin-app) .ring-border-subtle {
+	--tw-ring-opacity: 1;
+	--tw-ring-color: rgb(229 231 235 / var(--tw-ring-opacity, 1));
+}
+:is(#wcar-admin-app) .ring-border-transparent-subtle {
+	--tw-ring-color: #37415114;
+}
+:is(#wcar-admin-app) .ring-brand-primary-600 {
+	--tw-ring-opacity: 1;
+	--tw-ring-color: rgb(229 78 26 / var(--tw-ring-opacity, 1));
+}
+:is(#wcar-admin-app) .ring-focus {
+	--tw-ring-opacity: 1;
+	--tw-ring-color: rgb(240 100 52 / var(--tw-ring-opacity, 1));
+}
+:is(#wcar-admin-app) .ring-tab-border {
+	--tw-ring-opacity: 1;
+	--tw-ring-color: rgb(229 231 235 / var(--tw-ring-opacity, 1));
+}
+:is(#wcar-admin-app) .ring-offset-0 {
+	--tw-ring-offset-width: 0px;
+}
+:is(#wcar-admin-app) .blur {
+	--tw-blur: blur(8px);
+	filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+:is(#wcar-admin-app) .blur-sm {
+	--tw-blur: blur(4px);
+	filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+:is(#wcar-admin-app) .filter {
+	filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+:is(#wcar-admin-app) .backdrop-blur-\[2px\] {
+	--tw-backdrop-blur: blur(2px);
+	backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+:is(#wcar-admin-app) .backdrop-blur-sm {
+	--tw-backdrop-blur: blur(4px);
+	backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+:is(#wcar-admin-app) .transition {
+	transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color;
+	transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+	transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 150ms;
+}
+:is(#wcar-admin-app) .transition-\[box-shadow\2c color\2c background-color\] {
+	transition-property: box-shadow,color,background-color;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 150ms;
+}
+:is(#wcar-admin-app) .transition-\[color\2c box-shadow\2c outline\] {
+	transition-property: color,box-shadow,outline;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 150ms;
+}
+:is(#wcar-admin-app) .transition-\[color\2c outline\2c box-shadow\] {
+	transition-property: color,outline,box-shadow;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 150ms;
+}
+:is(#wcar-admin-app) .transition-\[outline\2c background-color\2c color\2c box-shadow\] {
+	transition-property: outline,background-color,color,box-shadow;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 150ms;
+}
+:is(#wcar-admin-app) .transition-all {
+	transition-property: all;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 150ms;
+}
+:is(#wcar-admin-app) .transition-colors {
+	transition-property: color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;
+	transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+	transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 150ms;
+}
+:is(#wcar-admin-app) .transition-opacity {
+	transition-property: opacity;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 150ms;
+}
+:is(#wcar-admin-app) .transition-transform {
+	transition-property: transform;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 150ms;
+}
+:is(#wcar-admin-app) .duration-150 {
+	transition-duration: 150ms;
+}
+:is(#wcar-admin-app) .duration-200 {
+	transition-duration: 200ms;
+}
+:is(#wcar-admin-app) .duration-300 {
+	transition-duration: 300ms;
+}
+:is(#wcar-admin-app) .duration-500 {
+	transition-duration: 500ms;
+}
+:is(#wcar-admin-app) .ease-in {
+	transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+}
+:is(#wcar-admin-app) .ease-in-out {
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+:is(#wcar-admin-app) .ease-linear {
+	transition-timing-function: linear;
+}
+:is(#wcar-admin-app) .\[box-shadow\:none\] {
+	box-shadow: none;
+}
+:is(#wcar-admin-app) .\[grid-area\:1\/1\/2\/3\] {
+	grid-area: 1/1/2/3;
+}
+:is(#wcar-admin-app) .\[word-break\:break-word\] {
+	word-break: break-word;
+}
+
+:root {
+	--heading-font-family: "Figtree";
+	--heading-font-style: normal;
+}
+
+.woocommerce_page_woo-cart-abandonment-recovery .whats-new-rss-flyout,
+.toplevel_page_woo-cart-abandonment-recovery .whats-new-rss-flyout {
+	font-family: Figtree, sans-serif;
+}
+
+.woocommerce_page_woo-cart-abandonment-recovery .whats-new-rss-flyout.closed,
+.toplevel_page_woo-cart-abandonment-recovery .whats-new-rss-flyout.closed {
+	visibility: hidden;
+}
+
+body .notice,
+body div.fs-notice.promotion, /* The SEO Yoast: bulk-image-alt-text-with-yoast */
+body.wp-admin .notice:not( #wcar-admin-app .notice ),
+body.wp-admin .error:not( #wcar-admin-app .error ) {
+	display: none !important;
+}
+
+#wpcontent {
+	padding-left: 0;
+}
+
+#wpwrap,
+#wpbody {
+	--tw-bg-opacity: 1;
+	background-color: rgb(238 242 247 / var(--tw-bg-opacity, 1));
+}
+
+#wpbody-content {
+	padding-bottom: 0;
+}
+
+#wcar-admin-app {
+	font-family: var( --heading-font-family );
+}
+
+a:focus {
+	outline: none;
+	box-shadow: none;
+}
+
+a:focus-visible {
+	box-shadow: 0 0 0 2px #000;
+	outline: 2px solid transparent;
+}
+
+#suretriggers-embedded-iframe {
+	border: none !important;
+}
+
+.mce-active * {
+	background-color: #fff;
+	color: #000 !important;
+}
+
+.whats-new-rss-flyout.closed {
+	visibility: hidden;
+}
+
+#wpfooter {
+	display: none;
+}
+
+#wcar-admin-app .sidebar::after {
+	content: "";
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 420px;
+	height: 100vh;
+	background: #fff;
+	z-index: -10;
+}
+
+#wcar-admin-app #qt_email_body_toolbar {
+	display: none;
+}
+
+#wcar-admin-app .wp-editor-container > textarea {
+	border-radius: 0;
+}
+
+#wcar-admin-app .wp-editor-tabs {
+	display: none;
+}
+
+#wcar-admin-app .mce-toolbar-grp {
+	background: transparent;
+}
+
+#wcar-admin-app .mce-ico,
+#wcar-admin-app .mce-txt {
+	color: #111827 !important;
+}
+
+#wcar-admin-app .mce-toolbar .mce-btn-group .mce-btn:hover,
+#wcar-admin-app .mce-toolbar .mce-btn-group .mce-btn:focus {
+	box-shadow: 0 0 0 2px #f06434;
+}
+
+#wcar-admin-app .mce-top-part::before {
+	box-shadow: none;
+}
+
+#wcar-admin-app .recharts-tooltip-wrapper {
+	text-transform: capitalize;
+}
+
+/* For onboarding screens */
+#wpwrap:has( div.ca-page-content--wrapper.onboarding ) #adminmenumain {
+	display: none;
+}
+#wpwrap:has( div.ca-page-content--wrapper.onboarding ) #wpadminbar {
+	display: none;
+}
+#wpwrap:has( div.ca-page-content--wrapper.onboarding ) #wpcontent {
+	margin-left: 0;
+	margin-top: calc( 0px - var( --wp-admin--admin-bar--height ) );
+}
+#wpwrap:has( div.ca-page-content--wrapper.onboarding ) #wcar-admin-app > .onboarding {
+	width: 100%;
+}
+
+@media ( max-width: 1024px ) {
+	#wcar-admin-app .sidebar::after {
+		width: 225px;
+	}
+}
+
+@media ( max-width: 960px ) {
+	#wcar-admin-app .sidebar::after {
+		width: 100px;
+	}
+}
+
+@media ( max-width: 782px ) {
+	#wcar-admin-app .sidebar::after {
+		width: 75px;
+	}
+}
+
+:is(#wcar-admin-app) .file\:border-0::file-selector-button {
+	border-width: 0px;
+}
+
+:is(#wcar-admin-app) .file\:bg-transparent::file-selector-button {
+	background-color: transparent;
+}
+
+:is(#wcar-admin-app) .file\:text-text-tertiary::file-selector-button {
+	--tw-text-opacity: 1;
+	color: rgb(107 114 128 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) .placeholder\:text-field-placeholder::placeholder {
+	--tw-text-opacity: 1;
+	color: rgb(107 114 128 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) .placeholder\:text-text-disabled::placeholder {
+	--tw-text-opacity: 1;
+	color: rgb(189 193 199 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) .before\:absolute::before {
+	content: var(--tw-content);
+	position: absolute;
+}
+
+:is(#wcar-admin-app) .before\:top-2\/4::before {
+	content: var(--tw-content);
+	top: 50%;
+}
+
+:is(#wcar-admin-app) .before\:hidden::before {
+	content: var(--tw-content);
+	display: none;
+}
+
+:is(#wcar-admin-app) .before\:h-10::before {
+	content: var(--tw-content);
+	height: 2.5rem;
+}
+
+:is(#wcar-admin-app) .before\:w-10::before {
+	content: var(--tw-content);
+	width: 2.5rem;
+}
+
+:is(#wcar-admin-app) .before\:-translate-x-2\/4::before {
+	content: var(--tw-content);
+	--tw-translate-x: -50%;
+	transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+:is(#wcar-admin-app) .before\:-translate-y-2\/4::before {
+	content: var(--tw-content);
+	--tw-translate-y: -50%;
+	transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+:is(#wcar-admin-app) .before\:rounded-full::before {
+	content: var(--tw-content);
+	border-radius: 9999px;
+}
+
+:is(#wcar-admin-app) .before\:opacity-0::before {
+	content: var(--tw-content);
+	opacity: 0;
+}
+
+:is(#wcar-admin-app) .before\:transition-opacity::before {
+	content: var(--tw-content);
+	transition-property: opacity;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 150ms;
+}
+
+:is(#wcar-admin-app) .before\:content-\[\'\'\]::before {
+	--tw-content: '';
+	content: var(--tw-content);
+}
+
+:is(#wcar-admin-app) .after\:ml-0::after {
+	content: var(--tw-content);
+	margin-left: 0px;
+}
+
+:is(#wcar-admin-app) .after\:ml-0\.5::after {
+	content: var(--tw-content);
+	margin-left: 0.125rem;
+}
+
+:is(#wcar-admin-app) .after\:text-field-required::after {
+	content: var(--tw-content);
+	--tw-text-opacity: 1;
+	color: rgb(220 38 38 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) .after\:content-\[\'\*\'\]::after {
+	--tw-content: '*';
+	content: var(--tw-content);
+}
+
+:is(#wcar-admin-app) .first\:rounded-bl:first-child {
+	border-bottom-left-radius: 0.25rem;
+}
+
+:is(#wcar-admin-app) .first\:rounded-tl:first-child {
+	border-top-left-radius: 0.25rem;
+}
+
+:is(#wcar-admin-app) .first\:border-0:first-child {
+	border-width: 0px;
+}
+
+:is(#wcar-admin-app) .first\:border-r:first-child {
+	border-right-width: 1px;
+}
+
+:is(#wcar-admin-app) .first\:border-border-subtle:first-child {
+	--tw-border-opacity: 1;
+	border-color: rgb(229 231 235 / var(--tw-border-opacity, 1));
+}
+
+:is(#wcar-admin-app) .first\:pt-6:first-child {
+	padding-top: 1.5rem;
+}
+
+:is(#wcar-admin-app) .last\:rounded-br:last-child {
+	border-bottom-right-radius: 0.25rem;
+}
+
+:is(#wcar-admin-app) .last\:rounded-tr:last-child {
+	border-top-right-radius: 0.25rem;
+}
+
+:is(#wcar-admin-app) .last\:border-0:last-child {
+	border-width: 0px;
+}
+
+:is(#wcar-admin-app) .last\:border-b-0:last-child {
+	border-bottom-width: 0px;
+}
+
+:is(#wcar-admin-app) .last\:pb-6:last-child {
+	padding-bottom: 1.5rem;
+}
+
+:is(#wcar-admin-app) .checked\:border-border-interactive:checked {
+	--tw-border-opacity: 1;
+	border-color: rgb(240 100 52 / var(--tw-border-opacity, 1));
+}
+
+:is(#wcar-admin-app) .checked\:border-toggle-on-border:checked {
+	--tw-border-opacity: 1;
+	border-color: rgb(240 100 52 / var(--tw-border-opacity, 1));
+}
+
+:is(#wcar-admin-app) .checked\:bg-toggle-on:checked {
+	--tw-bg-opacity: 1;
+	background-color: rgb(240 100 52 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .checked\:\[background-image\:none\]:checked {
+	background-image: none;
+}
+
+:is(#wcar-admin-app) .checked\:before\:hidden:checked::before {
+	content: var(--tw-content);
+	display: none;
+}
+
+:is(#wcar-admin-app) .checked\:before\:content-\[\'\'\]:checked::before {
+	--tw-content: '';
+	content: var(--tw-content);
+}
+
+:is(#wcar-admin-app) .focus-within\:z-10:focus-within {
+	z-index: 10;
+}
+
+:is(#wcar-admin-app) .focus-within\:border-focus-border:focus-within {
+	--tw-border-opacity: 1;
+	border-color: rgb(191 219 254 / var(--tw-border-opacity, 1));
+}
+
+:is(#wcar-admin-app) .focus-within\:text-field-input:focus-within {
+	--tw-text-opacity: 1;
+	color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) .focus-within\:outline-none:focus-within {
+	outline: 2px solid transparent;
+	outline-offset: 2px;
+}
+
+:is(#wcar-admin-app) .focus-within\:outline-focus-border:focus-within {
+	outline-color: #BFDBFE;
+}
+
+:is(#wcar-admin-app) .focus-within\:ring-2:focus-within {
+	--tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+	--tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+	box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+:is(#wcar-admin-app) .focus-within\:ring-focus:focus-within {
+	--tw-ring-opacity: 1;
+	--tw-ring-color: rgb(240 100 52 / var(--tw-ring-opacity, 1));
+}
+
+:is(#wcar-admin-app) .focus-within\:ring-offset-2:focus-within {
+	--tw-ring-offset-width: 2px;
+}
+
+:is(#wcar-admin-app) .hover\:border-border-disabled:hover {
+	--tw-border-opacity: 1;
+	border-color: rgb(229 231 235 / var(--tw-border-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:border-border-interactive:hover {
+	--tw-border-opacity: 1;
+	border-color: rgb(240 100 52 / var(--tw-border-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:border-border-strong:hover {
+	--tw-border-opacity: 1;
+	border-color: rgb(107 114 128 / var(--tw-border-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:border-button-primary:hover {
+	--tw-border-opacity: 1;
+	border-color: rgb(240 100 52 / var(--tw-border-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:border-field-border:hover {
+	--tw-border-opacity: 1;
+	border-color: rgb(229 231 235 / var(--tw-border-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:border-field-dropzone-color:hover {
+	--tw-border-opacity: 1;
+	border-color: rgb(37 99 235 / var(--tw-border-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:border-red-500:hover {
+	--tw-border-opacity: 1;
+	border-color: rgb(239 68 68 / var(--tw-border-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:border-text-inverse:hover {
+	--tw-border-opacity: 1;
+	border-color: rgb(255 255 255 / var(--tw-border-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:bg-\[\#fef1ec\]:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgb(254 241 236 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:bg-background-brand:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgb(240 100 52 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:bg-background-secondary:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:bg-badge-hover-disabled:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:bg-badge-hover-gray:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:bg-badge-hover-green:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgb(220 252 231 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:bg-badge-hover-red:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgb(254 226 226 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:bg-badge-hover-sky:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgb(224 242 254 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:bg-badge-hover-yellow:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgb(254 249 195 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:bg-button-danger-hover:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgb(185 28 28 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:bg-button-primary-hover:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgb(240 100 52 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:bg-button-secondary-hover:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgb(55 65 81 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:bg-button-tertiary-hover:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:bg-field-background-error:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgb(254 242 242 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:bg-field-dropzone-background-hover:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:bg-flamingo-50:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgb(254 244 238 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:bg-flamingo-500:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgb(237 77 34 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:bg-gray-50:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:bg-primary-25:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgb(254 248 245 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:bg-primary-600:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgb(229 78 26 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:bg-red-50:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgb(254 242 242 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:bg-transparent:hover {
+	background-color: transparent;
+}
+
+:is(#wcar-admin-app) .hover\:bg-white:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:\!text-gray-700:hover {
+	--tw-text-opacity: 1 !important;
+	color: rgb(55 65 81 / var(--tw-text-opacity, 1)) !important;
+}
+
+:is(#wcar-admin-app) .hover\:text-black:hover {
+	--tw-text-opacity: 1;
+	color: rgb(0 0 0 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:text-button-danger-secondary:hover {
+	--tw-text-opacity: 1;
+	color: rgb(220 38 38 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:text-button-primary-hover:hover {
+	--tw-text-opacity: 1;
+	color: rgb(240 100 52 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:text-flamingo-400:hover {
+	--tw-text-opacity: 1;
+	color: rgb(240 100 52 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:text-gray-200:hover {
+	--tw-text-opacity: 1;
+	color: rgb(229 231 235 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:text-gray-500:hover {
+	--tw-text-opacity: 1;
+	color: rgb(107 114 128 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:text-gray-900:hover {
+	--tw-text-opacity: 1;
+	color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:text-icon-primary:hover {
+	--tw-text-opacity: 1;
+	color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:text-link-primary-hover:hover {
+	--tw-text-opacity: 1;
+	color: rgb(29 78 216 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:text-primary-600:hover {
+	--tw-text-opacity: 1;
+	color: rgb(229 78 26 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:text-red-500:hover {
+	--tw-text-opacity: 1;
+	color: rgb(239 68 68 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:text-red-600:hover {
+	--tw-text-opacity: 1;
+	color: rgb(220 38 38 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:text-text-disabled:hover {
+	--tw-text-opacity: 1;
+	color: rgb(189 193 199 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:text-text-inverse:hover {
+	--tw-text-opacity: 1;
+	color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:text-text-primary:hover {
+	--tw-text-opacity: 1;
+	color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:text-white:hover {
+	--tw-text-opacity: 1;
+	color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) .hover\:underline:hover {
+	-webkit-text-decoration-line: underline;
+	        text-decoration-line: underline;
+}
+
+:is(#wcar-admin-app) .hover\:no-underline:hover {
+	-webkit-text-decoration-line: none;
+	        text-decoration-line: none;
+}
+
+:is(#wcar-admin-app) .hover\:shadow-sm:hover {
+	--tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+	--tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+:is(#wcar-admin-app) .hover\:outline-0:hover {
+	outline-width: 0px;
+}
+
+:is(#wcar-admin-app) .hover\:outline-border-disabled:hover {
+	outline-color: #E5E7EB;
+}
+
+:is(#wcar-admin-app) .hover\:outline-border-interactive:hover {
+	outline-color: #F06434;
+}
+
+:is(#wcar-admin-app) .hover\:outline-border-strong:hover {
+	outline-color: #6B7280;
+}
+
+:is(#wcar-admin-app) .hover\:outline-border-subtle:hover {
+	outline-color: #E5E7EB;
+}
+
+:is(#wcar-admin-app) .hover\:outline-button-danger:hover {
+	outline-color: #DC2626;
+}
+
+:is(#wcar-admin-app) .hover\:outline-button-danger-hover:hover {
+	outline-color: #B91C1C;
+}
+
+:is(#wcar-admin-app) .hover\:outline-button-primary-hover:hover {
+	outline-color: #F06434;
+}
+
+:is(#wcar-admin-app) .hover\:outline-button-secondary-hover:hover {
+	outline-color: #374151;
+}
+
+:is(#wcar-admin-app) .hover\:outline-field-border-disabled:hover {
+	outline-color: #F3F4F6;
+}
+
+:is(#wcar-admin-app) .hover\:outline-primary-300:hover {
+	outline-color: #F6A285;
+}
+
+:is(#wcar-admin-app) .hover\:outline-red-600:hover {
+	outline-color: #dc2626;
+}
+
+:is(#wcar-admin-app) .hover\:before\:opacity-10:hover::before {
+	content: var(--tw-content);
+	opacity: 0.1;
+}
+
+:is(#wcar-admin-app) .checked\:hover\:border-toggle-on-hover:hover:checked {
+	--tw-border-opacity: 1;
+	border-color: rgb(240 100 52 / var(--tw-border-opacity, 1));
+}
+
+:is(#wcar-admin-app) .checked\:hover\:bg-toggle-on-hover:hover:checked {
+	--tw-bg-opacity: 1;
+	background-color: rgb(240 100 52 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .focus-within\:hover\:border-focus-border:hover:focus-within {
+	--tw-border-opacity: 1;
+	border-color: rgb(191 219 254 / var(--tw-border-opacity, 1));
+}
+
+:is(#wcar-admin-app) .focus-within\:hover\:outline-focus-border:hover:focus-within {
+	outline-color: #BFDBFE;
+}
+
+:is(#wcar-admin-app) .hover\:focus-within\:outline-focus-border:focus-within:hover {
+	outline-color: #BFDBFE;
+}
+
+:is(#wcar-admin-app) .focus\:rounded-sm:focus {
+	border-radius: 0.125rem;
+}
+
+:is(#wcar-admin-app) .focus\:border-border-interactive:focus {
+	--tw-border-opacity: 1;
+	border-color: rgb(240 100 52 / var(--tw-border-opacity, 1));
+}
+
+:is(#wcar-admin-app) .focus\:border-flamingo-400:focus {
+	--tw-border-opacity: 1;
+	border-color: rgb(240 100 52 / var(--tw-border-opacity, 1));
+}
+
+:is(#wcar-admin-app) .focus\:border-focus-border:focus {
+	--tw-border-opacity: 1;
+	border-color: rgb(191 219 254 / var(--tw-border-opacity, 1));
+}
+
+:is(#wcar-admin-app) .focus\:border-focus-error-border:focus {
+	--tw-border-opacity: 1;
+	border-color: rgb(254 202 202 / var(--tw-border-opacity, 1));
+}
+
+:is(#wcar-admin-app) .focus\:border-red-500:focus {
+	--tw-border-opacity: 1;
+	border-color: rgb(239 68 68 / var(--tw-border-opacity, 1));
+}
+
+:is(#wcar-admin-app) .focus\:border-toggle-off-border:focus {
+	--tw-border-opacity: 1;
+	border-color: rgb(189 193 199 / var(--tw-border-opacity, 1));
+}
+
+:is(#wcar-admin-app) .focus\:bg-background-secondary:focus {
+	--tw-bg-opacity: 1;
+	background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .focus\:bg-button-tertiary-hover:focus {
+	--tw-bg-opacity: 1;
+	background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .focus\:shadow-none:focus {
+	--tw-shadow: 0 0 #0000;
+	--tw-shadow-colored: 0 0 #0000;
+	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+:is(#wcar-admin-app) .focus\:shadow-sm:focus {
+	--tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+	--tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+:is(#wcar-admin-app) .focus\:shadow-flamingo-400:focus {
+	--tw-shadow-color: #F06434;
+	--tw-shadow: var(--tw-shadow-colored);
+}
+
+:is(#wcar-admin-app) .focus\:outline-none:focus {
+	outline: 2px solid transparent;
+	outline-offset: 2px;
+}
+
+:is(#wcar-admin-app) .focus\:outline:focus {
+	outline-style: solid;
+}
+
+:is(#wcar-admin-app) .focus\:outline-0:focus {
+	outline-width: 0px;
+}
+
+:is(#wcar-admin-app) .focus\:outline-1:focus {
+	outline-width: 1px;
+}
+
+:is(#wcar-admin-app) .focus\:outline-border-subtle:focus {
+	outline-color: #E5E7EB;
+}
+
+:is(#wcar-admin-app) .focus\:outline-focus-border:focus {
+	outline-color: #BFDBFE;
+}
+
+:is(#wcar-admin-app) .focus\:outline-focus-error-border:focus {
+	outline-color: #FECACA;
+}
+
+:is(#wcar-admin-app) .focus\:ring:focus {
+	--tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+	--tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+	box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+:is(#wcar-admin-app) .focus\:ring-0:focus {
+	--tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+	--tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+	box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+:is(#wcar-admin-app) .focus\:ring-1:focus {
+	--tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+	--tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+	box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+:is(#wcar-admin-app) .focus\:ring-2:focus {
+	--tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+	--tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+	box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+:is(#wcar-admin-app) .focus\:ring-border-interactive:focus {
+	--tw-ring-opacity: 1;
+	--tw-ring-color: rgb(240 100 52 / var(--tw-ring-opacity, 1));
+}
+
+:is(#wcar-admin-app) .focus\:ring-field-color-error:focus {
+	--tw-ring-opacity: 1;
+	--tw-ring-color: rgb(220 38 38 / var(--tw-ring-opacity, 1));
+}
+
+:is(#wcar-admin-app) .focus\:ring-focus:focus {
+	--tw-ring-opacity: 1;
+	--tw-ring-color: rgb(240 100 52 / var(--tw-ring-opacity, 1));
+}
+
+:is(#wcar-admin-app) .focus\:ring-focus-error:focus {
+	--tw-ring-opacity: 1;
+	--tw-ring-color: rgb(220 38 38 / var(--tw-ring-opacity, 1));
+}
+
+:is(#wcar-admin-app) .focus\:ring-toggle-on:focus {
+	--tw-ring-opacity: 1;
+	--tw-ring-color: rgb(240 100 52 / var(--tw-ring-opacity, 1));
+}
+
+:is(#wcar-admin-app) .focus\:ring-transparent:focus {
+	--tw-ring-color: transparent;
+}
+
+:is(#wcar-admin-app) .focus\:ring-offset-0:focus {
+	--tw-ring-offset-width: 0px;
+}
+
+:is(#wcar-admin-app) .focus\:ring-offset-2:focus {
+	--tw-ring-offset-width: 2px;
+}
+
+:is(#wcar-admin-app) .focus\:\[box-shadow\:none\]:focus {
+	box-shadow: none;
+}
+
+:is(#wcar-admin-app) .checked\:focus\:border-toggle-on-border:focus:checked {
+	--tw-border-opacity: 1;
+	border-color: rgb(240 100 52 / var(--tw-border-opacity, 1));
+}
+
+:is(#wcar-admin-app) .focus-visible\:text-flamingo-400:focus-visible {
+	--tw-text-opacity: 1;
+	color: rgb(240 100 52 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) .focus-visible\:outline-none:focus-visible {
+	outline: 2px solid transparent;
+	outline-offset: 2px;
+}
+
+:is(#wcar-admin-app) .focus-visible\:outline:focus-visible {
+	outline-style: solid;
+}
+
+:is(#wcar-admin-app) .focus-visible\:outline-2:focus-visible {
+	outline-width: 2px;
+}
+
+:is(#wcar-admin-app) .focus-visible\:ring-1:focus-visible {
+	--tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+	--tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+	box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+:is(#wcar-admin-app) .active\:text-button-primary:active {
+	--tw-text-opacity: 1;
+	color: rgb(240 100 52 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) .active\:outline-none:active {
+	outline: 2px solid transparent;
+	outline-offset: 2px;
+}
+
+:is(#wcar-admin-app) .disabled\:pointer-events-none:disabled {
+	pointer-events: none;
+}
+
+:is(#wcar-admin-app) .disabled\:cursor-default:disabled {
+	cursor: default;
+}
+
+:is(#wcar-admin-app) .disabled\:cursor-not-allowed:disabled {
+	cursor: not-allowed;
+}
+
+:is(#wcar-admin-app) .disabled\:border-none:disabled {
+	border-style: none;
+}
+
+:is(#wcar-admin-app) .disabled\:border-border-disabled:disabled {
+	--tw-border-opacity: 1;
+	border-color: rgb(229 231 235 / var(--tw-border-opacity, 1));
+}
+
+:is(#wcar-admin-app) .disabled\:border-field-border-disabled:disabled {
+	--tw-border-opacity: 1;
+	border-color: rgb(243 244 246 / var(--tw-border-opacity, 1));
+}
+
+:is(#wcar-admin-app) .disabled\:border-transparent:disabled {
+	border-color: transparent;
+}
+
+:is(#wcar-admin-app) .disabled\:\!bg-gray-100:disabled {
+	--tw-bg-opacity: 1 !important;
+	background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1)) !important;
+}
+
+:is(#wcar-admin-app) .disabled\:bg-button-disabled:disabled {
+	--tw-bg-opacity: 1;
+	background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .disabled\:bg-button-tertiary:disabled {
+	--tw-bg-opacity: 1;
+	background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .disabled\:bg-gray-200:disabled {
+	--tw-bg-opacity: 1;
+	background-color: rgb(229 231 235 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .disabled\:bg-white:disabled {
+	--tw-bg-opacity: 1;
+	background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .disabled\:text-gray-400:disabled {
+	--tw-text-opacity: 1;
+	color: rgb(156 163 175 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) .disabled\:text-text-disabled:disabled {
+	--tw-text-opacity: 1;
+	color: rgb(189 193 199 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) .disabled\:shadow-none:disabled {
+	--tw-shadow: 0 0 #0000;
+	--tw-shadow-colored: 0 0 #0000;
+	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+:is(#wcar-admin-app) .disabled\:shadow-toggle-disabled:disabled {
+	--tw-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.1) inset;
+	--tw-shadow-colored: inset 1px 1px 2px 0px var(--tw-shadow-color);
+	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+:is(#wcar-admin-app) .disabled\:outline-border-disabled:disabled {
+	outline-color: #E5E7EB;
+}
+
+:is(#wcar-admin-app) .disabled\:outline-button-disabled:disabled {
+	outline-color: #F3F4F6;
+}
+
+:is(#wcar-admin-app) .disabled\:outline-field-border-disabled:disabled {
+	outline-color: #F3F4F6;
+}
+
+:is(#wcar-admin-app) .checked\:disabled\:border-border-disabled:disabled:checked {
+	--tw-border-opacity: 1;
+	border-color: rgb(229 231 235 / var(--tw-border-opacity, 1));
+}
+
+:is(#wcar-admin-app) .checked\:disabled\:bg-toggle-on-disabled:disabled:checked {
+	--tw-bg-opacity: 1;
+	background-color: rgb(239 246 255 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) .checked\:disabled\:bg-white:disabled:checked {
+	--tw-bg-opacity: 1;
+	background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) :is(.group\/switch:focus-within .group-focus-within\/switch\:size-3\.25) {
+	width: 0.8125rem;
+	height: 0.8125rem;
+}
+
+:is(#wcar-admin-app) :is(.group\/switch:focus-within .group-focus-within\/switch\:size-4) {
+	width: 1rem;
+	height: 1rem;
+}
+
+:is(#wcar-admin-app) :is(.group\/switch:focus-within .group-focus-within\/switch\:size-5) {
+	width: 1.25rem;
+	height: 1.25rem;
+}
+
+:is(#wcar-admin-app) :is(.group:focus-within .group-focus-within\:text-icon-primary) {
+	--tw-text-opacity: 1;
+	color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) :is(.group:hover .group-hover\:visible) {
+	visibility: visible;
+}
+
+:is(#wcar-admin-app) :is(.group\/switch:hover .group-hover\/switch\:right-0\.5) {
+	right: 0.125rem;
+}
+
+:is(#wcar-admin-app) :is(.group\/switch:hover .group-hover\/switch\:size-3\.25) {
+	width: 0.8125rem;
+	height: 0.8125rem;
+}
+
+:is(#wcar-admin-app) :is(.group\/switch:hover .group-hover\/switch\:size-4) {
+	width: 1rem;
+	height: 1rem;
+}
+
+:is(#wcar-admin-app) :is(.group\/switch:hover .group-hover\/switch\:size-5) {
+	width: 1.25rem;
+	height: 1.25rem;
+}
+
+:is(#wcar-admin-app) :is(.group\/switch:hover .group-hover\/switch\:border-toggle-on-border) {
+	--tw-border-opacity: 1;
+	border-color: rgb(240 100 52 / var(--tw-border-opacity, 1));
+}
+
+:is(#wcar-admin-app) :is(.group\/switch:hover .group-hover\/switch\:bg-toggle-off-hover) {
+	--tw-bg-opacity: 1;
+	background-color: rgb(189 193 199 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) :is(.group:hover .group-hover\:text-field-input) {
+	--tw-text-opacity: 1;
+	color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) :is(.group:hover .group-hover\:text-icon-primary) {
+	--tw-text-opacity: 1;
+	color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) :is(.group\/switch:hover .checked\:group-hover\/switch\:border-toggle-on-border:checked) {
+	--tw-border-opacity: 1;
+	border-color: rgb(240 100 52 / var(--tw-border-opacity, 1));
+}
+
+:is(#wcar-admin-app) :is(.group\/switch:hover .checked\:group-hover\/switch\:bg-toggle-on-hover:checked) {
+	--tw-bg-opacity: 1;
+	background-color: rgb(240 100 52 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) :is(.group:disabled .group-disabled\:text-field-color-disabled) {
+	--tw-text-opacity: 1;
+	color: rgb(189 193 199 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) :is(.group:disabled .group-disabled\:text-icon-disabled) {
+	--tw-text-opacity: 1;
+	color: rgb(189 193 199 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) :is(.peer:checked ~ .peer-checked\:translate-x-3) {
+	--tw-translate-x: 0.75rem;
+	transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+:is(#wcar-admin-app) :is(.peer:checked ~ .peer-checked\:translate-x-3\.75) {
+	--tw-translate-x: 0.9375rem;
+	transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+:is(#wcar-admin-app) :is(.peer:checked ~ .peer-checked\:translate-x-5) {
+	--tw-translate-x: 1.25rem;
+	transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+:is(#wcar-admin-app) :is(.peer:checked ~ .peer-checked\:opacity-100) {
+	opacity: 1;
+}
+
+:is(#wcar-admin-app) :is(.peer:disabled ~ .peer-disabled\:cursor-not-allowed) {
+	cursor: not-allowed;
+}
+
+:is(#wcar-admin-app) :is(.peer:disabled ~ .peer-disabled\:text-border-disabled) {
+	--tw-text-opacity: 1;
+	color: rgb(229 231 235 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) .not-rtl\:left-1:not([dir="rtl"], [dir="rtl"] *) {
+	left: 0.25rem;
+}
+
+:is(#wcar-admin-app) .not-rtl\:left-2\/4:not([dir="rtl"], [dir="rtl"] *) {
+	left: 50%;
+}
+
+:is(#wcar-admin-app) .not-rtl\:before\:left-2\/4:not([dir="rtl"], [dir="rtl"] *)::before {
+	content: var(--tw-content);
+	left: 50%;
+}
+
+:is(#wcar-admin-app) :is(.group\/switch:focus-within .not-rtl\:group-focus-within\/switch\:left-0\.5:not([dir="rtl"], [dir="rtl"] *)) {
+	left: 0.125rem;
+}
+
+:is(#wcar-admin-app) :is(.group\/switch:hover .not-rtl\:group-hover\/switch\:left-0\.5:not([dir="rtl"], [dir="rtl"] *)) {
+	left: 0.125rem;
+}
+
+@media (min-width: 420px) {
+	:is(#wcar-admin-app) .xs\:flex {
+		display: flex;
+	}
+	:is(#wcar-admin-app) .xs\:hidden {
+		display: none;
+	}
+}
+
+@media (min-width: 640px) {
+	:is(#wcar-admin-app) .sm\:m-0 {
+		margin: 0px;
+	}
+	:is(#wcar-admin-app) .sm\:w-3\/5 {
+		width: 60%;
+	}
+	:is(#wcar-admin-app) .sm\:w-\[70\%\] {
+		width: 70%;
+	}
+	:is(#wcar-admin-app) .sm\:grid-cols-2 {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+	:is(#wcar-admin-app) .sm\:grid-cols-3 {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+	:is(#wcar-admin-app) .sm\:flex-row {
+		flex-direction: row;
+	}
+	:is(#wcar-admin-app) .sm\:justify-end {
+		justify-content: flex-end;
+	}
+	:is(#wcar-admin-app) .sm\:whitespace-normal {
+		white-space: normal;
+	}
+}
+
+@media (min-width: 768px) {
+	:is(#wcar-admin-app) .md\:order-1 {
+		order: 1;
+	}
+	:is(#wcar-admin-app) .md\:order-10 {
+		order: 10;
+	}
+	:is(#wcar-admin-app) .md\:order-11 {
+		order: 11;
+	}
+	:is(#wcar-admin-app) .md\:order-12 {
+		order: 12;
+	}
+	:is(#wcar-admin-app) .md\:order-2 {
+		order: 2;
+	}
+	:is(#wcar-admin-app) .md\:order-3 {
+		order: 3;
+	}
+	:is(#wcar-admin-app) .md\:order-4 {
+		order: 4;
+	}
+	:is(#wcar-admin-app) .md\:order-5 {
+		order: 5;
+	}
+	:is(#wcar-admin-app) .md\:order-6 {
+		order: 6;
+	}
+	:is(#wcar-admin-app) .md\:order-7 {
+		order: 7;
+	}
+	:is(#wcar-admin-app) .md\:order-8 {
+		order: 8;
+	}
+	:is(#wcar-admin-app) .md\:order-9 {
+		order: 9;
+	}
+	:is(#wcar-admin-app) .md\:order-first {
+		order: -9999;
+	}
+	:is(#wcar-admin-app) .md\:order-last {
+		order: 9999;
+	}
+	:is(#wcar-admin-app) .md\:order-none {
+		order: 0;
+	}
+	:is(#wcar-admin-app) .md\:col-span-1 {
+		grid-column: span 1 / span 1;
+	}
+	:is(#wcar-admin-app) .md\:col-span-10 {
+		grid-column: span 10 / span 10;
+	}
+	:is(#wcar-admin-app) .md\:col-span-11 {
+		grid-column: span 11 / span 11;
+	}
+	:is(#wcar-admin-app) .md\:col-span-12 {
+		grid-column: span 12 / span 12;
+	}
+	:is(#wcar-admin-app) .md\:col-span-2 {
+		grid-column: span 2 / span 2;
+	}
+	:is(#wcar-admin-app) .md\:col-span-3 {
+		grid-column: span 3 / span 3;
+	}
+	:is(#wcar-admin-app) .md\:col-span-4 {
+		grid-column: span 4 / span 4;
+	}
+	:is(#wcar-admin-app) .md\:col-span-5 {
+		grid-column: span 5 / span 5;
+	}
+	:is(#wcar-admin-app) .md\:col-span-6 {
+		grid-column: span 6 / span 6;
+	}
+	:is(#wcar-admin-app) .md\:col-span-7 {
+		grid-column: span 7 / span 7;
+	}
+	:is(#wcar-admin-app) .md\:col-span-8 {
+		grid-column: span 8 / span 8;
+	}
+	:is(#wcar-admin-app) .md\:col-span-9 {
+		grid-column: span 9 / span 9;
+	}
+	:is(#wcar-admin-app) .md\:col-start-1 {
+		grid-column-start: 1;
+	}
+	:is(#wcar-admin-app) .md\:col-start-10 {
+		grid-column-start: 10;
+	}
+	:is(#wcar-admin-app) .md\:col-start-11 {
+		grid-column-start: 11;
+	}
+	:is(#wcar-admin-app) .md\:col-start-12 {
+		grid-column-start: 12;
+	}
+	:is(#wcar-admin-app) .md\:col-start-2 {
+		grid-column-start: 2;
+	}
+	:is(#wcar-admin-app) .md\:col-start-3 {
+		grid-column-start: 3;
+	}
+	:is(#wcar-admin-app) .md\:col-start-4 {
+		grid-column-start: 4;
+	}
+	:is(#wcar-admin-app) .md\:col-start-5 {
+		grid-column-start: 5;
+	}
+	:is(#wcar-admin-app) .md\:col-start-6 {
+		grid-column-start: 6;
+	}
+	:is(#wcar-admin-app) .md\:col-start-7 {
+		grid-column-start: 7;
+	}
+	:is(#wcar-admin-app) .md\:col-start-8 {
+		grid-column-start: 8;
+	}
+	:is(#wcar-admin-app) .md\:col-start-9 {
+		grid-column-start: 9;
+	}
+	:is(#wcar-admin-app) .md\:block {
+		display: block;
+	}
+	:is(#wcar-admin-app) .md\:hidden {
+		display: none;
+	}
+	:is(#wcar-admin-app) .md\:w-1\/10 {
+		width: 10%;
+	}
+	:is(#wcar-admin-app) .md\:w-1\/11 {
+		width: 9.0909091%;
+	}
+	:is(#wcar-admin-app) .md\:w-1\/12 {
+		width: 8.3333333%;
+	}
+	:is(#wcar-admin-app) .md\:w-1\/2 {
+		width: 50%;
+	}
+	:is(#wcar-admin-app) .md\:w-1\/3 {
+		width: 33.333333%;
+	}
+	:is(#wcar-admin-app) .md\:w-1\/4 {
+		width: 25%;
+	}
+	:is(#wcar-admin-app) .md\:w-1\/5 {
+		width: 20%;
+	}
+	:is(#wcar-admin-app) .md\:w-1\/6 {
+		width: 16.666667%;
+	}
+	:is(#wcar-admin-app) .md\:w-1\/7 {
+		width: 14.2857143%;
+	}
+	:is(#wcar-admin-app) .md\:w-1\/8 {
+		width: 12.5%;
+	}
+	:is(#wcar-admin-app) .md\:w-1\/9 {
+		width: 11.1111111%;
+	}
+	:is(#wcar-admin-app) .md\:w-4\/5 {
+		width: 80%;
+	}
+	:is(#wcar-admin-app) .md\:w-full {
+		width: 100%;
+	}
+	:is(#wcar-admin-app) .md\:shrink {
+		flex-shrink: 1;
+	}
+	:is(#wcar-admin-app) .md\:shrink-0 {
+		flex-shrink: 0;
+	}
+	:is(#wcar-admin-app) .md\:grow {
+		flex-grow: 1;
+	}
+	:is(#wcar-admin-app) .md\:grow-0 {
+		flex-grow: 0;
+	}
+	:is(#wcar-admin-app) .md\:grid-flow-row {
+		grid-auto-flow: row;
+	}
+	:is(#wcar-admin-app) .md\:grid-flow-col {
+		grid-auto-flow: column;
+	}
+	:is(#wcar-admin-app) .md\:grid-flow-row-dense {
+		grid-auto-flow: row dense;
+	}
+	:is(#wcar-admin-app) .md\:grid-flow-col-dense {
+		grid-auto-flow: column dense;
+	}
+	:is(#wcar-admin-app) .md\:grid-cols-1 {
+		grid-template-columns: repeat(1, minmax(0, 1fr));
+	}
+	:is(#wcar-admin-app) .md\:grid-cols-10 {
+		grid-template-columns: repeat(10, minmax(0, 1fr));
+	}
+	:is(#wcar-admin-app) .md\:grid-cols-11 {
+		grid-template-columns: repeat(11, minmax(0, 1fr));
+	}
+	:is(#wcar-admin-app) .md\:grid-cols-12 {
+		grid-template-columns: repeat(12, minmax(0, 1fr));
+	}
+	:is(#wcar-admin-app) .md\:grid-cols-2 {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+	:is(#wcar-admin-app) .md\:grid-cols-3 {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+	:is(#wcar-admin-app) .md\:grid-cols-4 {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+	:is(#wcar-admin-app) .md\:grid-cols-5 {
+		grid-template-columns: repeat(5, minmax(0, 1fr));
+	}
+	:is(#wcar-admin-app) .md\:grid-cols-6 {
+		grid-template-columns: repeat(6, minmax(0, 1fr));
+	}
+	:is(#wcar-admin-app) .md\:grid-cols-7 {
+		grid-template-columns: repeat(7, minmax(0, 1fr));
+	}
+	:is(#wcar-admin-app) .md\:grid-cols-8 {
+		grid-template-columns: repeat(8, minmax(0, 1fr));
+	}
+	:is(#wcar-admin-app) .md\:grid-cols-9 {
+		grid-template-columns: repeat(9, minmax(0, 1fr));
+	}
+	:is(#wcar-admin-app) .md\:flex-row {
+		flex-direction: row;
+	}
+	:is(#wcar-admin-app) .md\:flex-row-reverse {
+		flex-direction: row-reverse;
+	}
+	:is(#wcar-admin-app) .md\:flex-col {
+		flex-direction: column;
+	}
+	:is(#wcar-admin-app) .md\:flex-col-reverse {
+		flex-direction: column-reverse;
+	}
+	:is(#wcar-admin-app) .md\:flex-wrap {
+		flex-wrap: wrap;
+	}
+	:is(#wcar-admin-app) .md\:flex-wrap-reverse {
+		flex-wrap: wrap-reverse;
+	}
+	:is(#wcar-admin-app) .md\:flex-nowrap {
+		flex-wrap: nowrap;
+	}
+	:is(#wcar-admin-app) .md\:items-start {
+		align-items: flex-start;
+	}
+	:is(#wcar-admin-app) .md\:items-end {
+		align-items: flex-end;
+	}
+	:is(#wcar-admin-app) .md\:items-center {
+		align-items: center;
+	}
+	:is(#wcar-admin-app) .md\:items-baseline {
+		align-items: baseline;
+	}
+	:is(#wcar-admin-app) .md\:items-stretch {
+		align-items: stretch;
+	}
+	:is(#wcar-admin-app) .md\:justify-normal {
+		justify-content: normal;
+	}
+	:is(#wcar-admin-app) .md\:justify-start {
+		justify-content: flex-start;
+	}
+	:is(#wcar-admin-app) .md\:justify-end {
+		justify-content: flex-end;
+	}
+	:is(#wcar-admin-app) .md\:justify-center {
+		justify-content: center;
+	}
+	:is(#wcar-admin-app) .md\:justify-between {
+		justify-content: space-between;
+	}
+	:is(#wcar-admin-app) .md\:justify-around {
+		justify-content: space-around;
+	}
+	:is(#wcar-admin-app) .md\:justify-evenly {
+		justify-content: space-evenly;
+	}
+	:is(#wcar-admin-app) .md\:justify-stretch {
+		justify-content: stretch;
+	}
+	:is(#wcar-admin-app) .md\:gap-0 {
+		gap: 0px;
+	}
+	:is(#wcar-admin-app) .md\:gap-2 {
+		gap: 0.5rem;
+	}
+	:is(#wcar-admin-app) .md\:gap-4 {
+		gap: 1rem;
+	}
+	:is(#wcar-admin-app) .md\:gap-5 {
+		gap: 1.25rem;
+	}
+	:is(#wcar-admin-app) .md\:gap-6 {
+		gap: 1.5rem;
+	}
+	:is(#wcar-admin-app) .md\:gap-8 {
+		gap: 2rem;
+	}
+	:is(#wcar-admin-app) .md\:gap-x-2 {
+		column-gap: 0.5rem;
+	}
+	:is(#wcar-admin-app) .md\:gap-x-4 {
+		column-gap: 1rem;
+	}
+	:is(#wcar-admin-app) .md\:gap-x-5 {
+		column-gap: 1.25rem;
+	}
+	:is(#wcar-admin-app) .md\:gap-x-6 {
+		column-gap: 1.5rem;
+	}
+	:is(#wcar-admin-app) .md\:gap-x-8 {
+		column-gap: 2rem;
+	}
+	:is(#wcar-admin-app) .md\:gap-y-2 {
+		row-gap: 0.5rem;
+	}
+	:is(#wcar-admin-app) .md\:gap-y-4 {
+		row-gap: 1rem;
+	}
+	:is(#wcar-admin-app) .md\:gap-y-5 {
+		row-gap: 1.25rem;
+	}
+	:is(#wcar-admin-app) .md\:gap-y-6 {
+		row-gap: 1.5rem;
+	}
+	:is(#wcar-admin-app) .md\:gap-y-8 {
+		row-gap: 2rem;
+	}
+	:is(#wcar-admin-app) :is(.md\:space-x-1 > :not([hidden]) ~ :not([hidden])) {
+		--tw-space-x-reverse: 0;
+		margin-right: calc(0.25rem * var(--tw-space-x-reverse));
+		margin-left: calc(0.25rem * calc(1 - var(--tw-space-x-reverse)));
+	}
+	:is(#wcar-admin-app) .md\:self-start {
+		align-self: flex-start;
+	}
+	:is(#wcar-admin-app) .md\:self-end {
+		align-self: flex-end;
+	}
+	:is(#wcar-admin-app) .md\:self-center {
+		align-self: center;
+	}
+	:is(#wcar-admin-app) .md\:self-stretch {
+		align-self: stretch;
+	}
+	:is(#wcar-admin-app) .md\:self-baseline {
+		align-self: baseline;
+	}
+	:is(#wcar-admin-app) .md\:justify-self-auto {
+		justify-self: auto;
+	}
+	:is(#wcar-admin-app) .md\:justify-self-start {
+		justify-self: start;
+	}
+	:is(#wcar-admin-app) .md\:justify-self-end {
+		justify-self: end;
+	}
+	:is(#wcar-admin-app) .md\:justify-self-center {
+		justify-self: center;
+	}
+	:is(#wcar-admin-app) .md\:justify-self-stretch {
+		justify-self: stretch;
+	}
+	:is(#wcar-admin-app) .md\:p-8 {
+		padding: 2rem;
+	}
+	:is(#wcar-admin-app) .md\:pl-3 {
+		padding-left: 0.75rem;
+	}
+}
+
+@media (min-width: 1024px) {
+	:is(#wcar-admin-app) .lg\:top-4 {
+		top: 1rem;
+	}
+	:is(#wcar-admin-app) .lg\:order-1 {
+		order: 1;
+	}
+	:is(#wcar-admin-app) .lg\:order-10 {
+		order: 10;
+	}
+	:is(#wcar-admin-app) .lg\:order-11 {
+		order: 11;
+	}
+	:is(#wcar-admin-app) .lg\:order-12 {
+		order: 12;
+	}
+	:is(#wcar-admin-app) .lg\:order-2 {
+		order: 2;
+	}
+	:is(#wcar-admin-app) .lg\:order-3 {
+		order: 3;
+	}
+	:is(#wcar-admin-app) .lg\:order-4 {
+		order: 4;
+	}
+	:is(#wcar-admin-app) .lg\:order-5 {
+		order: 5;
+	}
+	:is(#wcar-admin-app) .lg\:order-6 {
+		order: 6;
+	}
+	:is(#wcar-admin-app) .lg\:order-7 {
+		order: 7;
+	}
+	:is(#wcar-admin-app) .lg\:order-8 {
+		order: 8;
+	}
+	:is(#wcar-admin-app) .lg\:order-9 {
+		order: 9;
+	}
+	:is(#wcar-admin-app) .lg\:order-first {
+		order: -9999;
+	}
+	:is(#wcar-admin-app) .lg\:order-last {
+		order: 9999;
+	}
+	:is(#wcar-admin-app) .lg\:order-none {
+		order: 0;
+	}
+	:is(#wcar-admin-app) .lg\:col-span-1 {
+		grid-column: span 1 / span 1;
+	}
+	:is(#wcar-admin-app) .lg\:col-span-10 {
+		grid-column: span 10 / span 10;
+	}
+	:is(#wcar-admin-app) .lg\:col-span-11 {
+		grid-column: span 11 / span 11;
+	}
+	:is(#wcar-admin-app) .lg\:col-span-12 {
+		grid-column: span 12 / span 12;
+	}
+	:is(#wcar-admin-app) .lg\:col-span-2 {
+		grid-column: span 2 / span 2;
+	}
+	:is(#wcar-admin-app) .lg\:col-span-3 {
+		grid-column: span 3 / span 3;
+	}
+	:is(#wcar-admin-app) .lg\:col-span-4 {
+		grid-column: span 4 / span 4;
+	}
+	:is(#wcar-admin-app) .lg\:col-span-5 {
+		grid-column: span 5 / span 5;
+	}
+	:is(#wcar-admin-app) .lg\:col-span-6 {
+		grid-column: span 6 / span 6;
+	}
+	:is(#wcar-admin-app) .lg\:col-span-7 {
+		grid-column: span 7 / span 7;
+	}
+	:is(#wcar-admin-app) .lg\:col-span-8 {
+		grid-column: span 8 / span 8;
+	}
+	:is(#wcar-admin-app) .lg\:col-span-9 {
+		grid-column: span 9 / span 9;
+	}
+	:is(#wcar-admin-app) .lg\:col-start-1 {
+		grid-column-start: 1;
+	}
+	:is(#wcar-admin-app) .lg\:col-start-10 {
+		grid-column-start: 10;
+	}
+	:is(#wcar-admin-app) .lg\:col-start-11 {
+		grid-column-start: 11;
+	}
+	:is(#wcar-admin-app) .lg\:col-start-12 {
+		grid-column-start: 12;
+	}
+	:is(#wcar-admin-app) .lg\:col-start-2 {
+		grid-column-start: 2;
+	}
+	:is(#wcar-admin-app) .lg\:col-start-3 {
+		grid-column-start: 3;
+	}
+	:is(#wcar-admin-app) .lg\:col-start-4 {
+		grid-column-start: 4;
+	}
+	:is(#wcar-admin-app) .lg\:col-start-5 {
+		grid-column-start: 5;
+	}
+	:is(#wcar-admin-app) .lg\:col-start-6 {
+		grid-column-start: 6;
+	}
+	:is(#wcar-admin-app) .lg\:col-start-7 {
+		grid-column-start: 7;
+	}
+	:is(#wcar-admin-app) .lg\:col-start-8 {
+		grid-column-start: 8;
+	}
+	:is(#wcar-admin-app) .lg\:col-start-9 {
+		grid-column-start: 9;
+	}
+	:is(#wcar-admin-app) .lg\:block {
+		display: block;
+	}
+	:is(#wcar-admin-app) .lg\:flex {
+		display: flex;
+	}
+	:is(#wcar-admin-app) .lg\:hidden {
+		display: none;
+	}
+	:is(#wcar-admin-app) .lg\:w-1\/10 {
+		width: 10%;
+	}
+	:is(#wcar-admin-app) .lg\:w-1\/11 {
+		width: 9.0909091%;
+	}
+	:is(#wcar-admin-app) .lg\:w-1\/12 {
+		width: 8.3333333%;
+	}
+	:is(#wcar-admin-app) .lg\:w-1\/2 {
+		width: 50%;
+	}
+	:is(#wcar-admin-app) .lg\:w-1\/3 {
+		width: 33.333333%;
+	}
+	:is(#wcar-admin-app) .lg\:w-1\/4 {
+		width: 25%;
+	}
+	:is(#wcar-admin-app) .lg\:w-1\/5 {
+		width: 20%;
+	}
+	:is(#wcar-admin-app) .lg\:w-1\/6 {
+		width: 16.666667%;
+	}
+	:is(#wcar-admin-app) .lg\:w-1\/7 {
+		width: 14.2857143%;
+	}
+	:is(#wcar-admin-app) .lg\:w-1\/8 {
+		width: 12.5%;
+	}
+	:is(#wcar-admin-app) .lg\:w-1\/9 {
+		width: 11.1111111%;
+	}
+	:is(#wcar-admin-app) .lg\:w-2\/5 {
+		width: 40%;
+	}
+	:is(#wcar-admin-app) .lg\:w-52 {
+		width: 13rem;
+	}
+	:is(#wcar-admin-app) .lg\:w-64 {
+		width: 16rem;
+	}
+	:is(#wcar-admin-app) .lg\:w-\[47\.5rem\] {
+		width: 47.5rem;
+	}
+	:is(#wcar-admin-app) .lg\:w-auto {
+		width: auto;
+	}
+	:is(#wcar-admin-app) .lg\:w-full {
+		width: 100%;
+	}
+	:is(#wcar-admin-app) .lg\:shrink {
+		flex-shrink: 1;
+	}
+	:is(#wcar-admin-app) .lg\:shrink-0 {
+		flex-shrink: 0;
+	}
+	:is(#wcar-admin-app) .lg\:grow {
+		flex-grow: 1;
+	}
+	:is(#wcar-admin-app) .lg\:grow-0 {
+		flex-grow: 0;
+	}
+	:is(#wcar-admin-app) .lg\:grid-flow-row {
+		grid-auto-flow: row;
+	}
+	:is(#wcar-admin-app) .lg\:grid-flow-col {
+		grid-auto-flow: column;
+	}
+	:is(#wcar-admin-app) .lg\:grid-flow-row-dense {
+		grid-auto-flow: row dense;
+	}
+	:is(#wcar-admin-app) .lg\:grid-flow-col-dense {
+		grid-auto-flow: column dense;
+	}
+	:is(#wcar-admin-app) .lg\:grid-cols-1 {
+		grid-template-columns: repeat(1, minmax(0, 1fr));
+	}
+	:is(#wcar-admin-app) .lg\:grid-cols-10 {
+		grid-template-columns: repeat(10, minmax(0, 1fr));
+	}
+	:is(#wcar-admin-app) .lg\:grid-cols-11 {
+		grid-template-columns: repeat(11, minmax(0, 1fr));
+	}
+	:is(#wcar-admin-app) .lg\:grid-cols-12 {
+		grid-template-columns: repeat(12, minmax(0, 1fr));
+	}
+	:is(#wcar-admin-app) .lg\:grid-cols-2 {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+	:is(#wcar-admin-app) .lg\:grid-cols-3 {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+	:is(#wcar-admin-app) .lg\:grid-cols-4 {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+	:is(#wcar-admin-app) .lg\:grid-cols-5 {
+		grid-template-columns: repeat(5, minmax(0, 1fr));
+	}
+	:is(#wcar-admin-app) .lg\:grid-cols-6 {
+		grid-template-columns: repeat(6, minmax(0, 1fr));
+	}
+	:is(#wcar-admin-app) .lg\:grid-cols-7 {
+		grid-template-columns: repeat(7, minmax(0, 1fr));
+	}
+	:is(#wcar-admin-app) .lg\:grid-cols-8 {
+		grid-template-columns: repeat(8, minmax(0, 1fr));
+	}
+	:is(#wcar-admin-app) .lg\:grid-cols-9 {
+		grid-template-columns: repeat(9, minmax(0, 1fr));
+	}
+	:is(#wcar-admin-app) .lg\:flex-row {
+		flex-direction: row;
+	}
+	:is(#wcar-admin-app) .lg\:flex-row-reverse {
+		flex-direction: row-reverse;
+	}
+	:is(#wcar-admin-app) .lg\:flex-col {
+		flex-direction: column;
+	}
+	:is(#wcar-admin-app) .lg\:flex-col-reverse {
+		flex-direction: column-reverse;
+	}
+	:is(#wcar-admin-app) .lg\:flex-wrap {
+		flex-wrap: wrap;
+	}
+	:is(#wcar-admin-app) .lg\:flex-wrap-reverse {
+		flex-wrap: wrap-reverse;
+	}
+	:is(#wcar-admin-app) .lg\:flex-nowrap {
+		flex-wrap: nowrap;
+	}
+	:is(#wcar-admin-app) .lg\:items-start {
+		align-items: flex-start;
+	}
+	:is(#wcar-admin-app) .lg\:items-end {
+		align-items: flex-end;
+	}
+	:is(#wcar-admin-app) .lg\:items-center {
+		align-items: center;
+	}
+	:is(#wcar-admin-app) .lg\:items-baseline {
+		align-items: baseline;
+	}
+	:is(#wcar-admin-app) .lg\:items-stretch {
+		align-items: stretch;
+	}
+	:is(#wcar-admin-app) .lg\:justify-normal {
+		justify-content: normal;
+	}
+	:is(#wcar-admin-app) .lg\:justify-start {
+		justify-content: flex-start;
+	}
+	:is(#wcar-admin-app) .lg\:justify-end {
+		justify-content: flex-end;
+	}
+	:is(#wcar-admin-app) .lg\:justify-center {
+		justify-content: center;
+	}
+	:is(#wcar-admin-app) .lg\:justify-between {
+		justify-content: space-between;
+	}
+	:is(#wcar-admin-app) .lg\:justify-around {
+		justify-content: space-around;
+	}
+	:is(#wcar-admin-app) .lg\:justify-evenly {
+		justify-content: space-evenly;
+	}
+	:is(#wcar-admin-app) .lg\:justify-stretch {
+		justify-content: stretch;
+	}
+	:is(#wcar-admin-app) .lg\:gap-2 {
+		gap: 0.5rem;
+	}
+	:is(#wcar-admin-app) .lg\:gap-4 {
+		gap: 1rem;
+	}
+	:is(#wcar-admin-app) .lg\:gap-5 {
+		gap: 1.25rem;
+	}
+	:is(#wcar-admin-app) .lg\:gap-6 {
+		gap: 1.5rem;
+	}
+	:is(#wcar-admin-app) .lg\:gap-8 {
+		gap: 2rem;
+	}
+	:is(#wcar-admin-app) .lg\:gap-x-2 {
+		column-gap: 0.5rem;
+	}
+	:is(#wcar-admin-app) .lg\:gap-x-4 {
+		column-gap: 1rem;
+	}
+	:is(#wcar-admin-app) .lg\:gap-x-5 {
+		column-gap: 1.25rem;
+	}
+	:is(#wcar-admin-app) .lg\:gap-x-6 {
+		column-gap: 1.5rem;
+	}
+	:is(#wcar-admin-app) .lg\:gap-x-8 {
+		column-gap: 2rem;
+	}
+	:is(#wcar-admin-app) .lg\:gap-y-2 {
+		row-gap: 0.5rem;
+	}
+	:is(#wcar-admin-app) .lg\:gap-y-4 {
+		row-gap: 1rem;
+	}
+	:is(#wcar-admin-app) .lg\:gap-y-5 {
+		row-gap: 1.25rem;
+	}
+	:is(#wcar-admin-app) .lg\:gap-y-6 {
+		row-gap: 1.5rem;
+	}
+	:is(#wcar-admin-app) .lg\:gap-y-8 {
+		row-gap: 2rem;
+	}
+	:is(#wcar-admin-app) .lg\:self-start {
+		align-self: flex-start;
+	}
+	:is(#wcar-admin-app) .lg\:self-end {
+		align-self: flex-end;
+	}
+	:is(#wcar-admin-app) .lg\:self-center {
+		align-self: center;
+	}
+	:is(#wcar-admin-app) .lg\:self-stretch {
+		align-self: stretch;
+	}
+	:is(#wcar-admin-app) .lg\:self-baseline {
+		align-self: baseline;
+	}
+	:is(#wcar-admin-app) .lg\:justify-self-auto {
+		justify-self: auto;
+	}
+	:is(#wcar-admin-app) .lg\:justify-self-start {
+		justify-self: start;
+	}
+	:is(#wcar-admin-app) .lg\:justify-self-end {
+		justify-self: end;
+	}
+	:is(#wcar-admin-app) .lg\:justify-self-center {
+		justify-self: center;
+	}
+	:is(#wcar-admin-app) .lg\:justify-self-stretch {
+		justify-self: stretch;
+	}
+	:is(#wcar-admin-app) .lg\:border {
+		border-width: 1px;
+	}
+	:is(#wcar-admin-app) .lg\:border-solid {
+		border-style: solid;
+	}
+	:is(#wcar-admin-app) .lg\:border-flamingo-400 {
+		--tw-border-opacity: 1;
+		border-color: rgb(240 100 52 / var(--tw-border-opacity, 1));
+	}
+	:is(#wcar-admin-app) .lg\:p-4 {
+		padding: 1rem;
+	}
+}
+
+@media (min-width: 1280px) {
+	:is(#wcar-admin-app) .xl\:grid-cols-6 {
+		grid-template-columns: repeat(6, minmax(0, 1fr));
+	}
+	:is(#wcar-admin-app) .xl\:flex-row {
+		flex-direction: row;
+	}
+}
+
+:is(#wcar-admin-app) .rtl\:right-1:where([dir="rtl"], [dir="rtl"] *) {
+	right: 0.25rem;
+}
+
+:is(#wcar-admin-app) .rtl\:right-2\/4:where([dir="rtl"], [dir="rtl"] *) {
+	right: 50%;
+}
+
+:is(#wcar-admin-app) .rtl\:before\:right-2\/4:where([dir="rtl"], [dir="rtl"] *)::before {
+	content: var(--tw-content);
+	right: 50%;
+}
+
+:is(#wcar-admin-app) :is(.group\/switch:focus-within .rtl\:group-focus-within\/switch\:right-0\.5:where([dir="rtl"], [dir="rtl"] *)) {
+	right: 0.125rem;
+}
+
+:is(#wcar-admin-app) :is(.group\/switch:hover .rtl\:group-hover\/switch\:right-0:where([dir="rtl"], [dir="rtl"] *)) {
+	right: 0px;
+}
+
+:is(#wcar-admin-app) :is(.group\/switch:hover .rtl\:group-hover\/switch\:right-0\.5:where([dir="rtl"], [dir="rtl"] *)) {
+	right: 0.125rem;
+}
+
+:is(#wcar-admin-app) .\[\&\:hover\:has\(\:disabled\)\]\:outline-field-border-disabled:hover:has(:disabled) {
+	outline-color: #F3F4F6;
+}
+
+:is(#wcar-admin-app) .\[\&\:hover\:not\(\:focus\)\:not\(\:disabled\)\]\:outline-border-strong:hover:not(:focus):not(:disabled) {
+	outline-color: #6B7280;
+}
+
+:is(#wcar-admin-app) .\[\&\:is\(\[data-hover\=true\]\)\]\:rounded-none:is([data-hover=true]) {
+	border-radius: 0px;
+}
+
+:is(#wcar-admin-app) .\[\&\:is\(\[data-hover\=true\]\)\]\:bg-brand-background-50:is([data-hover=true]) {
+	--tw-bg-opacity: 1;
+	background-color: rgb(254 244 238 / var(--tw-bg-opacity, 1));
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>\*\:not\(svg\)\]\:m-0>*:not(svg)) {
+	margin: 0px;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>\*\:not\(svg\)\]\:m-1>*:not(svg)) {
+	margin: 0.25rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>\*\:not\(svg\)\]\:mx-1>*:not(svg)) {
+	margin-left: 0.25rem;
+	margin-right: 0.25rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>\*\:not\(svg\)\]\:my-0\.5>*:not(svg)) {
+	margin-top: 0.125rem;
+	margin-bottom: 0.125rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>\*\]\:box-border>*) {
+	box-sizing: border-box;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>\*\]\:text-2xl>*) {
+	font-size: 1.5rem;
+	line-height: 2rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>\*\]\:text-base>*) {
+	font-size: 1rem;
+	line-height: 1.5rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>\*\]\:text-lg>*) {
+	font-size: 1.125rem;
+	line-height: 1.75rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>\*\]\:text-sm>*) {
+	font-size: 0.875rem;
+	line-height: 1.25rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>\*\]\:text-xl>*) {
+	font-size: 1.25rem;
+	line-height: 1.75rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>\*\]\:text-xs>*) {
+	font-size: 0.75rem;
+	line-height: 1rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>\*\]\:text-field-color-disabled>*) {
+	--tw-text-opacity: 1;
+	color: rgb(189 193 199 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>\*\]\:text-field-helper>*) {
+	--tw-text-opacity: 1;
+	color: rgb(107 114 128 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>\*\]\:text-field-label>*) {
+	--tw-text-opacity: 1;
+	color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>\*\]\:text-gray-900>*) {
+	--tw-text-opacity: 1;
+	color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>\*\]\:text-support-error>*) {
+	--tw-text-opacity: 1;
+	color: rgb(220 38 38 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) :is(.focus\:\[\&\>input\]\:ring-focus>input:focus) {
+	--tw-ring-opacity: 1;
+	--tw-ring-color: rgb(240 100 52 / var(--tw-ring-opacity, 1));
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>li\]\:pointer-events-auto>li) {
+	pointer-events: auto;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>p\]\:m-0>p) {
+	margin: 0px;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>p\]\:w-full>p) {
+	width: 100%;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>span\:first-child\]\:shrink-0>span:first-child) {
+	flex-shrink: 0;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>span\]\:flex>span) {
+	display: flex;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>span\]\:items-center>span) {
+	align-items: center;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>svg\]\:m-1>svg) {
+	margin: 0.25rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>svg\]\:m-1\.5>svg) {
+	margin: 0.375rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>svg\]\:block>svg) {
+	display: block;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>svg\]\:size-12>svg) {
+	width: 3rem;
+	height: 3rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>svg\]\:size-3>svg) {
+	width: 0.75rem;
+	height: 0.75rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>svg\]\:size-3\.5>svg) {
+	width: 0.875rem;
+	height: 0.875rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>svg\]\:size-4>svg) {
+	width: 1rem;
+	height: 1rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>svg\]\:size-5>svg) {
+	width: 1.25rem;
+	height: 1.25rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>svg\]\:size-6>svg) {
+	width: 1.5rem;
+	height: 1.5rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>svg\]\:size-8>svg) {
+	width: 2rem;
+	height: 2rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>svg\]\:h-3>svg) {
+	height: 0.75rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>svg\]\:h-4>svg) {
+	height: 1rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>svg\]\:h-5>svg) {
+	height: 1.25rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>svg\]\:w-3>svg) {
+	width: 0.75rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>svg\]\:w-4>svg) {
+	width: 1rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>svg\]\:w-5>svg) {
+	width: 1.25rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>svg\]\:shrink-0>svg) {
+	flex-shrink: 0;
+}
+
+:is(#wcar-admin-app) :is(.\[\&\>svg\]\:text-icon-interactive>svg) {
+	--tw-text-opacity: 1;
+	color: rgb(240 100 52 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) :is(.\[\&_\*\]\:box-border *) {
+	box-sizing: border-box;
+}
+
+:is(#wcar-admin-app) :is(.\[\&_\*\]\:text-sm *) {
+	font-size: 0.875rem;
+	line-height: 1.25rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&_\*\]\:leading-5 *) {
+	line-height: 1.25rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&_\.editor-content\>p\]\:min-h-5 .editor-content>p) {
+	min-height: 1.25rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&_\.editor-content\>p\]\:min-h-6 .editor-content>p) {
+	min-height: 1.5rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&_\.editor-content\>p\]\:min-h-7 .editor-content>p) {
+	min-height: 1.75rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&_\.editor-content\>p\]\:content-center .editor-content>p) {
+	align-content: center;
+}
+
+:is(#wcar-admin-app) :is(.\[\&_\.editor-content\>p\]\:text-base .editor-content>p) {
+	font-size: 1rem;
+	line-height: 1.5rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&_\.editor-content\>p\]\:text-sm .editor-content>p) {
+	font-size: 0.875rem;
+	line-height: 1.25rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&_\.editor-content\>p\]\:text-xs .editor-content>p) {
+	font-size: 0.75rem;
+	line-height: 1rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&_\.editor-content\>p\]\:font-normal .editor-content>p) {
+	font-weight: 400;
+}
+
+:is(#wcar-admin-app) :is(.\[\&_\.pointer-events-none\]\:text-base .pointer-events-none) {
+	font-size: 1rem;
+	line-height: 1.5rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&_\.pointer-events-none\]\:text-sm .pointer-events-none) {
+	font-size: 0.875rem;
+	line-height: 1.25rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&_\.pointer-events-none\]\:text-xs .pointer-events-none) {
+	font-size: 0.75rem;
+	line-height: 1rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&_\.pointer-events-none\]\:font-normal .pointer-events-none) {
+	font-weight: 400;
+}
+
+:is(#wcar-admin-app) :is(.\[\&_h2\]\:text-gray-900 h2) {
+	--tw-text-opacity: 1;
+	color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) :is(.\[\&_h4\]\:text-gray-900 h4) {
+	--tw-text-opacity: 1;
+	color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) :is(.\[\&_p\]\:m-0 p) {
+	margin: 0px;
+}
+
+:is(#wcar-admin-app) :is(.\[\&_p\]\:\!text-gray-600 p) {
+	--tw-text-opacity: 1 !important;
+	color: rgb(75 85 99 / var(--tw-text-opacity, 1)) !important;
+}
+
+:is(#wcar-admin-app) :is(.\[\&_p\]\:text-badge-color-disabled p) {
+	--tw-text-opacity: 1;
+	color: rgb(189 193 199 / var(--tw-text-opacity, 1));
+}
+
+:is(#wcar-admin-app) :is(.\[\&_span\]\:hidden span) {
+	display: none;
+}
+
+:is(#wcar-admin-app) :is(.\[\&_svg\]\:size-3 svg) {
+	width: 0.75rem;
+	height: 0.75rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&_svg\]\:size-4 svg) {
+	width: 1rem;
+	height: 1rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&_svg\]\:size-5 svg) {
+	width: 1.25rem;
+	height: 1.25rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&_svg\]\:size-6 svg) {
+	width: 1.5rem;
+	height: 1.5rem;
+}
+
+:is(#wcar-admin-app) :is(.\[\&_svg\]\:text-text-secondary svg) {
+	--tw-text-opacity: 1;
+	color: rgb(107 114 128 / var(--tw-text-opacity, 1));
+}
+

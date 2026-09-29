@@ -1,0 +1,93 @@
+<?php
+/**
+ * Style - 5
+ * image with content slider
+ *
+ * @package Click_To_Chat
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+$s5_options = get_option( 'ht_ctc_s5' );
+$s5_options = apply_filters( 'ht_ctc_fh_s5_options', $s5_options );
+
+$s5_line_1           = isset( $s5_options['s5_line_1'] ) ? esc_attr( $s5_options['s5_line_1'] ) : '';
+$s5_line_2           = isset( $s5_options['s5_line_2'] ) ? esc_attr( $s5_options['s5_line_2'] ) : '';
+$s5_line_1_color     = isset( $s5_options['s5_line_1_color'] ) ? esc_attr( $s5_options['s5_line_1_color'] ) : '#000000';
+$s5_line_2_color     = isset( $s5_options['s5_line_2_color'] ) ? esc_attr( $s5_options['s5_line_2_color'] ) : '#000000';
+$s5_background_color = isset( $s5_options['s5_background_color'] ) ? esc_attr( $s5_options['s5_background_color'] ) : '#ffffff';
+$s5_border_color     = isset( $s5_options['s5_border_color'] ) ? esc_attr( $s5_options['s5_border_color'] ) : '#dddddd';
+$s5_img              = isset( $s5_options['s5_img'] ) ? esc_attr( $s5_options['s5_img'] ) : '';
+$s5_img_height       = isset( $s5_options['s5_img_height'] ) ? esc_attr( $s5_options['s5_img_height'] ) : '70px';
+$s5_img_width        = isset( $s5_options['s5_img_width'] ) ? esc_attr( $s5_options['s5_img_width'] ) : '70px';
+$s5_content_height   = isset( $s5_options['s5_content_height'] ) ? esc_attr( $s5_options['s5_content_height'] ) : '70px';
+$s5_content_width    = isset( $s5_options['s5_content_width'] ) ? esc_attr( $s5_options['s5_content_width'] ) : '270px';
+$s5_img_position     = isset( $s5_options['s5_img_position'] ) ? esc_attr( $s5_options['s5_img_position'] ) : 'right';
+
+// calling from parent page
+$call_to_action = isset( $call_to_action ) ? $call_to_action : '';
+
+
+// if its came from woo page..
+if ( isset( $calling_from ) && 'woo_page' === $calling_from ) {
+	$s5_img_position = 'left';
+}
+
+// default image - if user not added any image
+if ( '' === $s5_img ) {
+	$s5_img = plugins_url( './new/inc/assets/img/new_style8.jpg', HT_CTC_PLUGIN_FILE );
+}
+
+if ( '' === $s5_line_1 ) {
+	$s5_line_1 = $call_to_action;
+}
+
+$rtl_css = '';
+if ( function_exists( 'is_rtl' ) && is_rtl() ) {
+	$rtl_css = 'flex-direction:row-reverse;';
+}
+
+$s5_cta_style = "display: -ms-flexbox;display: -webkit-flex; display: flex;$rtl_css ";
+
+
+$s5_img_style = '';
+// padding:0;
+$s5_img_style .= 'height: ' . $s5_img_height . '; width: ' . $s5_img_width . '; z-index: 1; ';
+if ( 'right' === $s5_img_position ) {
+	$s5_img_style .= 'order: 1;';
+}
+
+$s5_content_style  = '';
+$s5_content_style .= 'flex-direction: column; justify-content: center; align-items: center; box-sizing: border-box;';
+$s5_content_style .= ' background-color: ' . $s5_background_color . '; border: 1px solid ' . $s5_border_color . '; height: ' . $s5_content_height . '; width: ' . $s5_content_width . ';  ';
+if ( 'right' === $s5_img_position ) {
+	$s5_content_style .= 'margin-right: -4px;';
+} elseif ( 'left' === $s5_img_position ) {
+	$s5_content_style .= 'margin-left: -4px;';
+}
+
+$s5_css_code = '
+.ht-ctc-style-5 .s5_img{box-shadow:2px 5px 10px rgba(0,0,0,.5)}.ht-ctc-style-5 .s5_content{box-shadow:2px 5px 10px rgba(0,0,0,.5);border-radius:5px}.ht-ctc-style-5 .s5_content span{padding:5px;overflow:hidden}.ht-ctc-style-5 .s5_content .heading{font-size:20px}.ht-ctc-style-5 .s5_content .description{font-size:12px}.ht-ctc-style-5 .s5_content.right{animation:1s s5_translate_right}.ht-ctc-style-5 .s5_content.left{animation:1s s5_translate_left}@keyframes s5_translate_right{0%{transform:translateX(55px)}100%{transform:translateX(0)}}@keyframes s5_translate_left{0%{transform:translateX(-55px)}100%{transform:translateX(0)}}
+';
+
+// Output CSS
+$o = '.ht-ctc-style-5 .s5_content{display:none}.ht-ctc-style-5 .s5_cta:hover .s5_content{display:flex}' . $s5_css_code;
+?>
+<style>
+<?php echo esc_html( $o ); ?>
+</style>
+
+<div class="ht-ctc-style-5 ctc-analytics ctc_s_5" style="cursor: pointer;" >
+
+	<div class="s5_cta" style="<?php echo esc_attr( $s5_cta_style ); ?>"   >
+		<img class="s5_img ctc-analytics" src="<?php echo esc_url( $s5_img ); ?>" style="<?php echo esc_attr( $s5_img_style ); ?>" alt="<?php echo esc_attr( $call_to_action ); ?>">
+		<div class="s5_content ctc-analytics ctc_cta_stick <?php echo esc_attr( $s5_img_position ); ?>" style="<?php echo esc_attr( $s5_content_style ); ?>" >
+			<span class="heading ctc-analytics ctc_cta" style="color: <?php echo esc_attr( $s5_line_1_color ); ?>"><?php echo esc_html( $s5_line_1 ); ?></span>
+			<span class="description ctc-analytics" style="color: <?php echo esc_attr( $s5_line_2_color ); ?>"><?php echo esc_html( $s5_line_2 ); ?></span>
+		</div>
+	</div>
+
+</div>
+

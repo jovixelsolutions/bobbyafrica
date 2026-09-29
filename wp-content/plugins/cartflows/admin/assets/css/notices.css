@@ -1,0 +1,238 @@
+.wcf-notice .wcf-notice-container {
+	display: flex;
+	padding: 10px 0 10px 0;
+}
+
+.wcf-notice .wcf-notice-container img {
+	align-self: center;
+	width: 7%;
+	border-radius: 50%;
+}
+
+.wcf-notice .wcf-notice-container .wcf-notice-message {
+	margin-left: 10px;
+}
+
+.wcf-notice .wcf-notice-container .wcf-notice-heading {
+	font-size: 15px;
+	font-weight: 500;
+}
+
+.wcf-notice .wcf-notice-container .wcf-notice-description {
+	font-size: 14px;
+}
+
+/* Notice slider changes */
+
+.slide-wrapper.gap-2.border-l-4.border.border-yellow-400.rounded-lg.bg-yellow-50.p-3 {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.wcf-notices-wrapper {
+	margin-bottom: 2rem;
+	width: 100%;
+	display: inline-block;
+}
+
+.wcf-notices-wrapper .wcf-payment-gateway-notice--icon {
+	display: flex;
+	width: auto;
+	max-width: 25px;
+	float: left;
+}
+.wcf-payment-gateway-notice--text {
+	display: flex;
+	margin-left: 6px;
+}
+
+.wcf-notices-wrapper .slider-container {
+	display: inline-block;
+	position: relative;
+	width: 100%;
+}
+
+.wcf-notices-wrapper.slide img {
+	width: 100%;
+	height: auto;
+	border-radius: 10px;
+}
+
+.wcf-notices-wrapper .slider-button {
+	color: #a16207;
+	cursor: pointer;
+	font-size: 18px;
+	font-weight: 400;
+	margin: 0 3px 0 3px;
+}
+
+.wcf-notices-wrapper .slider-dots {
+	width: 5%;
+	display: flex;
+	justify-content: flex-end;
+}
+.wcf-notices-wrapper .slider-button svg {
+	width: 1.5rem;
+	height: auto;
+}
+
+.wcf-notices-wrapper .slider-button.disabled {
+	color: #cccfff; /* Change this color as desired */
+	cursor: not-allowed;
+}
+.wcf-payment-gateway-notice--text a:hover {
+	color: #a16207;
+}
+.wcf-payment-gateway-notice--text .font-medium {
+	font-weight: 500;
+}
+.wcf-payment-gateway-notice--text .text-yellow-700 {
+	--tw-text-opacity: 1;
+	color: rgb( 161 98 7 / var( --tw-text-opacity ) );
+}
+.wcf-payment-gateway-notice--text .underline {
+	text-decoration-line: underline;
+}
+.wcf-payment-gateway-notice--text .capitalize {
+	text-transform: capitalize;
+}
+.wcf-notices-wrapper .slide {
+	transition: opacity 0.4s ease-in-out;
+	display: flex;
+	width: 95%;
+	align-items: flex-start;
+}
+.wcf-notices-wrapper .fade-in {
+	opacity: 1;
+}
+
+.wcf-notices-wrapper .fade-out {
+	opacity: 0;
+}
+
+/**
+ * Reusable admin notice styling.
+ *
+ * Apply by adding `cartflows-admin-notice` to the `class` arg of
+ * `Astra_Notices::add_notice()`. The notice `message` HTML must follow this
+ * contract:
+ *
+ *   <div class="notice-image"><img class="custom-logo" /></div>
+ *   <div class="notice-content">
+ *     <div class="notice-heading">…</div>
+ *     <div class="notice-description">…</div>
+ *     <div class="astra-review-notice-container">
+ *       <a class="astra-review-notice button-primary">Primary</a>
+ *       <a class="astra-review-notice">Secondary</a>
+ *       <a class="astra-notice-close astra-review-notice">Dismiss link</a>
+ *     </div>
+ *   </div>
+ *
+ * Theme by overriding the `--cf-notice-accent*` variables on the wrapper, or
+ * apply one of the modifier classes declared at the bottom of this block.
+ */
+.cartflows-admin-notice {
+	--cf-notice-accent: #f06434;
+	--cf-notice-accent-bg: #fef1ec;
+	--cf-notice-heading: #1f2937;
+	--cf-notice-description: #4b5563;
+
+	border-left-color: var( --cf-notice-accent );
+	border-left-width: 4px !important;
+	border-top-width: 0;
+	border-right-width: 0;
+	border-bottom-width: 0;
+	padding: 0;
+}
+
+.cartflows-admin-notice .notice-image {
+	background-color: var( --cf-notice-accent-bg );
+	padding: 14px;
+}
+
+.cartflows-admin-notice .astra-notice-container {
+	padding: 0;
+	align-items: unset;
+}
+
+.cartflows-admin-notice img.custom-logo {
+	width: 48px;
+}
+
+.cartflows-admin-notice .astra-review-notice-container {
+	padding-top: 16px;
+	gap: 12px;
+}
+
+.cartflows-admin-notice .notice-content {
+	font-size: 16px;
+	line-height: 24px;
+	padding: 16px;
+	margin: 0 !important;
+	color: var( --cf-notice-heading );
+}
+
+.cartflows-admin-notice .notice-heading {
+	margin-bottom: 8px;
+	padding-bottom: 0 !important;
+	font-weight: 500;
+}
+
+.cartflows-admin-notice .notice-description {
+	font-size: 14px;
+	color: var( --cf-notice-description );
+	font-weight: 400;
+}
+
+.cartflows-admin-notice .astra-review-notice.button-primary {
+	background-color: var( --cf-notice-accent );
+	border: unset;
+}
+
+.cartflows-admin-notice .astra-review-notice {
+	font-size: 12px;
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding: 4px 10px;
+	border-radius: 6px;
+}
+
+.cartflows-admin-notice .astra-review-notice .dashicons {
+	margin-top: -2px;
+	width: auto;
+	height: auto;
+}
+
+/* Inline-link styling reserved for the optional third action (e.g. 5-star "I already did"). */
+.cartflows-admin-notice .astra-review-notice:nth-child( 3 ) {
+	padding: 0 !important;
+}
+
+.cartflows-admin-notice .astra-review-notice:nth-child( 2 ) {
+	border: 1px solid var( --cf-notice-accent );
+}
+
+.cartflows-admin-notice .astra-notice-close.astra-review-notice:not( .button-primary ) {
+	color: var( --cf-notice-accent );
+}
+
+.cartflows-admin-notice .astra-review-notice-container .dashicons::before {
+	vertical-align: middle;
+}
+
+/* Theme modifiers — declared after the base block so the cascade applies the override. */
+.cartflows-notice--success {
+	--cf-notice-accent: #16a34a;
+	--cf-notice-accent-bg: #f0fdf4;
+}
+
+.cartflows-notice--warning {
+	--cf-notice-accent: #f59e0b;
+	--cf-notice-accent-bg: #fffbeb;
+}
+
+.cartflows-notice--danger {
+	--cf-notice-accent: #dc2626;
+	--cf-notice-accent-bg: #fef2f2;
+}

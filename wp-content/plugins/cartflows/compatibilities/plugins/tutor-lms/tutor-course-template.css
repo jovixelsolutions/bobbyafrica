@@ -1,0 +1,82 @@
+.cartflows-tutor-settings-wrapper {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 24px;
+}
+
+.cartflows-tutor-settings-panel {
+	background: #fff;
+	border: 1px solid #cdcfd5;
+	border-radius: 6px;
+}
+
+.cartflows-tutor-settings-header {
+	padding: 16px 20px;
+	border-bottom: 1px solid #cdcfd5;
+	background: #f7f8fa;
+}
+
+.cartflows-tutor-settings-header h3 {
+	margin: 0 0 4px;
+	font-size: 15px;
+}
+
+.cartflows-tutor-settings-description {
+	font-size: 13px;
+	color: #757c8e;
+	margin: 0;
+}
+
+.cartflows-tutor-settings-body {
+	padding: 20px;
+}
+
+.cartflows-tutor-select-container {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.cartflows-tutor-select {
+	width: 100%;
+	max-width: 400px;
+	height: 44px;
+	padding: 0 16px;
+	border: 1px solid #cdcfd5;
+	border-radius: 6px;
+	font-size: 14px;
+}
+
+.cartflows-tutor-field-hint {
+	margin-top: 12px;
+	font-size: 13px;
+	color: #757c8e;
+	background: #f8f9fa;
+	padding: 12px;
+	border-left: 3px solid #3e64de;
+}
+
+.cartflows-template-status {
+	display: inline-block;
+	margin-left: 12px;
+	font-size: 13px;
+	font-weight: 500;
+	opacity: 0;
+	transition: opacity 0.2s ease;
+}
+
+.cartflows-template-status.is-visible {
+	opacity: 1;
+}
+
+.cartflows-template-status.is-saving {
+	color: #3e64de;
+}
+
+.cartflows-template-status.is-success {
+	color: #059669;
+}
+
+.cartflows-template-status.is-error {
+	color: #dc2626;
+}

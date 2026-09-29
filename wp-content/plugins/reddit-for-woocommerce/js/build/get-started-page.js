@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkreddit_for_woocommerce=globalThis.webpackChunkreddit_for_woocommerce||[]).push([[207],{9484:(e,t,o)=>{o.r(t),o.d(t,{default:()=>l});var r=o(6476),s=o(3905),a=o(7952),c=o(3666);const l=()=>{const{data:{status:e}}=(0,a.A)(),t=(0,c.xP)(),o=(0,c.FN)(),l=s.WD.setupComplete||e===s.Dh.CONNECTED?o:t;return(0,r.getHistory)().replace(l),null}}}]);

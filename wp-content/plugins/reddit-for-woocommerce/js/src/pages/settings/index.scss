@@ -1,0 +1,26 @@
+.rfw-settings {
+	.rfw-section {
+		max-width: 1032px;
+		margin-left: auto;
+		margin-right: auto;
+
+		&:first-child {
+			margin-top: var(--large-gap);
+		}
+
+		header {
+			max-width: 328px;
+			padding-top: var(--large-gap);
+		}
+
+		.rfw-reddit-ads-buttons {
+			display: flex;
+			gap: wpVariables.$grid-unit-10;
+		}
+	}
+
+	.rfw-subsection-helper-text {
+		margin-top: wpVariables.$grid-unit-10;
+		color: wpColors.$gray-600;
+	}
+}

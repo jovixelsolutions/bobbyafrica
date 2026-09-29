@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SureRank — WPML / Polylang compatibility configuration.
+
+  Declares how SureRank's post meta and admin-text options should be handled
+  when translating content with WPML (native reader) or Polylang (via
+  PLL_WPML_Config, priority 20). TranslatePress uses URL-based translation
+  and does not consume this file.
+
+  Action semantics:
+    translate  — value is a user-facing string; each translation edits its own copy.
+    copy       — value is identical across translations; updates sync.
+    copy-once  — value is copied to new translations on creation, then independent.
+    ignore     — each translation owns its own value; no sync on create.
+
+  Issue: https://github.com/brainstormforce/surerank/issues/2368
+  Epic:  https://github.com/brainstormforce/surerank/issues/2376
+-->
+<wpml-config>
+
+    <custom-fields>
+
+        <!-- Titles, descriptions, and social text — translate per language. -->
+        <custom-field action="translate">surerank_settings_page_title</custom-field>
+        <custom-field action="translate">surerank_settings_page_description</custom-field>
+        <custom-field action="translate">surerank_settings_focus_keyword</custom-field>
+        <custom-field action="translate">surerank_settings_facebook_title</custom-field>
+        <custom-field action="translate">surerank_settings_facebook_description</custom-field>
+        <custom-field action="translate">surerank_settings_twitter_title</custom-field>
+        <custom-field action="translate">surerank_settings_twitter_description</custom-field>
+
+        <!--
+            Schema blob contains user-editable strings (name, description,
+            headline, FAQ items). Translate action copies the full structure on
+            translation creation; translators edit embedded strings in place.
+        -->
+        <custom-field action="translate">surerank_settings_schemas</custom-field>
+
+        <!-- Media, URLs, IDs, and binary/enum flags — identical across languages. -->
+        <custom-field action="copy">surerank_settings_auto_generate_description</custom-field>
+        <custom-field action="copy">surerank_settings_fallback_image</custom-field>
+        <custom-field action="copy">surerank_settings_facebook_image_url</custom-field>
+        <custom-field action="copy">surerank_settings_facebook_image_id</custom-field>
+        <custom-field action="copy">surerank_settings_facebook_image_width</custom-field>
+        <custom-field action="copy">surerank_settings_facebook_image_height</custom-field>
+        <custom-field action="copy">surerank_settings_twitter_image_url</custom-field>
+        <custom-field action="copy">surerank_settings_twitter_image_id</custom-field>
+        <custom-field action="copy">surerank_settings_twitter_card_type</custom-field>
+        <custom-field action="copy">surerank_settings_twitter_same_as_facebook</custom-field>
+        <custom-field action="copy">surerank_settings_twitter_profile_username</custom-field>
+        <custom-field action="copy">surerank_settings_twitter_profile_fallback</custom-field>
+        <custom-field action="copy">surerank_settings_open_graph_tags</custom-field>
+        <custom-field action="copy">surerank_settings_facebook_meta_tags</custom-field>
+        <custom-field action="copy">surerank_settings_twitter_meta_tags</custom-field>
+        <custom-field action="copy">surerank_settings_oembeded_scripts</custom-field>
+        <custom-field action="copy">surerank_settings_oembeded_og_title</custom-field>
+        <custom-field action="copy">surerank_settings_oembeded_social_images</custom-field>
+        <custom-field action="copy">surerank_settings_oembeded_remove_author_name</custom-field>
+        <custom-field action="copy">surerank_settings_facebook_page_url</custom-field>
+        <custom-field action="copy">surerank_settings_facebook_author_fallback</custom-field>
+        <custom-field action="copy">surerank_settings_separator</custom-field>
+
+        <!--
+            Robots directives — inherit on translation creation, then editable
+            independently. Matches Yoast / Rank Math convention.
+        -->
+        <custom-field action="copy-once">surerank_settings_post_no_index</custom-field>
+        <custom-field action="copy-once">surerank_settings_post_no_follow</custom-field>
+        <custom-field action="copy-once">surerank_settings_post_no_archive</custom-field>
+
+        <!--
+            Canonical and auto-generated values — always language-specific,
+            never sync. Matches Rank Math's handling of canonical.
+        -->
+        <custom-field action="ignore">surerank_settings_canonical_url</custom-field>
+        <custom-field action="ignore">surerank_settings_auto_description</custom-field>
+        <custom-field action="ignore">surerank_settings_auto_generated_og_image</custom-field>
+
+    </custom-fields>
+
+    <!--
+        Term meta: SureRank stores the same 36 `surerank_settings_*` keys on
+        translated taxonomy terms (categories, tags, custom taxonomies). Polylang's
+        PLL_WPML_Config reads term-meta rules from the distinct
+        `custom-term-fields/custom-term-field` XPath (see
+        polylang/src/modules/wpml/wpml-config.php:228), and WPML's XSD
+        declares `custom-term-fields` as a separate element. Without this
+        block, a translated term's SEO meta would silently fall through to
+        default behaviour instead of the declared actions.
+
+        The classification mirrors `<custom-fields>` above — same keys, same
+        semantics (titles/descriptions translate, IDs/URLs copy, robots
+        copy-once, canonicals and auto-generated values ignore).
+    -->
+    <custom-term-fields>
+
+        <!-- Titles, descriptions, and social text — translate per language. -->
+        <custom-term-field action="translate">surerank_settings_page_title</custom-term-field>
+        <custom-term-field action="translate">surerank_settings_page_description</custom-term-field>
+        <custom-term-field action="translate">surerank_settings_focus_keyword</custom-term-field>
+        <custom-term-field action="translate">surerank_settings_facebook_title</custom-term-field>
+        <custom-term-field action="translate">surerank_settings_facebook_description</custom-term-field>
+        <custom-term-field action="translate">surerank_settings_twitter_title</custom-term-field>
+        <custom-term-field action="translate">surerank_settings_twitter_description</custom-term-field>
+        <custom-term-field action="translate">surerank_settings_schemas</custom-term-field>
+
+        <!-- Media, URLs, IDs, and binary/enum flags — identical across languages. -->
+        <custom-term-field action="copy">surerank_settings_auto_generate_description</custom-term-field>
+        <custom-term-field action="copy">surerank_settings_fallback_image</custom-term-field>
+        <custom-term-field action="copy">surerank_settings_facebook_image_url</custom-term-field>
+        <custom-term-field action="copy">surerank_settings_facebook_image_id</custom-term-field>
+        <custom-term-field action="copy">surerank_settings_facebook_image_width</custom-term-field>
+        <custom-term-field action="copy">surerank_settings_facebook_image_height</custom-term-field>
+        <custom-term-field action="copy">surerank_settings_twitter_image_url</custom-term-field>
+        <custom-term-field action="copy">surerank_settings_twitter_image_id</custom-term-field>
+        <custom-term-field action="copy">surerank_settings_twitter_card_type</custom-term-field>
+        <custom-term-field action="copy">surerank_settings_twitter_same_as_facebook</custom-term-field>
+        <custom-term-field action="copy">surerank_settings_twitter_profile_username</custom-term-field>
+        <custom-term-field action="copy">surerank_settings_twitter_profile_fallback</custom-term-field>
+        <custom-term-field action="copy">surerank_settings_open_graph_tags</custom-term-field>
+        <custom-term-field action="copy">surerank_settings_facebook_meta_tags</custom-term-field>
+        <custom-term-field action="copy">surerank_settings_twitter_meta_tags</custom-term-field>
+        <custom-term-field action="copy">surerank_settings_oembeded_scripts</custom-term-field>
+        <custom-term-field action="copy">surerank_settings_oembeded_og_title</custom-term-field>
+        <custom-term-field action="copy">surerank_settings_oembeded_social_images</custom-term-field>
+        <custom-term-field action="copy">surerank_settings_oembeded_remove_author_name</custom-term-field>
+        <custom-term-field action="copy">surerank_settings_facebook_page_url</custom-term-field>
+        <custom-term-field action="copy">surerank_settings_facebook_author_fallback</custom-term-field>
+        <custom-term-field action="copy">surerank_settings_separator</custom-term-field>
+
+        <!-- Robots directives — inherit on translation creation, then editable. -->
+        <custom-term-field action="copy-once">surerank_settings_post_no_index</custom-term-field>
+        <custom-term-field action="copy-once">surerank_settings_post_no_follow</custom-term-field>
+        <custom-term-field action="copy-once">surerank_settings_post_no_archive</custom-term-field>
+
+        <!-- Canonical + auto-generated values are always language-specific. -->
+        <custom-term-field action="ignore">surerank_settings_canonical_url</custom-term-field>
+        <custom-term-field action="ignore">surerank_settings_auto_description</custom-term-field>
+        <custom-term-field action="ignore">surerank_settings_auto_generated_og_image</custom-term-field>
+
+    </custom-term-fields>
+
+    <admin-texts>
+
+        <!--
+            Global settings bag — site title template, description template,
+            home-page SEO overrides, separator, social defaults, etc.
+            Wildcard mirrors the programmatic PLL_Translate_Option registration
+            already present in inc/third-party-integrations/multilingual/init.php.
+        -->
+        <key name="surerank_settings">
+            <key name="*" />
+        </key>
+
+        <!--
+            Onboarding settings — organisation name, website name, owner name,
+            social profile identifiers. User-facing strings worth translating.
+        -->
+        <key name="surerank_settings_onboarding">
+            <key name="*" />
+        </key>
+
+    </admin-texts>
+
+</wpml-config>

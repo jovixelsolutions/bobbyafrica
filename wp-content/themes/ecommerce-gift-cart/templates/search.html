@@ -1,0 +1,46 @@
+<!-- wp:template-part {"slug":"header","theme":"ecommerce-gift-cart","tagName":"header"} /-->
+
+<!-- wp:pattern {"slug":"ecommerce-gift-cart/inner-banner"} /-->
+
+<!-- wp:group {"tagName":"main","className":"post-page-area","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|70","right":"var:preset|spacing|40","left":"var:preset|spacing|50"}}},"layout":{"type":"constrained","contentSize":"80%"}} -->
+<main id="content" class="wp-block-group post-page-area" style="padding-top:var(--wp--preset--spacing--60);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--70);padding-left:var(--wp--preset--spacing--50)"><!-- wp:search {"label":"Search","showLabel":false,"buttonText":"Search","style":{"color":{"background":"var(--wp--preset--color--extra-primary)"},"elements":{"link":{"color":{"text":"var:preset|color|foreground"}}},"spacing":{"margin":{"bottom":"var:preset|spacing|70"}}},"textColor":"foreground"} /-->
+
+<!-- wp:query-title {"type":"search","level":2,"fontSize":"regular"} /-->
+
+<!-- wp:columns -->
+<div class="wp-block-columns"><!-- wp:column {"width":"66.66%","style":{"spacing":{"padding":{"right":"var:preset|spacing|50","bottom":"var:preset|spacing|50"}}}} -->
+<div class="wp-block-column" style="padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--50);flex-basis:66.66%"><!-- wp:group {"className":"post-page-area","style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group post-page-area" style="padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- wp:query {"queryId":26,"query":{"perPage":10,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true}} -->
+<div class="wp-block-query"><!-- wp:post-template {"fontSize":"medium"} -->
+<!-- wp:post-title {"level":3,"isLink":true,"style":{"elements":{"link":{"color":{"text":"var:preset|color|primary"}}}},"textColor":"primary","fontSize":"regular"} /-->
+
+<!-- wp:group {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|40"}},"color":{"text":"var(--wp--preset--color--extra-primary)"},"elements":{"link":{"color":{"text":"var(--wp--preset--color--extra-primary)"}}}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+<div class="wp-block-group has-text-color has-link-color" style="color:var(--wp--preset--color--extra-primary);margin-bottom:var(--wp--preset--spacing--40)"><!-- wp:post-date {"style":{"typography":{"fontSize":"16px"}}} /--></div>
+<!-- /wp:group -->
+
+<!-- wp:post-featured-image {"isLink":true,"align":"wide","style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}}}} /-->
+
+<!-- wp:post-excerpt {"moreText":"Read More","excerptLength":25,"className":"read-more-btn","style":{"color":{"text":"#747474"},"elements":{"link":{"color":{"text":"#747474"}}},"typography":{"fontSize":"16px"}}} /-->
+
+<!-- /wp:post-template -->
+
+<!-- wp:query-pagination {"className":"post-pgntion","style":{"elements":{"link":{"color":{"text":"var:preset|color|primary"}}}},"textColor":"primary"} -->
+<!-- wp:query-pagination-previous /-->
+
+<!-- wp:query-pagination-numbers /-->
+
+<!-- wp:query-pagination-next /-->
+<!-- /wp:query-pagination --></div>
+<!-- /wp:query --></div>
+<!-- /wp:group --></div>
+<!-- /wp:column -->
+
+<!-- wp:column {"width":"33.33%"} -->
+<div class="wp-block-column" style="flex-basis:33.33%">
+	<!-- wp:pattern {"slug":"ecommerce-gift-cart/sidebar"} /-->
+</div>
+<!-- /wp:column --></div>
+<!-- /wp:columns --></main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","theme":"ecommerce-gift-cart","tagName":"footer","className":"ecommerce-gift-cart-footer-column"} /-->

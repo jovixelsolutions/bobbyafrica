@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&display=swap');
+body {
+    margin: 0;
+    height: 100vh;
+}
+.uc-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100vh;
+}
+.uc-left {
+    background: url('../images/template3.png');
+    background-size: 140% 100%;
+    background-repeat: no-repeat;
+    flex: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.uc-heading {
+    margin: 0;
+    white-space: nowrap;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: 'League Spartan' !important;
+    margin-left: -15px;
+    font-size: 39px !important;
+}
+.uc-sub-heading{
+    margin: 0;
+    font-weight: 100;
+    font-size: 35px !important;
+    margin-bottom: 10px;
+    font-family: 'League Spartan' !important;
+}
+.uc-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: right;
+    padding-right: 50px;
+}
+.uc-logo img {
+    width: 50px;
+}
+.uc-logo {
+    position: fixed;
+    top: 50px;
+    right: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.uc-subtitle {
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+.uc-title {
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+.uc-text {
+    margin-bottom: 30px;
+    line-height: 1.4;
+    font-size: 19px !important; 
+    color: #3f2b96 !important;
+    font-family: "Arial", sans-serif !important;
+}
+.uc-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 30px !important;
+    transition: background 0.3s;
+    font-size: 16px !important; 
+    font-family: 'League Spartan' !important;
+}
+@media screen and (min-width: 1500px) and (max-width: 1920px) {
+    body {
+    margin: 0;
+    height: 100vh;
+}
+.uc-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100vh;
+}
+.uc-left {
+    background: url('../images/template3.png');
+    background-size: 140% 100%;
+    background-repeat: no-repeat;
+    flex: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.uc-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: right;
+}
+.uc-content {
+    max-width: 400px;
+}
+.uc-logo img {
+    width: 50px;
+}
+.uc-logo {
+    position: fixed;
+    top: 50px;
+    right: 100px;
+}
+.uc-subtitle {
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    left: 200px;
+}
+.uc-heading span {
+    white-space: nowrap;
+    position: relative;
+    right: 74px;
+}
+.uc-title {
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+.uc-text {
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+.uc-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+} 
+@media (max-width: 768px) {
+    .uc-wrapper {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        padding: 20px;
+        text-align: center;
+    }
+    .uc-left {
+        display: none;
+    }
+    .uc-right {
+        flex: 1 1 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 0 15px;
+        height: auto;
+    }
+    .uc-content {
+        max-width: 100%;
+    }
+    .uc-heading {
+        text-align: center;
+    }
+    .uc-heading span {
+        display: block;
+        text-align: center;
+        right: 0;
+    }
+    .uc-title {
+        text-align: center;
+    }
+    .uc-text {
+        text-align: center;
+    }
+    .uc-btn {
+        padding: 10px 20px;
+    }
+    .uc-logo {
+        position: relative;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: 0 auto 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .uc-logo img {
+        width: 50px;
+    }
+}
+@media (max-width: 480px) {
+    .uc-wrapper {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        padding: 15px;
+        text-align: center;
+    }
+    .uc-left {
+        display: none;
+    }
+    .uc-right {
+        flex: 1 1 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 0 10px;
+        height: auto;
+    }
+    .uc-content {
+        max-width: 100%;
+    }
+    .uc-heading {
+        text-align: center;
+    }
+    .uc-title {
+        text-align: center;
+    }
+    .uc-text {
+        text-align: center;
+        line-height: 1.4;
+    }
+    .uc-btn {
+        padding: 8px 16px;
+    }
+    .uc-logo {
+        position: relative;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: 0 auto 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

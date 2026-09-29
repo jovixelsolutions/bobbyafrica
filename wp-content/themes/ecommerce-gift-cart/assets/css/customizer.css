@@ -1,0 +1,19 @@
+h3.accordion-section-title a {
+    color: #fff !important;
+    background: -webkit-linear-gradient(left, #00a8d5, #00ddd8) !important;
+    border: #d4335d !important;
+}
+
+h3.accordion-section-title.premium-details {
+    background: linear-gradient(to right, #d4335d, #ff5627) !important;
+    color: #fff !important;
+}
+h3.accordion-section-title.premium-details::after {
+    display: none !important;
+}
+h3.accordion-section-title.premium-details {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    justify-content: space-between;
+}

@@ -1,0 +1,24 @@
+@media (max-width: 980px) {
+  .marketplace-header-main {
+    gap: 14px;
+  }
+
+  .marketplace-search {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .marketplace-header-main {
+    min-height: auto;
+  }
+
+  .marketplace-user-actions {
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .marketplace-icon-link span:not(.marketplace-badge) {
+    display: none;
+  }
+}

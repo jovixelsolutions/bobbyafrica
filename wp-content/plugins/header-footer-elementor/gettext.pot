@@ -1,0 +1,1354 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: babel-plugin-makepot\n"
+
+#: src/Components/Compare/FreevsPro.jsx:103
+msgid "Special Features"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:105
+msgid "Cross-Site Copy Paste"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:106
+msgid "Presets"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:107
+msgid "Particle Backgrounds"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:108
+msgid "Party Propz"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:109
+msgid "Scroll to Top"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:110
+#: src/Components/Dashboard/UltimateFeatures.js:83
+#: src/Components/Widgets/UltimateWidgetFeatures.jsx:85
+msgid "Display Conditions"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:111
+msgid "Sticky Header"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:112
+msgid "UAE Duplicator"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:113
+msgid "Conditional Display"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:114
+msgid "Reading Progress Bar"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:118
+msgid "Dynamic Header & Footer Widgets"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:12
+msgid "Essentials"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:120
+msgid "Site Logo"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:121
+msgid "Site Title"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:123
+msgid "Page Title"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:124
+msgid "Search"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:125
+msgid "Site Tagline"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:126
+msgid "Copyright"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:14
+msgid "White Label Option"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:15
+msgid "24x7 Premium Support"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:157
+msgid "Navigation Menu"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:159
+msgid "Basic"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:16
+msgid "User Portal / User Login"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:160
+msgid "Advanced"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:175
+msgid "Free Vs Pro"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:178
+msgid "Ultimate Addons for Elementor Pro offers 50+ widgets and features!"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:181
+msgid ""
+"Compare the popular features/widgets to find the best option for your "
+"website."
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:20
+msgid "Content Widgets"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:205
+#: src/Components/Compare/UltimateCompare.jsx:109
+#: src/Components/Dashboard/MyAccount.jsx:62
+#: src/Components/Settings/Branding.jsx:303
+#: src/Components/Widgets/UltimateWidgets.jsx:116
+msgid "Upgrade Now"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:22
+#: src/Components/Compare/UltimateCompare.jsx:17
+#: src/Components/Widgets/UltimateWidgets.jsx:18
+msgid "Advanced Heading"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:225
+#: src/Components/NavMenu.js:251
+#: src/Components/Onboarding/Features.jsx:193
+msgid "Free"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:23
+msgid "Business Hours"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:231
+#: src/Components/Onboarding/Features.jsx:351
+#: src/lib/bsf-learn/components/BsfLearnStep.js:136
+msgid "Pro"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:24
+msgid "Content Toggle"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:248
+msgid "See all UAE Pro Features"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:25
+msgid "Google Map"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:26
+msgid "Image Gallery"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:27
+#: src/Components/Compare/UltimateCompare.jsx:27
+#: src/Components/Widgets/UltimateWidgets.jsx:28
+msgid "Info Box"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:28
+#: src/Components/Compare/UltimateCompare.jsx:12
+#: src/Components/Onboarding/Features.jsx:243
+#: src/Components/Widgets/UltimateWidgets.jsx:13
+msgid "Modal Popup"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:29
+msgid "Posts"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:30
+msgid "Price List"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:31
+msgid "Table"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:32
+msgid "Info Card"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:33
+msgid "Video"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:34
+msgid "Video Gallery"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:35
+msgid "Basic Posts"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:36
+msgid "SVG Animator"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:37
+msgid "Table of Contents"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:38
+msgid "Counter"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:42
+msgid "Creative Widgets"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:44
+msgid "Before After Slider"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:45
+msgid "Countdown Timer"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:46
+msgid "Welcome Music"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:47
+msgid "Dual Color Heading"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:48
+msgid "Fancy Heading"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:49
+msgid "Hotspots"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:50
+msgid "Login Form"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:51
+msgid "Marketing Button"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:52
+msgid "Multi Buttons"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:53
+msgid "Off-Canvas"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:54
+msgid "Retina Image"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:55
+msgid "Team Member"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:56
+msgid "Price Box"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:57
+msgid "Timeline"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:58
+msgid "User Registration Form"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:59
+msgid "Retina Logo"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:63
+msgid "Form Styler"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:65
+msgid "Contact Form 7 Styler"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:66
+msgid "Gravity Form Styler"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:67
+msgid "WP Fluent Forms Styler"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:68
+msgid "WPForms Styler"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:72
+msgid "SEO"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:74
+msgid "Business Reviews"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:75
+msgid "How To Schema"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:76
+msgid "FAQ Schema"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:77
+msgid "Breadcrumbs"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:81
+msgid "WooCommerce"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:83
+msgid "Woo – Add to Cart"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:84
+msgid "Woo – Categories"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:85
+msgid "Woo – Thank You Page"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:86
+msgid "Woo – Checkout"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:87
+msgid "Woo – Mini Cart"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:88
+msgid "Woo – Products"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:90
+msgid "Woo – Product Grid"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:91
+msgid "Cart"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:95
+msgid "Social"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:97
+msgid "Instagram Feed"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:98
+msgid "X Feed"
+msgstr ""
+
+#: src/Components/Compare/FreevsPro.jsx:99
+msgid "Social Share"
+msgstr ""
+
+#: src/Components/Compare/UltimateCompare.jsx:22
+#: src/Components/Widgets/UltimateWidgets.jsx:23
+msgid "Post Layouts"
+msgstr ""
+
+#: src/Components/Compare/UltimateCompare.jsx:32
+#: src/Components/Widgets/UltimateWidgets.jsx:33
+msgid "Pricing Cards"
+msgstr ""
+
+#: src/Components/Compare/UltimateCompare.jsx:37
+#: src/Components/Widgets/UltimateWidgets.jsx:38
+msgid "Form Stylers and more..."
+msgstr ""
+
+#: src/Components/Compare/UltimateCompare.jsx:55
+#: src/Components/Dashboard/UltimateFeatures.js:25
+#: src/Components/Widgets/UltimateWidgetFeatures.jsx:25
+#: src/Components/Widgets/UltimateWidgets.jsx:54
+msgid "Column Showcase"
+msgstr ""
+
+#: src/Components/Compare/UltimateCompare.jsx:68
+#: src/Components/Widgets/UltimateWidgets.jsx:67
+msgid "Unlock Ultimate Features"
+msgstr ""
+
+#: src/Components/Compare/UltimateCompare.jsx:76
+#: src/Components/Widgets/UltimateWidgets.jsx:75
+msgid "Create Stunning Designs with the Pro Version!"
+msgstr ""
+
+#: src/Components/Compare/UltimateCompare.jsx:80
+#: src/Components/Widgets/UltimateWidgets.jsx:82
+msgid ""
+"Get access to advanced widgets and features to create the website that "
+"stands out!"
+msgstr ""
+
+#: src/Components/Dashboard/ExtendWebsite.jsx:57
+msgid "Super Charge Your Workflow"
+msgstr ""
+
+#: src/Components/Dashboard/ExtendWebsiteWidget.jsx:101
+#: src/Components/Onboarding/ExtendOnboardingWidget.jsx:111
+msgid "Install"
+msgstr ""
+
+#: src/Components/Dashboard/ExtendWebsiteWidget.jsx:107
+#: src/Components/Onboarding/ExtendOnboardingWidget.jsx:114
+msgid "Theme installation failed. Please try again later."
+msgstr ""
+
+#: src/Components/Dashboard/ExtendWebsiteWidget.jsx:111
+#: src/Components/Onboarding/ExtendOnboardingWidget.jsx:115
+msgid "Plugin installation failed. Please try again later."
+msgstr ""
+
+#: src/Components/Dashboard/ExtendWebsiteWidget.jsx:144
+#: src/Components/Onboarding/ExtendOnboardingWidget.jsx:143
+msgid "Activating..."
+msgstr ""
+
+#: src/Components/Dashboard/ExtendWebsiteWidget.jsx:157
+#: src/Components/Onboarding/ExtendOnboardingWidget.jsx:155
+msgid "Activated"
+msgstr ""
+
+#: src/Components/Dashboard/ExtendWebsiteWidget.jsx:232
+#: src/Components/Onboarding/ExtendOnboardingWidget.jsx:293
+msgid "Activate Theme"
+msgstr ""
+
+#: src/Components/Dashboard/ExtendWebsiteWidget.jsx:239
+#: src/Components/Onboarding/ExtendOnboardingWidget.jsx:297
+msgid "Are you sure you want to switch your current theme to Astra?"
+msgstr ""
+
+#: src/Components/Dashboard/ExtendWebsiteWidget.jsx:249
+#: src/Components/Onboarding/ExtendOnboardingWidget.jsx:302
+msgid "Yes"
+msgstr ""
+
+#: src/Components/Dashboard/ExtendWebsiteWidget.jsx:255
+#: src/Components/Onboarding/ExtendOnboardingWidget.jsx:305
+msgid "Close"
+msgstr ""
+
+#: src/Components/Dashboard/ExtendWebsiteWidget.jsx:295
+msgid "Visit Site"
+msgstr ""
+
+#: src/Components/Dashboard/ExtendWebsiteWidget.jsx:297
+#: src/Components/Onboarding/ExtendOnboardingWidget.jsx:172
+msgid "Activate"
+msgstr ""
+
+#: src/Components/Dashboard/ExtendWebsiteWidget.jsx:298
+msgid "Install & Activate"
+msgstr ""
+
+#: src/Components/Dashboard/ExtendWebsiteWidget.jsx:71
+#: src/Components/Onboarding/ExtendOnboardingWidget.jsx:93
+msgid "Installing..."
+msgstr ""
+
+#: src/Components/Dashboard/ExtendWebsiteWidget.jsx:82
+#: src/Components/Onboarding/ExtendOnboardingWidget.jsx:101
+msgid "Installed"
+msgstr ""
+
+#: src/Components/Dashboard/MyAccount.jsx:17
+#: src/Components/Settings/Settings.jsx:30
+msgid "My Account"
+msgstr ""
+
+#: src/Components/Dashboard/MyAccount.jsx:39
+msgid "License Key"
+msgstr ""
+
+#: src/Components/Dashboard/MyAccount.jsx:40
+msgid ""
+"You are using the free version of Ultimate Addons for Elementor, no license "
+"key is needed. "
+msgstr ""
+
+#: src/Components/Dashboard/MyAccount.jsx:44
+msgid "Build Better Websites With Ultimate Addons Pro"
+msgstr ""
+
+#: src/Components/Dashboard/MyAccount.jsx:45
+msgid ""
+"Unlock advanced addons to power up Elementor - smarter widgets, smoother "
+"workflows, and more creative freedom with UAE Pro."
+msgstr ""
+
+#: src/Components/Dashboard/QuickAccess.js:114
+msgid "Request a Feature"
+msgstr ""
+
+#: src/Components/Dashboard/QuickAccess.js:130
+msgid "Rate Us"
+msgstr ""
+
+#: src/Components/Dashboard/QuickAccess.js:20
+msgid "Quick Access"
+msgstr ""
+
+#: src/Components/Dashboard/QuickAccess.js:53
+msgid "VIP Priority Support"
+msgstr ""
+
+#: src/Components/Dashboard/QuickAccess.js:56
+#: src/Components/Dashboard/WidgetItem.jsx:153
+msgid "PRO"
+msgstr ""
+
+#: src/Components/Dashboard/QuickAccess.js:82
+msgid "Knowledge Base"
+msgstr ""
+
+#: src/Components/Dashboard/QuickAccess.js:98
+msgid "Help Centre"
+msgstr ""
+
+#: src/Components/Dashboard/TemplateSection.js:64
+msgid "Build Websites 10x Faster with Templates"
+msgstr ""
+
+#: src/Components/Dashboard/TemplateSection.js:70
+msgid ""
+"Choose from our professionally designed websites to build your site faster, "
+"with easy customization options."
+msgstr ""
+
+#: src/Components/Dashboard/TemplateSection.js:97
+msgid "View Templates"
+msgstr ""
+
+#: src/Components/Dashboard/UltimateFeatures.js:102
+#: src/Components/Widgets/UltimateWidgetFeatures.jsx:104
+msgid "Form & Pop-up Builder"
+msgstr ""
+
+#: src/Components/Dashboard/UltimateFeatures.js:106
+#: src/Components/Widgets/UltimateWidgetFeatures.jsx:108
+msgid "Animation Effects"
+msgstr ""
+
+#: src/Components/Dashboard/UltimateFeatures.js:110
+#: src/Components/Widgets/UltimateWidgetFeatures.jsx:93
+msgid "Bloggers Toolkit"
+msgstr ""
+
+#: src/Components/Dashboard/UltimateFeatures.js:114
+#: src/Components/Widgets/UltimateWidgetFeatures.jsx:116
+msgid "Social Media Bundle"
+msgstr ""
+
+#: src/Components/Dashboard/UltimateFeatures.js:147
+msgid "View Plans"
+msgstr ""
+
+#: src/Components/Dashboard/UltimateFeatures.js:41
+#: src/Components/Widgets/UltimateWidgetFeatures.jsx:43
+msgid "Unlock Pro Widgets"
+msgstr ""
+
+#: src/Components/Dashboard/UltimateFeatures.js:54
+msgid "Design Smarter with Ultimate Addons!"
+msgstr ""
+
+#: src/Components/Dashboard/UltimateFeatures.js:63
+msgid ""
+"Craft stunning websites faster with powerful widgets, advanced features, "
+"and total flexibility."
+msgstr ""
+
+#: src/Components/Dashboard/UltimateFeatures.js:75
+#: src/Components/Widgets/UltimateWidgetFeatures.jsx:77
+msgid "50+ Widgets"
+msgstr ""
+
+#: src/Components/Dashboard/UltimateFeatures.js:79
+#: src/Components/Widgets/UltimateWidgetFeatures.jsx:81
+msgid "Conversion Extensions"
+msgstr ""
+
+#: src/Components/Dashboard/UltimateFeatures.js:87
+#: src/Components/Settings/Branding.jsx:42
+#: src/Components/Widgets/UltimateWidgetFeatures.jsx:89
+msgid "White Label"
+msgstr ""
+
+#: src/Components/Dashboard/UltimateFeatures.js:91
+#: src/Components/Widgets/UltimateWidgetFeatures.jsx:112
+msgid "WooCommerce Builder"
+msgstr ""
+
+#: src/Components/Dashboard/UltimateFeatures.js:98
+#: src/Components/Widgets/UltimateWidgetFeatures.jsx:100
+msgid "200+ Section Blocks"
+msgstr ""
+
+#: src/Components/Dashboard/WelcomeContainer.js:25
+msgid "Welcome to Ultimate Addons for Elementor!"
+msgstr ""
+
+#: src/Components/Dashboard/WelcomeContainer.js:28
+msgid ""
+"Effortlessly design modern websites with UAE using our powerful range of "
+"widgets & features. Get started by selecting an option based on your needs."
+msgstr ""
+
+#: src/Components/Dashboard/WelcomeContainer.js:60
+#: src/Components/Onboarding/Build.jsx:197
+msgid "Create Header/Footer"
+msgstr ""
+
+#: src/Components/Dashboard/WelcomeContainer.js:88
+#: src/Components/Onboarding/Create.jsx:337
+msgid "Create New Page"
+msgstr ""
+
+#: src/Components/Dashboard/WidgetItem.jsx:177
+#: src/Components/NavMenu.js:219
+#: src/Components/UpgradeNotice.jsx:81
+msgid "Get Full Control"
+msgstr ""
+
+#: src/Components/Dashboard/WidgetItem.jsx:301
+msgid "View Demo"
+msgstr ""
+
+#: src/Components/Dashboard/Widgets.jsx:100
+msgid "Unlock All Features"
+msgstr ""
+
+#: src/Components/Dashboard/Widgets.jsx:164
+msgid "View More Widgets"
+msgstr ""
+
+#: src/Components/Dashboard/Widgets.jsx:79
+#: src/Components/Widgets/Features/FeatureWidgets.jsx:183
+msgid "Widgets / Features"
+msgstr ""
+
+#: src/Components/HeaderLine.js:16
+msgid "Formerly Elementor Header & Footer Builder"
+msgstr ""
+
+#: src/Components/Learn/Learn.jsx:32
+#: src/Components/NavMenu.js:172
+msgid "Learn"
+msgstr ""
+
+#: src/Components/Learn/Learn.jsx:35
+msgid ""
+"Master UAE with our step-by-step guide and tutorials. Create stunning "
+"headers and footers with confidence."
+msgstr ""
+
+#: src/Components/Learn/Learn.jsx:46
+msgid "Hide Video"
+msgstr ""
+
+#: src/Components/Learn/Learn.jsx:46
+msgid "Watch Video"
+msgstr ""
+
+#: src/Components/NavMenu.js:131
+msgid "Dashboard"
+msgstr ""
+
+#: src/Components/NavMenu.js:151
+msgid "Header & Footer"
+msgstr ""
+
+#: src/Components/NavMenu.js:163
+msgid "Widgets"
+msgstr ""
+
+#: src/Components/NavMenu.js:183
+msgid "Settings"
+msgstr ""
+
+#: src/Components/NavMenu.js:192
+msgid "Free vs Pro"
+msgstr ""
+
+#: src/Components/NavMenu.js:242
+msgid "Version"
+msgstr ""
+
+#: src/Components/NavMenu.js:276
+msgid "Useful Resources"
+msgstr ""
+
+#: src/Components/NavMenu.js:293
+msgid "Getting Started"
+msgstr ""
+
+#: src/Components/NavMenu.js:306
+msgid "How to use widgets"
+msgstr ""
+
+#: src/Components/NavMenu.js:319
+msgid "How to use features"
+msgstr ""
+
+#: src/Components/NavMenu.js:332
+msgid "How to use templates"
+msgstr ""
+
+#: src/Components/NavMenu.js:345
+msgid "Contact us"
+msgstr ""
+
+#: src/Components/NavMenu.js:78
+msgid "What's New?"
+msgstr ""
+
+#: src/Components/Onboarding/Build.jsx:141
+msgid "You're all set! 🚀"
+msgstr ""
+
+#: src/Components/Onboarding/Build.jsx:144
+msgid ""
+"Start creating headers, footers, or pages with UAE and take your website to "
+"the next level"
+msgstr ""
+
+#: src/Components/Onboarding/Build.jsx:150
+msgid "Here’s how to get started:"
+msgstr ""
+
+#: src/Components/Onboarding/Build.jsx:154
+msgid "Click on “Create” button"
+msgstr ""
+
+#: src/Components/Onboarding/Build.jsx:155
+msgid ""
+"Choose the type of template you want to create and customize the selected "
+"option"
+msgstr ""
+
+#: src/Components/Onboarding/Build.jsx:156
+msgid ""
+"Use the Elementor editor to customize your template according to your "
+"preferences using UAE widgets"
+msgstr ""
+
+#: src/Components/Onboarding/Build.jsx:157
+msgid "Click “Publish” to make it live"
+msgstr ""
+
+#: src/Components/Onboarding/Build.jsx:222
+msgid "Go To Dashboard"
+msgstr ""
+
+#: src/Components/Onboarding/Build.jsx:240
+msgid "We have a special reward just for you!"
+msgstr ""
+
+#: src/Components/Onboarding/Build.jsx:244
+msgid "This special offer is available only on this page and for limited time"
+msgstr ""
+
+#: src/Components/Onboarding/Build.jsx:258
+msgid "Unlock My Surprise"
+msgstr ""
+
+#: src/Components/Onboarding/Build.jsx:275
+msgid "Help make UAE Better"
+msgstr ""
+
+#: src/Components/Onboarding/Build.jsx:304
+msgid ""
+"Help us improve by sharing anonymous data about your website setup. This "
+"includes non-sensitive info about plugins, themes, and settings, so we can "
+"create a better product for you. Your privacy is always our top priority. "
+"Learn more in our privacy policy."
+msgstr ""
+
+#: src/Components/Onboarding/Build.jsx:318
+#: src/Components/Onboarding/Create.jsx:359
+msgid "We have a special Reward just for you! 🎁"
+msgstr ""
+
+#: src/Components/Onboarding/Build.jsx:332
+#: src/Components/Onboarding/Create.jsx:385
+msgid ""
+"Enter your details to get special offer that we have for you and stay "
+"updated on UAE’s latest news and updates."
+msgstr ""
+
+#: src/Components/Onboarding/Build.jsx:340
+#: src/Components/Onboarding/Create.jsx:401
+#: src/Components/Onboarding/ExtendOnboarding.jsx:458
+msgid "First Name"
+msgstr ""
+
+#: src/Components/Onboarding/Build.jsx:367
+#: src/Components/Onboarding/Create.jsx:441
+#: src/Components/Onboarding/ExtendOnboarding.jsx:483
+msgid "Last Name"
+msgstr ""
+
+#: src/Components/Onboarding/Build.jsx:390
+#: src/Components/Onboarding/Create.jsx:470
+msgid "Your Email Address"
+msgstr ""
+
+#: src/Components/Onboarding/Build.jsx:43
+#: src/Components/Onboarding/Create.jsx:57
+#: src/Components/Onboarding/ExtendOnboarding.jsx:272
+msgid "This field is required"
+msgstr ""
+
+#: src/Components/Onboarding/Build.jsx:434
+#: src/Components/Onboarding/Create.jsx:529
+msgid "Submit"
+msgstr ""
+
+#: src/Components/Onboarding/Build.jsx:50
+#: src/Components/Onboarding/Create.jsx:66
+msgid "Entered email address is invalid!"
+msgstr ""
+
+#: src/Components/Onboarding/Build.jsx:87
+#: src/Components/Onboarding/Create.jsx:107
+#: src/Components/Onboarding/ExtendOnboarding.jsx:101
+#: src/Components/Settings/ThemeSupport.jsx:63
+#: src/Components/Settings/UsageTracking.jsx:32
+msgid "Settings saved successfully!"
+msgstr ""
+
+#: src/Components/Onboarding/Build.jsx:92
+#: src/Components/Onboarding/Create.jsx:119
+#: src/Components/Onboarding/ExtendOnboarding.jsx:107
+#: src/Components/Settings/ThemeSupport.jsx:68
+#: src/Components/Settings/UsageTracking.jsx:37
+msgid "Failed to save settings!"
+msgstr ""
+
+#: src/Components/Onboarding/Create.jsx:179
+msgid "You’re All Set to Start Creating! 🚀"
+msgstr ""
+
+#: src/Components/Onboarding/Create.jsx:188
+msgid ""
+"Ultimate Addons is ready to supercharge your Elementor workflow! Build "
+"faster, cleaner, and more creatively — with complete control over your site."
+msgstr ""
+
+#: src/Components/Onboarding/Create.jsx:194
+msgid "What You Can Do Next:"
+msgstr ""
+
+#: src/Components/Onboarding/Create.jsx:216
+msgid "Build a custom header"
+msgstr ""
+
+#: src/Components/Onboarding/Create.jsx:232
+msgid "Design your site footer"
+msgstr ""
+
+#: src/Components/Onboarding/Create.jsx:248
+msgid "Create a new page"
+msgstr ""
+
+#: src/Components/Onboarding/Create.jsx:291
+msgid "Create New Header"
+msgstr ""
+
+#: src/Components/Onboarding/Create.jsx:312
+msgid "Create New Footer"
+msgstr ""
+
+#: src/Components/Onboarding/ExtendOnboarding.jsx:268
+msgid "Please enter a valid email address"
+msgstr ""
+
+#: src/Components/Onboarding/ExtendOnboarding.jsx:366
+msgid "Recommended Essentials"
+msgstr ""
+
+#: src/Components/Onboarding/ExtendOnboarding.jsx:377
+msgid ""
+"These free plugins add essential features to your website and help speed up "
+"your workflow. Select the plugins you want to install."
+msgstr ""
+
+#: src/Components/Onboarding/ExtendOnboarding.jsx:450
+msgid "Get Important Notifications and Updates"
+msgstr ""
+
+#: src/Components/Onboarding/ExtendOnboarding.jsx:509
+msgid "Email Address"
+msgstr ""
+
+#: src/Components/Onboarding/ExtendOnboarding.jsx:543
+msgid ""
+"Stay in the loop and help shape Ultimate Addons for Elementor! Get feature "
+"updates, and help us build a better Ultimate Addons for Elementor by "
+"sharing how you use the plugin. "
+msgstr ""
+
+#: src/Components/Onboarding/ExtendOnboarding.jsx:552
+msgid " Privacy Policy"
+msgstr ""
+
+#: src/Components/Onboarding/ExtendOnboarding.jsx:568
+#: src/Components/Onboarding/Features.jsx:389
+msgid "Back"
+msgstr ""
+
+#: src/Components/Onboarding/ExtendOnboarding.jsx:580
+#: src/Components/Onboarding/Features.jsx:401
+msgid "Skip"
+msgstr ""
+
+#: src/Components/Onboarding/ExtendOnboarding.jsx:593
+#: src/Components/Onboarding/Features.jsx:432
+msgid "Next"
+msgstr ""
+
+#: src/Components/Onboarding/Features.jsx:100
+msgid "Select Your Features"
+msgstr ""
+
+#: src/Components/Onboarding/Features.jsx:109
+msgid ""
+"Unlock more design control, faster setup, and powerful customization so you "
+"can build a better website, effortlessly."
+msgstr ""
+
+#: src/Components/Onboarding/Features.jsx:125
+msgid "Header & Footer Builder"
+msgstr ""
+
+#: src/Components/Onboarding/Features.jsx:145
+msgid ""
+"Assign headers and footers to specific pages or post types. This gives "
+"users complete layout control, something typically locked behind Pro "
+"plugins."
+msgstr ""
+
+#: src/Components/Onboarding/Features.jsx:187
+msgid "Mega Menu & Navigation Widget"
+msgstr ""
+
+#: src/Components/Onboarding/Features.jsx:204
+msgid ""
+"Save hours by copying Elementor sections, widgets, or pages from one "
+"website to another no need to rebuild layouts from scratch."
+msgstr ""
+
+#: src/Components/Onboarding/Features.jsx:296
+msgid "WooCommerce Widgets"
+msgstr ""
+
+#: src/Components/Onboarding/Features.jsx:345
+msgid "50+ Premium Widgets & 200+ Templates"
+msgstr ""
+
+#: src/Components/Onboarding/Features.jsx:361
+msgid ""
+"Design eye-catching popups directly in Elementor collect leads, display "
+"promotions, or show messages without needing a separate popup plugin."
+msgstr ""
+
+#: src/Components/Onboarding/Features.jsx:415
+msgid "Upgrade"
+msgstr ""
+
+#: src/Components/Onboarding/Features.jsx:447
+msgid "You've picked Pro features upgrade to start using them."
+msgstr ""
+
+#: src/Components/Onboarding/WelcomeNew.jsx:124
+msgid "Let's Get Started"
+msgstr ""
+
+#: src/Components/Onboarding/WelcomeNew.jsx:16
+msgid "Welcome to UAE"
+msgstr ""
+
+#: src/Components/Onboarding/WelcomeNew.jsx:23
+msgid "Your Ultimate Elementor Addons to build modern Elementor Websites."
+msgstr ""
+
+#: src/Components/Onboarding/WelcomeNew.jsx:59
+msgid "No bloat - disable unused widgets with one click"
+msgstr ""
+
+#: src/Components/Onboarding/WelcomeNew.jsx:75
+msgid "Design headers & footers exactly where you want them"
+msgstr ""
+
+#: src/Components/Onboarding/WelcomeNew.jsx:91
+msgid "Reliable support from experts when you need it"
+msgstr ""
+
+#: src/Components/Onboarding/index.js:151
+msgid "Exit Guided Setup"
+msgstr ""
+
+#: src/Components/Settings/Branding.jsx:107
+msgid "https://www.brainstormforce.com"
+msgstr ""
+
+#: src/Components/Settings/Branding.jsx:122
+msgid "Plugin Name"
+msgstr ""
+
+#: src/Components/Settings/Branding.jsx:129
+msgid "Ultimate Addons"
+msgstr ""
+
+#: src/Components/Settings/Branding.jsx:142
+msgid "Plugin Short Name"
+msgstr ""
+
+#: src/Components/Settings/Branding.jsx:149
+msgid "UAE"
+msgstr ""
+
+#: src/Components/Settings/Branding.jsx:163
+msgid "Plugin Description"
+msgstr ""
+
+#: src/Components/Settings/Branding.jsx:170
+msgid "Ultimate Addons is a premium extension for Elementor..."
+msgstr ""
+
+#: src/Components/Settings/Branding.jsx:190
+msgid "Replace or Hide Logo"
+msgstr ""
+
+#: src/Components/Settings/Branding.jsx:192
+msgid ""
+"Enable this option to hide the default logo or replace it with your own "
+"logo. (Note: To hide the logo, leave the logo URL field empty.)"
+msgstr ""
+
+#: src/Components/Settings/Branding.jsx:206
+msgid "Enter logo URL to replace"
+msgstr ""
+
+#: src/Components/Settings/Branding.jsx:214
+msgid "https://www.example.com/logo.svg"
+msgstr ""
+
+#: src/Components/Settings/Branding.jsx:233
+msgid "Hide White Label Settings"
+msgstr ""
+
+#: src/Components/Settings/Branding.jsx:235
+msgid ""
+"Enabling this option will hide the White Label settings. To access it "
+"again, re-activate the plugin."
+msgstr ""
+
+#: src/Components/Settings/Branding.jsx:248
+msgid "Elementor Editor Area"
+msgstr ""
+
+#: src/Components/Settings/Branding.jsx:253
+msgid "Show Help Links"
+msgstr ""
+
+#: src/Components/Settings/Branding.jsx:255
+msgid "Display internal help links in widget editor area."
+msgstr ""
+
+#: src/Components/Settings/Branding.jsx:282
+msgid "White Label Available in UAE Pro"
+msgstr ""
+
+#: src/Components/Settings/Branding.jsx:286
+msgid "Remove UAE branding and customize the dashboard with your agency details."
+msgstr ""
+
+#: src/Components/Settings/Branding.jsx:74
+msgid "Plugins Details"
+msgstr ""
+
+#: src/Components/Settings/Branding.jsx:75
+msgid ""
+"You can change the author name and plugin details that are displayed in the "
+"WordPress backend."
+msgstr ""
+
+#: src/Components/Settings/Branding.jsx:87
+msgid "Brainstorm Force"
+msgstr ""
+
+#: src/Components/Settings/Settings.jsx:49
+msgid "Editor"
+msgstr ""
+
+#: src/Components/Settings/Settings.jsx:50
+#: src/Components/Settings/ThemeSupport.jsx:80
+msgid "Theme Support"
+msgstr ""
+
+#: src/Components/Settings/Settings.jsx:65
+msgid "Custom SVG"
+msgstr ""
+
+#: src/Components/Settings/Settings.jsx:69
+msgid "Utilities"
+msgstr ""
+
+#: src/Components/Settings/Settings.jsx:70
+#: src/Components/Settings/VersionControl.jsx:45
+msgid "Version Control"
+msgstr ""
+
+#: src/Components/Settings/Settings.jsx:91
+msgid "Branding"
+msgstr ""
+
+#: src/Components/Settings/ThemeSupport.jsx:10
+msgid ""
+"This option will automatically replace your theme's header and footer files "
+"with custom templates from the plugin. It works with most themes and is "
+"selected by default."
+msgstr ""
+
+#: src/Components/Settings/ThemeSupport.jsx:140
+msgid "Note:"
+msgstr ""
+
+#: src/Components/Settings/ThemeSupport.jsx:140
+msgid ""
+"If neither option works, please contact your theme author to add support "
+"for this plugin."
+msgstr ""
+
+#: src/Components/Settings/ThemeSupport.jsx:15
+msgid "Option 2"
+msgstr ""
+
+#: src/Components/Settings/ThemeSupport.jsx:16
+msgid ""
+"This option hides your theme's header and footer using CSS and displays "
+"custom templates from the plugin. Use this if Option 1 causes layout issues."
+msgstr ""
+
+#: src/Components/Settings/ThemeSupport.jsx:9
+msgid "Option 1 (Recommended)"
+msgstr ""
+
+#: src/Components/Settings/ThemeSupport.jsx:95
+msgid "Select Option to Add Theme Support"
+msgstr ""
+
+#: src/Components/Settings/ThemeSupport.jsx:97
+msgid ""
+"To ensure compatibility between the header/footer and your theme, please "
+"choose one of the following options to enable theme support:"
+msgstr ""
+
+#: src/Components/Settings/UsageTracking.jsx:68
+msgid ""
+"Help shape the future of Ultimate Addons for Elementor. Share how you use "
+"the plugin so we can build features that matter, fix issues faster, and "
+"make smarter decisions. "
+msgstr ""
+
+#: src/Components/Settings/UsageTracking.jsx:78
+#: src/Components/Templates/ExploreTemplates.jsx:227
+msgid "Learn More"
+msgstr ""
+
+#: src/Components/Settings/VersionControl.jsx:119
+msgid "Rollback to Previous Version"
+msgstr ""
+
+#: src/Components/Settings/VersionControl.jsx:129
+msgid "Rollback"
+msgstr ""
+
+#: src/Components/Settings/VersionControl.jsx:132
+msgid "Cancel"
+msgstr ""
+
+#: src/Components/Settings/VersionControl.jsx:66
+msgid ""
+"Experiencing an issue with current version? Roll back to a previous version "
+"to help troubleshoot the issue."
+msgstr ""
+
+#: src/Components/Templates/ExploreTemplates.jsx:134
+msgid "Activating Starter Templates..."
+msgstr ""
+
+#: src/Components/Templates/ExploreTemplates.jsx:136
+msgid "Activated Starter Templates"
+msgstr ""
+
+#: src/Components/Templates/ExploreTemplates.jsx:145
+msgid "Activate Starter Templates"
+msgstr ""
+
+#: src/Components/Templates/ExploreTemplates.jsx:169
+msgid "Design Your Website in Minutes"
+msgstr ""
+
+#: src/Components/Templates/ExploreTemplates.jsx:17
+msgid "250+ templates for every niche"
+msgstr ""
+
+#: src/Components/Templates/ExploreTemplates.jsx:178
+msgid "Build your website faster using our prebuilt templates"
+msgstr ""
+
+#: src/Components/Templates/ExploreTemplates.jsx:183
+msgid ""
+"Stop building your site from scratch. Use our professional templates for "
+"your stunning website. It is easy to customize and completely responsive. "
+"Explore hundreds of designs and bring your vision to life in no time."
+msgstr ""
+
+#: src/Components/Templates/ExploreTemplates.jsx:216
+msgid "Explore Templates"
+msgstr ""
+
+#: src/Components/Templates/ExploreTemplates.jsx:22
+msgid "Modern, timeless designs"
+msgstr ""
+
+#: src/Components/Templates/ExploreTemplates.jsx:27
+msgid "Full design flexibility for easy customization"
+msgstr ""
+
+#: src/Components/Templates/ExploreTemplates.jsx:32
+msgid "100% responsive across all devices"
+msgstr ""
+
+#: src/Components/Templates/ExploreTemplates.jsx:81
+msgid "Installing Starter Templates..."
+msgstr ""
+
+#: src/Components/Templates/ExploreTemplates.jsx:90
+msgid "Installed Starter Templates"
+msgstr ""
+
+#: src/Components/Templates/ExploreTemplates.jsx:93
+msgid "Install Starter Templates"
+msgstr ""
+
+#: src/Components/UpgradeNotice.jsx:67
+msgid "Close Upgrade Notice"
+msgstr ""
+
+#: src/Components/UpgradeNotice.jsx:72
+msgid "Design Without Limits: Access the features that top WordPress sites run on."
+msgstr ""
+
+#: src/Components/Widgets/Features/FeatureWidgets.jsx:195
+msgid "Search..."
+msgstr ""
+
+#: src/Components/Widgets/Features/FeatureWidgets.jsx:229
+msgid "Activate All"
+msgstr ""
+
+#: src/Components/Widgets/Features/FeatureWidgets.jsx:245
+msgid "Deactivate Unused"
+msgstr ""
+
+#: src/Components/Widgets/Features/FeatureWidgets.jsx:253
+msgid "Deactivating..."
+msgstr ""
+
+#: src/Components/Widgets/Features/FeatureWidgets.jsx:253
+msgid "Deactivate All"
+msgstr ""
+
+#: src/Components/Widgets/UltimateWidgetFeatures.jsx:149
+msgid "Start Building Smarter"
+msgstr ""
+
+#: src/Components/Widgets/UltimateWidgetFeatures.jsx:56
+msgid "Bring Your Vision to Life with UAE Pro"
+msgstr ""
+
+#: src/Components/Widgets/UltimateWidgetFeatures.jsx:65
+msgid ""
+"Streamline your workflow, skip the repetitive tasks, and build modern, "
+"high-performance websites."
+msgstr ""
+
+#: src/Components/Widgets/UltimateWidgets.jsx:119
+msgid "Compare Free vs Pro"
+msgstr ""
+
+#: src/lib/bsf-learn/components/BsfLearnChapters.js:102
+#. %1$d is the number of completed steps, %2$d is the total number of steps.
+msgid "%1$d of %2$d steps completed"
+msgstr ""
+
+#: src/lib/bsf-learn/components/BsfLearnChapters.js:89
+#: src/lib/bsf-learn/components/BsfLearnStep.js:146
+msgid "Learn how"
+msgstr ""
+
+#: src/lib/bsf-learn/components/BsfLearnStep.js:165
+msgid "Set Up"
+msgstr ""
+
+#: src/lib/bsf-learn/components/BsfLearnStep.js:86
+msgid "Mark as incomplete"
+msgstr ""
+
+#: src/lib/bsf-learn/components/BsfLearnStep.js:87
+msgid "Mark as complete"
+msgstr ""
+
+#: src/lib/bsf-learn/components/learn-how/Checklist.js:25
+#. %s is the step number.
+msgid "Step %d:"
+msgstr ""
+
+#: src/lib/bsf-learn/useBsfLearn.js:78
+msgid "Failed to save progress. Please try again."
+msgstr ""

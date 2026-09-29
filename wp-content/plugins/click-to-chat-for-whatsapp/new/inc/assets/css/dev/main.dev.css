@@ -1,0 +1,357 @@
+/* --------------------------------------------------------------
+ * Click to Chat - Main Stylesheet
+ * --------------------------------------------------------------
+ * Description: Core UI styles, entry animations, greetings layout,
+ * and mobile responsiveness for WhatsApp Click to Chat plugin.
+ * Version: 4.26
+ * Source: https://holithemes.com/plugins/click-to-chat/
+ * --------------------------------------------------------------
+*/
+
+
+/*
+ * 
+ * side: base widget side position - right/left
+*/
+.ht-ctc-chat {
+	--side: right;
+	/* --side-desktop: right; */
+	/* --side-mobile: right; */
+}
+
+/* pointer-events: none; */
+/* .ht-ctc-init-hidden {
+	opacity: 0;
+	visibility: hidden;
+} */
+
+
+.ht-ctc-opacity-hide {
+	opacity: 0;
+}
+
+.ht-ctc-opacity-show {
+	opacity: 1;
+}
+
+/* for display types.. */
+.ht-ctc-display-hide {
+	display: none;
+}
+
+.ht-ctc-display-show {
+	display: block;
+}
+
+/* todo */
+.ht-ctc-display-unset {
+	display: unset !important;
+}
+
+
+
+/* Animations */
+@keyframes ctcBounce {
+	0% {
+		transform: scale(0);
+		opacity: 0;
+	}
+
+	60% {
+		transform: scale(1.3);
+		opacity: 1;
+	}
+
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+/* FadeIn Animation */
+@keyframes ctc_fadeIn {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+.ht-ctc-bounce {
+	animation: ctcBounce 0.45s ease-out forwards;
+}
+
+.ht-ctc-fade-in {
+	animation: ctc_fadeIn 0.25s ease;
+}
+
+
+/* Reset for Greetings Box */
+.ht_ctc_chat_greetings_box *:not(ul):not(ol):not(.ht_ctc_default):not(.ht_ctc_defaults *) {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+.ht_ctc_chat_greetings_box ul,
+.ht_ctc_chat_greetings_box ol {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+/* Layout */
+.ht_ctc_chat_greetings_box_layout {
+	clear: both;
+}
+
+/* the parent - where position relative, .. is added. but display propery are added to the child ht_ctc_chat_greetings_box, that why added none at here and auto at child */
+.ht_ctc_greetings {
+	pointer-events: none;
+}
+
+.ht_ctc_chat_greetings_box {
+	pointer-events: auto;
+}
+
+
+.ht_ctc_greetings_box {
+	/* overflow: hidden; */
+
+	/* ANIMATION STATE: CLOSED */
+	opacity: 0;
+	transform-origin: bottom var(--side, right);
+	transform: scale(0) translate(20px, 20px);
+	/* pointer-events: none; */
+	/* Prevents clicking when hidden */
+
+	/* Smooth Transition */
+	transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* ANIMATION STATE: OPEN */
+.ht_ctc_greetings_box.ht_ctc_greetings_box_open {
+	opacity: 1;
+	transform: scale(1) translate(0, 0);
+	pointer-events: auto;
+	/* pointer-events: all; */
+}
+
+
+
+/* Backdrop Overlay - element auto creates from js file*/
+.ht_ctc_modal_backdrop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(0, 0, 0, 0.3);
+	/* background: rgba(0, 0, 0, 0.4); */
+	z-index: 9;
+	backdrop-filter: blur(1px);
+	/* backdrop-filter: blur(2px); */
+	/* transition: opacity 2s ease; */
+	animation: ctc_fadeIn 0.2s ease;
+}
+
+/* Optional: Scroll Lock Body (uncomment if needed) */
+/* body.ht_ctc_modal_open {
+    overflow: hidden;
+} */
+
+.ht_ctc_notification {
+	/* animation: ctc_fadeIn 0.25s ease; */
+	animation: ctcBounce 0.45s ease-out forwards;
+}
+
+
+
+/* .ht_ctc_chat_greetings_box {
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    display: block !important;
+}
+
+.ctc_greetings_opened {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+} */
+
+
+
+
+/* Entry Animation - Corner */
+/* @keyframes ht_ctc_an_corner {
+    0% {
+        transform: scale(0.3);
+        opacity: 0;
+        transform-origin: bottom right;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+        transform-origin: bottom right;
+    }
+}
+
+.ht_ctc_an_corner {
+    animation: ht_ctc_an_corner 0.2s ease-out;
+    animation-fill-mode: both;
+} */
+
+/* todo: test c/g/s */
+/* call to action stick - hover effects */
+/* transform --shift changes at js based on widget side right/left */
+/* pointer-events: none; */
+/* .ht-ctc-cta-hover {
+    opacity: 0;
+    transform: translateX(var(--shift, 5px));
+    transition: opacity 0.15s ease, transform 0.15s ease;
+} */
+
+/* .ht-ctc-chat:hover .ht-ctc-cta-hover {
+    opacity: 1;
+    display: block !important;
+    transform: translateX(0);
+    pointer-events: auto;
+} */
+
+@keyframes ht_ctc_cta_stick {
+	0% {
+		opacity: 0;
+		transform: translateX(6px) scaleX(0.6);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateX(0) scaleX(1);
+	}
+}
+
+.ht-ctc-cta-stick {
+	transform-origin: var(--side, right) center;
+	animation-name: ht_ctc_cta_stick;
+	animation-duration: 0.12s;
+	animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+	animation-fill-mode: both;
+}
+
+/* display: inline-flex;
+align-items: center;
+white-space: nowrap;
+border-radius: 999px; */
+
+
+
+
+
+
+/* Greetings Scroll Behavior */
+.ctc_g_content {
+	max-height: calc(80vh - 140px);
+	overflow-y: auto;
+}
+
+.ctc_g_content,
+.ctc_g_sentbutton,
+.ctc_g_bottom {
+	margin-top: -0.9px !important;
+}
+
+/* Greetings Header Image */
+.greetings_header_image {
+	position: relative;
+	display: inline-block;
+}
+
+.greetings_header_image img {
+	object-fit: cover;
+}
+
+/* Online Badge */
+/* rtl left: 0px; added with in php page. */
+.g_header_badge_online {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	z-index: 1;
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	/* Optional styling: 
+    background-color: #06e376;
+    border: 2px solid #075e54; */
+}
+
+
+/* Scrollbar Styling for Large Screens */
+@media only screen and (min-width: 900px) {
+	.ctc_g_content::-webkit-scrollbar {
+		width: 2.8px;
+	}
+
+	.ctc_g_content::-webkit-scrollbar-thumb {
+		background: #a5a5a5;
+	}
+}
+
+/* Responsive: Mobile Specific Adjustments */
+@media only screen and (max-width: 420px) {
+
+	/* Widget Side Position Fixes */
+	.ctc_side_positions .ctc_m_p_left {
+		right: unset !important;
+		left: 0 !important;
+	}
+
+	.ctc_side_positions .ctc_m_p_right {
+		left: unset !important;
+		right: 0 !important;
+	}
+
+	.ctc_side_positions .ctc_m_p_left .ctc_greetings_close_btn {
+		float: left !important;
+	}
+
+	.ctc_side_positions .ctc_m_p_right .ctc_greetings_close_btn {
+		float: right !important;
+	}
+
+	/* Call to Action Button Order */
+	.ctc_side_positions .ctc_m_cta_order_0 {
+		order: 0 !important;
+	}
+
+	.ctc_side_positions .ctc_m_cta_order_1 {
+		order: 1 !important;
+	}
+
+	/* Full Width Greetings */
+	.ht_ctc_greetings.ctc_m_full_width {
+		position: fixed !important;
+		bottom: 0 !important;
+		right: 0 !important;
+	}
+
+	.ht_ctc_greetings.ctc_m_full_width .ht_ctc_chat_greetings_box {
+		position: unset !important;
+		margin: 7px !important;
+		min-width: 80vw !important;
+		width: calc(100vw - 14px) !important;
+	}
+
+	.ctc_m_full_width .ctc_g_message_box_width {
+		max-width: 85% !important;
+	}
+
+	/* fix: animation and greetings in mobile devices not working properly. clear animation-fill-mode for .ht_ctc_animation only if child have .ht_ctc_greetings */
+	.ht_ctc_animation:has(.ht_ctc_greetings) {
+		animation-fill-mode: none !important;
+	}
+}

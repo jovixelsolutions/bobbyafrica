@@ -1,0 +1,181 @@
+/* =========================
+   GLOBAL STYLES
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    height: 100vh;
+    background: linear-gradient(50deg, #0866fc, #4aaafe);
+}
+
+.coming-soon {
+    height: 100vh;
+    position: relative;
+    color: #fff;
+    padding: 40px 60px;
+}
+
+.site-logo {
+    position: absolute;
+    top: 35px;
+    left: 60px;
+    text-decoration: none;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: #ffffff;
+    font-weight: 900;
+}
+
+.site-logo img{
+    width: 200px;
+    height: 100px;
+}
+
+
+
+.main {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.image-area {
+    width: 40%;  
+    display: flex;
+    align-items: flex-end; 
+    justify-content: center;
+}
+
+.image-area img {
+    max-width: 670px;
+    width: 100%;
+    margin-bottom: -170px;
+}
+
+.text-area {
+    width: 60%;  
+    text-align: center;
+}
+
+.subtitle {
+    font-size: 45px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.text-area h1 {
+    font-size: 115px;
+    font-weight: 900;
+    margin-bottom: 22px;
+}
+
+.timer {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+}
+
+.timer span {
+    font-size: 70px;
+    font-weight: 700;
+    display: block;
+    background: linear-gradient(180deg, #ffdf6c, #dc9c05);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.timer small {
+    font-size: 18px;
+    opacity: 0.9;
+}
+
+.footer-text {
+    position: absolute;
+    bottom: 35px;
+    right: 10px;
+    max-width: 600px;
+    font-size: 20px;
+    opacity: 0.5;
+    text-align: left;
+    word-spacing: 3px;
+}
+
+/* =========================
+   RESPONSIVE CSS
+========================= */
+@media (max-width: 992px) {
+
+    .coming-soon {
+        padding: 30px 20px;
+        height: auto; 
+    }
+
+    .site-logo {
+        left: 50%;
+        transform: translateX(-50%);
+        top: 20px; 
+    }
+
+    .main {
+        flex-direction: column;
+        justify-content: flex-start; 
+        gap: 25px;
+        text-align: center;
+    }
+
+    .image-area, .text-area {
+        width: 100%; 
+    }
+
+    .image-area img {
+        max-width: 280px;
+        padding-top: 30px;
+        margin-bottom: 0px;
+    }
+
+    .text-area h1 {
+        font-size: 48px;
+    }
+
+    .timer {
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .footer-text {
+        position: static;
+        margin-top: 30px;
+        text-align: center;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 1565px) and (min-width: 993px){
+    .text-area h1{
+        font-size: 68px;
+    }
+    .subtitle {
+        font-size: 25px;
+    }
+}
+@media (max-width: 576px) {
+    .text-area {
+        padding: 0 10px;
+    }
+
+    .text-area h1 {
+        font-size: 35px;
+    }
+
+    .timer div {
+        flex: 1 1 45%;
+        padding: 10px 0;
+    }
+}

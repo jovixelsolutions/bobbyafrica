@@ -1,0 +1,1774 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: gpt-po v1.1.1\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-03-19T11:23:46+00:00\n"
+"PO-Revision-Date: 2026-03-19T11:23:46+00:00\n"
+"Language: \n"
+
+#. Plugin Name of the plugin
+#: modern-cart.php
+msgid "Modern Cart Starter for WooCommerce"
+msgstr "Nowoczesny Starter Koszyka dla WooCommerce"
+
+#. Description of the plugin
+#: modern-cart.php
+msgid "The Modern Cart Starter enhances your WooCommerce cart with more features and customization options."
+msgstr "Modern Cart Starter wzbogaca Twój koszyk WooCommerce o więcej funkcji i opcji dostosowywania."
+
+#. Author of the plugin
+#: modern-cart.php
+#: templates/cart/powered-by.php:20
+msgid "CartFlows"
+msgstr "CartFlows"
+
+#. Author URI of the plugin
+#: modern-cart.php
+msgid "https://cartflows.com/"
+msgstr "https://cartflows.com/"
+
+#: admin-core/admin-menu.php:63
+msgid "Settings - Modern Cart Woo"
+msgstr "Ustawienia - Nowoczesny Koszyk Woo"
+
+#: admin-core/admin-menu.php:64
+#: inc/abilities/register-abilities.php:47
+msgid "Modern Cart"
+msgstr "Nowoczesny Wózek"
+
+#: admin-core/admin-menu.php:204
+#: admin-core/admin-menu.php:365
+#: admin-core/admin-menu.php:398
+msgid "You do not have sufficient permissions to access this page."
+msgstr "Nie masz wystarczających uprawnień, aby uzyskać dostęp do tej strony."
+
+#: admin-core/admin-menu.php:226
+msgid "No valid setting keys found."
+msgstr "Nie znaleziono prawidłowych kluczy ustawień."
+
+#: admin-core/admin-menu.php:254
+msgid "Settings saved successfully."
+msgstr "Ustawienia zostały pomyślnie zapisane."
+
+#: admin-core/admin-menu.php:257
+msgid "Failed to save settings."
+msgstr "Nie udało się zapisać ustawień."
+
+#: admin-core/admin-menu.php:361
+#: admin-core/admin-menu.php:394
+#: inc/floating-ajax.php:41
+msgid "Nonce verification failed."
+msgstr "Weryfikacja nonce nie powiodła się."
+
+#: admin-core/admin-menu.php:372
+msgid "Failed to fetch RSS feed."
+msgstr "Nie udało się pobrać kanału RSS."
+
+#: admin-core/admin-menu.php:405
+msgid "Invalid data. Onboarding data cannot be empty"
+msgstr "Nieprawidłowe dane. Dane wprowadzające nie mogą być puste"
+
+#: admin-core/inc/settings-fields.php:64
+#: admin-core/inc/settings-fields.php:65
+msgid "General"
+msgstr "Ogólne"
+
+#: admin-core/inc/settings-fields.php:70
+#: admin-core/inc/settings-fields.php:71
+msgid "Text Label"
+msgstr "Etykieta tekstowa"
+
+#: admin-core/inc/settings-fields.php:76
+#: admin-core/inc/settings-fields.php:77
+msgid "Floating Cart Icon"
+msgstr "Pływająca ikona koszyka"
+
+#: admin-core/inc/settings-fields.php:82
+#: admin-core/inc/settings-fields.php:83
+msgid "Styling"
+msgstr "Stylizacja"
+
+#: admin-core/inc/settings-fields.php:103
+#: inc/abilities/settings/get-available-options.php:71
+msgid "Enable Modern Cart"
+msgstr "Włącz nowoczesny koszyk"
+
+#: admin-core/inc/settings-fields.php:104
+msgid "Choose where you want to enable the cart on your website."
+msgstr "Wybierz, gdzie chcesz włączyć koszyk na swojej stronie internetowej."
+
+#: admin-core/inc/settings-fields.php:109
+#: admin-core/inc/settings-fields.php:147
+msgid "Disable"
+msgstr "Wyłącz"
+
+#: admin-core/inc/settings-fields.php:113
+msgid "WooCommerce Pages"
+msgstr "Strony WooCommerce"
+
+#: admin-core/inc/settings-fields.php:117
+#: inc/abilities/settings/get-available-options.php:77
+msgid "Entire Website"
+msgstr "Cała strona internetowa"
+
+#: admin-core/inc/settings-fields.php:124
+#: inc/abilities/settings/get-available-options.php:149
+msgid "Cart Style"
+msgstr "Styl koszyka"
+
+#: admin-core/inc/settings-fields.php:125
+msgid "Pick a cart design that best suits your store's look and feel."
+msgstr "Wybierz projekt koszyka, który najlepiej pasuje do wyglądu i stylu Twojego sklepu."
+
+#: admin-core/inc/settings-fields.php:130
+msgid "Style 1"
+msgstr "Styl 1"
+
+#: admin-core/inc/settings-fields.php:134
+#: inc/abilities/settings/get-available-options.php:173
+msgid "Style 2"
+msgstr "Styl 2"
+
+#: admin-core/inc/settings-fields.php:141
+msgid "Display Coupon Field"
+msgstr "Wyświetl pole kuponu"
+
+#: admin-core/inc/settings-fields.php:142
+msgid "Allow customers to enter a coupon code in the cart to apply discounts."
+msgstr "Pozwól klientom wprowadzić kod kuponu w koszyku, aby zastosować zniżki."
+
+#: admin-core/inc/settings-fields.php:151
+msgid "Minimize"
+msgstr "Minimalizuj"
+
+#: admin-core/inc/settings-fields.php:155
+msgid "Expand"
+msgstr "Rozwiń"
+
+#: admin-core/inc/settings-fields.php:162
+msgid "Enable AJAX Add To Cart"
+msgstr "Włącz AJAX Dodaj do koszyka"
+
+#: admin-core/inc/settings-fields.php:163
+msgid "Enable or disable AJAX add to cart functionality in single product page. When disabled, the cart page will reload after adding a product."
+msgstr "Włącz lub wyłącz funkcję AJAX dodawania do koszyka na stronie pojedynczego produktu. Gdy jest wyłączona, strona koszyka zostanie przeładowana po dodaniu produktu."
+
+#: admin-core/inc/settings-fields.php:169
+#: admin-core/assets/build/settings.js:7
+msgid "Enable Free Shipping Bar"
+msgstr "Włącz pasek darmowej wysyłki"
+
+#. translators: %1$s: link html start, %2$s: link html end.
+#: admin-core/inc/settings-fields.php:172
+#, php-format
+msgid "Shows a progress bar that lets customers see how much more they need to spend to get free shipping. To enable this, turn on Free Shipping in your WooCommerce shipping settings. Need help? Check out %1$s this guide%2$s."
+msgstr "Pokazuje pasek postępu, który pozwala klientom zobaczyć, ile jeszcze muszą wydać, aby uzyskać darmową wysyłkę. Aby to włączyć, włącz Darmową Wysyłkę w ustawieniach wysyłki WooCommerce. Potrzebujesz pomocy? Sprawdź %1$s ten przewodnik%2$s."
+
+#: admin-core/inc/settings-fields.php:181
+msgid "Help Us Improve Your Experience"
+msgstr "Pomóż nam ulepszyć Twoje doświadczenie"
+
+#. translators: %1$s: link html start, %2$s: link html end.
+#: admin-core/inc/settings-fields.php:184
+#, php-format
+msgid "Allow Modern Cart and our other products to track non-sensitive usage tracking data. %1$sLearn More%2$s"
+msgstr "Zezwól Modern Cart i naszym innym produktom na śledzenie niesensytywnych danych dotyczących użytkowania. %1$sDowiedz się więcej%2$s"
+
+#: admin-core/inc/settings-fields.php:202
+msgid "Main Heading"
+msgstr "Główny Nagłówek"
+
+#: admin-core/inc/settings-fields.php:203
+msgid "Set the main heading for your cart. This is the most important title and helps customers understand what this section is about."
+msgstr "Ustaw główny nagłówek dla swojego koszyka. To najważniejszy tytuł, który pomaga klientom zrozumieć, o czym jest ta sekcja."
+
+#: admin-core/inc/settings-fields.php:209
+msgid "Coupon Field Title"
+msgstr "Tytuł pola kuponu"
+
+#: admin-core/inc/settings-fields.php:210
+msgid "Enter a title for the coupon field to let users know what it's for."
+msgstr "Wprowadź tytuł dla pola kuponu, aby użytkownicy wiedzieli, do czego ono służy."
+
+#: admin-core/inc/settings-fields.php:212
+msgid "Default value: Got a Discount Code?"
+msgstr "Wartość domyślna: Masz kod rabatowy?"
+
+#: admin-core/inc/settings-fields.php:217
+msgid "Coupon Field Placeholder"
+msgstr "Symbol zastępczy pola kuponu"
+
+#: admin-core/inc/settings-fields.php:218
+msgid "Enter a placeholder text for the coupon field (e.g., \"Enter your coupon code\")."
+msgstr "Wprowadź tekst zastępczy dla pola kuponu (np. \"Wprowadź kod kuponu\")."
+
+#: admin-core/inc/settings-fields.php:220
+msgid "Default value: Enter discount code"
+msgstr "Wartość domyślna: Wprowadź kod rabatowy"
+
+#: admin-core/inc/settings-fields.php:225
+msgid "Checkout Button Text"
+msgstr "Tekst przycisku realizacji zakupu"
+
+#: admin-core/inc/settings-fields.php:226
+msgid "Customize the text on your checkout button to match your store's style and guide customers clearly."
+msgstr "Dostosuj tekst na przycisku do kasy, aby pasował do stylu Twojego sklepu i jasno prowadził klientów."
+
+#: admin-core/inc/settings-fields.php:228
+msgid "Default value: Checkout now"
+msgstr "Wartość domyślna: Przejdź do kasy teraz"
+
+#: admin-core/inc/settings-fields.php:233
+msgid "Free Shipping Bar Text"
+msgstr "Tekst paska darmowej wysyłki"
+
+#: admin-core/inc/settings-fields.php:234
+msgid "Use {amount} to show the remaining amount to spend."
+msgstr "Użyj {amount}, aby pokazać pozostałą kwotę do wydania."
+
+#: admin-core/inc/settings-fields.php:236
+msgid "Default value: You're {amount} away from free shipping!"
+msgstr "Wartość domyślna: Brakuje Ci {amount} do darmowej wysyłki!"
+
+#: admin-core/inc/settings-fields.php:241
+msgid "Free Shipping Success Message"
+msgstr "Komunikat o pomyślnym wysyłaniu za darmo"
+
+#: admin-core/inc/settings-fields.php:242
+msgid "Message to display when customer qualifies for free shipping."
+msgstr "Komunikat do wyświetlenia, gdy klient kwalifikuje się do darmowej wysyłki."
+
+#: admin-core/inc/settings-fields.php:244
+msgid "Default value: Awesome pick! You've unlocked free shipping."
+msgstr "Domyślna wartość: Świetny wybór! Odblokowałeś darmową wysyłkę."
+
+#: admin-core/inc/settings-fields.php:249
+msgid "Discount Label"
+msgstr "Etykieta rabatowa"
+
+#: admin-core/inc/settings-fields.php:250
+msgid "Enter the discount label to display the sale price. Use {percent} to show the discount percent value."
+msgstr "Wprowadź etykietę rabatu, aby wyświetlić cenę sprzedaży. Użyj {percent}, aby pokazać wartość procentową rabatu."
+
+#: admin-core/inc/settings-fields.php:252
+msgid "Default value: You saved {percent}%"
+msgstr "Wartość domyślna: Zaoszczędziłeś {percent}%"
+
+#: admin-core/inc/settings-fields.php:259
+msgid "Floating Cart Button Position"
+msgstr "Pozycja przycisku pływającego koszyka"
+
+#: admin-core/inc/settings-fields.php:260
+#: admin-core/assets/build/settings.js:7
+msgid "Select where you want to position floating cart button on your website."
+msgstr "Wybierz, gdzie chcesz umieścić przycisk pływającego koszyka na swojej stronie internetowej."
+
+#: admin-core/inc/settings-fields.php:265
+#: inc/abilities/settings/get-available-options.php:243
+msgid "Bottom Left"
+msgstr "Dolny lewy"
+
+#: admin-core/inc/settings-fields.php:269
+msgid "Bottom Right"
+msgstr "Dolny prawy"
+
+#: admin-core/inc/settings-fields.php:287
+msgid "Colors"
+msgstr "Kolory"
+
+#: admin-core/inc/settings-fields.php:292
+msgid "Primary Color"
+msgstr "Kolor podstawowy"
+
+#: admin-core/inc/settings-fields.php:293
+msgid "Select the main color for your design."
+msgstr "Wybierz główny kolor dla swojego projektu."
+
+#: admin-core/inc/settings-fields.php:300
+msgid "Heading Color"
+msgstr "Kolor nagłówka"
+
+#: admin-core/inc/settings-fields.php:301
+msgid "Choose a color for the headings in the cart."
+msgstr "Wybierz kolor dla nagłówków w koszyku."
+
+#: admin-core/inc/settings-fields.php:308
+msgid "Body Color"
+msgstr "Kolor nadwozia"
+
+#: admin-core/inc/settings-fields.php:309
+msgid "Choose a color for the text in your cart."
+msgstr "Wybierz kolor tekstu w swoim koszyku."
+
+#: admin-core/inc/settings-fields.php:317
+msgid "Cart Header"
+msgstr "Nagłówek koszyka"
+
+#: admin-core/inc/settings-fields.php:322
+#: inc/abilities/settings/get-available-options.php:258
+msgid "Cart Header Text Alignment"
+msgstr "Wyrównanie tekstu nagłówka koszyka"
+
+#: admin-core/inc/settings-fields.php:323
+msgid "Choose how the text in your cart header is aligned."
+msgstr "Wybierz, jak tekst w nagłówku koszyka ma być wyrównany."
+
+#: admin-core/inc/settings-fields.php:328
+#: inc/abilities/settings/get-available-options.php:263
+msgid "Left"
+msgstr "Lewo"
+
+#: admin-core/inc/settings-fields.php:332
+msgid "Center"
+msgstr "Centrum"
+
+#: admin-core/inc/settings-fields.php:336
+#: inc/abilities/settings/get-available-options.php:271
+msgid "Right"
+msgstr "Prawo"
+
+#: admin-core/inc/settings-fields.php:343
+msgid "Cart Header Font Size"
+msgstr "Rozmiar czcionki nagłówka koszyka"
+
+#: admin-core/inc/settings-fields.php:344
+msgid "Set the font size for the cart header (in pixels)."
+msgstr "Ustaw rozmiar czcionki dla nagłówka koszyka (w pikselach)."
+
+#: admin-core/inc/settings-fields.php:346
+msgid "Default size: 22px"
+msgstr "Domyślny rozmiar: 22px"
+
+#: admin-core/inc/settings-fields.php:353
+msgid "Miscellaneous"
+msgstr "Różne"
+
+#: admin-core/inc/settings-fields.php:358
+#: inc/abilities/settings/get-available-options.php:182
+msgid "Product Image Size"
+msgstr "Rozmiar obrazu produktu"
+
+#: admin-core/inc/settings-fields.php:359
+msgid "Choose the size of product images displayed in the cart."
+msgstr "Wybierz rozmiar obrazów produktów wyświetlanych w koszyku."
+
+#: admin-core/inc/settings-fields.php:364
+msgid "Small"
+msgstr "Mały"
+
+#: admin-core/inc/settings-fields.php:368
+msgid "Medium"
+msgstr "Średni"
+
+#: admin-core/inc/settings-fields.php:372
+#: inc/abilities/settings/get-available-options.php:195
+msgid "Large"
+msgstr "Duży"
+
+#: admin-core/inc/settings-fields.php:379
+msgid "Cart Item Padding"
+msgstr "Odstęp elementu koszyka"
+
+#: admin-core/inc/settings-fields.php:380
+msgid "Set the padding around each item in the cart (in pixels)."
+msgstr "Ustaw margines wokół każdego elementu w koszyku (w pikselach)."
+
+#: admin-core/inc/settings-fields.php:382
+msgid "Default padding: 20px"
+msgstr "Domyślne wypełnienie: 20px"
+
+#: admin-core/inc/settings-fields.php:397
+msgid "Animation Speed"
+msgstr "Szybkość animacji"
+
+#: admin-core/inc/settings-fields.php:398
+msgid "Choose how fast or slow the animation plays."
+msgstr "Wybierz, jak szybko lub wolno odtwarzana jest animacja."
+
+#: admin-core/inc/settings-fields.php:401
+msgid "Default speed: 300"
+msgstr "Domyślna prędkość: 300"
+
+#: inc/abilities/abstract-ability.php:128
+msgid "If true, simulates the changes without applying them."
+msgstr "Jeśli prawda, symuluje zmiany bez ich zastosowania."
+
+#: inc/abilities/abstract-ability.php:188
+msgid "You do not have permission to perform this action."
+msgstr "Nie masz uprawnień do wykonania tej czynności."
+
+#: inc/abilities/abstract-ability.php:199
+msgid "An unexpected error occurred:"
+msgstr "Wystąpił nieoczekiwany błąd:"
+
+#: inc/abilities/abstract-ability.php:201
+msgid "A system error occurred:"
+msgstr "Wystąpił błąd systemu:"
+
+#: inc/abilities/cart/get-cart-summary.php:36
+msgid "Get Cart Summary"
+msgstr "Uzyskaj podsumowanie koszyka"
+
+#: inc/abilities/cart/get-cart-summary.php:37
+msgid "Returns the current WooCommerce session cart state: item count, is_empty flag, cart totals (subtotal, discount, tax, shipping, grand total), applied coupons list, and free shipping bar progress (threshold, cart_total, remaining amount, percent complete, is_achieved). Most useful for verifying free shipping bar configuration — add a test product to your cart, then call this to confirm the threshold and progress values."
+msgstr "Zwraca bieżący stan koszyka sesji WooCommerce: liczba przedmiotów, flaga is_empty, sumy koszyka (suma częściowa, zniżka, podatek, wysyłka, suma całkowita), lista zastosowanych kuponów oraz postęp paska darmowej wysyłki (próg, suma koszyka, pozostała kwota, procent ukończenia, czy osiągnięto). Najbardziej przydatne do weryfikacji konfiguracji paska darmowej wysyłki — dodaj produkt testowy do koszyka, a następnie wywołaj to, aby potwierdzić wartości progu i postępu."
+
+#: inc/abilities/cart/get-cart-summary.php:39
+msgid "Reflects the admin user's session, not a customer session. If checking free shipping progress, add a product to the cart first so the progress values are populated. Requires WooCommerce to be active and a session to be initialized."
+msgstr "Odnosi się do sesji użytkownika administratora, a nie sesji klienta. Jeśli sprawdzasz postęp darmowej wysyłki, najpierw dodaj produkt do koszyka, aby wartości postępu zostały wypełnione. Wymaga aktywnego WooCommerce i zainicjowanej sesji."
+
+#: inc/abilities/cart/get-cart-summary.php:83
+msgid "WooCommerce cart is not available. Ensure WooCommerce is active and a session is initialized."
+msgstr "Koszyk WooCommerce jest niedostępny. Upewnij się, że WooCommerce jest aktywny i sesja jest zainicjowana."
+
+#: inc/abilities/plugin/complete-onboarding.php:33
+msgid "Complete Onboarding"
+msgstr "Zakończ onboarding"
+
+#: inc/abilities/plugin/complete-onboarding.php:34
+msgid "Marks the Modern Cart onboarding wizard as complete. Call this after the initial plugin setup has been performed via update-settings. This operation is idempotent — safe to call even if onboarding was already completed."
+msgstr "Oznacza kreatora wprowadzania do nowoczesnego koszyka jako ukończonego. Wywołaj to po zakończeniu początkowej konfiguracji wtyczki za pomocą aktualizacji ustawień. Ta operacja jest idempotentna — bezpieczna do wywołania nawet jeśli wprowadzanie zostało już zakończone."
+
+#: inc/abilities/plugin/complete-onboarding.php:36
+msgid "Call this only after applying initial plugin configuration via update-settings. It is safe to call even if onboarding was already completed — check the was_already_complete field in the response to know whether this was the first completion or a redundant call."
+msgstr "Wywołaj to dopiero po zastosowaniu początkowej konfiguracji wtyczki za pomocą aktualizacji ustawień. Jest bezpieczne do wywołania, nawet jeśli onboarding został już zakończony — sprawdź pole was_already_complete w odpowiedzi, aby dowiedzieć się, czy było to pierwsze zakończenie, czy zbędne wywołanie."
+
+#: inc/abilities/plugin/get-plugin-status.php:35
+msgid "Get Plugin Status"
+msgstr "Uzyskaj status wtyczki"
+
+#: inc/abilities/plugin/get-plugin-status.php:36
+msgid "Returns Modern Cart plugin version, Pro plugin installation status (not-installed, inactive, or active), onboarding completion flag, and site maintenance mode state. Use this as the first call in any setup or diagnostic flow."
+msgstr "Zwraca wersję wtyczki Modern Cart, status instalacji wtyczki Pro (niezainstalowana, nieaktywna lub aktywna), flagę ukończenia wprowadzenia oraz stan trybu konserwacji witryny. Użyj tego jako pierwszego wywołania w dowolnym procesie konfiguracji lub diagnostyki."
+
+#: inc/abilities/plugin/get-plugin-status.php:38
+msgid "Call this as the first step in any setup or diagnostic flow. Check pro_status before attempting to set cart_style to \"popup\" — that value requires pro_status to be \"active\". If is_onboarding_complete is false, apply initial settings via update-settings then call complete-onboarding."
+msgstr "Użyj tego jako pierwszy krok w każdym procesie konfiguracji lub diagnostyki. Sprawdź pro_status przed próbą ustawienia cart_style na \"popup\" — ta wartość wymaga, aby pro_status był \"active\". Jeśli is_onboarding_complete jest false, zastosuj ustawienia początkowe za pomocą update-settings, a następnie wywołaj complete-onboarding."
+
+#: inc/abilities/register-abilities.php:48
+msgid "Abilities for managing Modern Cart settings and configuration."
+msgstr "Możliwości zarządzania ustawieniami i konfiguracją Modern Cart."
+
+#: inc/abilities/settings/get-available-options.php:33
+msgid "Get Available Setting Options"
+msgstr "Uzyskaj dostępne opcje ustawień"
+
+#: inc/abilities/settings/get-available-options.php:34
+msgid "Returns all valid enumerable choices for Modern Cart settings fields, including cart styles, theme variants, image sizes, coupon field modes, floating cart positions, and alignment values. Use this before calling update-settings to discover which values are valid for dropdown/enum-type fields."
+msgstr "Zwraca wszystkie prawidłowe wybory wyliczalne dla pól ustawień Modern Cart, w tym style koszyka, warianty motywów, rozmiary obrazów, tryby pola kuponu, pozycje pływającego koszyka i wartości wyrównania. Użyj tego przed wywołaniem update-settings, aby odkryć, które wartości są prawidłowe dla pól typu rozwijane/enum."
+
+#: inc/abilities/settings/get-available-options.php:36
+msgid "Call this before update-settings whenever you need to set a dropdown or enum field. The response lists every valid option value and label for fields like cart_style, cart_theme_style, enable_coupon_field, floating_cart_position, and cart_header_text_alignment."
+msgstr "Wywołaj to przed aktualizacją ustawień, gdy tylko potrzebujesz ustawić pole rozwijane lub pole typu enum. Odpowiedź zawiera listę wszystkich prawidłowych wartości opcji i etykiet dla pól takich jak cart_style, cart_theme_style, enable_coupon_field, floating_cart_position i cart_header_text_alignment."
+
+#: inc/abilities/settings/get-available-options.php:50
+msgid "Optional list of setting groups to include. Defaults to all groups."
+msgstr "Opcjonalna lista grup ustawień do uwzględnienia. Domyślnie obejmuje wszystkie grupy."
+
+#: inc/abilities/settings/get-available-options.php:72
+msgid "Controls where Modern Cart appears on your site."
+msgstr "Kontroluje, gdzie na Twojej stronie pojawia się Modern Cart."
+
+#: inc/abilities/settings/get-available-options.php:81
+msgid "WooCommerce Pages Only"
+msgstr "Tylko strony WooCommerce"
+
+#: inc/abilities/settings/get-available-options.php:85
+#: inc/abilities/settings/get-available-options.php:114
+#: inc/abilities/settings/get-available-options.php:142
+msgid "Disabled"
+msgstr "Wyłączony"
+
+#: inc/abilities/settings/get-available-options.php:90
+msgid "Show Powered By"
+msgstr "Pokaż zasilane przez"
+
+#: inc/abilities/settings/get-available-options.php:91
+msgid "Show or hide the \"Powered by Modern Cart\" attribution."
+msgstr "Pokaż lub ukryj przypis „Powered by Modern Cart”."
+
+#: inc/abilities/settings/get-available-options.php:96
+msgid "Yes"
+msgstr "Tak"
+
+#: inc/abilities/settings/get-available-options.php:100
+msgid "No"
+msgstr "Nie"
+
+#: inc/abilities/settings/get-available-options.php:105
+msgid "AJAX Add to Cart"
+msgstr "AJAX Dodaj do koszyka"
+
+#: inc/abilities/settings/get-available-options.php:110
+#: inc/abilities/settings/get-available-options.php:138
+msgid "Enabled"
+msgstr "Włączone"
+
+#: inc/abilities/settings/get-available-options.php:119
+msgid "Free Shipping Bar"
+msgstr "Bezpłatna dostawa"
+
+#: inc/abilities/settings/get-available-options.php:124
+msgid "Show"
+msgstr "Pokaż"
+
+#: inc/abilities/settings/get-available-options.php:128
+msgid "Hide"
+msgstr "Ukryj"
+
+#: inc/abilities/settings/get-available-options.php:133
+msgid "Express Checkout"
+msgstr "Ekspresowa kasa"
+
+#: inc/abilities/settings/get-available-options.php:150
+msgid "Primary cart display mode. popup requires Modern Cart Pro."
+msgstr "Podstawowy tryb wyświetlania koszyka. popup wymaga Modern Cart Pro."
+
+#: inc/abilities/settings/get-available-options.php:155
+msgid "Slide-out (Side Cart)"
+msgstr "Wysuwany (Boczny Koszyk)"
+
+#: inc/abilities/settings/get-available-options.php:159
+msgid "Popup (requires Pro)"
+msgstr "Wyskakujące okienko (wymaga wersji Pro)"
+
+#: inc/abilities/settings/get-available-options.php:164
+msgid "Cart Theme Style"
+msgstr "Styl motywu koszyka"
+
+#: inc/abilities/settings/get-available-options.php:169
+msgid "Style 1 (Default)"
+msgstr "Styl 1 (Domyślny)"
+
+#: inc/abilities/settings/get-available-options.php:177
+msgid "Style 3"
+msgstr "Styl 3"
+
+#: inc/abilities/settings/get-available-options.php:187
+msgid "Thumbnail"
+msgstr "Miniatura"
+
+#: inc/abilities/settings/get-available-options.php:191
+msgid "Medium (Default)"
+msgstr "Średni (domyślnie)"
+
+#: inc/abilities/settings/get-available-options.php:200
+msgid "Coupon Field"
+msgstr "Pole kuponu"
+
+#: inc/abilities/settings/get-available-options.php:205
+msgid "Always Visible"
+msgstr "Zawsze widoczne"
+
+#: inc/abilities/settings/get-available-options.php:209
+msgid "Collapsible (Default)"
+msgstr "Składany (Domyślnie)"
+
+#: inc/abilities/settings/get-available-options.php:213
+msgid "Hidden"
+msgstr "Ukryty"
+
+#: inc/abilities/settings/get-available-options.php:218
+msgid "Section Styling"
+msgstr "Stylizacja sekcji"
+
+#: inc/abilities/settings/get-available-options.php:223
+msgid "Accordion (Default)"
+msgstr "Akordeon (Domyślnie)"
+
+#: inc/abilities/settings/get-available-options.php:227
+msgid "Always Expanded"
+msgstr "Zawsze rozwinięte"
+
+#: inc/abilities/settings/get-available-options.php:234
+msgid "Floating Cart Position"
+msgstr "Pływająca pozycja koszyka"
+
+#: inc/abilities/settings/get-available-options.php:239
+msgid "Bottom Right (Default)"
+msgstr "Dolny prawy (domyślnie)"
+
+#: inc/abilities/settings/get-available-options.php:247
+msgid "Top Right"
+msgstr "Prawy górny"
+
+#: inc/abilities/settings/get-available-options.php:251
+msgid "Top Left"
+msgstr "Górny lewy"
+
+#: inc/abilities/settings/get-available-options.php:267
+msgid "Center (Default)"
+msgstr "Środek (Domyślnie)"
+
+#: inc/abilities/settings/get-settings.php:33
+msgid "Get Modern Cart Settings"
+msgstr "Uzyskaj nowoczesne ustawienia koszyka"
+
+#: inc/abilities/settings/get-settings.php:34
+msgid "Read the current Modern Cart configuration before making changes. Returns all settings grouped by category (moderncart_setting, moderncart_cart, moderncart_floating, moderncart_appearance). Output is structured to be passed directly as input to update-settings."
+msgstr "Przeczytaj bieżącą konfigurację Modern Cart przed wprowadzeniem zmian. Zwraca wszystkie ustawienia pogrupowane według kategorii (moderncart_setting, moderncart_cart, moderncart_floating, moderncart_appearance). Wyjście jest ustrukturyzowane tak, aby można je było bezpośrednio przekazać jako dane wejściowe do aktualizacji ustawień."
+
+#: inc/abilities/settings/get-settings.php:36
+msgid "Call this before update-settings to read the current configuration. Use include_groups to limit the response to only the groups you need to modify."
+msgstr "Wywołaj to przed aktualizacją ustawień, aby odczytać bieżącą konfigurację. Użyj include_groups, aby ograniczyć odpowiedź tylko do grup, które musisz zmodyfikować."
+
+#: inc/abilities/settings/get-settings.php:79
+#: inc/abilities/settings/set-settings.php:150
+msgid "Modern Cart MCP helper not available. Ensure the Modern Cart plugin is installed and activated, then try again."
+msgstr "Pomocnik Modern Cart MCP jest niedostępny. Upewnij się, że wtyczka Modern Cart jest zainstalowana i aktywowana, a następnie spróbuj ponownie."
+
+#: inc/abilities/settings/reset-settings.php:45
+msgid "Reset Settings to Defaults"
+msgstr "Przywróć ustawienia domyślne"
+
+#: inc/abilities/settings/reset-settings.php:46
+msgid "Permanently deletes stored values for one or more Modern Cart setting groups, reverting them to factory defaults. This is irreversible — use get-settings first to save a backup if needed. Supports dry_run to preview which groups would be reset without applying changes."
+msgstr "Trwale usuwa zapisane wartości dla jednej lub więcej grup ustawień Modern Cart, przywracając je do ustawień fabrycznych. Jest to nieodwracalne — najpierw użyj get-settings, aby zapisać kopię zapasową, jeśli to konieczne. Obsługuje dry_run, aby wyświetlić podgląd, które grupy zostaną zresetowane bez wprowadzania zmian."
+
+#: inc/abilities/settings/reset-settings.php:49
+msgid "This operation is irreversible. Always call get-settings first and show the user their current values. Run with dry_run: true and show the user which groups will be reset. Require explicit user confirmation before running without dry_run."
+msgstr "Ta operacja jest nieodwracalna. Zawsze najpierw wywołaj get-settings i pokaż użytkownikowi ich bieżące wartości. Uruchom z dry_run: true i pokaż użytkownikowi, które grupy zostaną zresetowane. Wymagaj wyraźnego potwierdzenia od użytkownika przed uruchomieniem bez dry_run."
+
+#: inc/abilities/settings/reset-settings.php:63
+msgid "Setting groups to reset. Defaults to all four groups if not provided."
+msgstr "Ustawianie grup do zresetowania. Domyślnie wszystkie cztery grupy, jeśli nie podano inaczej."
+
+#: inc/abilities/settings/reset-settings.php:101
+msgid "No valid setting groups specified. Valid groups: moderncart_setting, moderncart_cart, moderncart_floating, moderncart_appearance."
+msgstr "Nie określono prawidłowych grup ustawień. Prawidłowe grupy: moderncart_setting, moderncart_cart, moderncart_floating, moderncart_appearance."
+
+#. translators: %d: number of groups reset
+#: inc/abilities/settings/reset-settings.php:118
+#, php-format
+msgid "%d setting group reset to factory defaults."
+msgid_plural "%d setting groups reset to factory defaults."
+msgstr[0] "%d ustawienie grupy zresetowane do ustawień fabrycznych."
+msgstr[1] ""
+
+#: inc/abilities/settings/set-settings.php:34
+msgid "Update Modern Cart Settings"
+msgstr "Zaktualizuj ustawienia nowoczesnego koszyka"
+
+#: inc/abilities/settings/set-settings.php:35
+msgid "Partially update Modern Cart settings across one or more groups. Only the keys you include are written — all other existing settings are preserved. Supports dry_run to preview changes without applying them."
+msgstr "Częściowo zaktualizuj ustawienia Modern Cart w jednej lub kilku grupach. Zapisane zostaną tylko klucze, które uwzględnisz — wszystkie inne istniejące ustawienia zostaną zachowane. Obsługuje dry_run, aby wyświetlić podgląd zmian bez ich zastosowania."
+
+#: inc/abilities/settings/set-settings.php:38
+msgid "Always call get-settings first to read current values. Only include the keys you intend to change. Never overwrite translatable text labels (main_title, coupon_title, etc.) unless the user explicitly provides new text. Call get-available-options to discover valid enum values before setting any dropdown field. Setting cart_style to \"popup\" requires the Pro plugin — check get-plugin-status first."
+msgstr "Zawsze najpierw wywołaj get-settings, aby odczytać bieżące wartości. Uwzględnij tylko te klucze, które zamierzasz zmienić. Nigdy nie nadpisuj tłumaczalnych etykiet tekstowych (main_title, coupon_title, itp.), chyba że użytkownik wyraźnie poda nowy tekst. Wywołaj get-available-options, aby odkryć prawidłowe wartości enum przed ustawieniem jakiegokolwiek pola rozwijanego. Ustawienie cart_style na \"popup\" wymaga wtyczki Pro — najpierw sprawdź get-plugin-status. "
+
+#: inc/abilities/settings/set-settings.php:157
+msgid "Expected \"settings\" object with Modern Cart configuration values."
+msgstr "Oczekiwano obiektu \"settings\" z wartościami konfiguracji Modern Cart."
+
+#: inc/abilities/settings/set-settings.php:178
+msgid "Rejected:"
+msgstr "Odrzucono:"
+
+#: inc/abilities/settings/set-settings.php:182
+msgid "Skipped:"
+msgstr "Pominięto:"
+
+#: inc/abilities/settings/set-settings.php:188
+msgid "No settings were updated."
+msgstr "Żadne ustawienia nie zostały zaktualizowane."
+
+#: inc/cart.php:143
+#: admin-core/assets/build/settings.js:7
+msgid "Shipping"
+msgstr "Wysyłka"
+
+#: inc/cart.php:229
+#: templates/cart/cart-totals-simple.php:28
+#: templates/cart/cart-totals-style2.php:24
+#: admin-core/assets/build/settings.js:7
+msgid "Subtotal"
+msgstr " Suma częściowa"
+
+#: inc/cart.php:257
+#: templates/cart/cart-totals-style2.php:28
+#: admin-core/assets/build/settings.js:7
+msgid "Discount"
+msgstr "Zniżka"
+
+#: inc/cart.php:291
+#: admin-core/assets/build/settings.js:7
+msgid "Total"
+msgstr "Razem"
+
+#. translators: %s: country name for tax estimation.
+#: inc/cart.php:339
+#, php-format
+msgid "estimated for %s"
+msgstr "szacowane dla %s"
+
+#. translators: %s: tax amount and estimated text.
+#: inc/cart.php:350
+#, php-format
+msgid "(includes %s)"
+msgstr "(zawiera %s)"
+
+#: inc/cart.php:394
+msgid "Cart Subtotal"
+msgstr "Suma częściowa koszyka"
+
+#: inc/cart.php:395
+msgid "Shipping Cost"
+msgstr "Koszt wysyłki"
+
+#: inc/cart.php:396
+msgid "Tax Amount"
+msgstr "Kwota podatku"
+
+#: inc/cart.php:397
+msgid "Discount Amount"
+msgstr "Kwota rabatu"
+
+#: inc/cart.php:398
+msgid "Cart Total"
+msgstr "Suma koszyka"
+
+#. translators: %1$s: field label , %2$s: field value
+#: inc/cart.php:411
+#, php-format
+msgid "%1$s: %2$s"
+msgstr "%1$s: %2$s"
+
+#: inc/cart.php:542
+#: inc/helper.php:115
+#: admin-core/assets/build/settings.js:7
+msgid "You're {amount} away from free shipping!"
+msgstr "Brakuje Ci {amount} do darmowej wysyłki!"
+
+#: inc/cart.php:549
+#: inc/helper.php:119
+#: admin-core/assets/build/settings.js:7
+msgid "Awesome pick! You've unlocked free shipping."
+msgstr "Świetny wybór! Odblokowałeś darmową wysyłkę."
+
+#. translators: %s: product price
+#: inc/functions.php:162
+#, php-format
+msgid "Price: %s"
+msgstr "Cena: %s"
+
+#: inc/functions.php:166
+msgid " You saved {percent}%"
+msgstr " Zaoszczędziłeś {percent}%"
+
+#. translators: 1: sale text (e.g., "Save"), 2: percentage value (e.g., "20")
+#: inc/functions.php:173
+#, php-format
+msgid "%1$s %2$s"
+msgstr "%1$s %2$s"
+
+#: inc/helper.php:91
+#: inc/slide-out.php:444
+#: admin-core/assets/build/settings.js:7
+msgid "Review Your Cart"
+msgstr "Sprawdź swój koszyk"
+
+#: inc/helper.php:95
+msgid "Even better with these!"
+msgstr "Nawet lepiej z tymi!"
+
+#: inc/helper.php:99
+msgid "Let's find you something perfect"
+msgstr "Znajdźmy coś idealnego dla Ciebie"
+
+#: inc/helper.php:103
+#: inc/slide-out.php:371
+#: inc/slide-out.php:424
+#: admin-core/assets/build/settings.js:7
+msgid "Got a Discount Code?"
+msgstr "Masz kod rabatowy?"
+
+#: inc/helper.php:107
+#: inc/slide-out.php:372
+#: inc/slide-out.php:425
+#: admin-core/assets/build/settings.js:7
+msgid "Enter discount code"
+msgstr "Wprowadź kod rabatowy"
+
+#: inc/helper.php:111
+#: admin-core/assets/build/settings.js:7
+msgid "Proceed to Checkout"
+msgstr "Przejdź do kasy"
+
+#: inc/helper.php:123
+#: admin-core/assets/build/settings.js:7
+msgid "You saved {percent}%"
+msgstr "Zaoszczędziłeś {percent}%"
+
+#: inc/helper.php:894
+#: admin-core/assets/build/settings.js:7
+msgid "Learn More"
+msgstr "Dowiedz się więcej"
+
+#: inc/libraries/bsf-analytics/class-bsf-analytics.php:242
+#, php-format
+msgid "Help us improve %1$s and our other products!<br><br>With your permission, we'd like to collect <strong>non-sensitive information</strong> from your website — like your PHP version and which features you use — so we can fix bugs faster, make smarter decisions, and build features that actually matter to you. <em>No personal info. Ever.</em>"
+msgstr "Pomóż nam ulepszyć %1$s i nasze inne produkty!<br><br>Za Twoją zgodą chcielibyśmy zbierać <strong>niesensytywne informacje</strong> z Twojej strony internetowej — takie jak wersja PHP i używane funkcje — abyśmy mogli szybciej naprawiać błędy, podejmować mądrzejsze decyzje i tworzyć funkcje, które naprawdę mają dla Ciebie znaczenie. <em>Żadnych danych osobowych. Nigdy.</em>"
+
+#: inc/libraries/bsf-analytics/class-bsf-analytics.php:248
+msgid "This will be applicable for all sites from the network."
+msgstr "Będzie to dotyczyć wszystkich witryn z sieci."
+
+#. translators: %s usage doc link
+#: inc/libraries/bsf-analytics/class-bsf-analytics.php:272
+msgid " Know More."
+msgstr "Dowiedz się więcej."
+
+#: inc/libraries/bsf-analytics/class-bsf-analytics.php:282
+msgid "Yes! Allow it"
+msgstr "Tak! Pozwól na to"
+
+#: inc/libraries/bsf-analytics/class-bsf-analytics.php:293
+msgid "No Thanks"
+msgstr "Nie, dziękuję"
+
+#: inc/libraries/bsf-analytics/class-bsf-analytics.php:468
+msgid "Usage Tracking"
+msgstr "Śledzenie użycia"
+
+#. translators: %s Product title
+#: inc/libraries/bsf-analytics/class-bsf-analytics.php:513
+#, php-format
+msgid "Allow %s products to track non-sensitive usage tracking data."
+msgstr "Zezwól produktom %s na śledzenie niesensytywnych danych dotyczących użytkowania."
+
+#: inc/libraries/bsf-analytics/class-bsf-analytics.php:516
+msgid " This will be applicable for all sites from the network."
+msgstr " To będzie dotyczyć wszystkich witryn z sieci."
+
+#: inc/libraries/bsf-analytics/class-bsf-analytics.php:521
+msgid "Learn More."
+msgstr "Dowiedz się więcej."
+
+#: inc/libraries/bsf-analytics/classes/class-bsf-analytics-helper.php:28
+msgid "Oops! Something went wrong. Please refresh the page and try again."
+msgstr "Ups! Coś poszło nie tak. Odśwież stronę i spróbuj ponownie."
+
+#: inc/libraries/bsf-analytics/modules/deactivation-survey/classes/class-deactivation-survey-feedback.php:80
+#: plugin-loader.php:345
+msgid "Quick Feedback"
+msgstr "Szybka informacja zwrotna"
+
+#: inc/libraries/bsf-analytics/modules/deactivation-survey/classes/class-deactivation-survey-feedback.php:83
+msgid "If you have a moment, please share why you are deactivating the plugin."
+msgstr "Jeśli masz chwilę, proszę podziel się, dlaczego dezaktywujesz wtyczkę."
+
+#: inc/libraries/bsf-analytics/modules/deactivation-survey/classes/class-deactivation-survey-feedback.php:105
+msgid "Icon"
+msgstr "Ikona"
+
+#: inc/libraries/bsf-analytics/modules/deactivation-survey/classes/class-deactivation-survey-feedback.php:132
+#: inc/libraries/bsf-analytics/modules/deactivation-survey/classes/class-deactivation-survey-feedback.php:307
+msgid "Please tell us more details."
+msgstr "Proszę podaj więcej szczegółów."
+
+#. translators: %1$s: link html start, %2$s: link html end
+#: inc/libraries/bsf-analytics/modules/deactivation-survey/classes/class-deactivation-survey-feedback.php:141
+#, php-format
+msgid "Need help from our experts? %1$sClick here to contact us.%2$s"
+msgstr "Potrzebujesz pomocy naszych ekspertów? %1$sKliknij tutaj, aby się z nami skontaktować.%2$s"
+
+#: inc/libraries/bsf-analytics/modules/deactivation-survey/classes/class-deactivation-survey-feedback.php:152
+msgid "Submit & Deactivate"
+msgstr "Zatwierdź i dezaktywuj"
+
+#: inc/libraries/bsf-analytics/modules/deactivation-survey/classes/class-deactivation-survey-feedback.php:153
+msgid "Skip & Deactivate"
+msgstr "Pomiń i dezaktywuj"
+
+#: inc/libraries/bsf-analytics/modules/deactivation-survey/classes/class-deactivation-survey-feedback.php:222
+msgid "Sorry, you are not allowed to do this operation."
+msgstr "Przepraszam, nie masz uprawnień do wykonania tej operacji."
+
+#: inc/libraries/bsf-analytics/modules/deactivation-survey/classes/class-deactivation-survey-feedback.php:235
+msgid "Nonce validation failed"
+msgstr "Walidacja nonce nie powiodła się"
+
+#: inc/libraries/bsf-analytics/modules/deactivation-survey/classes/class-deactivation-survey-feedback.php:282
+msgid "This is a temporary deactivation for testing."
+msgstr "To jest tymczasowa dezaktywacja do testowania."
+
+#: inc/libraries/bsf-analytics/modules/deactivation-survey/classes/class-deactivation-survey-feedback.php:283
+msgid "How can we assist you?"
+msgstr "Jak możemy Ci pomóc?"
+
+#: inc/libraries/bsf-analytics/modules/deactivation-survey/classes/class-deactivation-survey-feedback.php:288
+msgid "The plugin isn't working properly."
+msgstr "Wtyczka nie działa prawidłowo."
+
+#: inc/libraries/bsf-analytics/modules/deactivation-survey/classes/class-deactivation-survey-feedback.php:289
+msgid "Please tell us more about what went wrong?"
+msgstr "Proszę, powiedz nam więcej o tym, co poszło nie tak?"
+
+#: inc/libraries/bsf-analytics/modules/deactivation-survey/classes/class-deactivation-survey-feedback.php:294
+msgid "I found a better alternative plugin."
+msgstr "Znalazłem lepszą alternatywną wtyczkę."
+
+#: inc/libraries/bsf-analytics/modules/deactivation-survey/classes/class-deactivation-survey-feedback.php:295
+msgid "Could you please specify which plugin?"
+msgstr "Czy mógłbyś określić, o którą wtyczkę chodzi?"
+
+#: inc/libraries/bsf-analytics/modules/deactivation-survey/classes/class-deactivation-survey-feedback.php:300
+msgid "It's missing a specific feature."
+msgstr "Brakuje mu konkretnej funkcji."
+
+#: inc/libraries/bsf-analytics/modules/deactivation-survey/classes/class-deactivation-survey-feedback.php:301
+msgid "Please tell us more about the feature."
+msgstr "Proszę, powiedz nam więcej o tej funkcji."
+
+#: inc/libraries/bsf-analytics/modules/deactivation-survey/classes/class-deactivation-survey-feedback.php:306
+msgid "Other"
+msgstr "Inne"
+
+#: inc/scripts.php:169
+msgid "Somethings wrong! try again later"
+msgstr "Coś jest nie tak! Spróbuj ponownie później"
+
+#: inc/scripts.php:170
+msgid "Edit Cart"
+msgstr "Edytuj koszyk"
+
+#: inc/scripts.php:179
+msgid "Cart is opened"
+msgstr "Koszyk jest otwarty"
+
+#: inc/scripts.php:180
+msgid "Cart is closed"
+msgstr "Koszyk jest zamknięty"
+
+#. translators: %d: current cart quantity
+#: inc/scripts.php:182
+#, php-format
+msgid "Quantity decreased, current quantity %d"
+msgstr "Ilość zmniejszona, obecna ilość %d"
+
+#. translators: %d: current cart quantity
+#: inc/scripts.php:184
+#, php-format
+msgid "Quantity increased, current quantity %d"
+msgstr "Ilość zwiększona, aktualna ilość %d"
+
+#: inc/scripts.php:185
+msgid "Recommendations opened"
+msgstr "Rekomendacje otwarte"
+
+#: inc/scripts.php:186
+msgid "Recommendations closed"
+msgstr "Zalecenia zamknięte"
+
+#: inc/slide-out-ajax.php:58
+msgid "Product Data missing"
+msgstr "Brak danych produktu"
+
+#: inc/slide-out-ajax.php:104
+#: inc/slide-out-ajax.php:339
+msgid "Did not pass security check"
+msgstr "Nie przeszedł kontroli bezpieczeństwa"
+
+#: inc/slide-out-ajax.php:111
+msgid "Product not found"
+msgstr "Produkt nie znaleziony"
+
+#. translators: %s: product name
+#: inc/slide-out-ajax.php:121
+#, php-format
+msgid "You cannot add another \"%s\" to your cart."
+msgstr "Nie możesz dodać kolejnego \"%s\" do swojego koszyka."
+
+#. translators: %s: product name
+#: inc/slide-out-ajax.php:141
+#, php-format
+msgid "\"%s\" has been added to the cart."
+msgstr "\"%s\" został dodany do koszyka."
+
+#: inc/slide-out-ajax.php:144
+msgid "Product not added on cart. Try again."
+msgstr "Produkt nie został dodany do koszyka. Spróbuj ponownie."
+
+#: inc/slide-out-ajax.php:217
+msgid "Your coupon code was applied successfully."
+msgstr "Twój kod kuponu został pomyślnie zastosowany."
+
+#: inc/slide-out-ajax.php:235
+msgid "Sorry, this coupon code is not valid!"
+msgstr "Przepraszamy, ten kod kuponu jest nieważny!"
+
+#: inc/slide-out-ajax.php:240
+msgid "Sorry, this coupon code is already applied!"
+msgstr "Przepraszamy, ten kod kuponu został już zastosowany!"
+
+#: inc/slide-out-ajax.php:244
+msgid "Enter a coupon code!"
+msgstr "Wprowadź kod kuponu!"
+
+#: inc/slide-out-ajax.php:286
+msgid "Sorry there was a problem removing this coupon."
+msgstr "Przepraszamy, wystąpił problem z usunięciem tego kuponu."
+
+#: inc/slide-out-ajax.php:291
+msgid "Coupon has been removed."
+msgstr "Kupon został usunięty."
+
+#. translators: %s: product name
+#: inc/slide-out-ajax.php:360
+#, php-format
+msgid "Sorry, \"%s\" is not in stock. Please edit your cart and try again. We apologize for any inconvenience caused."
+msgstr "Przepraszamy, \"%s\" nie jest dostępny w magazynie. Proszę edytować swój koszyk i spróbować ponownie. Przepraszamy za wszelkie niedogodności. "
+
+#. translators: %s: product name
+#: inc/slide-out-ajax.php:367
+#, php-format
+msgid "\"%s\" has been updated."
+msgstr "\"%s\" został zaktualizowany."
+
+#. translators: 1: product name 2: quantity in stock
+#: inc/slide-out-ajax.php:377
+#, php-format
+msgid "Sorry, we do not have enough \"%1$s\" in stock to fulfill your order (%2$s available). We apologize for any inconvenience caused."
+msgstr "Przepraszamy, nie mamy wystarczającej ilości \"%1$s\" na stanie, aby zrealizować Twoje zamówienie (%2$s dostępne). Przepraszamy za wszelkie niedogodności."
+
+#. translators: %s: product name
+#: inc/slide-out-ajax.php:384
+#, php-format
+msgid "\"%s\" was removed from your cart"
+msgstr "\"%s\" został usunięty z Twojego koszyka"
+
+#: inc/slide-out-ajax.php:442
+msgid "Cart updated successfully!"
+msgstr "Koszyk został pomyślnie zaktualizowany!"
+
+#. Translators: %s Product title.
+#: inc/slide-out-ajax.php:488
+msgid "Item"
+msgstr "Przedmiot"
+
+#. Translators: %s Product title.
+#: inc/slide-out-ajax.php:492
+#: inc/slide-out-ajax.php:496
+#, php-format
+msgid "%s removed."
+msgstr "%s usunięto."
+
+#: inc/slide-out-ajax.php:493
+msgid "Undo?"
+msgstr "Cofnąć?"
+
+#: inc/slide-out.php:76
+msgid "OR"
+msgstr "LUB"
+
+#: inc/slide-out.php:133
+msgid "Your Cart Is Empty, Let's Fix That!"
+msgstr "Twój koszyk jest pusty, naprawmy to!"
+
+#: inc/slide-out.php:135
+msgid "Add"
+msgstr "Dodaj"
+
+#: inc/slide-out.php:294
+msgid "Applied Coupons"
+msgstr "Zastosowane kupony"
+
+#. translators: %1$s is replaced with the coupon name and %2$s with the coupon amount
+#: inc/slide-out.php:318
+#, php-format
+msgid "Coupon \"%1$s\" (%2$s)"
+msgstr "Kupon \"%1$s\" (%2$s)"
+
+#. translators: %1$s is replaced with the coupon name and %2$s with the coupon amount
+#: inc/slide-out.php:326
+#, php-format
+msgid "Remove coupon %1$s (%2$s)"
+msgstr "Usuń kupon %1$s (%2$s)"
+
+#: inc/slide-out.php:327
+msgid "Remove coupon"
+msgstr "Usuń kupon"
+
+#: inc/slide-out.php:373
+#: admin-core/assets/build/settings.js:7
+msgid "Apply"
+msgstr "Zastosuj"
+
+#: inc/slide-out.php:403
+msgid "Checkout now"
+msgstr "Przejdź do kasy teraz"
+
+#: inc/slide-out.php:406
+msgid "Your cart is empty. Shop now"
+msgstr "Twój koszyk jest pusty. Kup teraz"
+
+#: inc/slide-out.php:449
+msgid "Your Cart Is Empty"
+msgstr "Twój koszyk jest pusty"
+
+#: inc/slide-out.php:536
+#: admin-core/assets/build/settings.js:7
+msgid "Check out our shop to see what's available"
+msgstr "Sprawdź nasz sklep, aby zobaczyć, co jest dostępne"
+
+#: inc/slide-out.php:658
+msgid "View details"
+msgstr "Zobacz szczegóły"
+
+#: inc/slide-out.php:660
+msgid "Product details"
+msgstr "Szczegóły produktu"
+
+#: inc/slide-out.php:666
+msgid "Available on backorder"
+msgstr "Dostępne na zamówienie"
+
+#: modern-cart.php:70
+msgid "Modern Cart for WooCommerce: Update Required"
+msgstr "Nowoczesny koszyk dla WooCommerce: Wymagana aktualizacja"
+
+#. translators: %1$s and %2$s are opening and closing <strong> tags for emphasis.
+#: modern-cart.php:75
+#, php-format
+msgid "You're using an older version of %1$sModern Cart for WooCommerce%2$s. Please update to version %1$s1.2.0 or higher%2$s so it works smoothly with %1$sModern Cart Starter%2$s."
+msgstr "Używasz starszej wersji %1$sModern Cart for WooCommerce%2$s. Proszę zaktualizować do wersji %1$s1.2.0 lub wyższej%2$s, aby działała płynnie z %1$sModern Cart Starter%2$s."
+
+#: plugin-loader.php:260
+#: admin-core/assets/build/settings.js:1
+msgid "Settings"
+msgstr "Ustawienia"
+
+#: plugin-loader.php:347
+msgid "If you have a moment, please share why you are deactivating Modern Cart Starter:"
+msgstr "Jeśli masz chwilę, proszę podziel się, dlaczego dezaktywujesz Modern Cart Starter:"
+
+#. translators: %s: product name
+#: templates/cart/cart-item-style1.php:124
+#: templates/cart/cart-item-style2.php:123
+#, php-format
+msgid "View %s product page"
+msgstr "Wyświetl stronę produktu %s"
+
+#: templates/cart/cart-item-style1.php:133
+#: templates/cart/cart-item-style2.php:132
+msgid "Sale!"
+msgstr "Wyprzedaż!"
+
+#: templates/cart/cart-item-style1.php:151
+#: templates/cart/cart-item-style2.php:153
+msgid "Remove Item From Cart"
+msgstr "Usuń przedmiot z koszyka"
+
+#: templates/cart/cart-item-style1.php:154
+#: admin-core/assets/build/settings.js:7
+msgid "Remove"
+msgstr "Usuń"
+
+#: templates/cart/cart-totals-simple.php:18
+#: templates/cart/cart-totals-style2.php:16
+msgid "Shipping Fee"
+msgstr "Opłata za wysyłkę"
+
+#: templates/cart/cart-totals-simple.php:19
+#: admin-core/assets/build/settings.js:7
+msgid "Free"
+msgstr "Bezpłatny"
+
+#: templates/cart/cart-totals-simple.php:23
+#: templates/cart/cart-totals-style2.php:20
+msgid "Est. Tax & Fees"
+msgstr "Szac. Podatki i Opłaty"
+
+#: templates/cart/cart-totals-simple.php:33
+msgid "Savings"
+msgstr "Oszczędności"
+
+#: templates/cart/cart-totals-simple.php:38
+msgid "Apply Coupon Code"
+msgstr "Zastosuj kod kuponu"
+
+#: templates/cart/cart-totals-style2.php:36
+#: admin-core/assets/build/settings.js:7
+msgid "Order Summary"
+msgstr "Podsumowanie zamówienia"
+
+#: templates/cart/coupon-form.php:38
+msgid "Enter coupon code"
+msgstr "Wprowadź kod kuponu"
+
+#: templates/cart/coupon-form.php:40
+msgid "Coupon code"
+msgstr "Kod kuponu"
+
+#: templates/cart/coupon-form.php:48
+msgid "Apply coupon code"
+msgstr "Zastosuj kod kuponu"
+
+#: templates/cart/free-shipping-bar.php:31
+msgid "Free shipping progress"
+msgstr "Postęp darmowej wysyłki"
+
+#: templates/cart/header-style1.php:17
+#: templates/cart/header-style1.php:61
+#: templates/cart/header-style2.php:20
+#: templates/cart/header-style2.php:24
+msgid "Close cart"
+msgstr "Zamknij koszyk"
+
+#. translators: %d: number of items in cart
+#: templates/cart/header-style1.php:69
+#, php-format
+msgid "%d items in cart"
+msgstr "%d przedmioty w koszyku"
+
+#: templates/cart/powered-by.php:19
+msgid "Powered by"
+msgstr "Napędzane przez"
+
+#: templates/cart/powered-by.php:21
+msgid "(opens in a new tab)"
+msgstr "(otwiera się w nowej karcie)"
+
+#: templates/cart/price.php:14
+msgid "Product Price"
+msgstr "Cena produktu"
+
+#: templates/cart/price.php:16
+msgid "Price:"
+msgstr "Cena:"
+
+#: templates/cart/quantity-selector.php:16
+msgid "Quantity controls"
+msgstr "Kontrola ilości"
+
+#: templates/cart/quantity-selector.php:21
+msgid "Decrease quantity"
+msgstr "Zmniejsz ilość"
+
+#: templates/cart/quantity-selector.php:29
+msgid "Quantity"
+msgstr "Ilość"
+
+#: templates/cart/quantity-selector.php:52
+msgid "Increase quantity"
+msgstr "Zwiększ ilość"
+
+#: templates/cart/recommendation-empty.php:118
+#: templates/cart/recommendations.php:108
+msgid "Select Options"
+msgstr "Wybierz opcje"
+
+#: templates/cart/recommendation-empty.php:146
+#: templates/cart/recommendations.php:136
+msgid "Sign Up Now"
+msgstr "Zarejestruj się teraz"
+
+#: templates/cart/recommendation-empty.php:155
+#: templates/cart/recommendations.php:145
+msgid "Add to Cart"
+msgstr "Dodaj do koszyka"
+
+#. translators: %d: number of items in cart
+#: templates/shop/floating-inner.php:23
+#, php-format
+msgid "Cart Button with %d items"
+msgstr "Przycisk koszyka z %d przedmiotami"
+
+#: templates/shop/floating-inner.php:40
+msgid "Cart"
+msgstr "Koszyk"
+
+#: templates/shop/floating-inner.php:50
+msgid "Added to cart"
+msgstr "Dodano do koszyka"
+
+#: templates/shop/slide-out.php:21
+msgid "Shopping Cart"
+msgstr "Koszyk"
+
+#: admin-core/assets/build/settings.js:1
+msgid "What's New?"
+msgstr "Co nowego?"
+
+#: admin-core/assets/build/settings.js:1
+msgid "What's New in Modern Cart"
+msgstr "Co nowego w Modern Cart"
+
+#: admin-core/assets/build/settings.js:1
+msgid "Knowledge Base"
+msgstr "Baza wiedzy"
+
+#: admin-core/assets/build/settings.js:1
+msgid "Need Help?"
+msgstr "Potrzebujesz pomocy?"
+
+#: admin-core/assets/build/settings.js:1
+msgid "We aim to answer all priority support requests within 2-3 hours."
+msgstr "Naszym celem jest odpowiadanie na wszystkie priorytetowe zgłoszenia wsparcia w ciągu 2-3 godzin."
+
+#: admin-core/assets/build/settings.js:1
+#: admin-core/assets/build/settings.js:7
+msgid "Request Support"
+msgstr "Poproś o wsparcie"
+
+#: admin-core/assets/build/settings.js:1
+msgid "All Documentation"
+msgstr "Cała dokumentacja"
+
+#: admin-core/assets/build/settings.js:1
+msgid "Browse documentation, reference material, and tutorials for Modern Cart."
+msgstr "Przeglądaj dokumentację, materiały referencyjne i samouczki dotyczące Modern Cart."
+
+#: admin-core/assets/build/settings.js:1
+msgid "View documentation"
+msgstr "Wyświetl dokumentację"
+
+#: admin-core/assets/build/settings.js:1
+msgid "Videos"
+msgstr "Filmy"
+
+#: admin-core/assets/build/settings.js:1
+msgid "Browse tutorial videos on our YouTube channel."
+msgstr "Przeglądaj filmy instruktażowe na naszym kanale YouTube."
+
+#: admin-core/assets/build/settings.js:1
+msgid "Youtube Channel"
+msgstr "Kanał YouTube"
+
+#: admin-core/assets/build/settings.js:1
+msgid "Main Navigation"
+msgstr "Główna nawigacja"
+
+#: admin-core/assets/build/settings.js:1
+msgid "Modern Cart for WooCommerce"
+msgstr "Nowoczesny koszyk dla WooCommerce"
+
+#: admin-core/assets/build/settings.js:1
+msgid "License Status: Valid"
+msgstr "Status licencji: Ważna"
+
+#: admin-core/assets/build/settings.js:1
+msgid "Valid License"
+msgstr "Ważna licencja"
+
+#: admin-core/assets/build/settings.js:1
+msgid "License Status: Not Activated"
+msgstr "Status licencji: Nieaktywna"
+
+#: admin-core/assets/build/settings.js:1
+msgid "Activate License"
+msgstr "Aktywuj licencję"
+
+#. translators: %1$s: link html start, %2$s: link html end
+#: admin-core/assets/build/settings.js:7
+msgid "Select Color"
+msgstr "Wybierz kolor"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Reset"
+msgstr "Zresetuj"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Reset to default color"
+msgstr "Resetuj do domyślnego koloru"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Predefined Icons"
+msgstr "Ikony predefiniowane"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Custom Icon"
+msgstr "Niestandardowa ikona"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Custom cart icon"
+msgstr "Niestandardowa ikona koszyka"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Select Custom Cart Icon"
+msgstr "Wybierz niestandardową ikonę koszyka"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Use this icon"
+msgstr "Użyj tej ikony"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Change Custom Icon"
+msgstr "Zmień niestandardową ikonę"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Upload Custom Icon"
+msgstr "Prześlij niestandardową ikonę"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Recommended: 36x36px PNG, SVG, or JPG image"
+msgstr "Zalecane: obraz PNG, SVG lub JPG o rozmiarze 36x36px"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Live Preview"
+msgstr "Podgląd na żywo"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Search pages"
+msgstr "Wyszukaj strony"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Type atleast 3 letters to search"
+msgstr "Wpisz co najmniej 3 litery, aby wyszukać"
+
+#: admin-core/assets/build/settings.js:7
+msgid "No pages found"
+msgstr "Nie znaleziono stron"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Preview"
+msgstr "Podgląd"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Tax"
+msgstr "Podatek"
+
+#: admin-core/assets/build/settings.js:7
+msgid "With items"
+msgstr "Z przedmiotami"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Empty"
+msgstr "Pusty"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Need Support?"
+msgstr "Potrzebujesz wsparcia?"
+
+#: admin-core/assets/build/settings.js:7
+msgid "We're happy to help!"
+msgstr "Jesteśmy szczęśliwi, że możemy pomóc!"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Back"
+msgstr "Wstecz"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Skip"
+msgstr "Pomiń"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Next"
+msgstr "Dalej"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Transform your default WooCommerce cart into a modern, high-converting experience."
+msgstr "Przekształć swój domyślny koszyk WooCommerce w nowoczesne, wysoko konwertujące doświadczenie."
+
+#: admin-core/assets/build/settings.js:7
+msgid "Increase average order value with in-cart upsells and cross-sells."
+msgstr "Zwiększ średnią wartość zamówienia dzięki sprzedaży dodatkowej i krzyżowej w koszyku."
+
+#: admin-core/assets/build/settings.js:7
+msgid "Motivate customers to spend more using a smart progress bar for rewards."
+msgstr "Zachęcaj klientów do wydawania więcej, używając inteligentnego paska postępu do nagród."
+
+#: admin-core/assets/build/settings.js:7
+msgid "Allow customers to apply coupon codes directly inside the cart."
+msgstr "Pozwól klientom na stosowanie kodów rabatowych bezpośrednio w koszyku."
+
+#: admin-core/assets/build/settings.js:7
+msgid "Customize cart styles, colors, text, and labels to match your brand."
+msgstr "Dostosuj style, kolory, tekst i etykiety koszyka, aby pasowały do Twojej marki."
+
+#: admin-core/assets/build/settings.js:7
+msgid "Welcome to Modern Cart"
+msgstr "Witamy w Modern Cart"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Supercharge WooCommerce with Modern Cart!"
+msgstr "Doładuj WooCommerce nowoczesnym koszykiem!"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Modern Cart YouTube Video"
+msgstr "Nowoczesny film na YouTube"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Get Started with Onboarding"
+msgstr "Rozpocznij wdrażanie"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Configure Your Cart"
+msgstr "Skonfiguruj swój koszyk"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Set up cart settings to match your store's needs in just a few clicks."
+msgstr "Skonfiguruj ustawienia koszyka, aby odpowiadały potrzebom Twojego sklepu w zaledwie kilku kliknięciach."
+
+#: admin-core/assets/build/settings.js:7
+msgid "Choose Cart Type"
+msgstr "Wybierz typ koszyka"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Choose how the cart appears to your customers."
+msgstr "Wybierz, jak koszyk będzie się prezentował Twoim klientom."
+
+#: admin-core/assets/build/settings.js:7
+msgid "Slide-in Cart"
+msgstr "Wysuwany koszyk"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Popup Cart"
+msgstr "Wyskakujący koszyk"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Choose Floating Cart Button Position"
+msgstr "Wybierz pozycję przycisku pływającego koszyka"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Shows a progress bar that lets customers see how much more they need to spend to get free shipping."
+msgstr "Pokazuje pasek postępu, który pozwala klientom zobaczyć, ile jeszcze muszą wydać, aby otrzymać darmową wysyłkę."
+
+#: admin-core/assets/build/settings.js:7
+msgid "Enable Product Recommendations"
+msgstr "Włącz rekomendacje produktów"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Automatically suggest relevant products to shoppers as they add items to their cart, helping them discover more while increasing your order value."
+msgstr "Automatycznie sugeruj odpowiednie produkty kupującym, gdy dodają przedmioty do swojego koszyka, pomagając im odkrywać więcej, jednocześnie zwiększając wartość zamówienia."
+
+#: admin-core/assets/build/settings.js:7
+msgid "Okay, Just One Last Step…"
+msgstr "Okej, tylko jeszcze jeden krok…"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Subscribe to get the latest updates, tips, and features."
+msgstr "Zasubskrybuj, aby otrzymywać najnowsze aktualizacje, porady i funkcje."
+
+#: admin-core/assets/build/settings.js:7
+msgid "Allow Modern Cart and our other products to track non-sensitive usage tracking data."
+msgstr "Zezwól Modern Cart i naszym innym produktom na śledzenie niesensytywnych danych dotyczących użytkowania."
+
+#: admin-core/assets/build/settings.js:7
+msgid "Add More Power to Your Website"
+msgstr "Dodaj więcej mocy do swojej strony internetowej"
+
+#: admin-core/assets/build/settings.js:7
+msgid "These tools can help you build your website faster and easier. Try them out and see how they can help your website grow."
+msgstr "Narzędzia te mogą pomóc Ci szybciej i łatwiej zbudować swoją stronę internetową. Wypróbuj je i zobacz, jak mogą pomóc w rozwoju Twojej strony."
+
+#: admin-core/assets/build/settings.js:7
+msgid "You're Good to Go! 🚀"
+msgstr "Jesteś gotowy do działania! 🚀"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Great job! 🎉 With Modern Cart active, your store is ready to deliver a smoother shopping experience that keeps customers happy and drives more revenue."
+msgstr "Świetna robota! 🎉 Dzięki aktywacji Modern Cart, Twój sklep jest gotowy do zapewnienia płynniejszych zakupów, które utrzymują klientów zadowolonych i zwiększają przychody."
+
+#: admin-core/assets/build/settings.js:7
+msgid "Here's What Modern Cart Will Do for You Now:"
+msgstr "Oto, co nowoczesny wózek zrobi dla Ciebie teraz:"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Frictionless checkout:"
+msgstr "Bezproblemowa kasa:"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Give shoppers a smooth and distraction-free cart experience."
+msgstr "Zapewnij kupującym płynne i pozbawione rozpraszaczy doświadczenie z koszykiem."
+
+#: admin-core/assets/build/settings.js:7
+msgid "Delightful shopping:"
+msgstr "Zachwycające zakupy:"
+
+#: admin-core/assets/build/settings.js:7
+msgid "A modern, user-friendly design that makes your store look polished."
+msgstr "Nowoczesny, przyjazny dla użytkownika design, który sprawia, że Twój sklep wygląda na dopracowany."
+
+#: admin-core/assets/build/settings.js:7
+msgid "Peace of mind:"
+msgstr "Spokój ducha:"
+
+#: admin-core/assets/build/settings.js:7
+msgid "With higher order completions, you can focus on growing your business."
+msgstr "Dzięki bardziej zaawansowanym rozwiązaniom możesz skupić się na rozwoju swojego biznesu."
+
+#: admin-core/assets/build/settings.js:7
+msgid "Go To Dashboard"
+msgstr "Przejdź do pulpitu nawigacyjnego"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Documentation"
+msgstr "Dokumentacja"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Create beautiful checkout pages & sales funnels for WooCommerce."
+msgstr "Twórz piękne strony kasowe i lejki sprzedażowe dla WooCommerce."
+
+#: admin-core/assets/build/settings.js:7
+msgid "Start recovering lost revenue with ease in less than 10 minutes."
+msgstr "Zacznij odzyskiwać utracone przychody z łatwością w mniej niż 10 minut."
+
+#: admin-core/assets/build/settings.js:7
+msgid "Create forms that feel like a chat. One question at a time keeps users engaged."
+msgstr "Twórz formularze, które przypominają czat. Jedno pytanie na raz utrzymuje zaangażowanie użytkowników."
+
+#: admin-core/assets/build/settings.js:7
+msgid "Just a simple, lightweight SEO assistant that helps your site rise in the rankings."
+msgstr "Po prostu prosty, lekki asystent SEO, który pomaga Twojej stronie wspinać się w rankingach."
+
+#: admin-core/assets/build/settings.js:7
+msgid "Modern Cart Logo"
+msgstr "Nowoczesne logo wózka"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Exit Guided Setup"
+msgstr "Zakończ konfigurację z przewodnikiem"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Dismiss"
+msgstr "Odrzuć"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Days"
+msgstr "Dni"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Hours"
+msgstr "Godziny"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Minutes"
+msgstr "Minuty"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Seconds"
+msgstr "Sekundy"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Black Friday Deal is Live: Get Modern Cart Pro for up to 40% OFF →"
+msgstr "Oferta Black Friday jest aktywna: Zdobądź Modern Cart Pro z rabatem do 40% →"
+
+#: admin-core/assets/build/settings.js:7
+msgid "Claim Offer"
+msgstr "Odbierz ofertę"
+
+#. Translators: %s Product title.
+#: inc/slide-out-ajax.php:488
+#, php-format
+msgctxt "Item name in quotes"
+msgid "&ldquo;%s&rdquo;"
+msgstr "„%s”"
+
+#: admin-core/inc/settings-fields.php:193
+msgid "Delete Plugin Data on Uninstall"
+msgstr ""
+
+#: admin-core/inc/settings-fields.php:194
+msgid "Enable this to delete all Modern Cart settings and data when the plugin is deleted. Once deleted, your saved data cannot be restored."
+msgstr ""
+
+#: inc/abilities/settings/set-settings.php:53
+msgid "Grouped Modern Cart settings. Keys must match Modern Cart setting groups. Settings use typed values: dropdown options as strings, toggles as booleans, measurements as numbers, labels as strings."
+msgstr ""
+
+#: inc/abilities/settings/set-settings.php:58
+msgid "Core plugin behavior and feature toggles. Includes: plugin activation scope (dropdown: all pages, WooCommerce pages only, disabled, or specific pages), powered-by attribution toggle, AJAX add-to-cart functionality, free shipping progress bar, express checkout gateway integration."
+msgstr ""
+
+#: inc/abilities/settings/set-settings.php:66
+msgid "Controls where Modern Cart appears"
+msgstr ""
+
+#: inc/abilities/settings/set-settings.php:72
+msgid "Cart display and behavior configuration. Includes: cart display style (slideout vs popup), visual theme variants, product image sizing, coupon field visibility control (show/hide/minimize), spacing and padding values, animation timing, section accordion behavior, and all user-facing text labels (headings, buttons, placeholders, success messages, promotional text)."
+msgstr ""
+
+#: inc/abilities/settings/set-settings.php:80
+msgid "Primary cart display mode"
+msgstr ""
+
+#: inc/abilities/settings/set-settings.php:85
+msgid "Visual theme variation"
+msgstr ""
+
+#: inc/abilities/settings/set-settings.php:90
+msgid "Coupon field visibility"
+msgstr ""
+
+#: inc/abilities/settings/set-settings.php:95
+msgid "Section collapse behavior"
+msgstr ""
+
+#: inc/abilities/settings/set-settings.php:101
+msgid "Floating cart icon positioning and styling. Controls: screen position (combination of top/bottom and left/right), and color scheme for floating cart icon and bubble including backgrounds, text colors, quantity indicators, and badge styling."
+msgstr ""
+
+#: inc/abilities/settings/set-settings.php:109
+msgid "Screen position for floating cart icon"
+msgstr ""
+
+#: inc/abilities/settings/set-settings.php:115
+msgid "Global visual styling and color scheme. Controls: primary brand colors, typography colors (headings, body text), cart header alignment and sizing, comprehensive UI element colors including buttons, backgrounds, icons, quantity controls, and count badges. Color values stored as hex strings."
+msgstr ""
+
+#: inc/abilities/settings/set-settings.php:123
+msgid "Cart header text alignment"
+msgstr ""
+
+#: inc/abilities/settings/set-settings.php:131
+msgid "Optional contextual metadata for the update operation."
+msgstr ""
+
+#: inc/admin-notices.php:119
+msgid "Modern Cart is helping your customers enjoy a smoother checkout experience!"
+msgstr ""
+
+#: inc/admin-notices.php:120
+msgid "Love the difference it makes? A 5-star review would mean the world to us and help fellow WooCommerce store owners find us!"
+msgstr ""
+
+#: inc/admin-notices.php:122
+msgid "Ok, you deserve it"
+msgstr ""
+
+#: inc/admin-notices.php:124
+msgid "Nope, maybe later"
+msgstr ""
+
+#: inc/admin-notices.php:125
+msgid "I already did"
+msgstr ""
+
+#: inc/integrations/mcw-zipwp-helper.php:71
+msgid "No valid settings provided"
+msgstr ""
+
+#: inc/integrations/mcw-zipwp-helper.php:104
+msgid "Invalid setting group"
+msgstr ""
+
+#: inc/integrations/mcw-zipwp-helper.php:111
+msgid "Setting group not found in schema"
+msgstr ""
+
+#: inc/integrations/mcw-zipwp-helper.php:137
+msgid "Key not found in schema"
+msgstr ""
+
+#: inc/integrations/mcw-zipwp-helper.php:144
+msgid "Invalid schema entry"
+msgstr ""
+
+#: inc/integrations/mcw-zipwp-helper.php:173
+msgid "Settings updated successfully"
+msgstr ""
+
+#: inc/libraries/astra-notices/class-astra-notices.php:146
+msgid "WordPress Nonce not validated."
+msgstr ""
+
+#: inc/libraries/astra-notices/class-astra-notices.php:153
+msgid "Invalid notice ID."
+msgstr ""

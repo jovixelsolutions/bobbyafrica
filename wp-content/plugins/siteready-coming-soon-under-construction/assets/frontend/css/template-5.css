@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Metropolis:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Blogger+Sans:wght@400;700&display=swap');
+@import url('https://fonts.cdnfonts.com/css/chunkfive');
+.uc5-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url('../images/template51.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.uc5-card {
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+    max-width: 700px;
+    width: 100%;
+    text-align: center;
+    background: url('../images/template52.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.uc5-icons img {
+    display: none;
+}
+.uc5-title {
+   color: #23135c;
+    padding-top: 175px;
+    text-align: center;
+    margin-top: 30px;
+    font-family: 'ChunkFive', serif !important;
+    font-weight: 900;
+    line-height: 1; 
+    font-size: 70px;  
+}
+.uc5-title .uc5-highlight {
+    color: #f7b500;
+    display: block;
+    font-family: 'ChunkFive', serif !important;
+    font-weight: bold;
+    font-size: 40px;
+    padding-bottom: 15px;
+}
+.uc5-wrapper .uc5-title .uc5-highlight {
+    color: #f7b500;
+    display: block;
+    font-weight: 900;
+}
+.uc5-subtitle {
+    color: #ffffff;
+    background-color: rgb(19, 197, 197);
+    border-radius: 15px;
+    padding-top: 3px;
+    width: 350px;
+    height: 30px;
+    margin-left: 170px;
+    margin-top: -50px;
+    font-size: 25px !important;
+    font-family: 'Blogger Sans', sans-serif !important;
+}
+.uc5-description {
+    color: #666666;
+    padding: 0px 160px 0px 126px;
+    margin: auto;
+    font-size: 16px;
+   font-family: 'Blogger Sans', sans-serif !important;
+}
+.uc5-contact {
+    text-align: center;
+    font-size: 16px;
+    color: #000;
+   font-family: 'Blogger Sans', sans-serif !important;
+}
+.uc5-tools img {
+    display: none;
+}
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+   .uc5-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url('../images/template51.png') repeat;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.uc5-card {
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+    max-width: 700px;
+    width: 100%;
+    text-align: center;
+    background: url('../images/template52.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.uc5-icons img {
+    display: none;
+}
+.uc5-title {
+    font-weight: bold;
+    color: #23135c ;
+    padding-top: 180px;
+    text-align: center;
+}
+.uc5-title .uc5-highlight {
+    color: #f7b500;
+    display: block;
+}
+.uc5-wrapper .uc5-title .uc5-highlight {
+    color: #f7b500;
+    display: block;
+    font-weight: 900;
+}
+.uc5-subtitle {
+    color: #ffffff ;
+    background-color: rgb(19, 197, 197);
+    border-radius: 15px;
+    padding-top: 3px;
+    width: 350px;
+    height: 30px;
+    margin-left: 170px;
+    
+}
+.uc5-description {
+    color: #666;
+    font-size: 1rem !important;
+    padding: 0px 160px 0px 126px;
+    margin: auto;
+}
+.uc5-contact {
+  font-size: 0.95rem !important;
+  text-align: center;
+}
+.uc5-tools img {
+    display: none;
+}
+}
+@media screen and (max-width: 767px) {
+    .uc5-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; 
+        padding: 20px;
+        background-size: cover; 
+        background-position: center;
+    }
+    .uc5-card {
+        background: none !important; 
+        width: 90%;
+        padding: 20px;
+        text-align: center;
+        box-shadow: none; 
+    }
+    .uc5-title {
+        font-size: 30px !important;
+        padding-top: 20px;
+    }
+    .uc5-title .uc5-highlight {
+        font-size: 25px !important;
+    }
+    .uc5-subtitle {
+        font-size: 16px !important;
+        border-radius: 50px;
+        width: 90%;
+        margin: 0 auto 15px auto;
+        padding-top: 20px;
+    }
+    .uc5-description {
+        padding: 10px 15px;
+        font-size: 0.85rem;
+        margin: 0 auto 10px auto;
+    }
+    .uc5-contact {
+        font-size: 0.8rem;
+        text-align: center;
+    }
+}

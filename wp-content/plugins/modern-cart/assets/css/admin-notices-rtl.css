@@ -1,0 +1,82 @@
+.moderncart-5-star {
+	border-right-color: #ee5a2f;
+	border-right-width: 4px !important;
+	border-top-width: 0;
+	border-left-width: 0;
+	border-bottom-width: 0;
+	padding: 0;
+}
+
+.moderncart-5-star .notice-image {
+	background-color: #fef1ec;
+	padding: 14px;
+}
+
+.moderncart-5-star .astra-notice-container {
+	padding: 0;
+	align-items: unset;
+}
+
+.moderncart-5-star img.custom-logo {
+	width: 48px;
+}
+
+.moderncart-5-star .astra-review-notice-container {
+	padding-top: 16px;
+	gap: 12px;
+}
+
+.moderncart-5-star .notice-content {
+	font-size: 16px;
+	line-height: 24px;
+	padding: 16px;
+	margin: 0 !important;
+	color: #1f2937;
+}
+
+.moderncart-5-star .notice-heading {
+	margin-bottom: 8px;
+	padding-bottom: 0 !important;
+	font-weight: 500;
+}
+
+.moderncart-5-star .notice-description {
+	font-size: 14px;
+	color: #4b5563;
+	font-weight: 400;
+}
+
+.moderncart-5-star .astra-review-notice.button-primary {
+	background-color: #ee5a2f;
+	border: unset;
+}
+
+.moderncart-5-star .astra-review-notice {
+	font-size: 12px;
+	-js-display: flex;
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding: 4px 10px;
+	border-radius: 6px;
+}
+
+.moderncart-5-star .astra-review-notice .dashicons-calendar {
+	margin-top: -2px;
+}
+
+.moderncart-5-star .astra-review-notice:last-child {
+	padding: 0 !important;
+}
+
+.moderncart-5-star .astra-review-notice:nth-child( 2 ) {
+	border: 1px solid #ee5a2f;
+}
+
+.moderncart-5-star .astra-notice-close.astra-review-notice:not( .button-primary ) {
+	color: #ee5a2f;
+}
+
+.moderncart-5-star .astra-review-notice-container .dashicons::before {
+	vertical-align: middle;
+}

@@ -1,0 +1,358 @@
+/* Example styles for the admin panel */
+#sruc-settings .wrap {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+#sruc-settings h1 {
+    color: #0073aa;
+}
+
+.sruc-inner-wrap{
+    display:grid; 
+    grid-template-columns:1fr 1fr; 
+    gap: 100px;
+}
+
+
+.sruc-template-columns{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr); 
+    gap:20px;
+}
+
+
+.sruc-template-card{
+    border-radius:8px; 
+    padding:10px; 
+    background:#fff; 
+    text-align:center;
+}
+
+.sruc-template-card-link{
+    text-decoration:none;
+     color:inherit;
+}
+
+.sruc-template-card-image{
+    width:100%; 
+    height:250px; 
+    border-radius:6px; 
+    margin-bottom:10px;
+}
+
+.sruc-template-card-none-image{
+    background:#f0f0f0; 
+    height:150px; 
+    display:flex; 
+    align-items:center; 
+    justify-content:center; 
+    border-radius:6px; 
+    margin-bottom:10px;
+}
+
+.sruc-template-active-notice{
+    margin-bottom:20px; 
+    padding:10px; 
+    background:#e0ffe0; 
+    border:1px solid #b2d8b2; 
+    border-radius:6px;
+}
+
+.sruc-template-inactive-notice{
+    margin-bottom:20px;
+    padding:10px; 
+    background:#fff3cd; 
+    border:1px solid #ffeeba; 
+    border-radius:6px;
+}
+
+.sruc-regular-select{
+        width: 25em;
+}
+
+/* this is for temp, later remove this  */
+#wpfooter {
+    position: relative; 
+}
+
+
+
+.sruc-switch {
+    position: relative;
+    display: inline-block;
+    width: 46px;
+    height: 24px;
+}
+.sruc-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.sruc-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0;
+    right: 0; bottom: 0;
+    background-color: #ccc;
+    transition: .3s;
+    border-radius: 34px;
+}
+.sruc-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .3s;
+    border-radius: 50%;
+}
+
+
+.sruc-switch input:checked + .sruc-slider {
+    background-color: #2271b1; 
+}
+.sruc-switch input:checked + .sruc-slider:before {
+    transform: translateX(22px);
+}
+
+.sruc-template-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    margin-top:10px;
+    margin-bottom: 10px;
+}
+
+
+
+
+
+/* ================================
+   SRUC Modern UI Redesign
+================================ */
+
+/* .sruc-template-settings {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+    max-width: 1100px;
+    margin-top: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+} */
+
+.sruc-template-settings-inner {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+    max-width: 1100px;
+    margin-top: 60px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+
+/* Section Heading */
+.sruc-template-settings h2 {
+    font-size: 24px;
+    font-weight: 600;
+    /* margin-bottom: 20px; */
+}
+
+/* Active Template Notice */
+.sruc-template-settings .sruc-template-active-notice {
+    background: #f5f7fa;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    border-left: 4px solid #4f46e5;
+}
+
+/* Preview Button */
+.sruc-template-settings .sruc-preview-link a {
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-size: 13px;
+    transition: all 0.25s ease;
+}
+
+.sruc-template-settings .sruc-preview-link a:hover {
+    background: #4f46e5;
+    color: #fff;
+    border-color: #4f46e5;
+}
+
+/* Tabs Styling */
+.sruc-template-settings .nav-tabs {
+    border-bottom: 1px solid #eee;
+    gap: 8px;
+}
+
+.sruc-template-settings .nav-tabs .nav-link {
+    border: none;
+    border-radius: 8px 8px 0 0;
+    padding: 10px 18px;
+    font-weight: 500;
+    color: #555;
+    background: transparent;
+    transition: all 0.2s ease;
+}
+
+.sruc-template-settings .nav-tabs .nav-link.active {
+    background: #4f46e5;
+    color: #fff;
+}
+
+.sruc-template-settings .nav-tabs .nav-link:hover {
+    background: #eef2ff;
+    color: #4f46e5;
+}
+
+.nav-tab-wrapper .nav-tab.nav-tab-active {
+    background: #4f46e5;
+    color: #fff;
+}
+
+.nav-tab-wrapper .nav-tab:hover {
+    background: #eef2ff;
+    color: #4f46e5;
+}
+
+.nav-tab-wrapper .nav-tab {
+    border: none;
+    border-radius: 8px 8px 0 0;
+    padding: 10px 18px;
+    font-weight: 500;
+    color: #555;
+    background: transparent;
+    transition: all 0.2s ease;
+}
+
+
+
+
+/* Tab Content */
+.sruc-template-settings .tab-content {
+    background: #fafafa;
+    padding: 25px;
+    border-radius: 0 12px 12px 12px;
+    margin-top: -1px;
+}
+
+/* Table Layout Modern */
+.sruc-template-settings .form-table {
+    border-collapse: separate;
+    border-spacing: 0 18px;
+}
+
+.sruc-template-settings .form-table th {
+    font-weight: 500;
+    font-size: 14px;
+    padding-right: 20px;
+    vertical-align: middle;
+    width: 220px;
+}
+
+.sruc-template-settings .form-table td {
+    vertical-align: middle;
+    padding: 5px 10px;
+}
+
+/* Inputs */
+.sruc-template-settings input[type="text"],
+.sruc-template-settings textarea {
+    width: 100%;
+    max-width: 450px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    padding: 10px 14px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    background: #fff;
+}
+
+.sruc-template-settings input[type="text"]:focus,
+.sruc-template-settings textarea:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+    outline: none;
+}
+
+/* Submit Button */
+.sruc-template-settings .submit .button-primary {
+    background: #4f46e5;
+    border-color: #4f46e5;
+    border-radius: 8px;
+    padding: 8px 22px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.sruc-template-settings .submit .button-primary:hover {
+    background: #3730a3;
+    border-color: #3730a3;
+}
+
+.sruc-template-columns .button-primary {
+    background: #4f46e5;
+    border-color: #4f46e5;
+    border-radius: 8px;
+    padding: 8px 22px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.sruc-template-columns .button-primary:hover {
+    background: #3730a3;
+    border-color: #3730a3;
+}
+
+/* Custom CSS Box */
+.sruc-template-settings textarea.large-text {
+    max-width: 100%;
+    min-height: 180px;
+    font-family: monospace;
+    background: #111827;
+    color: #f9fafb;
+    border: none;
+    border-radius: 10px;
+    padding: 16px;
+}
+
+/* Remove nested duplicate tab-pane padding issue */
+.sruc-template-settings .tab-pane .tab-pane {
+    padding: 0;
+}
+
+
+.sruc-template-settings p.submit {
+    padding: 0;
+    margin: 0;
+}
+
+
+
+.sruc-template-settings-inner-width{
+    max-width: 100%;
+}
+
+@media (max-width: 767px) {
+.sruc-inner-wrap {
+    display: block !important;
+}
+
+
+}
+
+@media (max-width: 991px) {
+.sruc-inner-wrap {
+    display: block !important;
+}
+
+
+}

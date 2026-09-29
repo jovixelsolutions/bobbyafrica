@@ -1,0 +1,102 @@
+[dir='rtl'] .row_number,
+[dir='rtl'] .description {
+	text-align: right;
+}
+
+[dir='rtl'] .iti__dropdown-content {
+	left: 0;
+	/* right: auto !important; */
+}
+
+[dir='rtl'] .show_hide_types,
+[dir='rtl'] .show_hide_device,
+[dir='rtl'] .show_hide_global {
+	display: flex;
+	text-align: right;
+}
+
+[dir='rtl'] .description.ht_ctc_subtitle {
+	border-right: 5px solid lightseagreen;
+	padding-right: 0.9rem;
+	padding-left: 0;
+	border-left: unset;
+}
+
+[dir='rtl'] .description.ht_ctc_pro_subtitle {
+	border-right: 5px solid #8fbc8f;
+	padding-right: 0.9rem;
+	padding-left: 0;
+	border-left: unset;
+}
+
+[dir='rtl'] blockquote.not_samesettings {
+	display: flex;
+	border-right: 5px solid red;
+	padding: 0 0.9rem 0 0;
+	border-left: unset;
+}
+
+[dir='rtl'] .hide_settings .input-field,
+[dir='rtl'] .show_settings .input-field {
+	float: none;
+}
+
+[dir='rtl'] .ctc_side_by_side {
+	display: flex;
+	text-align: right;
+}
+
+@media (min-width: 768px) {
+	[dir='rtl'] .sticky-sidebar .sidebar-content {
+		margin-right: 80px;
+		margin-left: unset;
+	}
+}
+
+[dir='rtl'] .ctc_select_style .collection-item {
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: space-between;
+}
+
+[dir='rtl'] .ctc_select_style .badge {
+	margin-left: 0px;
+}
+
+[dir='rtl'] .ht_ctc_customize_style .row {
+	display: flex;
+	text-align: right;
+}
+
+[dir='rtl'] .ht_ctc_customize_style h5 {
+	display: flex;
+}
+
+[dir='rtl'] .description {
+	display: flex;
+	text-align: right;
+	flex-wrap: wrap;
+}
+
+[dir='rtl'] .ctc_checkbox_label {
+	display: flex;
+}
+
+[dir='rtl'] .ctc_component_color {
+	display: flex;
+	text-align: right;
+}
+
+[dir='rtl'] .ctc_details {
+	text-align: right;
+}
+
+[dir='rtl'] .ht_ctc_animations .row {
+	display: flex;
+	text-align: right;
+}
+
+[dir='rtl'] .ctc_debug_list_item {
+	direction: rtl;
+	text-align: right;
+}

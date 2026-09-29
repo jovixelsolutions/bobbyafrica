@@ -1,0 +1,27 @@
+<!-- wp:template-part {"slug":"header","theme":"ecommerce-gift-cart","tagName":"header"} /-->
+
+<!-- wp:pattern {"slug":"ecommerce-gift-cart/archive-inner-banner"} /-->
+
+<!-- wp:group {"tagName":"main","className":"post-page-area","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70","right":"var:preset|spacing|50","left":"var:preset|spacing|50"},"blockGap":"0"}},"layout":{"type":"constrained","contentSize":"80%"}} -->
+<main id="content" class="wp-block-group post-page-area" style="padding-top:var(--wp--preset--spacing--70);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--70);padding-left:var(--wp--preset--spacing--50)">
+	<!-- wp:columns -->
+	<div class="wp-block-columns">
+	<!-- wp:column {"width":"66.66%","style":{"spacing":{"padding":{"right":"var:preset|spacing|50","bottom":"var:preset|spacing|50"}}}} -->
+	<div class="wp-block-column" style="padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--50);flex-basis:66.66%">
+		<!-- wp:group {"style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}}},"layout":{"type":"constrained"}} -->
+		<div class="wp-block-group" style="padding-top:0;padding-right:0;padding-bottom:0;padding-left:0">
+			<!-- wp:woocommerce/legacy-template {"template":"archive-product"} /-->
+		</div>
+		<!-- /wp:group -->
+	</div>
+	<!-- /wp:column -->
+
+	<!-- wp:column {"width":"33.33%"} -->
+	<div class="wp-block-column" style="flex-basis:33.33%">
+		<!-- wp:pattern {"slug":"ecommerce-gift-cart/sidebar"} /-->
+	</div>
+<!-- /wp:column --></div>
+<!-- /wp:columns --></main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","theme":"ecommerce-gift-cart","tagName":"footer","className":"ecommerce-gift-cart-footer-column"} /-->

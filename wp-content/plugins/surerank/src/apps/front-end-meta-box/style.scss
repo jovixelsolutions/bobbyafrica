@@ -1,0 +1,22 @@
+@layer {
+	#surerank-seo-popup-modal-container {
+		*,
+		*::before,
+		*::after {
+			box-sizing: border-box;
+			text-transform: none;
+		}
+
+		button[role="combobox"] span {
+			@apply text-text-primary;
+		}
+
+		input[type="checkbox"] {
+			@apply border-[1.5px] p-0;
+		}
+
+		[data-floating-ui-focusable] input[type="search"] {
+			@apply border-none !outline-none !shadow-none;
+		}
+	}
+}

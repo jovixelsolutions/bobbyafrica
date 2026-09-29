@@ -1,0 +1,906 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+.theme-card {
+  height: 312px;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+/* .all-theme-box-grid .col-md-4 {
+  padding: 8px 24px;
+} */
+.all-theme-box-grid .theme-wrapper {
+  background-color: #f5f5f6;
+  border-radius: 10px;
+  padding-bottom: 1em;
+}
+.theme-card:hover {
+  transform: translateY(-5px);
+}
+
+.theme-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+.theme-title {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+#theme-filter li:has(input[type="radio"]:checked) {
+  color: rgb(51, 186, 167);
+}
+@media (max-width: 768px) {
+  .search-tools {
+    flex-direction: column;
+    align-items: stretch !important;
+  }
+  .search-tools input,
+  .search-tools select,
+  .search-tools button {
+    width: 100%;
+  }
+}
+
+#theme-readmore,.sruc-premium-floating-btn {
+  background: linear-gradient(to right, #d4335d, #ff5627) !important;
+  color: #FFF !important;
+  border: unset !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  font-family: Prompt, sans-serif !important;
+  padding: 8px 20px !important;
+  border-radius: 5px !important;
+}
+
+.sruc-premium-floating-btn {
+  font-size: 16px !important;
+  padding: 7px 15px !important;
+}
+
+/* new added */
+
+#wpfooter {
+  position: relative;
+}
+
+.theme-radio-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.theme-radio-list li {
+  padding: 6px 0;
+  cursor: pointer;
+}
+
+.theme-radio-list input[type="radio"] {
+  display: none;
+}
+
+.theme-radio-list input[type="radio"]:checked + * {
+  font-weight: bold;
+  color: #000;
+}
+
+.theme-my-4 {
+  margin-top: 5em;
+}
+.theme-template-card .card-title {
+  font-size: 0.85rem;
+}
+.theme-category-item:hover {
+  color: #000;
+  font-weight: 500;
+  cursor: pointer;
+}
+.theme-pagination .page-link {
+  width: 38px;
+  height: 38px;
+  line-height: 38px;
+  text-align: center;
+  padding: 0;
+}
+.sruc-import-box-inner-group {
+  border: 1px solid #c3c4c7;
+  border-radius: 10px;
+}
+.sruc-import-box-inner-group .theme-sidebar {
+  background: #fff;
+  width: 100%;
+  border-radius: 8px;
+  padding: 40px 30px 40px 30px;
+  box-shadow: 0 3px 6px #00000029;
+}
+.sruc-import-box-inner-group .search-by-cat-box {
+  text-align: left;
+  font-size: 20px;
+  color: #1b1b1b;
+}
+.sruc-import-box-inner-group .theme-sidebar ul li {
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 16px;
+  text-align: justify;
+  color: #555;
+  margin-bottom: 0;
+  text-transform: capitalize;
+}
+.sruc-import-box-inner-group .theme-radio-list {
+  /* padding-left: 2em;
+  padding-top: 2em; */
+}
+.sruc-import-box-inner-group .sruc-theme-searchbar {
+  padding: 13px 24px 13px 48px;
+  line-height: 24px;
+  font-size: 17px;
+  border: 2px solid transparent;
+  border-radius: 30px;
+  height: auto;
+  font-family: Roboto, sans-serif;
+  background-color: #eee;
+}
+.sruc-import-box-inner-group .sruc-theme-searchbar::placeholder {
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 16px;
+  color: #636a6d;
+}
+.sruc-theme-searchbar + .fa-search {
+  font-size: 32px;
+  color: #89898a !important;
+  margin-left: 1em !important;
+}
+
+
+
+.sruc-theme-searchbar .iconnnn{
+  left: 20px !important;
+}
+
+
+.card-body .theme-title {
+  font-family: "Inter";
+  font-weight: 700;
+  font-size: 16px;
+  color: #272c2e;
+  text-align: center;
+}
+.card-body .btn-primary {
+  background-color: #6664e4;
+  border: none;
+  max-width: max-content !important;
+  width: 100% !important;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: Prompt, sans-serif;
+  padding: 5px 0px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.card-body .btn-primary:hover {
+  background-color: #33baa7 !important;
+  transform: translateY(-3px);
+}
+
+.card-body .btn-success {
+  background-color: #33baa7;
+  border: none;
+  max-width: max-content !important;
+  width: 100% !important;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: Prompt, sans-serif;
+  padding: 5px 22px !important;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.card-body .btn-success:hover {
+  background-color: #6664e4 !important;
+  transform: translateY(-3px);
+}
+.all-theme-box-grid {
+  margin-top: 2em;
+}
+
+/************** sidebar-bottom-box-CSS ************/
+
+.theme-sidebar .sidebar-promo-box {
+  background-color: #ffffff !important;
+  border-radius: 10px !important;
+  border: none !important;
+  display: flex;
+  flex-direction: column;
+}
+.theme-sidebar .promo-title {
+  font-family: "Inter";
+  font-weight: 600;
+  font-size: 28px;
+  color: #272c2e;
+}
+.theme-sidebar .sidebar-promo-box .promo-text {
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  font-family: Prompt, sans-serif !important;
+  color: #000000 !important;
+  text-transform: uppercase !important;
+}
+.theme-sidebar .sidebar-promo-box .highlight-off,
+.theme-sidebar .sidebar-promo-box .highlight-code {
+  font-weight: 700 !important;
+}
+.theme-sidebar .sidebar-promo-box .btn {
+  background-color: #272c2e;
+  border-radius: 10px !important;
+  border: none !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  font-family: "Poppins", sans-serif;
+  padding: 8px 12px;
+}
+.theme-sidebar .sidebar-promo-box .btn:hover {
+  background-color: #6664e4 !important;
+  transform: translateY(-3px);
+  transition: 0.2s ease-in-out all !important;
+}
+.sidebar-promo-box .btn .strike-price {
+  text-decoration: line-through;
+}
+
+/************** Banner Bundle CSS ************/
+
+.sruc-theme-bundle-banner {
+  background: linear-gradient(to bottom, #b3c6f8 0%, #b1f3d9 100%);
+  border: 1px solid #c3c4c7;
+  border-radius: 10px;
+  padding: 10px !important;
+}
+.sruc-theme-bundle-banner .bundle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0px;
+}
+.sruc-theme-bundle-banner .bundle-row .bundle-heading {
+  color: #272c2e;
+  font-size: 53px;
+  font-family: "Inter";
+  font-weight: 600;
+  margin: 0px;
+  line-height: 54px;
+}
+.sruc-theme-bundle-banner .bundle-row .bundle-subtext {
+  color: #272c2e;
+  font-size: 30px;
+  font-family: "Inter";
+  font-weight: 600;
+  max-width: 488px;
+  width: 100%;
+  margin: 0px;
+}
+.sruc-theme-bundle-banner .bundle-row .bundle-promo-text {
+  font-size: 18px;
+  font-weight: 400;
+  font-family: Prompt, sans-serif;
+  color: black;
+  text-align: center;
+  max-width: 430px;
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+.sruc-theme-bundle-banner .bundle-row .banner-highlight-off,
+.sruc-theme-bundle-banner .bundle-row .banner-highlight-code {
+  font-weight: 700 !important;
+}
+.sruc-theme-bundle-banner .bundle-row .bundle-btn {
+  background-color: #272c2e;
+  border: none;
+  color: white;
+  border-radius: 16px;
+  font-size: 20px;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  padding: 15px 28px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.sruc-theme-bundle-banner .bundle-row .bundle-btn:hover {
+  background-color: #6664e4 !important;
+  transform: translateY(-5px);
+  transition: 0.2s ease-in-out all !important;
+}
+.sruc-theme-bundle-banner .bundle-box.first-box {
+  flex-basis: 42%;
+}
+.sruc-theme-bundle-banner .bundle-box.second-box {
+  flex-basis: 28%;
+  text-align: center;
+}
+.sruc-theme-bundle-banner .bundle-box.third-box {
+  flex-basis: 30%;
+}
+.sruc-theme-bundle-banner .strike-price {
+  text-decoration: line-through;
+}
+
+/************** sruc pagination CSS ************/
+
+.sruc-import-box-inner-group #theme-pagination .me-2 {
+  background-color: #33baa7;
+  color: white;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    border-color: #6664e4 !important;
+  }
+}
+.sruc-import-box-inner-group #theme-pagination .next-btn {
+  border: none;
+  background: #6664e4;
+  color: white;
+  &:hover {
+    border-color: #33baa7 !important;
+  }
+}
+.btn.disabled,
+.btn:disabled,
+fieldset:disabled .btn {
+  color: white !important;
+  pointer-events: none !important;
+  background-color: #33baa7 !important;
+  border-color: none !important;
+  opacity: 0.4 !important;
+}
+
+/************** Media Responsive CSS ************/
+
+@media screen and (max-width: 1440px) {
+  .sruc-import-box-inner-group .search-by-cat-box {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px 6px;
+    display: flex;
+    justify-content: center;
+    color: #272c2e;
+    font-size: 18px;
+    font-family: "Inter";
+    font-weight: 400 !important;
+  }
+  .sruc-import-box-inner-group .theme-sidebar ul li {
+    font-family: "Inter";
+    font-weight: 400;
+    font-size: 18px;
+    text-align: justify;
+    color: #272c2e;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+  }
+  .sruc-import-box-inner-group .theme-radio-list {
+    padding-left: 0em;
+    padding-top: 2em;
+  }
+  .sruc-import-box-inner-group .theme-sidebar {
+    background-color: #f5f5f6 !important;
+    border-radius: 10px !important;
+    box-shadow: none !important;
+    padding: 1em !important;
+  }
+  .card-body .theme-title {
+    font-family: "Inter";
+    font-weight: 700;
+    font-size: 14px;
+    color: #272c2e;
+    text-align: center;
+  }
+  .all-theme-box-grid .col-md-4 {
+    padding: 0px 10px;
+  }
+}
+@media screen and (max-width: 1366px) {
+  .sruc-import-box-inner-group .theme-sidebar ul li {
+    font-family: "Inter";
+    font-weight: 400;
+    font-size: 16px;
+    text-align: justify;
+    color: #272c2e;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+  }
+  .sruc-import-box-inner-group .sruc-theme-searchbar::placeholder {
+    font-family: "Inter";
+    font-weight: 400;
+    font-size: 18px;
+    color: #636a6d;
+  }
+  .sruc-theme-searchbar + .fa-search {
+    font-size: 28px;
+    color: #c3c4c7;
+    margin-left: 1em !important;
+  }
+  .all-theme-box-grid .theme-card {
+    padding: 10px !important;
+  }
+  .card-body .btn-primary {
+    background-color: #6664e4;
+    border: none;
+    max-width: max-content !important;
+    width: 100% !important;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: Prompt, sans-serif;
+    padding: 5px 0px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  .card-body .btn-success {
+    background-color: #33baa7;
+    border: none;
+    max-width: max-content !important;
+    width: 100% !important;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: Prompt, sans-serif;
+    padding: 5px 22px !important;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  .sruc-theme-bundle-banner .bundle-row .bundle-heading {
+    color: #272c2e;
+    font-size: 36px;
+    font-family: "Inter";
+    font-weight: 600;
+    margin: 0px;
+  }
+  .sruc-theme-bundle-banner .bundle-row .bundle-subtext {
+    color: #272c2e;
+    font-size: 18px;
+    font-family: "Inter";
+    font-weight: 600;
+    max-width: 488px;
+    width: 100%;
+    margin: 0px;
+  }
+  .sruc-theme-bundle-banner .bundle-row .bundle-promo-text {
+    font-size: 14px;
+    font-weight: 400;
+    font-family: Prompt, sans-serif;
+    color: black;
+    text-align: center;
+    max-width: 430px;
+    width: 100%;
+  }
+  .sruc-theme-bundle-banner .bundle-box.first-box {
+    flex-basis: 50%;
+  }
+  .sruc-theme-bundle-banner .bundle-box.second-box {
+    flex-basis: 30%;
+    text-align: center;
+  }
+  .sruc-theme-bundle-banner .bundle-box.third-box {
+    flex-basis: 20%;
+  }
+  .bundle-box.third-box .bundle-img {
+    max-width: 350px !important;
+  }
+  .sruc-theme-bundle-banner .bundle-row .bundle-btn {
+    background-color: #272c2e;
+    border: none;
+    color: white;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: "Poppins", sans-serif;
+    padding: 15px 20px;
+    cursor: pointer;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .all-theme-box-grid .col-md-4 {
+    padding: 0px 10px;
+    width: 50% !important;
+  }
+  .sruc-import-box-inner-group .search-by-cat-box {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 16px 6px;
+    display: flex;
+    justify-content: center;
+    color: #272c2e;
+    font-size: 12px;
+    font-family: "Inter";
+    font-weight: 400 !important;
+  }
+  .sruc-theme-bundle-banner .bundle-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0px;
+    flex-direction: column;
+  }
+}
+
+#toplevel_page_sruc-theme-showcase .toplevel_page_sruc-theme-showcase {
+  background-color: rgb(51, 186, 167) !important;
+  color: #FFF !important;
+}
+#toplevel_page_sruc-theme-showcase img {
+  opacity: 1 !important;
+}
+#toplevel_page_sruc-theme-showcase .wp-menu-name {
+  font-weight: bold;
+  animation: blinker 1.3s linear infinite;
+}
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+#toplevel_page_sruc-theme-showcase:hover .wp-menu-name{
+  color: #FFF;
+}
+
+
+
+#sruc-popup-content {
+  background: linear-gradient(180deg, #D5E5FF 0%, #DEFFFB 100%);
+  padding:30px;
+  border-radius:10px;
+  max-width:700px;
+  text-align:center;
+  width: 100%;
+  position: relative;
+}
+
+#sruc-popup-content .sruc-popup-template-btn, #sruc-popup-content  .sruc-popup-bundle-btn {
+  background: #272C2E;
+  border: none;
+  border-radius: 16px;
+  font-size: 20px;
+  font-family: "Inter";
+  padding: 0px 50px;
+}
+.sruc-popup-wrap {
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+}
+#sruc-popup-content .sruc-popup-bundle-btn {
+  background: #6664E4;
+}
+#sruc-popup-content h2 {
+  font-size: 28px;
+  margin-bottom: 40px;
+  font-family: "Inter";
+}
+#sruc-popup-content .sruc-popup-dismiss {
+  rotate: 45deg;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 40px;
+  cursor: pointer;
+}
+
+
+
+
+/* new for popup/floating button */
+
+.faq-copy-id{
+  cursor:pointer;
+}
+#sruc-popup-overlay {
+  position: fixed;
+  bottom: 20px;     
+  right: 20px;     
+  width: auto;
+  height: auto;
+  background: transparent; 
+  z-index: 9999;
+  display: block;
+}
+
+#sruc-popup-content {
+  background: #fff;
+  padding: 30px;
+  border-radius: 6px;
+  max-width: 550px;
+  text-align: center;
+  width: 100%;
+  position: relative;
+  border: 2px solid rgba(226, 230, 235, 0.7);
+}
+#sruc-popup-content .sruc-popup-template-btn, #sruc-popup-content .sruc-popup-bundle-btn {
+  background: linear-gradient(to right, #d4335d, #ff5627);
+  border: none;
+  border-radius: 30px;
+  font-size: 18px;
+  padding: 5px 25px;
+  font-family: Prompt, sans-serif;
+}
+
+#sruc-popup-content .sruc-popup-template-btn:hover, #sruc-popup-content .sruc-popup-bundle-btn:hover {
+  background: #101110;
+}
+
+.sruc-popup-wrap {
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+}
+
+#sruc-popup-content img {
+  width: 100%;
+  /* max-width: 450px; */
+  object-fit: contain;
+}
+#sruc-popup-content .sruc-popup-bundle-btn {
+  background: -webkit-linear-gradient(left, #00a8d5, #00ddd8) ;
+}
+#sruc-popup-content h2 {
+  font-size: 18px;
+  margin: 20px 0;
+  font-family: Prompt, sans-serif;
+}
+#sruc-popup-content .sruc-popup-dismiss {
+  rotate: 45deg;
+  position: absolute;
+  top: 0;
+  right: 12px;
+  font-size: 31px;
+  cursor: pointer;
+  color: black;
+}
+/* .sruc-premium-floating-btn {
+  background: #d71800 !important;
+  border: none !important;
+  border-radius: 2px !important;
+  font-size: 18px !important;
+  padding: 0px 16px !important;
+} */
+
+/* .sruc-premium-floating-btn {
+  background: #d71800 !important;
+  border: none !important;
+  border-radius: 2px !important;
+  font-size: 18px !important;
+  padding: 0px 16px !important;
+} */
+
+.sruc-premium-floating-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+
+
+
+/* TOPBAR */
+
+/*Marquee*/
+
+.bundle-marque {
+	background: #ffd60a;
+    color: #1a1a1a;
+    font-weight: 500;
+	padding: 10px 0;
+}
+
+.bundle-marque a {
+	background: #00B8A9;
+  color: #fff;
+  padding: 5px 10px;
+  font-weight: 500;
+  display: inline-block;
+  text-align: center;
+  font-size: 20px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+marquee.offer-code {
+    font-size: 20px;
+}
+
+.for-mobile-device {
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.home-themes-box {
+  border: 1px solid #eceeee;
+  text-align: center;
+  padding-bottom: 15px;
+}
+.home-themes-box img {
+  width: 100%;
+}
+.themes-box-image {
+  position: relative;
+  background: #1b1b1b;
+  margin-bottom: 15px;
+}
+
+.home-themes-box h4,.home-themes-box h4 a {
+  font-size: 20px;
+  color: #d4335d;
+}
+
+
+.home-themes-box h4 a{
+  text-decoration: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.sidebar-box .widget, .sidebar_list {
+  background: #fff !important;
+  width: 100% !important;
+  border-radius: 8px !important;
+  padding: 40px 30px 40px 30px !important;
+  box-shadow: 0 3px 6px #00000029 !important;
+}
+
+
+.themes-box-btn{    
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  right: 0;    
+}
+.home-themes-box:hover .themes-box-btn{
+  opacity: 1;
+}
+.home-themes-box:hover img{
+  opacity: 0.1;
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;
+  -ms-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
+}
+
+#theme-box .btn-default, .themes-box-btn .btn-default, button.default-btn {
+  border-radius: 30px;
+  color: #d4335d;
+  display: inline-block;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 12px 32px;
+  text-transform: uppercase;
+  transition: all 0.35s 
+ease 0s;
+  height: auto;
+  width: auto;
+  border: none;
+  font-size: 16px;
+  background: #fff;
+  margin-bottom: 15px;
+}
+
+.bundle-marque {
+  background: #ffd60a;
+  color: #1a1a1a;
+  font-weight: 500;
+  padding: 10px 0;
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+
+#theme-box .btn-default:hover, .themes-box-btn .btn-default:hover, button.default-btn:hover {
+  color: #000;
+  background: #eceeee;
+}
+
+.productimage-container {
+  overflow: hidden;
+  position: relative;
+}
+#scrollproductImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.sruc-upsell-banner {
+  background: #fff;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border: 1px solid #c3c4c7;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+  padding: 20px 10px;
+  border-color: #d4335d;
+}
+.sruc-notice-left-img.sruc-upsell-banner-content p {
+  color: #000;
+  font-size: 14px;
+  width: 95%;
+}
+.sruc-notice-left-img.sruc-upsell-banner-content h1 {
+  color: #000 !important;
+  font-family: Prompt, sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: left;
+  margin: 0;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.sruc-notice-btn.sruc-upsell-banner-btn {
+  margin-top: 30px;
+}
+.sruc-notice-btn.sruc-upsell-banner-btn a {
+  background: -webkit-linear-gradient(left, #e95581, #d559b8) !important;
+  margin-bottom: 0 !important;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 45px;
+  font-weight: 600;
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 20px;
+  -webkit-box-shadow: 2px 3px 5px 0 #dfdfdf;
+  -moz-box-shadow: 2px 3px 5px 0 #dfdfdf;
+  box-shadow: 2px 3px 5px 0 #dfdfdf;
+  border-radius: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  width: 250px;
+}
+
+.sruc-notice-btn.sruc-upsell-banner-btn a:hover {
+  background: #000 !important;
+  color: #fff;
+}
+.plug-main-head{
+  text-align: center;
+  font-family: Prompt, sans-serif !important;
+  color: #000;
+  text-transform: uppercase;
+}
+
+.sruc-notice-notice-main-img.sruc-upsell-banner-image img {
+  width: 100%;
+  max-width: 530px;
+  padding: 5px;
+}
+p.offer-code {
+  margin: 0;
+  text-align: center;
+  font-size: 20px;
+  font-family: Prompt, sans-serif;
+}

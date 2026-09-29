@@ -1,0 +1,9 @@
+# Exclude from git archive / GitHub releases
+/internal-docs/ export-ignore
+/CLAUDE.md export-ignore
+/.github/ export-ignore
+/.wordpress-org/ export-ignore
+/tests/ export-ignore
+/node_modules/ export-ignore
+/src/ export-ignore
+/bin/ export-ignore
