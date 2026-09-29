@@ -1,6 +1,6 @@
 /*
-Theme Name: BobbyAfrica Marketplace Child
-Theme URI: https://example.com/bobbyafrica-marketplace-child
+Theme Name: Jovixel Marketplace
+Theme URI: https://jovixel.com/jovixels-marketplace-child
 Template: astra
 Author: Copilot
 Version: 1.0.0
@@ -8,7 +8,7 @@ Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
 Description: A modern marketplace-focused child theme for WooCommerce built on the Astra parent theme.
-Text Domain: bobbyafrica-marketplace-child
+Text Domain: jovixels-marketplace-child
 */
 
 :root {
@@ -32,13 +32,18 @@ Text Domain: bobbyafrica-marketplace-child
   --market-radius-lg: 24px;
   --market-container: 1280px;
   --market-gap: 24px;
+  --market-font-family: "Quicksand", sans-serif;
 }
 
 html { scroll-behavior: smooth; }
 body {
   background: var(--market-background);
   color: var(--market-text);
-  font-family: "Segoe UI", Arial, sans-serif;
+  font-family: var(--market-font-family);
+}
+
+body *:not(i):not(svg):not([class*="icon"]):not([class*="Icon"]):not(.dashicons):not([class^="fa"]):not([class*=" fa"]) {
+  font-family: var(--market-font-family) !important;
 }
 
 a { color: inherit; }
@@ -111,6 +116,15 @@ img { max-width: 100%; height: auto; }
   font-weight: 900;
 }
 
+.marketplace-logo-image {
+  display: block;
+  flex: 0 1 auto;
+  width: auto;
+  max-width: min(180px, 32vw);
+  max-height: 48px;
+  object-fit: contain;
+}
+
 .marketplace-search {
   display: flex;
   width: 100%;
@@ -175,17 +189,262 @@ img { max-width: 100%; height: auto; }
 }
 
 .marketplace-primary-nav {
+  position: relative;
+  z-index: 1040;
   background: var(--market-surface);
   border-top: 1px solid rgba(17, 38, 61, 0.06);
   border-bottom: 1px solid var(--market-border);
 }
 
-.marketplace-primary-nav .container {
+.marketplace-primary-nav-inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  align-items: stretch;
+  min-height: 54px;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+.marketplace-mega-category-row,
+.marketplace-mega-subcategory-row {
+  display: flex;
+  align-items: center;
+}
+
+.marketplace-mega-category-row > a,
+.marketplace-mega-subcategory-row > a {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.marketplace-mega-category-row > button,
+.marketplace-mega-subcategory-row > button {
+  display: none;
+  flex: 0 0 40px;
+  min-height: 42px;
+  border: 0;
+  background: transparent;
+  color: var(--market-primary);
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.marketplace-nav-categories,
+.marketplace-nav-feature {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 0 10px;
+  border: 0;
+  background: transparent;
+  color: var(--market-secondary);
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.marketplace-nav-categories:hover,
+.marketplace-nav-categories:focus-visible,
+.marketplace-nav-feature:hover,
+.marketplace-nav-feature:focus-visible {
+  background: var(--market-hover);
+  color: var(--market-primary);
+}
+
+.marketplace-nav-static {
+  cursor: default;
+}
+
+.marketplace-nav-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  color: var(--market-primary);
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.marketplace-nav-support-icon {
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.marketplace-menu-bars {
+  display: grid;
+  gap: 3px;
+  width: 18px;
+}
+
+.marketplace-menu-bars i {
+  display: block;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+}
+
+.marketplace-category-mega {
+  position: absolute;
+  top: calc(100% + 1px);
+  left: 50%;
+  z-index: 1060;
+  display: grid;
+  grid-template-columns: minmax(210px, 0.7fr) minmax(0, 2fr);
+  width: min(calc(100vw - 40px), var(--market-container));
+  max-height: min(72vh, 620px);
+  overflow: auto;
+  transform: translateX(-50%);
+  border: 1px solid var(--market-border);
+  border-radius: 0 0 14px 14px;
+  background: var(--market-surface);
+  box-shadow: var(--market-shadow-md);
+}
+
+.marketplace-category-mega[hidden],
+.marketplace-mega-panel[hidden],
+.marketplace-mega-product-list[hidden] {
+  display: none !important;
+}
+
+.marketplace-mega-category-list {
+  padding: 20px 0;
+  border-right: 1px solid var(--market-border);
+  background: var(--market-background);
+}
+
+.marketplace-mega-category-list h2 {
+  margin: 0 18px 12px;
+  color: var(--market-secondary);
+  font-size: 1rem;
+}
+
+.marketplace-mega-category-list ul,
+.marketplace-mega-product-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.marketplace-mega-category-list a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
-  min-height: 48px;
+  gap: 12px;
+  min-height: 42px;
+  padding: 8px 18px;
+  color: var(--market-text);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.marketplace-mega-category-list a:hover,
+.marketplace-mega-category-list a:focus-visible,
+.marketplace-mega-category-list a[aria-current="true"] {
+  background: var(--market-surface);
+  color: var(--market-primary);
+}
+
+.marketplace-mega-panels {
+  min-width: 0;
+}
+
+.marketplace-mega-panel {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.8fr) minmax(0, 1.2fr);
+  min-height: 100%;
+}
+
+.marketplace-mega-subcategories,
+.marketplace-mega-product-column {
+  min-width: 0;
+  padding: 20px;
+}
+
+.marketplace-mega-subcategories {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-right: 1px solid var(--market-border);
+}
+
+.marketplace-mega-subcategory-row {
+  width: 100%;
+}
+
+.marketplace-mega-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+  color: var(--market-secondary);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.marketplace-mega-subcategory {
+  display: block;
+  padding: 9px 10px;
+  border-radius: 7px;
+  color: var(--market-muted);
+  font-size: 0.88rem;
+  text-decoration: none;
+}
+
+.marketplace-mega-subcategory:hover,
+.marketplace-mega-subcategory:focus-visible,
+.marketplace-mega-subcategory[aria-current="true"] {
+  background: var(--market-hover);
+  color: var(--market-primary);
+}
+
+.marketplace-mega-product-column h3 {
+  margin: 0 0 12px;
+  color: var(--market-secondary);
+  font-size: 0.95rem;
+}
+
+.marketplace-mega-product-links {
+  display: grid;
+  gap: 4px;
+}
+
+.marketplace-mega-product-links a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--market-border);
+  color: var(--market-text);
+  font-size: 0.84rem;
+  text-decoration: none;
+}
+
+.marketplace-mega-product-links a:hover,
+.marketplace-mega-product-links a:focus-visible {
+  color: var(--market-primary);
+}
+
+.marketplace-mega-product-links strong {
+  flex: 0 0 auto;
+  color: var(--market-primary);
+}
+
+.marketplace-primary-nav :focus-visible {
+  outline: 2px solid var(--market-primary);
+  outline-offset: 2px;
 }
 
 .marketplace-nav-links,
@@ -226,21 +485,25 @@ main {
 .marketplace-hero-grid {
   position: relative;
   display: grid;
+  height: clamp(340px, 31vw, 380px);
+  max-height: 380px;
+  grid-template-rows: minmax(0, 1fr);
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   align-items: center;
-  gap: clamp(24px, 5vw, 64px);
+  gap: clamp(15px, 3vw, 54px);
   background: linear-gradient(135deg, rgba(216, 95, 24, 0.12), rgba(52, 37, 29, 0.05));
   border: 1px solid rgba(216, 95, 24, 0.14);
   border-radius: var(--market-radius-lg);
   padding-left: 28px;
   padding-right:0px;
   box-shadow: var(--market-shadow-sm);
+  overflow: hidden;
 }
 
 .marketplace-hero-copy-stack {
   min-width: 0;
-  min-height: 240px;
-  max-height:340px
+  min-height: 0;
+  max-height: 100%;
 }
 
 .marketplace-hero-copy-slide[hidden],
@@ -263,8 +526,6 @@ main {
 
 .marketplace-hero-featured-product {
   display: grid;
-  gap: 4px;
-  margin: 22px 0;
   padding-left: 14px;
   border-left: 3px solid var(--market-accent);
 }
@@ -331,9 +592,12 @@ main {
 .marketplace-hero-visual {
   position: relative;
   min-width: 0;
-  min-height: 380px;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
   overflow: hidden;
   background: var(--market-surface);
+  clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%);
 }
 
 .marketplace-hero-image-slide {
@@ -364,7 +628,7 @@ main {
 }
 
 .marketplace-hero-image {
-  min-height: 240px;
+  min-height: 0;
   border-radius: 10px;
 }
 
@@ -382,14 +646,15 @@ main {
 
 .marketplace-hero-copy h1 {
   font-size: clamp(2.2rem, 4vw, 4rem);
-  line-height: 1.08;
   letter-spacing: -0.05em;
-  margin: 0 0 16px;
-  color: var(--market-secondary);
+  font-weight: 500;
+  line-height: 0.9;
+  margin: 0 0 8px;
+  color: var(--market-text);
 }
 
 .marketplace-hero-copy p {
-  margin: 0 0 18px;
+  margin: 8px 0 5px;
   color: var(--market-muted);
   font-size: 1.02rem;
 }
@@ -402,7 +667,6 @@ main {
 .marketplace-hero-product:focus-visible {
   outline: 3px solid var(--market-primary);
 }
-*/
 
 .marketplace-cta-group,
 .marketplace-inline-actions {
@@ -499,6 +763,22 @@ main {
   text-decoration: none;
   color: var(--market-primary);
   font-weight: 700;
+}
+
+.marketplace-section {
+  padding: 22px 0;
+}
+
+.marketplace-section-featured {
+  background: var(--market-surface);
+}
+
+.marketplace-section-deals {
+  background: var(--market-hover);
+}
+
+.marketplace-section-trust {
+  background: var(--market-background);
 }
 
 .marketplace-category-grid,
@@ -633,9 +913,42 @@ main {
   color: var(--market-secondary);
 }
 
-del {
-  color: var(--market-muted);
-  font-size: 0.9rem;
+del,
+body .woocommerce del,
+body .woocommerce .price del,
+body .woocommerce .amount del,
+.price del,
+.price del .amount,
+.product-price-row del,
+.marketplace-hero-featured-product .price del,
+.marketplace-mobile-buy-price del,
+.woocommerce-cart-form del,
+.woocommerce-checkout-review-order-table del,
+.widget_shopping_cart_content del,
+.single-product div.product p.price del,
+.single-product div.product span.price del {
+  color: var(--market-muted) !important;
+  font-size: clamp(0.68rem, 0.75em, 0.9rem) !important;
+  font-weight: 500;
+  text-decoration: line-through !important;
+  text-decoration-color: currentColor !important;
+  text-decoration-thickness: 1px;
+  opacity: 0.72;
+}
+
+
+.product-price-row del .woocommerce-Price-amount.amount{
+  color: var(--market-muted) !important;
+  font-size: clamp(0.7rem, 0.85em, 1.27rem) !important;
+  font-weight: 500;
+  text-decoration: line-through !important;
+  text-decoration-color: currentColor !important;
+  text-decoration-thickness: 1px;
+  opacity: 0.72;
+}
+
+ins {
+  text-decoration: none !important;
 }
 
 .marketplace-inline-actions .marketplace-button {
@@ -672,7 +985,105 @@ del {
 .marketplace-footer {
   background: var(--market-secondary);
   color: rgba(255,255,255,0.82);
-  padding: 48px 0 14px;
+  padding: 44px 0 18px;
+}
+
+.marketplace-footer-grid {
+  display: grid;
+  grid-template-columns: 1.35fr repeat(3, minmax(0, 1fr));
+  gap: clamp(24px, 4vw, 52px);
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgba(255,255,255,0.16);
+}
+
+.marketplace-footer-column h3,
+.marketplace-footer-column h4,
+.marketplace-footer-payments h4 {
+  margin: 0 0 15px;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.marketplace-footer-brand h3 {
+  font-size: 1.2rem;
+}
+
+.marketplace-footer-brand p {
+  max-width: 300px;
+  margin: 0;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.6;
+}
+
+.marketplace-footer-logo {
+  display: inline-block;
+  margin-bottom: 14px;
+}
+
+.marketplace-footer-logo img {
+  display: block;
+  width: auto;
+  max-width: 170px;
+  max-height: 44px;
+  object-fit: contain;
+}
+
+.marketplace-footer-column ul,
+.marketplace-footer-menu {
+  display: grid;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.marketplace-footer-column a {
+  color: rgba(255,255,255,0.78);
+  text-decoration: none;
+}
+
+.marketplace-footer-column a:hover,
+.marketplace-footer-column a:focus-visible {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.marketplace-footer-payments {
+  padding: 22px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.16);
+}
+
+.marketplace-payment-methods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.marketplace-payment-methods li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 7px 12px;
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.96);
+  color: #34251d;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.marketplace-payment-icon img {
+  display: block;
+  width: auto;
+  max-width: 64px;
+  height: auto;
+  max-height: 24px;
+  object-fit: contain;
 }
 
 .footer-grid {
@@ -825,10 +1236,6 @@ del {
   padding: 10px 12px;
 }
 
-.marketplace-mobile-menu {
-  display: none;
-}
-
 @media (max-width: 980px) {
   .marketplace-header-main {
     grid-template-columns: 1fr;
@@ -839,14 +1246,28 @@ del {
     justify-content: flex-start;
   }
 
-  .marketplace-primary-nav {
+  .marketplace-primary-nav-inner {
+    grid-template-columns: repeat(6, minmax(116px, 1fr));
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+
+  .marketplace-primary-nav-inner::-webkit-scrollbar {
     display: none;
   }
 
-  .marketplace-mobile-menu {
-    display: block;
-    background: var(--market-surface);
-    border-top: 1px solid var(--market-border);
+  .marketplace-category-mega {
+    grid-template-columns: minmax(180px, 0.7fr) minmax(0, 1.5fr);
+    width: min(calc(100vw - 24px), var(--market-container));
+    max-height: 72vh;
+  }
+
+  .marketplace-mega-category-row > button,
+  .marketplace-mega-subcategory-row > button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .marketplace-category-grid {
@@ -855,6 +1276,19 @@ del {
 
   .marketplace-hero-grid {
     grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto;
+    height: auto;
+    max-height: none;
+    overflow: visible;
+    padding: 18px;
+  }
+
+  .marketplace-hero-copy-stack {
+    max-height: none;
+  }
+
+  .marketplace-hero-visual {
+    height: clamp(240px, 45vw, 340px);
   }
 
   .product-grid {
@@ -863,6 +1297,7 @@ del {
 
   .marketplace-trust-grid,
   .footer-grid,
+  .marketplace-footer-grid,
   .account-layout,
   .checkout-grid {
     grid-template-columns: 1fr;
@@ -892,18 +1327,75 @@ del {
   .marketplace-category-grid,
   .product-grid,
   .marketplace-trust-grid,
-  .footer-grid {
+  .footer-grid,
+  .marketplace-footer-grid {
     grid-template-columns: 1fr;
   }
 
+  .marketplace-nav-categories,
+  .marketplace-nav-feature {
+    gap: 5px;
+    padding: 0 8px;
+    font-size: 0.76rem;
+  }
+
+  .marketplace-nav-icon {
+    width: 16px;
+    height: 16px;
+    font-size: 0.9rem;
+  }
+
+  .marketplace-category-mega {
+    grid-template-columns: minmax(0, 1fr);
+    width: calc(100vw - 24px);
+    max-height: 75vh;
+  }
+
+  .marketplace-mega-category-list {
+    max-height: 180px;
+    overflow-y: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--market-border);
+  }
+
+  .marketplace-mega-category-list ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .marketplace-mega-panel {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .marketplace-mega-subcategories {
+    max-height: 170px;
+    overflow-y: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--market-border);
+  }
+
+  .marketplace-mega-subcategories,
+  .marketplace-mega-product-column {
+    padding: 12px;
+  }
+
+  .marketplace-payment-methods {
+    gap: 8px;
+  }
+
   .marketplace-hero-grid {
-    padding: 20px 16px;
+    padding: 16px;
   }
 
   .marketplace-hero-visual,
   .marketplace-hero-image {
+    height: auto;
     min-height: 0;
-    aspect-ratio: 1.12 / 1;
+    aspect-ratio: 1.3 / 1;
+  }
+
+  .marketplace-hero-visual {
+    clip-path: polygon(6% 0, 100% 0, 100% 100%, 0 100%);
   }
 
   .marketplace-hero-copy-stack {

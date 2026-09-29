@@ -106,7 +106,7 @@ $categories = bobbyafrica_get_product_categories();
 		</div>
 	</section>
 
-	<section class="marketplace-section">
+	<section class="marketplace-section marketplace-section-featured">
 		<div class="container">
 			<div class="marketplace-section-header">
 				<h2><?php esc_html_e( 'Featured products', 'bobbyafrica-marketplace-child' ); ?></h2>
@@ -120,7 +120,7 @@ $categories = bobbyafrica_get_product_categories();
 		</div>
 	</section>
 
-	<section class="marketplace-section">
+	<section class="marketplace-section marketplace-section-deals">
 		<div class="container">
 			<div class="marketplace-section-header">
 				<h2><?php esc_html_e( 'Hot deals', 'bobbyafrica-marketplace-child' ); ?></h2>
@@ -134,7 +134,7 @@ $categories = bobbyafrica_get_product_categories();
 		</div>
 	</section>
 
-	<section class="marketplace-section">
+	<section class="marketplace-section marketplace-section-trust">
 		<div class="container">
 			<div class="marketplace-trust-grid">
 				<div class="marketplace-trust-item"><span class="icon">🔒</span><div><strong><?php esc_html_e( 'Secure payments', 'bobbyafrica-marketplace-child' ); ?></strong><div><?php esc_html_e( 'Protected checkout', 'bobbyafrica-marketplace-child' ); ?></div></div></div>

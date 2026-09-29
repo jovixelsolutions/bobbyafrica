@@ -5,6 +5,29 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+$marketplace_categories = get_terms(
+	array(
+		'taxonomy'   => 'product_cat',
+		'hide_empty' => true,
+		'orderby'    => 'name',
+		'order'      => 'ASC',
+	)
+);
+$marketplace_categories = is_wp_error( $marketplace_categories ) ? array() : $marketplace_categories;
+$marketplace_top_categories = array_filter(
+	$marketplace_categories,
+	function( $category ) {
+		return 0 === (int) $category->parent;
+	}
+);
+$marketplace_category_children = array();
+foreach ( $marketplace_categories as $marketplace_category ) {
+	if ( $marketplace_category->parent ) {
+		$marketplace_category_children[ $marketplace_category->parent ][] = $marketplace_category;
+	}
+}
+$marketplace_shop_url = wc_get_page_permalink( 'shop' );
 ?><!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -24,7 +47,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 	<div class="container marketplace-header-main">
 		<a class="marketplace-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
-			<span class="marketplace-logo-mark">BA</span>
+			<?php
+			$marketplace_logo_id = get_theme_mod( 'custom_logo' );
+			if ( $marketplace_logo_id ) {
+				echo wp_get_attachment_image( $marketplace_logo_id, 'full', false, array( 'class' => 'marketplace-logo-image', 'alt' => '' ) );
+			} else {
+				printf( '<span class="marketplace-logo-mark" aria-hidden="true">%s</span>', esc_html( strtoupper( substr( get_bloginfo( 'name' ), 0, 2 ) ) ) );
+			}
+			?>
 			<span><?php bloginfo( 'name' ); ?></span>
 		</a>
 
@@ -52,26 +82,70 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</a>
 		</div>
 	</div>
-	<nav class="marketplace-primary-nav" aria-label="Primary navigation">
-		<div class="container">
-			<ul class="marketplace-nav-links">
-				<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'bobbyafrica-marketplace-child' ); ?></a></li>
-				<li><a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>"><?php esc_html_e( 'Shop', 'bobbyafrica-marketplace-child' ); ?></a></li>
-				<?php
-				$terms = bobbyafrica_get_product_categories();
-				foreach ( $terms as $term ) {
-					printf( '<li><a href="%1$s">%2$s</a></li>', esc_url( get_term_link( $term ) ), esc_html( $term->name ) );
-				}
-				?>
-			</ul>
+	<nav class="marketplace-primary-nav" aria-label="<?php esc_attr_e( 'Primary navigation', 'bobbyafrica-marketplace-child' ); ?>">
+		<div class="container marketplace-primary-nav-inner">
+			<button class="marketplace-nav-categories" type="button" aria-expanded="false" aria-controls="marketplace-category-mega">
+				<span class="marketplace-menu-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+				<span><?php esc_html_e( 'Categories', 'bobbyafrica-marketplace-child' ); ?></span>
+			</button>
+			<a class="marketplace-nav-feature" href="<?php echo esc_url( add_query_arg( 'orderby', 'date', $marketplace_shop_url ) ); ?>">
+				<span><?php esc_html_e( 'New Arrivals', 'bobbyafrica-marketplace-child' ); ?></span><span class="marketplace-nav-icon" aria-hidden="true">✦</span>
+			</a>
+			<a class="marketplace-nav-feature" href="<?php echo esc_url( add_query_arg( array( 'market_sale' => '1', 'orderby' => 'date' ), $marketplace_shop_url ) ); ?>">
+				<span><?php esc_html_e( 'Flash Sales', 'bobbyafrica-marketplace-child' ); ?></span><span class="marketplace-nav-icon" aria-hidden="true">ϟ</span>
+			</a>
+			<a class="marketplace-nav-feature" href="<?php echo esc_url( add_query_arg( array( 'market_sale' => '1', 'orderby' => 'popularity' ), $marketplace_shop_url ) ); ?>">
+				<span><?php esc_html_e( 'Hot Deals', 'bobbyafrica-marketplace-child' ); ?></span><span class="marketplace-nav-icon" aria-hidden="true">%</span>
+			</a>
+			<span class="marketplace-nav-feature marketplace-nav-static">
+				<span><?php esc_html_e( 'Fast Delivery', 'bobbyafrica-marketplace-child' ); ?></span><span class="marketplace-nav-icon" aria-hidden="true">&#10140;</span>
+			</span>
+			<span class="marketplace-nav-feature marketplace-nav-static">
+				<span><?php esc_html_e( '24/7 Support', 'bobbyafrica-marketplace-child' ); ?></span><span class="marketplace-nav-icon marketplace-nav-support-icon" aria-hidden="true">?</span>
+			</span>
+		</div>
+
+			<div class="marketplace-category-mega" id="marketplace-category-mega" hidden>
+				<div class="marketplace-mega-category-list">
+					<h2><?php esc_html_e( 'Shop by category', 'bobbyafrica-marketplace-child' ); ?></h2>
+					<ul>
+						<?php foreach ( $marketplace_top_categories as $index => $category ) : ?>
+							<li class="marketplace-mega-category-row">
+								<a href="<?php echo esc_url( get_term_link( $category ) ); ?>" data-mega-category="<?php echo esc_attr( $category->term_id ); ?>" aria-controls="marketplace-category-panel-<?php echo esc_attr( $category->term_id ); ?>"<?php echo 0 === $index ? ' aria-current="true"' : ''; ?>><?php echo esc_html( $category->name ); ?></a>
+								<button type="button" data-expand-category="<?php echo esc_attr( $category->term_id ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Show subcategories in %s', 'bobbyafrica-marketplace-child' ), $category->name ) ); ?>" aria-controls="marketplace-category-panel-<?php echo esc_attr( $category->term_id ); ?>" aria-expanded="<?php echo 0 === $index ? 'true' : 'false'; ?>">&#8250;</button>
+							</li>
+						<?php endforeach; ?>
+					</ul>
+				</div>
+				<div class="marketplace-mega-panels">
+					<?php foreach ( $marketplace_top_categories as $index => $category ) : ?>
+						<?php $children = $marketplace_category_children[ $category->term_id ] ?? array(); ?>
+						<section class="marketplace-mega-panel" id="marketplace-category-panel-<?php echo esc_attr( $category->term_id ); ?>" data-category-panel="<?php echo esc_attr( $category->term_id ); ?>"<?php echo 0 === $index ? '' : ' hidden'; ?>>
+							<div class="marketplace-mega-subcategories">
+								<a class="marketplace-mega-heading" href="<?php echo esc_url( get_term_link( $category ) ); ?>"><?php echo esc_html( $category->name ); ?> <span aria-hidden="true">&#8594;</span></a>
+								<?php foreach ( $children as $child_index => $child ) : ?>
+									<div class="marketplace-mega-subcategory-row">
+										<a class="marketplace-mega-subcategory" href="<?php echo esc_url( get_term_link( $child ) ); ?>" data-mega-subcategory="<?php echo esc_attr( $child->term_id ); ?>" aria-controls="marketplace-mega-products-<?php echo esc_attr( $child->term_id ); ?>"<?php echo 0 === $child_index ? ' aria-current="true"' : ''; ?>><?php echo esc_html( $child->name ); ?></a>
+										<button type="button" data-expand-subcategory="<?php echo esc_attr( $child->term_id ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Show products in %s', 'bobbyafrica-marketplace-child' ), $child->name ) ); ?>" aria-controls="marketplace-mega-products-<?php echo esc_attr( $child->term_id ); ?>">&#8250;</button>
+									</div>
+								<?php endforeach; ?>
+							</div>
+							<div class="marketplace-mega-product-column">
+								<?php if ( $children ) : ?>
+									<?php foreach ( $children as $child_index => $child ) : ?>
+										<div class="marketplace-mega-product-list" id="marketplace-mega-products-<?php echo esc_attr( $child->term_id ); ?>" data-mega-products="<?php echo esc_attr( $child->term_id ); ?>" aria-live="polite"<?php echo 0 === $child_index ? '' : ' hidden'; ?>>
+											<h3><?php echo esc_html( $child->name ); ?></h3>
+											<p class="marketplace-mega-loading" hidden><?php esc_html_e( 'Loading products…', 'bobbyafrica-marketplace-child' ); ?></p>
+											<div class="marketplace-mega-product-results"><p><?php esc_html_e( 'Point to a subcategory to browse its products.', 'bobbyafrica-marketplace-child' ); ?></p></div>
+										</div>
+									<?php endforeach; ?>
+								<?php else : ?>
+									<p><?php esc_html_e( 'Browse all products in this category.', 'bobbyafrica-marketplace-child' ); ?></p>
+								<?php endif; ?>
+							</div>
+						</section>
+					<?php endforeach; ?>
+				</div>
 		</div>
 	</nav>
-	<div class="marketplace-mobile-menu container">
-		<button type="button" aria-expanded="false"><?php esc_html_e( 'Menu', 'bobbyafrica-marketplace-child' ); ?></button>
-		<ul class="marketplace-nav-links" hidden>
-			<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'bobbyafrica-marketplace-child' ); ?></a></li>
-			<li><a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>"><?php esc_html_e( 'Shop', 'bobbyafrica-marketplace-child' ); ?></a></li>
-			<?php foreach ( $terms ?? array() as $term ) { printf( '<li><a href="%1$s">%2$s</a></li>', esc_url( get_term_link( $term ) ), esc_html( $term->name ) ); } ?>
-		</ul>
-	</div>
 </header>

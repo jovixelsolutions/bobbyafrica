@@ -24,6 +24,70 @@ function bobbyafrica_marketplace_wrapper_end() {
 	}
 }
 
+add_action( 'woocommerce_product_query', 'bobbyafrica_filter_sale_catalog' );
+
+function bobbyafrica_filter_sale_catalog( $query ) {
+	if ( is_admin() || ! isset( $_GET['market_sale'] ) || '1' !== sanitize_text_field( wp_unslash( $_GET['market_sale'] ) ) ) {
+		return;
+	}
+
+	$sale_product_ids = wc_get_product_ids_on_sale();
+	$query->set( 'post__in', $sale_product_ids ? $sale_product_ids : array( 0 ) );
+}
+
+add_action( 'wp_ajax_bobbyafrica_category_products', 'bobbyafrica_category_products_ajax' );
+add_action( 'wp_ajax_nopriv_bobbyafrica_category_products', 'bobbyafrica_category_products_ajax' );
+
+function bobbyafrica_category_products_ajax() {
+	check_ajax_referer( 'bobbyafrica_marketplace', 'nonce' );
+
+	$category_id = isset( $_POST['category_id'] ) ? absint( wp_unslash( $_POST['category_id'] ) ) : 0;
+	$category    = get_term( $category_id, 'product_cat' );
+
+	if ( ! $category_id || is_wp_error( $category ) || ! $category ) {
+		wp_send_json_error( array( 'message' => __( 'Category not found.', 'bobbyafrica-marketplace-child' ) ), 404 );
+	}
+
+	$transient_key = 'bobbyafrica_mega_products_' . $category_id;
+	$products_html = get_transient( $transient_key );
+
+	if ( false === $products_html ) {
+		$products = wc_get_products(
+			array(
+				'status'   => 'publish',
+				'limit'    => 5,
+				'category' => array( $category->slug ),
+				'orderby'  => 'popularity',
+				'order'    => 'DESC',
+			)
+		);
+
+		ob_start();
+		if ( $products ) :
+			?>
+			<ul class="marketplace-mega-product-links">
+				<?php foreach ( $products as $product ) : ?>
+					<li>
+						<a href="<?php echo esc_url( $product->get_permalink() ); ?>">
+							<span><?php echo esc_html( $product->get_name() ); ?></span>
+							<strong><?php echo wp_kses_post( $product->get_price_html() ); ?></strong>
+						</a>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+			<?php
+		else :
+			?>
+			<p><?php esc_html_e( 'No products are currently listed in this category.', 'bobbyafrica-marketplace-child' ); ?></p>
+			<?php
+		endif;
+		$products_html = ob_get_clean();
+		set_transient( $transient_key, $products_html, 5 * MINUTE_IN_SECONDS );
+	}
+
+	wp_send_json_success( array( 'html' => $products_html ) );
+}
+
 add_action( 'woocommerce_single_product_summary', 'bobbyafrica_product_purchase_notes', 29 );
 
 function bobbyafrica_product_purchase_notes() {

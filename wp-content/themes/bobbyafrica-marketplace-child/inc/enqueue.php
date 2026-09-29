@@ -7,9 +7,16 @@ add_action( 'wp_enqueue_scripts', 'bobbyafrica_child_enqueue_assets', 20 );
 
 function bobbyafrica_child_enqueue_assets() {
 	wp_enqueue_style(
+	'bobbyafrica-quicksand',
+	'https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap',
+	array(),
+	null
+	);
+
+	wp_enqueue_style(
 		'bobbyafrica-child-style',
 		get_stylesheet_uri(),
-		array( 'astra-theme-css' ),
+		array( 'astra-theme-css', 'bobbyafrica-quicksand' ),
 		wp_get_theme()->get( 'Version' )
 	);
 

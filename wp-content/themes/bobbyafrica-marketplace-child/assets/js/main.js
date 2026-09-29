@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
   const searchForms = document.querySelectorAll('.marketplace-search');
-  const mobileMenuButton = document.querySelector('.marketplace-mobile-menu button');
 
   searchForms.forEach(function (form) {
     const input = form.querySelector('input[type="search"]');
@@ -17,13 +16,184 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  if (mobileMenuButton) {
-    mobileMenuButton.addEventListener('click', function () {
-      const menu = document.querySelector('.marketplace-mobile-menu .marketplace-nav-links');
-      if (!menu) {
+  const primaryNav = document.querySelector('.marketplace-primary-nav');
+  const categoryToggle = primaryNav && primaryNav.querySelector('.marketplace-nav-categories');
+  const categoryMega = primaryNav && primaryNav.querySelector('.marketplace-category-mega');
+
+  if (primaryNav && categoryToggle && categoryMega) {
+    const categoryLinks = Array.from(categoryMega.querySelectorAll('[data-mega-category]'));
+    const categoryPanels = Array.from(categoryMega.querySelectorAll('[data-category-panel]'));
+
+    function loadSubcategoryProducts(categoryId, productList) {
+      if (!productList || productList.dataset.loaded === 'true' || productList.dataset.loading === 'true') {
         return;
       }
-      menu.hidden = !menu.hidden;
+
+      productList.dataset.loading = 'true';
+      const loading = productList.querySelector('.marketplace-mega-loading');
+      const results = productList.querySelector('.marketplace-mega-product-results');
+      if (loading) {
+        loading.hidden = false;
+      }
+
+      const request = new FormData();
+      request.append('action', 'bobbyafrica_category_products');
+      request.append('nonce', bobbyafricaMarketData.nonce);
+      request.append('category_id', categoryId);
+
+      fetch(bobbyafricaMarketData.ajaxurl, {
+        method: 'POST',
+        credentials: 'same-origin',
+        body: request
+      })
+        .then(function (response) {
+          if (!response.ok) {
+            throw new Error('Product request failed');
+          }
+          return response.json();
+        })
+        .then(function (response) {
+          if (!response.success || !results) {
+            throw new Error('Product list unavailable');
+          }
+          results.innerHTML = response.data.html;
+          productList.dataset.loaded = 'true';
+        })
+        .catch(function () {
+          if (results) {
+            results.textContent = 'Products could not be loaded. Open the category to browse.';
+          }
+        })
+        .finally(function () {
+          delete productList.dataset.loading;
+          if (loading) {
+            loading.hidden = true;
+          }
+        });
+    }
+
+    function activateSubcategory(link, panel) {
+      panel.querySelectorAll('[data-mega-subcategory]').forEach(function (subcategoryLink) {
+        subcategoryLink.setAttribute('aria-current', subcategoryLink === link ? 'true' : 'false');
+      });
+      panel.querySelectorAll('[data-expand-subcategory]').forEach(function (button) {
+        button.setAttribute('aria-expanded', button.getAttribute('data-expand-subcategory') === link.getAttribute('data-mega-subcategory') ? 'true' : 'false');
+      });
+      panel.querySelectorAll('[data-mega-products]').forEach(function (productList) {
+        productList.hidden = productList.id !== link.getAttribute('aria-controls');
+      });
+
+      const products = document.getElementById(link.getAttribute('aria-controls'));
+      loadSubcategoryProducts(link.getAttribute('data-mega-subcategory'), products);
+    }
+
+    function activateCategory(categoryId) {
+      const panel = categoryPanels.find(function (candidate) {
+        return candidate.getAttribute('data-category-panel') === String(categoryId);
+      });
+      if (!panel) {
+        return;
+      }
+
+      categoryLinks.forEach(function (link) {
+        link.setAttribute('aria-current', link.getAttribute('data-mega-category') === String(categoryId) ? 'true' : 'false');
+      });
+      categoryMega.querySelectorAll('[data-expand-category]').forEach(function (button) {
+        button.setAttribute('aria-expanded', button.getAttribute('data-expand-category') === String(categoryId) ? 'true' : 'false');
+      });
+      categoryPanels.forEach(function (candidate) {
+        candidate.hidden = candidate !== panel;
+      });
+
+      const firstSubcategory = panel.querySelector('[data-mega-subcategory]');
+      if (firstSubcategory) {
+        activateSubcategory(firstSubcategory, panel);
+      }
+    }
+
+    function openCategoryMenu() {
+      categoryMega.hidden = false;
+      categoryToggle.setAttribute('aria-expanded', 'true');
+      const selectedCategory = categoryLinks.find(function (link) {
+        return link.getAttribute('aria-current') === 'true';
+      }) || categoryLinks[0];
+      if (selectedCategory) {
+        activateCategory(selectedCategory.getAttribute('data-mega-category'));
+      }
+    }
+
+    function closeCategoryMenu() {
+      categoryMega.hidden = true;
+      categoryToggle.setAttribute('aria-expanded', 'false');
+    }
+
+    categoryToggle.addEventListener('click', function () {
+      if (categoryMega.hidden) {
+        openCategoryMenu();
+      } else {
+        closeCategoryMenu();
+      }
+    });
+    categoryToggle.addEventListener('mouseenter', openCategoryMenu);
+    categoryToggle.addEventListener('focus', openCategoryMenu);
+
+    categoryLinks.forEach(function (link) {
+      const activate = function () {
+        activateCategory(link.getAttribute('data-mega-category'));
+      };
+      link.addEventListener('mouseenter', activate);
+      link.addEventListener('focus', activate);
+    });
+
+    categoryMega.querySelectorAll('[data-expand-category]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        openCategoryMenu();
+        activateCategory(button.getAttribute('data-expand-category'));
+      });
+    });
+
+    categoryMega.querySelectorAll('[data-mega-subcategory]').forEach(function (link) {
+      const activate = function () {
+        const panel = link.closest('[data-category-panel]');
+        if (panel) {
+          activateSubcategory(link, panel);
+        }
+      };
+      link.addEventListener('mouseenter', activate);
+      link.addEventListener('focus', activate);
+    });
+
+    categoryMega.querySelectorAll('[data-expand-subcategory]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        const link = categoryMega.querySelector('[data-mega-subcategory="' + button.getAttribute('data-expand-subcategory') + '"]');
+        const panel = link && link.closest('[data-category-panel]');
+        if (link && panel) {
+          activateCategory(panel.getAttribute('data-category-panel'));
+          activateSubcategory(link, panel);
+        }
+      });
+    });
+
+    primaryNav.addEventListener('mouseleave', function () {
+      if (!primaryNav.contains(document.activeElement)) {
+        closeCategoryMenu();
+      }
+    });
+    primaryNav.addEventListener('focusout', function (event) {
+      if (!primaryNav.contains(event.relatedTarget) && !primaryNav.matches(':hover')) {
+        closeCategoryMenu();
+      }
+    });
+    document.addEventListener('click', function (event) {
+      if (!primaryNav.contains(event.target)) {
+        closeCategoryMenu();
+      }
+    });
+    primaryNav.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && !categoryMega.hidden) {
+        closeCategoryMenu();
+        categoryToggle.focus();
+      }
     });
   }
 
