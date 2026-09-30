@@ -186,7 +186,12 @@
 
 .cartflows-admin-notice .astra-review-notice.button-primary {
 	background-color: var( --cf-notice-accent );
-	border: unset;
+	border: 1px solid transparent;
+	min-height: 0;
+	line-height: 20px;
+	padding: 7px 12px;
+	font-size: 12px;
+	box-sizing: border-box;
 }
 
 .cartflows-admin-notice .astra-review-notice {
@@ -194,14 +199,20 @@
 	display: flex;
 	align-items: center;
 	gap: 6px;
-	padding: 4px 10px;
+	padding: 7px 12px;
 	border-radius: 6px;
+	text-decoration: none;
+	line-height: 20px;
 }
 
 .cartflows-admin-notice .astra-review-notice .dashicons {
-	margin-top: -2px;
-	width: auto;
-	height: auto;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 20px;
+	height: 20px;
+	font-size: 16px;
+	line-height: 1;
 }
 
 /* Inline-link styling reserved for the optional third action (e.g. 5-star "I already did"). */
@@ -219,6 +230,23 @@
 
 .cartflows-admin-notice .astra-review-notice-container .dashicons::before {
 	vertical-align: middle;
+}
+
+/* Keep the focus/active ring on-brand instead of the default WordPress blue. */
+.cartflows-admin-notice .astra-review-notice.button-primary:focus,
+.cartflows-admin-notice .astra-review-notice.button-primary.focus,
+.cartflows-admin-notice .astra-review-notice.button-primary:active {
+	background-color: var( --cf-notice-accent );
+	border-color: var( --cf-notice-accent );
+	color: #fff;
+	box-shadow: 0 0 0 1px #fff, 0 0 0 3px var( --cf-notice-accent );
+	outline: none;
+}
+
+.cartflows-admin-notice .astra-review-notice:not( .button-primary ):focus,
+.cartflows-admin-notice .astra-review-notice:not( .button-primary ):active {
+	box-shadow: 0 0 0 2px rgba( 240, 100, 52, 0.35 );
+	outline: none;
 }
 
 /* Theme modifiers — declared after the base block so the cascade applies the override. */

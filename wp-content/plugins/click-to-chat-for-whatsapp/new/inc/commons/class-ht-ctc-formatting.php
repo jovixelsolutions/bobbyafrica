@@ -31,13 +31,20 @@ if ( ! class_exists( 'HT_CTC_Formatting' ) ) {
 			// remove initial 0s
 			$number = ltrim( $number, '0' );
 
-			// https://faq.whatsapp.com/537057536884131/
+			// // Country-specific rules (like Mexico +52 1 and Argentina +54 9) are applied only on the frontend.
+			// // In admin, clean digits are returned so intl-tel-input can format the input field correctly.
+			// if ( function_exists( 'is_admin' ) && is_admin() ) {
+			// return $number;
+			// }
+
+			// https://faq.whatsapp.com/640432094208718
 
 			// All phone numbers in Argentina (country code "54") should have a "9" between the country code and area code.
 			$number = preg_replace( '/^54(0|1|2|3|4|5|6|7|8)/', '549$1', $number );
 			// The prefix "15" must be removed so the final number will have 13 digits total (not needed)
 
-			// Mexico (country code "52") need to have "1" after "+52"
+			// Mexico (country code "52") requires "1" after "+52" per WhatsApp documentation:
+			// Even though domestic telecom dialing changed in Mexico, WhatsApp internal routing and universal links (wa.me) still require "+52 1" for mobile accounts to ensure reliable routing across all devices.
 			$number = preg_replace( '/^52(0|2|3|4|5|6|7|8|9)/', '521$1', $number );
 
 			return $number;

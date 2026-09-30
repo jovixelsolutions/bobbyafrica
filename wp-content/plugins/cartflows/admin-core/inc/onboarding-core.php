@@ -209,12 +209,49 @@ class OnboardingCore {
 		}
 		$this->load_required_scripts();
 		$this->localize_vars();
+		$this->unhook_deprecated_wp_callbacks();
 
 		// Disable loading of Query Monitor in footer.
 		add_filter( 'qm/dispatch/html', '__return_false' );
 
 		ob_start();
 		include_once CARTFLOWS_DIR . 'admin-core/views/onboarding-base.php';
+	}
+
+	/**
+	 * Detach WP core callbacks deprecated in 6.4 from the actions the
+	 * standalone onboarding view fires manually (admin_print_styles, admin_head).
+	 *
+	 * Without this, every onboarding load on WP 6.4+ emits PHP deprecation
+	 * notices for print_emoji_styles, wp_admin_bar_header, and
+	 * the_block_template_skip_link via _deprecated_function().
+	 *
+	 * Centralised here (rather than inline in the view) so the deprecated-
+	 * callback list lives in one place and the view stays presentation-only.
+	 *
+	 * Scoped strictly to the CartFlows onboarding screen — the guard ensures
+	 * it cannot affect any other admin page even if called from elsewhere.
+	 *
+	 * @since x.x.x
+	 * @return void
+	 */
+	private function unhook_deprecated_wp_callbacks() {
+
+		// Hard guard — only run on the CartFlows onboarding screen.
+		if ( empty( $_GET['page'] ) || 'cartflows-onboarding' !== $_GET['page'] ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return;
+		}
+
+		$deprecated_callbacks = array(
+			'admin_print_styles' => array( 'print_emoji_styles' ),
+			'admin_head'         => array( 'wp_admin_bar_header', 'the_block_template_skip_link' ),
+		);
+
+		foreach ( $deprecated_callbacks as $action => $callbacks ) {
+			foreach ( $callbacks as $callback ) {
+				remove_action( $action, $callback );
+			}
+		}
 	}
 
 	/**
@@ -287,6 +324,11 @@ class OnboardingCore {
 				'name'   => 'Modern cart',
 				'slug'   => 'modern-cart',
 				'status' => $this->get_plugin_status( 'modern-cart/modern-cart.php' ),
+			),
+			array(
+				'name'   => 'Power Coupons',
+				'slug'   => 'power-coupons',
+				'status' => $this->get_plugin_status( 'power-coupons/power-coupons.php' ),
 			),
 			array(
 				'name'   => 'WooCommerce Payments',
@@ -370,6 +412,17 @@ class OnboardingCore {
 		$vars = apply_filters( 'cartflows_onboarding_localized_vars', $vars );
 
 		wp_localize_script( 'wcf-onboarding-app', 'cartflows_onboarding', $vars );
+
+		// Satisfies the @Styles/common contract — UTM helpers read from cartflows_admin.
+		wp_localize_script(
+			'wcf-onboarding-app',
+			'cartflows_admin',
+			array(
+				'utm_defaults'          => \Cartflows_Helper::get_utm_defaults(),
+				'cf_domain_url'         => CARTFLOWS_DOMAIN_URL,
+				'cf_upgrade_to_pro_url' => \Cartflows_Helper::get_upgrade_to_pro_link(),
+			)
+		);
 	}
 
 	/**

@@ -38,7 +38,7 @@ if ( ! class_exists( 'HT_CTC_MetaBox' ) ) {
 			 *   - Save meta box data when the post is saved.
 			 */
 
-			$othersettings = get_option( 'ht_ctc_othersettings' );
+			$othersettings = HT_CTC_Utils::get_option( 'ht_ctc_othersettings' );
 
 			if ( ! isset( $othersettings['disable_page_level_settings'] ) ) {
 				// Add meta box.
@@ -79,7 +79,7 @@ if ( ! class_exists( 'HT_CTC_MetaBox' ) ) {
 		public function display_meta_box( $current_post ) {
 			wp_nonce_field( 'ht_ctc_page_meta_box', 'ht_ctc_page_meta_box_nonce' );
 
-			$othersettings    = get_option( 'ht_ctc_othersettings' );
+			$othersettings    = HT_CTC_Utils::get_option( 'ht_ctc_othersettings' );
 			$ht_ctc_pagelevel = get_post_meta( $current_post->ID, 'ht_ctc_pagelevel', true );
 			?>
 
@@ -97,7 +97,7 @@ if ( ! class_exists( 'HT_CTC_MetaBox' ) ) {
 			$pre_filled     = isset( $ht_ctc_pagelevel['pre_filled'] ) ? esc_attr( $ht_ctc_pagelevel['pre_filled'] ) : '';
 			$show_hide      = isset( $ht_ctc_pagelevel['show_hide'] ) ? esc_attr( $ht_ctc_pagelevel['show_hide'] ) : '';
 
-			$options = get_option( 'ht_ctc_chat_options' );
+			$options = HT_CTC_Utils::get_option( 'ht_ctc_chat_options' );
 
 			$ph_number         = '';
 			$ph_call_to_action = '';
@@ -296,7 +296,7 @@ if ( ! class_exists( 'HT_CTC_MetaBox' ) ) {
 
 			if ( isset( $_POST['ht_ctc_pagelevel'] ) ) {
 
-				$ht_ctc_pagelevel = array_filter( map_deep( wp_unslash( $_POST['ht_ctc_pagelevel'] ), 'sanitize_text_field' ) );
+				$ht_ctc_pagelevel = array_filter( map_deep( wp_unslash( $_POST['ht_ctc_pagelevel'] ), 'sanitize_textarea_field' ) );
 
 				if ( ! empty( $ht_ctc_pagelevel ) ) {
 

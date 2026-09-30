@@ -265,6 +265,19 @@
 				);
 			},
 			get() {
+				// If the URL carries checkout pre-fill params (billing_* / shipping_*),
+				// let the PHP-rendered values stand — do not overwrite with stale
+				// localStorage data from a previous visit.
+				const urlSearch = new URLSearchParams( window.location.search );
+				const hasPrefillParams = Array.from( urlSearch.keys() ).some(
+					( k ) =>
+						k.startsWith( 'billing_' ) ||
+						k.startsWith( 'shipping_' )
+				);
+				if ( hasPrefillParams ) {
+					return;
+				}
+
 				if (
 					localStorage.getItem( 'cartflows_checkout_form' ) !== null
 				) {

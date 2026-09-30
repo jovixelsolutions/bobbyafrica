@@ -131,7 +131,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Other_Settings' ) ) {
 		 */
 		public function ht_ctc_analytics_cb() {
 
-			$options = get_option( 'ht_ctc_othersettings' );
+			$options = HT_CTC_Utils::get_option( 'ht_ctc_othersettings' );
 			$dbrow   = 'ht_ctc_othersettings';
 			?>
 		<ul class="collapsible" data-collapsible="accordion" id="ht_ctc_analytics">
@@ -146,9 +146,6 @@ if ( ! class_exists( 'HT_CTC_Admin_Other_Settings' ) ) {
 
 			$google_analytics_checkbox = ( isset( $options['g_an'] ) ) ? 1 : '';
 			// $google_analytics_checkbox = ( isset( $options['g_an']) ) ? esc_attr( $options['g_an'] ) : '';
-
-			$g_an_gtm_value                = ( isset( $options['g_an_gtm'] ) ) ? esc_attr( $options['g_an_gtm'] ) : '1';
-			$google_analytics_gtm_checkbox = ( isset( $options['g_an_gtm'] ) ) ? 1 : '';
 
 			?>
 		<ul class="collapsible col_google_analytics coll_active" data-coll_active="col_google_analytics" id="col_google_analytics">
@@ -167,14 +164,13 @@ if ( ! class_exists( 'HT_CTC_Admin_Other_Settings' ) ) {
 			</label>
 		</p>
 			<?php
-			$g_an_event_name = ( isset( $options['g_an_event_name'] ) ) ? esc_attr( $options['g_an_event_name'] ) : 'click to chat';
 			// list of all g_an params..
+			// Google Analytics Event Name
+			$g_an_event_name = ( isset( $options['g_an_event_name'] ) ) ? esc_attr( $options['g_an_event_name'] ) : 'click to chat';
 
-			$g_an_params = ( isset( $options['g_an_params'] ) && is_array( $options['g_an_params'] ) ) ? array_map( 'esc_attr', $options['g_an_params'] ) : '';
-
-			// count of g_an params.. used for adding new params.. always raises..
-			$g_an_param_order = ( isset( $options['g_an_param_order'] ) ) ? esc_attr( $options['g_an_param_order'] ) : 5;
-			$key_gen          = 1;
+			// v4 structure: g_an_params is a keyed list of [ 'key' => .., 'value' => .. ] rows.
+			// the array key is the stored row index (0,1,2.. for defaults, time-based for user-added rows).
+			$g_an_params = ( isset( $options['g_an_params'] ) && is_array( $options['g_an_params'] ) ) ? $options['g_an_params'] : array();
 
 			?>
 
@@ -198,44 +194,37 @@ if ( ! class_exists( 'HT_CTC_Admin_Other_Settings' ) ) {
 			<div class="ctc_an_params ctc_g_an_params ctc_sortable">
 				<?php
 
-				$num = '';
+				foreach ( $g_an_params as $g_an_index => $param ) {
 
-				if ( is_array( $g_an_params ) && isset( $g_an_params[0] ) ) {
+					if ( ! is_array( $param ) ) {
+						continue;
+					}
 
-					foreach ( $g_an_params as $param ) {
+					$key   = ( isset( $param['key'] ) ) ? esc_attr( $param['key'] ) : '';
+					$value = ( isset( $param['value'] ) ) ? esc_attr( $param['value'] ) : '';
 
-						$param_options = ( isset( $options[ $param ] ) && is_array( $options[ $param ] ) ) ? map_deep( $options[ $param ], 'esc_attr' ) : '';
+					// if key and value not empty..
+					if ( ! empty( $key ) && ! empty( $value ) ) {
+						?>
+						<div class="ctc_an_param g_an_param row" style="margin-bottom:5px; display:flex; gap:5px; justify-content:center;">
 
-						$key   = ( isset( $param_options['key'] ) ) ? esc_attr( $param_options['key'] ) : '';
-						$value = ( isset( $param_options['value'] ) ) ? esc_attr( $param_options['value'] ) : '';
-
-						// if key and value not empty..
-						if ( ! empty( $key ) && ! empty( $value ) ) {
-							?>
-							<div class="ctc_an_param g_an_param row" style="margin-bottom:5px; display:flex; gap:5px; justify-content:center;">
-
-								<input style="display: none;" name="ht_ctc_othersettings[g_an_params][]" type="text" class="g_an_param_order_ref_number" value="<?php echo esc_attr( $param ); ?>">
-
-								<div class="input-field">
-									<input name="ht_ctc_othersettings[<?php echo esc_attr( $param ); ?>][key]" value="<?php echo esc_attr( $key ); ?>" id="<?php echo esc_attr( $param . '_key' ); ?>" type="text" class="ht_ctc_g_an_param_key input-margin">
-									<label for="<?php echo esc_attr( $param . '_key' ); ?>"><?php esc_html_e( 'Event Parameter', 'click-to-chat-for-whatsapp' ); ?></label>
-								</div>
-
-								<div class="input-field">
-									<input name="ht_ctc_othersettings[<?php echo esc_attr( $param ); ?>][value]" value="<?php echo esc_attr( $value ); ?>" id="<?php echo esc_attr( $param ); ?>" type="text" class="ht_ctc_g_an_param_value input-margin">
-									<label for="<?php echo esc_attr( $param ); ?>"><?php esc_html_e( 'Value', 'click-to-chat-for-whatsapp' ); ?></label>
-								</div>
-
-								<div class="input-field">
-									<span style="color:#ddd; margin-left:auto; cursor:pointer;" class="an_param_remove dashicons dashicons-no-alt" title="Remove Parameter"></span>
-								</div>
-
-
+							<div class="input-field">
+								<input name="ht_ctc_othersettings[g_an_params][<?php echo esc_attr( $g_an_index ); ?>][key]" value="<?php echo esc_attr( $key ); ?>" id="<?php echo esc_attr( 'g_an_param_' . $g_an_index . '_key' ); ?>" type="text" class="ht_ctc_g_an_param_key input-margin">
+								<label for="<?php echo esc_attr( 'g_an_param_' . $g_an_index . '_key' ); ?>"><?php esc_html_e( 'Event Parameter', 'click-to-chat-for-whatsapp' ); ?></label>
 							</div>
-							<?php
-						}
 
-						++$key_gen;
+							<div class="input-field">
+								<input name="ht_ctc_othersettings[g_an_params][<?php echo esc_attr( $g_an_index ); ?>][value]" value="<?php echo esc_attr( $value ); ?>" id="<?php echo esc_attr( 'g_an_param_' . $g_an_index ); ?>" type="text" class="ht_ctc_g_an_param_value input-margin">
+								<label for="<?php echo esc_attr( 'g_an_param_' . $g_an_index ); ?>"><?php esc_html_e( 'Value', 'click-to-chat-for-whatsapp' ); ?></label>
+							</div>
+
+							<div class="input-field">
+								<span style="color:#ddd; margin-left:auto; cursor:pointer;" class="an_param_remove dashicons dashicons-no-alt" title="Remove Parameter"></span>
+							</div>
+
+
+						</div>
+						<?php
 					}
 				}
 
@@ -257,16 +246,10 @@ if ( ! class_exists( 'HT_CTC_Admin_Other_Settings' ) ) {
 				<!-- snippets -->
 				<div class="ctc_g_an_param_snippets" style="display: none;">
 
-					<!-- g_an_param order. next key. (uses from js, saves in db) -->
-					<input type="text" name="ht_ctc_othersettings[g_an_param_order]" class="g_an_param_order" value="<?php echo esc_attr( $g_an_param_order ); ?>">
-
-					
-					<!-- snippet: add g_an_param -->
+					<!-- snippet: add g_an_param (js assigns a time-based index on add) -->
 					<div class="ctc_an_param g_an_param ht_ctc_g_an_add_param">
 
 						<div class="row" style="display:flex; gap:5px; justify-content:center;">
-
-							<input style="display: none;" type="text" class="g_an_param_order_ref_number" value="<?php echo esc_attr( $g_an_param_order ); ?>">
 
 							<div class="input-field">
 								<input type="text" placeholder="click" class="ht_ctc_g_an_add_param_key input-margin">
@@ -291,7 +274,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Other_Settings' ) ) {
 				
 			</div>
 					
-			<p class="description" style="margin:0px 10px;">Variables: {title}, {url}, and {number} replace the page's title, url, and number that were assigned to the widget.</p>
+			<p class="description" style="margin:0px 10px;">Variables: {title}, {url}, and {number} replace the page's title, url, and admin number that were assigned to the widget.</p>
 
 			<details class="ctc_details" style="margin:7px 10px;">
 				<summary>PRO: Get Values from Cookies [[ ]] and URL Parameters [ ]</summary>
@@ -335,10 +318,11 @@ if ( ! class_exists( 'HT_CTC_Admin_Other_Settings' ) ) {
 			</label>
 		</p>
 			<?php
-			$gtm_event_name  = ( isset( $options['gtm_event_name'] ) ) ? esc_attr( $options['gtm_event_name'] ) : 'Click to Chat';
-			$gtm_params      = ( isset( $options['gtm_params'] ) && is_array( $options['gtm_params'] ) ) ? array_map( 'esc_attr', $options['gtm_params'] ) : '';
-			$gtm_param_order = ( isset( $options['gtm_param_order'] ) ) ? esc_attr( $options['gtm_param_order'] ) : 10;
-			$key_gen         = 1;
+			$gtm_event_name = ( isset( $options['gtm_event_name'] ) ) ? esc_attr( $options['gtm_event_name'] ) : 'Click to Chat';
+
+			// v4 structure: gtm_params is a keyed list of [ 'key' => .., 'value' => .. ] rows.
+			// the array key is the stored row index (0,1,2.. for defaults, time-based for user-added rows).
+			$gtm_params = ( isset( $options['gtm_params'] ) && is_array( $options['gtm_params'] ) ) ? $options['gtm_params'] : array();
 			?>
 
 		<div class="row ctc_gtm_values">
@@ -358,31 +342,28 @@ if ( ! class_exists( 'HT_CTC_Admin_Other_Settings' ) ) {
 			
 			<div class="ctc_an_params ctc_gtm_params ctc_sortable">
 				<?php
-				$num = '';
-				if ( is_array( $gtm_params ) && isset( $gtm_params[0] ) ) {
-					foreach ( $gtm_params as $param ) {
-						$param_options = ( isset( $options[ $param ] ) && is_array( $options[ $param ] ) ) ? map_deep( $options[ $param ], 'esc_attr' ) : '';
-						$key           = ( isset( $param_options['key'] ) ) ? esc_attr( $param_options['key'] ) : '';
-						$value         = ( isset( $param_options['value'] ) ) ? esc_attr( $param_options['value'] ) : '';
-						if ( ! empty( $key ) && ! empty( $value ) ) {
-							?>
-							<div class="ctc_an_param gtm_param row" style="margin-bottom:5px; display:flex; gap:5px; justify-content:center;">
-								<input style="display: none;" name="ht_ctc_othersettings[gtm_params][]" type="text" class="gtm_param_order_ref_number" value="<?php echo esc_attr( $param ); ?>">
-								<div class="input-field">
-									<input name="ht_ctc_othersettings[<?php echo esc_attr( $param ); ?>][key]" value="<?php echo esc_attr( $key ); ?>" id="<?php echo esc_attr( $param . '_key' ); ?>" type="text" class="ht_ctc_gtm_param_key input-margin">
-									<label for="<?php echo esc_attr( $param . '_key' ); ?>"><?php esc_html_e( 'Event Parameter', 'click-to-chat-for-whatsapp' ); ?></label>
-								</div>
-								<div class="input-field">
-									<input name="ht_ctc_othersettings[<?php echo esc_attr( $param ); ?>][value]" value="<?php echo esc_attr( $value ); ?>" id="<?php echo esc_attr( $param ); ?>" type="text" class="ht_ctc_gtm_param_value input-margin">
-									<label for="<?php echo esc_attr( $param ); ?>"><?php esc_html_e( 'Value', 'click-to-chat-for-whatsapp' ); ?></label>
-								</div>
-								<div class="input-field">
-									<span style="color:#ddd; margin-left:auto; cursor:pointer;" class="an_param_remove dashicons dashicons-no-alt" title="Remove Parameter"></span>
-								</div>
+				foreach ( $gtm_params as $gtm_index => $param ) {
+					if ( ! is_array( $param ) ) {
+						continue;
+					}
+					$key   = ( isset( $param['key'] ) ) ? esc_attr( $param['key'] ) : '';
+					$value = ( isset( $param['value'] ) ) ? esc_attr( $param['value'] ) : '';
+					if ( ! empty( $key ) && ! empty( $value ) ) {
+						?>
+						<div class="ctc_an_param gtm_param row" style="margin-bottom:5px; display:flex; gap:5px; justify-content:center;">
+							<div class="input-field">
+								<input name="ht_ctc_othersettings[gtm_params][<?php echo esc_attr( $gtm_index ); ?>][key]" value="<?php echo esc_attr( $key ); ?>" id="<?php echo esc_attr( 'gtm_param_' . $gtm_index . '_key' ); ?>" type="text" class="ht_ctc_gtm_param_key input-margin">
+								<label for="<?php echo esc_attr( 'gtm_param_' . $gtm_index . '_key' ); ?>"><?php esc_html_e( 'Event Parameter', 'click-to-chat-for-whatsapp' ); ?></label>
 							</div>
-							<?php
-						}
-						++$key_gen;
+							<div class="input-field">
+								<input name="ht_ctc_othersettings[gtm_params][<?php echo esc_attr( $gtm_index ); ?>][value]" value="<?php echo esc_attr( $value ); ?>" id="<?php echo esc_attr( 'gtm_param_' . $gtm_index ); ?>" type="text" class="ht_ctc_gtm_param_value input-margin">
+								<label for="<?php echo esc_attr( 'gtm_param_' . $gtm_index ); ?>"><?php esc_html_e( 'Value', 'click-to-chat-for-whatsapp' ); ?></label>
+							</div>
+							<div class="input-field">
+								<span style="color:#ddd; margin-left:auto; cursor:pointer;" class="an_param_remove dashicons dashicons-no-alt" title="Remove Parameter"></span>
+							</div>
+						</div>
+						<?php
 					}
 				}
 				?>
@@ -395,10 +376,8 @@ if ( ! class_exists( 'HT_CTC_Admin_Other_Settings' ) ) {
 					</div>
 				</div>
 				<div class="ctc_gtm_param_snippets" style="display: none;">
-					<input type="text" name="ht_ctc_othersettings[gtm_param_order]" class="gtm_param_order" value="<?php echo esc_attr( $gtm_param_order ); ?>">
 					<div class="ctc_an_param gtm_param ht_ctc_gtm_add_param">
 						<div class="row" style="display:flex; gap:5px; justify-content:center;">
-							<input style="display: none;" type="text" class="gtm_param_order_ref_number" value="<?php echo esc_attr( $gtm_param_order ); ?>">
 							<div class="input-field">
 								<input type="text" placeholder="click" class="ht_ctc_gtm_add_param_key input-margin">
 								<label><?php esc_html_e( 'Event Parameter', 'click-to-chat-for-whatsapp' ); ?></label>
@@ -418,18 +397,6 @@ if ( ! class_exists( 'HT_CTC_Admin_Other_Settings' ) ) {
 
 		<p class="description"><?php esc_html_e( 'Create Event from Google Tag manager (GTM)', 'click-to-chat-for-whatsapp' ); ?> - <a target="_blank" href="https://holithemes.com/plugins/click-to-chat/create-event-from-google-tag-manager-using-datalayer-send-to-google-analytics/"><?php esc_html_e( 'dataLayer', 'click-to-chat-for-whatsapp' ); ?></a> </p>
 
-		
-		<details class="ctc_details" style="margin:15px 10px;">
-			<summary style="font-size:12px;"><strong>Deprecated — Use the GTM Settings above instead</strong></summary>
-			<div style="margin:8px 10px 0px 10px;">
-				<label class="ctc_checkbox_label" style="font-size:11px;">
-					<input name="<?php echo esc_attr( $dbrow ); ?>[g_an_gtm]" type="checkbox" value="<?php echo esc_attr( $g_an_gtm_value ); ?>" <?php checked( $google_analytics_gtm_checkbox, 1 ); ?> id="google_analytics_gtm" />
-					<span>Push datalayer object to GTM using above Google Analyatics event name, parameters.</span>
-				</label>
-				<p style="margin:8px 0 0; color:#d00; font-weight:600; font-size:11px;">This feature is deprecated. Please use the GTM settings in this section.</p>
-			</div>
-		</details>
-		
 		<br>
 		</div>
 		</li>
@@ -459,11 +426,9 @@ if ( ! class_exists( 'HT_CTC_Admin_Other_Settings' ) ) {
 			$pixel_custom_event_name   = ( isset( $options['pixel_custom_event_name'] ) ) ? esc_attr( $options['pixel_custom_event_name'] ) : 'Click to Chat by HoliThemes';
 			$pixel_standard_event_name = ( isset( $options['pixel_standard_event_name'] ) ) ? esc_attr( $options['pixel_standard_event_name'] ) : 'Lead';
 
-			$pixel_params = ( isset( $options['pixel_params'] ) ) ? array_map( 'esc_attr', $options['pixel_params'] ) : '';
-
-			// count of pixel params.. used for adding new params.. always raises..
-			$pixel_param_order = ( isset( $options['pixel_param_order'] ) ) ? esc_attr( $options['pixel_param_order'] ) : 5;
-			$key_gen           = 1;
+			// v4 structure: pixel_params is a keyed list of [ 'key' => .., 'value' => .. ] rows.
+			// the array key is the stored row index (0,1,2.. for defaults, time-based for user-added rows).
+			$pixel_params = ( isset( $options['pixel_params'] ) && is_array( $options['pixel_params'] ) ) ? $options['pixel_params'] : array();
 
 			// https://developers.facebook.com/docs/meta-pixel/implementation/conversion-tracking, https://developers.facebook.com/docs/meta-pixel/reference/
 			?>
@@ -526,43 +491,36 @@ if ( ! class_exists( 'HT_CTC_Admin_Other_Settings' ) ) {
 			<div class="ctc_an_params ctc_pixel_params ctc_sortable">
 				<?php
 
-				$num = '';
+				foreach ( $pixel_params as $pixel_index => $param ) {
 
-				if ( is_array( $pixel_params ) && isset( $pixel_params[0] ) ) {
+					if ( ! is_array( $param ) ) {
+						continue;
+					}
 
-					foreach ( $pixel_params as $param ) {
+					$key   = ( isset( $param['key'] ) ) ? esc_attr( $param['key'] ) : '';
+					$value = ( isset( $param['value'] ) ) ? esc_attr( $param['value'] ) : '';
 
-						$param_options = ( isset( $options[ $param ] ) && is_array( $options[ $param ] ) ) ? map_deep( $options[ $param ], 'esc_attr' ) : '';
+					if ( ! empty( $key ) && ! empty( $value ) ) {
+						?>
+						<div class="ctc_an_param pixel_param row" style="margin-bottom:5px; display:flex; gap:5px; justify-content:center;">
 
-						$key   = ( isset( $param_options['key'] ) ) ? esc_attr( $param_options['key'] ) : '';
-						$value = ( isset( $param_options['value'] ) ) ? esc_attr( $param_options['value'] ) : '';
-
-						if ( ! empty( $key ) && ! empty( $value ) ) {
-							?>
-							<div class="ctc_an_param pixel_param row" style="margin-bottom:5px; display:flex; gap:5px; justify-content:center;">
-
-								<input style="display: none;" name="ht_ctc_othersettings[pixel_params][]" type="text" class="pixel_param_order_ref_number" value="<?php echo esc_attr( $param ); ?>">
-
-								<div class="input-field">
-									<input name="ht_ctc_othersettings[<?php echo esc_attr( $param ); ?>][key]" value="<?php echo esc_attr( $key ); ?>" id="<?php echo esc_attr( $param . '_key' ); ?>" type="text" class="ht_ctc_g_an_param_key input-margin">
-									<label for="<?php echo esc_attr( $param . '_key' ); ?>"><?php esc_html_e( 'Event Parameter', 'click-to-chat-for-whatsapp' ); ?></label>
-								</div>
-
-								<div class="input-field">
-									<input name="ht_ctc_othersettings[<?php echo esc_attr( $param ); ?>][value]" value="<?php echo esc_attr( $value ); ?>" id="<?php echo esc_attr( $param ); ?>" type="text" class="ht_ctc_g_an_param_value input-margin">
-									<label for="<?php echo esc_attr( $param ); ?>"><?php esc_html_e( 'Value', 'click-to-chat-for-whatsapp' ); ?></label>
-								</div>
-
-								<div class="input-field">
-									<span style="color:#ddd; margin-left:auto; cursor:pointer;" class="an_param_remove dashicons dashicons-no-alt" title="Remove Parameter"></span>
-								</div>
-
-
+							<div class="input-field">
+								<input name="ht_ctc_othersettings[pixel_params][<?php echo esc_attr( $pixel_index ); ?>][key]" value="<?php echo esc_attr( $key ); ?>" id="<?php echo esc_attr( 'pixel_param_' . $pixel_index . '_key' ); ?>" type="text" class="ht_ctc_g_an_param_key input-margin">
+								<label for="<?php echo esc_attr( 'pixel_param_' . $pixel_index . '_key' ); ?>"><?php esc_html_e( 'Event Parameter', 'click-to-chat-for-whatsapp' ); ?></label>
 							</div>
-							<?php
-						}
 
-						++$key_gen;
+							<div class="input-field">
+								<input name="ht_ctc_othersettings[pixel_params][<?php echo esc_attr( $pixel_index ); ?>][value]" value="<?php echo esc_attr( $value ); ?>" id="<?php echo esc_attr( 'pixel_param_' . $pixel_index ); ?>" type="text" class="ht_ctc_g_an_param_value input-margin">
+								<label for="<?php echo esc_attr( 'pixel_param_' . $pixel_index ); ?>"><?php esc_html_e( 'Value', 'click-to-chat-for-whatsapp' ); ?></label>
+							</div>
+
+							<div class="input-field">
+								<span style="color:#ddd; margin-left:auto; cursor:pointer;" class="an_param_remove dashicons dashicons-no-alt" title="Remove Parameter"></span>
+							</div>
+
+
+						</div>
+						<?php
 					}
 				}
 
@@ -584,16 +542,13 @@ if ( ! class_exists( 'HT_CTC_Admin_Other_Settings' ) ) {
 				<!-- snippets -->
 				<div class="ctc_pixel_param_snippets" style="display: none;">
 
-					<!-- pixel_param order. next key. (uses from js, saves in db) -->
-					<input type="text" name="ht_ctc_othersettings[pixel_param_order]" class="pixel_param_order" value="<?php echo esc_attr( $pixel_param_order ); ?>">
+					<!-- next index for new param rows (used by js, not saved in db) -->
 
-					
+
 					<!-- snippet: add pixel_param -->
 					<div class="ctc_an_param pixel_param ht_ctc_pixel_add_param">
 
 						<div class="row" style="display:flex; gap:5px; justify-content:center;">
-
-							<input style="display: none;" type="text" class="pixel_param_order_ref_number" value="<?php echo esc_attr( $pixel_param_order ); ?>">
 
 							<div class="input-field">
 								<input type="text" placeholder="click" class="ht_ctc_pixel_add_param_key input-margin">
@@ -738,7 +693,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Other_Settings' ) ) {
 		 */
 		public function ht_ctc_webhooks_cb() {
 
-			$options = get_option( 'ht_ctc_othersettings' );
+			$options = HT_CTC_Utils::get_option( 'ht_ctc_othersettings' );
 			$dbrow   = 'ht_ctc_othersettings';
 
 			$hook_url = isset( $options['hook_url'] ) ? esc_attr( $options['hook_url'] ) : '';
@@ -878,7 +833,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Other_Settings' ) ) {
 		 */
 		public function ht_ctc_animations_cb() {
 
-			$options = get_option( 'ht_ctc_othersettings' );
+			$options = HT_CTC_Utils::get_option( 'ht_ctc_othersettings' );
 			$dbrow   = 'ht_ctc_othersettings';
 
 			$greetings          = get_option( 'ht_ctc_greetings_options' );
@@ -890,8 +845,8 @@ if ( ! class_exists( 'HT_CTC_Admin_Other_Settings' ) ) {
 
 			$entry_effect_list = array(
 				'no-show-effects' => '--No-Entry-Effects--',
-				'From Center'     => 'Center (zoomIn)',
-				'From Corner'     => 'Corner (corner of icon)', // js
+				'center'          => 'Center (zoomIn)',
+				'corner'          => 'Corner (corner of icon)', // js
 			// // new
 			// 'bounceIn' => 'bounceIn',
 			// 'bounceInDown' => 'bounceInDown',
@@ -1112,7 +1067,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Other_Settings' ) ) {
 		 */
 		public function ht_ctc_othersettings_cb() {
 
-			$options      = get_option( 'ht_ctc_othersettings' );
+			$options      = HT_CTC_Utils::get_option( 'ht_ctc_othersettings' );
 			$chat_options = get_option( 'ht_ctc_chat_options' );
 			$dbrow        = 'ht_ctc_othersettings';
 
@@ -1354,6 +1309,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Other_Settings' ) ) {
 			</div>
 		</details>
 
+		<!-- JavaScript loading setting (Normal, Async, Defer) -->
 		<details class="ctc_details">
 			<summary style="cursor:pointer;">JavaScript</summary>
 			<div class="m_side_15 m_top_5">

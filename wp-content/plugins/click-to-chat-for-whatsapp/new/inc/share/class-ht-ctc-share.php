@@ -32,7 +32,7 @@ if ( ! class_exists( 'HT_CTC_Share' ) ) {
 		 */
 		public function share() {
 
-			$options       = get_option( 'ht_ctc_share' );
+			$options       = HT_CTC_Utils::get_option( 'ht_ctc_share' );
 			$othersettings = get_option( 'ht_ctc_othersettings' );
 			$type          = 'share';
 

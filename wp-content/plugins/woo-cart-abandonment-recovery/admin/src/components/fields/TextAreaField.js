@@ -11,6 +11,7 @@ const TextAreaField = ( {
 	name,
 	value,
 	onSaved,
+	placeholder = '',
 	isPro = false,
 	proUpgradeMessage = '',
 } ) => {
@@ -52,6 +53,7 @@ const TextAreaField = ( {
 				size="md"
 				name={ name }
 				value={ textValue }
+				placeholder={ placeholder }
 				onChange={ handleOnChange }
 				disabled={ isPro && isFeatureBlocked }
 			/>

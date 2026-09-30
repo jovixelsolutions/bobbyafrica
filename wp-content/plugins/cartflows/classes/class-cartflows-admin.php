@@ -229,24 +229,41 @@ class Cartflows_Admin {
 	public function add_action_links( $links ) {
 
 		$mylinks = array(
-			'<a target="_blank" href="' . esc_url( 'https://cartflows.com/docs/?utm_source=plugin-page&utm_medium=free-cartflows&utm_campaign=go-pro' ) . '">' . __( 'Docs', 'cartflows' ) . '</a>',
+			'<a target="_blank" href="' . esc_url(
+				Cartflows_Helper::get_kb_doc_link(
+					'https://cartflows.com/docs/',
+					array(
+						'utm_source'   => 'plugin-page',
+						'utm_campaign' => 'go-pro',
+					)
+				)
+			) . '">' . __( 'Docs', 'cartflows' ) . '</a>',
 		);
 
 		if ( current_user_can( 'cartflows_manage_settings' ) ) {
 
-			$default_url = add_query_arg(
-				array(
-					'page'     => CARTFLOWS_SLUG,
-					'settings' => true,
-				),
-				admin_url( 'admin.php' )
-			);
+			$is_legacy_admin = defined( 'CARTFLOWS_LEGACY_ADMIN' ) && CARTFLOWS_LEGACY_ADMIN;
+
+			$settings_args = array( 'page' => CARTFLOWS_SLUG );
+
+			if ( $is_legacy_admin ) {
+				$settings_args['settings'] = true;
+			} else {
+				$settings_args['path'] = 'settings';
+			}
+
+			$default_url = add_query_arg( $settings_args, admin_url( 'admin.php' ) );
 
 			array_unshift( $mylinks, '<a href="' . esc_url( $default_url ) . '">' . __( 'Settings', 'cartflows' ) . '</a>' );
 		}
 
 		if ( ! _is_cartflows_pro() ) {
-			array_push( $mylinks, '<a style="color: #39b54a; font-weight: 700;" target="_blank" href="' . esc_url( 'https://cartflows.com/pricing/?utm_source=plugin-page&utm_medium=free-cartflows&utm_campaign=go-pro' ) . '"> ' . __( 'Get CartFlows Pro', 'cartflows' ) . ' </a>' );
+			array_push(
+				$mylinks,
+				'<a style="color: #39b54a; font-weight: 700;" target="_blank" href="' . esc_url(
+					Cartflows_Helper::get_upgrade_to_pro_link( 'pricing', '', array( 'utm_source' => 'plugin-page' ) )
+				) . '"> ' . __( 'Get CartFlows Pro', 'cartflows' ) . ' </a>'
+			);
 		}
 
 		return array_merge( $links, $mylinks );

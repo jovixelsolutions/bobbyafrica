@@ -272,7 +272,7 @@ class Ai1wm_Extensions {
 				'check'    => AI1WMKE_PLUGIN_CHECK,
 				'basename' => AI1WMKE_PLUGIN_BASENAME,
 				'version'  => AI1WMKE_VERSION,
-				'requires' => '1.37',
+				'requires' => '1.43',
 				'short'    => AI1WMKE_PLUGIN_SHORT,
 			);
 		}

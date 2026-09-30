@@ -49,6 +49,7 @@ if ( ! class_exists( 'Cartflows_Nps_Survey' ) ) :
 			$this->version_check();
 			add_action( 'init', array( $this, 'load' ), 999 );
 			add_filter( 'nps_survey_api_endpoint', array( $this, 'update_webhook_url' ), 10, 2 );
+			add_filter( 'nps_survey_post_data', array( $this, 'mark_nps_dismissed_on_submit' ), 10, 1 );
 		}
 
 		/**
@@ -113,6 +114,33 @@ if ( ! class_exists( 'Cartflows_Nps_Survey' ) ) :
 			}
 
 			return $url;
+		}
+
+		/**
+		 * Lock the NPS dismissal state as soon as a submission is initiated.
+		 * The bundled library only persists `dismiss_permanently` on an HTTP 200
+		 * response from the webhook. Ottokit can return 202/204, leaving the
+		 * notice re-displayable and causing the same user to resubmit repeatedly.
+		 *
+		 * @param array<mixed> $post_data NPS survey post data.
+		 * @return array<mixed>
+		 */
+		public function mark_nps_dismissed_on_submit( $post_data ) {
+			if ( ! isset( $post_data['plugin_slug'] ) || 'cartflows' !== $post_data['plugin_slug'] ) {
+				return $post_data;
+			}
+
+			update_option(
+				'nps-survey-cartflows',
+				array(
+					'dismiss_count'       => 0,
+					'dismiss_permanently' => true,
+					'dismiss_step'        => 'submitted',
+				),
+				false
+			);
+
+			return $post_data;
 		}
 
 	}

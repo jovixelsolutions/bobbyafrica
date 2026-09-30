@@ -1,3 +1,92 @@
-/*! For license information please see editor-elements-panel-notice.js.LICENSE.txt */
-!function(){"use strict";var e={"./packages/packages/core/editor-elements-panel-notice/src/components/notice-portal.tsx":function(e,t,r){r.r(t),r.d(t,{NoticePortal:function(){return NoticePortal}});var n=r("react"),o=r("@elementor/editor-v1-adapters"),i=r("@elementor/ui");const c="elementor-panel-elements-notice-area",a="panel/elements/";function NoticePortal({component:e}){const t=(0,o.__privateUseListenTo)([(0,o.v1ReadyEvent)(),(0,o.routeOpenEvent)(a)],()=>document.getElementById(c));return t?n.createElement(i.Portal,{container:t},n.createElement(e,null)):null}},"./packages/packages/core/editor-elements-panel-notice/src/init.tsx":function(e,t,r){r.r(t),r.d(t,{register:function(){return register}});var n=r("react"),o=r("@elementor/editor"),i=r("@elementor/editor-v1-adapters"),c=r("./packages/packages/core/editor-elements-panel-notice/src/components/notice-portal.tsx"),a=r("./packages/packages/core/editor-elements-panel-notice/src/utils/create-notice-view.ts");function register(e){(0,o.injectIntoTop)({id:"editor-elements-panel-notice",component:()=>n.createElement(c.NoticePortal,{component:e})}),(0,i.__privateListenTo)((0,i.v1ReadyEvent)(),()=>{window.elementor?.hooks?.addFilter("panel/elements/regionViews",(e,{notice:t})=>(e.notice={region:t,view:(0,a.createNoticeView)()},e))})}},"./packages/packages/core/editor-elements-panel-notice/src/utils/create-notice-view.ts":function(e,t,r){function createNoticeView(){return window.Marionette?.CompositeView.extend({template:"<div></div>"})}r.r(t),r.d(t,{createNoticeView:function(){return createNoticeView}})},"@elementor/editor":function(e){e.exports=window.elementorV2.editor},"@elementor/editor-v1-adapters":function(e){e.exports=window.elementorV2.editorV1Adapters},"@elementor/ui":function(e){e.exports=window.elementorV2.ui},react:function(e){e.exports=window.React}},t={};function __webpack_require__(r){var n=t[r];if(void 0!==n)return n.exports;var o=t[r]={exports:{}};return e[r](o,o.exports,__webpack_require__),o.exports}__webpack_require__.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return __webpack_require__.d(t,{a:t}),t},__webpack_require__.d=function(e,t){for(var r in t)__webpack_require__.o(t,r)&&!__webpack_require__.o(e,r)&&Object.defineProperty(e,r,{enumerable:!0,get:t[r]})},__webpack_require__.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},__webpack_require__.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})};var r={};!function(){__webpack_require__.r(r),__webpack_require__.d(r,{register:function(){return e.register}});var e=__webpack_require__("./packages/packages/core/editor-elements-panel-notice/src/init.tsx")}(),(window.elementorV2=window.elementorV2||{}).editorElementsPanelNotice=r}(),window.elementorV2.editorElementsPanelNotice?.init?.();
+(function(react, _elementor_editor, _elementor_editor_v1_adapters, _elementor_ui) {
+
+//#region \0rolldown/runtime.js
+	var __create = Object.create;
+	var __defProp = Object.defineProperty;
+	var __name = (target, value) => __defProp(target, "name", {
+		value,
+		configurable: true
+	});
+	var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+	var __getOwnPropNames = Object.getOwnPropertyNames;
+	var __getProtoOf = Object.getPrototypeOf;
+	var __hasOwnProp = Object.prototype.hasOwnProperty;
+	var __exportAll = (all, no_symbols) => {
+		let target = {};
+		for (var name in all) {
+			__defProp(target, name, {
+				get: all[name],
+				enumerable: true
+			});
+		}
+		if (!no_symbols) {
+			__defProp(target, Symbol.toStringTag, { value: "Module" });
+		}
+		return target;
+	};
+	var __copyProps = (to, from, except, desc) => {
+		if (from && typeof from === "object" || typeof from === "function") {
+			for (var keys = __getOwnPropNames(from), i = 0, n = keys.length, key; i < n; i++) {
+				key = keys[i];
+				if (!__hasOwnProp.call(to, key) && key !== except) {
+					__defProp(to, key, {
+						get: ((k) => from[k]).bind(null, key),
+						enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable
+					});
+				}
+			}
+		}
+		return to;
+	};
+	var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", {
+		value: mod,
+		enumerable: true
+	}) : target, mod));
+
+//#endregion
+react = __toESM(react);
+
+//#region packages/packages/core/editor-elements-panel-notice/src/components/notice-portal.tsx
+	var NOTICE_AREA_ID = "elementor-panel-elements-notice-area";
+	var ELEMENTS_PANEL_ROUTE_PREFIX = "panel/elements/";
+	function NoticePortal({ component: Component }) {
+		const container = (0, _elementor_editor_v1_adapters.__privateUseListenTo)([(0, _elementor_editor_v1_adapters.v1ReadyEvent)(), (0, _elementor_editor_v1_adapters.routeOpenEvent)(ELEMENTS_PANEL_ROUTE_PREFIX)], () => document.getElementById(NOTICE_AREA_ID));
+		return container ? /* @__PURE__ */ react.createElement(_elementor_ui.Portal, { container }, /* @__PURE__ */ react.createElement(Component, null)) : null;
+	}
+
+//#endregion
+//#region packages/packages/core/editor-elements-panel-notice/src/utils/create-notice-view.ts
+	function createNoticeView() {
+		return window.Marionette?.CompositeView.extend({ template: `<div></div>` });
+	}
+
+//#endregion
+//#region packages/packages/core/editor-elements-panel-notice/src/init.tsx
+	function register(Component) {
+		(0, _elementor_editor.injectIntoTop)({
+			id: "editor-elements-panel-notice",
+			component: () => /* @__PURE__ */ react.createElement(NoticePortal, { component: Component })
+		});
+		(0, _elementor_editor_v1_adapters.__privateListenTo)((0, _elementor_editor_v1_adapters.v1ReadyEvent)(), () => {
+			window.elementor?.hooks?.addFilter("panel/elements/regionViews", (regionViews, { notice }) => {
+				regionViews.notice = {
+					region: notice,
+					view: createNoticeView()
+				};
+				return regionViews;
+			});
+		});
+	}
+
+//#endregion
+//#region packages/packages/core/editor-elements-panel-notice/src/index.ts
+	var src_exports = /* @__PURE__ */ __exportAll({ register: () => register });
+
+//#endregion
+//#region \0elementor-package-library-entry
+	(window.elementorV2 = window.elementorV2 || {}).editorElementsPanelNotice = src_exports;
+
+//#endregion
+})(React, elementorV2.editor, elementorV2.editorV1Adapters, elementorV2.ui);
+window.elementorV2.editorElementsPanelNotice?.init?.();
 //# sourceMappingURL=editor-elements-panel-notice.js.map

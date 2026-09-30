@@ -1,0 +1,187 @@
+/* ==========================================================================
+   DROPDOWNS
+   ========================================================================== */
+.settings-dropdown-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.settings-toggle {
+    background: none;
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: var(--text-secondary);
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings-toggle:hover,
+.settings-toggle.active {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text);
+    border-color: var(--border-color);
+}
+
+.settings-dropdown {
+    position: absolute;
+    inset-inline-end: 0;
+    top: calc(100% + 1rem);
+    background: var(--bg); /* Replaced var(--surface) for opacity */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    min-width: 240px;
+    z-index: 100;
+    box-shadow: var(--shadow-prism), inset 0 0 0 1px var(--highlight-inset);
+    color: var(--text);
+    transform-origin: top end;
+    animation: dropIn 0.3s var(--ease-prism) forwards;
+}
+
+@keyframes dropIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.settings-dropdown.hidden {
+    display: none;
+}
+
+/* .settings-dropdown prefix: these items are <label>s, so the generic
+   .ctc-admin-dashboard label { display:block; margin-bottom } rule would win otherwise. */
+.settings-dropdown .dropdown-item {
+    display: flex;
+    margin-bottom: 0;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.625rem 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: var(--transition-fast);
+}
+
+.settings-dropdown .dropdown-item:hover {
+    background-color: var(--primary-light);
+}
+
+.settings-dropdown .dropdown-item input[type="checkbox"] {
+    margin: 0;
+}
+
+/* Small muted section heading inside the dropdown */
+.settings-dropdown .dropdown-section-title {
+    display: block;
+    padding: 0;
+    margin: 0 0 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+/* Theme Selector (Inside Dropdown) */
+.theme-selector {
+    padding: 0;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
+}
+
+.theme-selector:hover {
+    background-color: transparent;
+}
+
+.theme-fieldset {
+    border: none;
+    padding: 0 0 0.875rem;
+    margin: 0;
+    width: 100%;
+}
+
+.theme-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Subtle darker track so the segment reads against the dropdown bg in both themes. */
+    background: color-mix(in srgb, var(--text) 6%, transparent);
+    border-radius: var(--radius-pill);
+    padding: 0.25rem;
+    border: 1px solid var(--border);
+    gap: 0.25rem;
+}
+
+.settings-dropdown .theme-option {
+    flex: 1;
+    position: relative;
+    cursor: pointer;
+    margin: 0;
+    display: block;
+}
+
+.settings-dropdown .theme-option input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    margin: 0;
+    border: none;
+}
+
+.theme-icon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 2rem;
+    padding: 0 0.25rem;
+    border-radius: var(--radius-pill);
+    color: var(--text-secondary);
+    transition: var(--transition-fast);
+}
+
+.theme-icon .ctc-icon {
+    width: 1rem;
+    height: 1rem;
+}
+
+.theme-label {
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-inline-start: 0.25rem;
+}
+
+.theme-option:hover .theme-icon {
+    color: var(--text);
+}
+
+.theme-option input:checked+.theme-icon {
+    background: var(--bg);
+    color: var(--primary-readable);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.settings-dropdown .theme-option input:focus-visible+.theme-icon {
+    outline: 2px solid var(--primary-readable);
+    outline-offset: 1px;
+}

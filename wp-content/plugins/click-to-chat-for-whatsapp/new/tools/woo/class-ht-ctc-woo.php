@@ -34,7 +34,7 @@ if ( ! class_exists( 'HT_CTC_WOO_Pages' ) ) {
 		 */
 		public function woo_hooks() {
 
-			$woo = get_option( 'ht_ctc_woo_options' );
+			$woo = HT_CTC_Utils::get_option( 'ht_ctc_woo_options' );
 
 			// chat - woo values
 			add_filter( 'ht_ctc_fh_chat', array( $this, 'override_chat' ) );
@@ -76,9 +76,9 @@ if ( ! class_exists( 'HT_CTC_WOO_Pages' ) ) {
 		 */
 		public function add_widget_shop_page() {
 
-			$woo_options   = get_option( 'ht_ctc_woo_options' );
-			$chat          = get_option( 'ht_ctc_chat_options' );
-			$othersettings = get_option( 'ht_ctc_othersettings' );
+			$woo_options   = HT_CTC_Utils::get_option( 'ht_ctc_woo_options' );
+			$chat          = HT_CTC_Utils::get_option( 'ht_ctc_chat_options' );
+			$othersettings = HT_CTC_Utils::get_option( 'ht_ctc_othersettings' );
 			$type          = 'chat';
 			$calling_from  = 'woo_page';
 
@@ -129,16 +129,28 @@ if ( ! class_exists( 'HT_CTC_WOO_Pages' ) ) {
 
 				// Validate product object to prevent fatal errors.
 				if ( is_object( $product ) && method_exists( $product, 'get_name' ) ) {
-					$name = $product->get_name();
+					$name = esc_attr( $product->get_name() );
 					// $title = $product->get_title();
 
-					$price         = $product->get_price();
-					$regular_price = $product->get_regular_price();
-					$sku           = $product->get_sku();
+					$price           = esc_attr( $product->get_price() );
+					$regular_price   = esc_attr( $product->get_regular_price() );
+					$sku             = esc_attr( $product->get_sku() );
+					$price_formatted = '';
+
+					if ( '' !== $price && null !== $price ) {
+						if ( function_exists( 'wc_price' ) ) {
+							$price_formatted = html_entity_decode( wp_strip_all_tags( wc_price( $price ) ) );
+							$price_formatted = esc_attr( $price_formatted );
+						} else {
+							$price_formatted = esc_attr( $price );
+						}
+					} else {
+						$price_formatted = '';
+					}
 
 					// variables works in default pre_filled also for woo pages.
-					$call_to_action = str_replace( array( '{product}', '{price}', '{regular_price}', '{sku}' ), array( $name, $price, $regular_price, $sku ), $call_to_action );
-					$pre_filled     = str_replace( array( '{product}', '{price}', '{regular_price}', '{sku}' ), array( $name, $price, $regular_price, $sku ), $pre_filled );
+					$call_to_action = str_replace( array( '{product}', '{{price}}', '{price}', '{regular_price}', '{sku}' ), array( $name, $price_formatted, $price, $regular_price, $sku ), $call_to_action );
+					$pre_filled     = str_replace( array( '{product}', '{{price}}', '{price}', '{regular_price}', '{sku}' ), array( $name, $price_formatted, $price, $regular_price, $sku ), $pre_filled );
 				}
 			}
 
@@ -205,7 +217,10 @@ if ( ! class_exists( 'HT_CTC_WOO_Pages' ) ) {
 				$css .= "display: $woo_shop_block_type;";
 			}
 
-			$path = plugin_dir_path( HT_CTC_PLUGIN_FILE ) . 'new/inc/styles/style-' . $ht_ctc_woo_shop['style'] . '.php';
+			// sanitize_file_name() strips path-traversal characters as defense-in-depth;
+			// is_file() further bounds the include below to existing files only.
+			$shop_style = sanitize_file_name( $ht_ctc_woo_shop['style'] );
+			$path       = plugin_dir_path( HT_CTC_PLUGIN_FILE ) . 'new/inc/styles/style-' . $shop_style . '.php';
 
 			if ( is_file( $path ) ) {
 				?>
@@ -215,7 +230,6 @@ if ( ! class_exists( 'HT_CTC_WOO_Pages' ) ) {
 				<?php
 			}
 		}
-
 
 		/**
 		 * Render styles when viewing WooCommerce single product pages.
@@ -242,10 +256,10 @@ if ( ! class_exists( 'HT_CTC_WOO_Pages' ) ) {
 		 */
 		public function add_styles() {
 
-			$woo_options   = get_option( 'ht_ctc_woo_options' );
-			$chat          = get_option( 'ht_ctc_chat_options' );
+			$woo_options   = HT_CTC_Utils::get_option( 'ht_ctc_woo_options' );
+			$chat          = HT_CTC_Utils::get_option( 'ht_ctc_chat_options' );
 			$page_id       = get_the_ID();
-			$othersettings = get_option( 'ht_ctc_othersettings' );
+			$othersettings = HT_CTC_Utils::get_option( 'ht_ctc_othersettings' );
 
 			// page level
 			$ht_ctc_pagelevel = array();
@@ -350,7 +364,9 @@ if ( ! class_exists( 'HT_CTC_WOO_Pages' ) ) {
 				$display_from_js = 'yes';
 			}
 
-			$style = $ht_ctc_woo_single_product['style'];
+			// sanitize_file_name() strips path-traversal characters as defense-in-depth;
+			// is_file() further bounds the include below to existing files only.
+			$style = sanitize_file_name( $ht_ctc_woo_single_product['style'] );
 
 			// if ( 'inline-block' === $woo_single_block_type ) {
 			// $woo_single_block_type = "inline-flex";
@@ -375,8 +391,6 @@ if ( ! class_exists( 'HT_CTC_WOO_Pages' ) ) {
 			}
 		}
 
-
-
 		/**
 		 * Filter WooCommerce chat configuration for product context.
 		 * Intercepts the default chat message settings and replaces generic text
@@ -387,8 +401,8 @@ if ( ! class_exists( 'HT_CTC_WOO_Pages' ) ) {
 		 */
 		public function override_chat( $ht_ctc_chat ) {
 
-			$woo_options   = get_option( 'ht_ctc_woo_options' );
-			$othersettings = get_option( 'ht_ctc_othersettings' );
+			$woo_options   = HT_CTC_Utils::get_option( 'ht_ctc_woo_options' );
+			$othersettings = HT_CTC_Utils::get_option( 'ht_ctc_othersettings' );
 
 			// $chat = get_option('ht_ctc_chat_options');
 

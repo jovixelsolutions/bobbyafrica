@@ -81,12 +81,21 @@ if ( ! class_exists( 'HT_CTC_Admin_Scripts' ) ) {
 				}
 
 				wp_enqueue_style( 'wp-color-picker' );
-				wp_enqueue_style( 'ctc_admin_md_css', plugins_url( "new/admin/admin_assets/css/$md_css", HT_CTC_PLUGIN_FILE ), '', HT_CTC_VERSION );
-				wp_enqueue_style( 'ctc_admin_css', plugins_url( "new/admin/admin_assets/css/$css", HT_CTC_PLUGIN_FILE ), '', HT_CTC_VERSION );
+				wp_enqueue_style( 'ctc_admin_md_css', plugins_url( "new/admin/admin_assets/css/$md_css", HT_CTC_PLUGIN_FILE ), array(), HT_CTC_VERSION );
+				wp_enqueue_style( 'ctc_admin_css', plugins_url( "new/admin/admin_assets/css/$css", HT_CTC_PLUGIN_FILE ), array(), HT_CTC_VERSION );
 
-				// intlTelInput. register and enqueue
-				wp_register_style( 'ctc_admin_intl_css', plugins_url( 'new/admin/admin_assets/intl/css/intlTelInput.min.css', HT_CTC_PLUGIN_FILE ), '', HT_CTC_VERSION );
-				wp_register_script( 'ctc_admin_intl_js', plugins_url( 'new/admin/admin_assets/intl/js/intlTelInput.min.js', HT_CTC_PLUGIN_FILE ), '', HT_CTC_VERSION, $load_js_bottom );
+				/*
+				 * intlTelInput stylesheet.
+				 *
+				 * Registers the shared phone field stylesheet. The JS library is
+				 * dynamically imported as an ES module by admin.js from the localized URL.
+				 */
+				if ( ! class_exists( 'HT_CTC_Phone_Field' ) ) {
+					HT_CTC_Utils::load_file( 'new/tools/phone-field/class-ht-ctc-phone-field.php' );
+				}
+
+				$phone_field_assets = HT_CTC_Phone_Field::assets();
+				wp_register_style( 'ctc_admin_intl_css', $phone_field_assets['css'], array(), HT_CTC_VERSION );
 
 				wp_enqueue_script( 'ctc_admin_md_js', plugins_url( 'new/admin/admin_assets/js/materialize.min.js', HT_CTC_PLUGIN_FILE ), array( 'jquery' ), HT_CTC_VERSION, $load_js_bottom );
 
@@ -94,9 +103,6 @@ if ( ! class_exists( 'HT_CTC_Admin_Scripts' ) ) {
 
 				if ( 'toplevel_page_click-to-chat' === $hook ) {
 					wp_enqueue_style( 'ctc_admin_intl_css' );
-					wp_enqueue_script( 'ctc_admin_intl_js' );
-
-					$ctc_admin_js_dependencies[] = 'ctc_admin_intl_js';
 				}
 
 				wp_enqueue_script( 'ctc_admin_js', plugins_url( "new/admin/admin_assets/js/$js", HT_CTC_PLUGIN_FILE ), $ctc_admin_js_dependencies, HT_CTC_VERSION, $load_js_bottom );
@@ -105,7 +111,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Scripts' ) ) {
 
 				// rtl pages
 				if ( function_exists( 'is_rtl' ) && is_rtl() ) {
-					wp_enqueue_style( 'ctc_admin_rtl_css', plugins_url( "new/admin/admin_assets/css/$rtl_css", HT_CTC_PLUGIN_FILE ), '', HT_CTC_VERSION );
+					wp_enqueue_style( 'ctc_admin_rtl_css', plugins_url( "new/admin/admin_assets/css/$rtl_css", HT_CTC_PLUGIN_FILE ), array(), HT_CTC_VERSION );
 				}
 
 				do_action( 'ht_ctc_ah_admin_scripts_end' );
@@ -126,11 +132,26 @@ if ( ! class_exists( 'HT_CTC_Admin_Scripts' ) ) {
 		 */
 		public function admin_var() {
 
-			$utils = plugins_url( 'new/admin/admin_assets/intl/js/utils.js', HT_CTC_PLUGIN_FILE );
+			$phone_field_assets = HT_CTC_Phone_Field::assets();
 
 			$ctc = array(
 				'plugin_url' => HT_CTC_PLUGIN_DIR_URL,
-				'utils'      => $utils,
+
+				/*
+				 * Phone field (intl-tel-input) assets and localization variables.
+				 * - 'intl': ES module URL for intlTelInput imported by admin.js.
+				 * - 'utils': Lazy formatting module URL.
+				 * - 'intl_lang' / 'intl_ui': Admin user locale and translated UI strings.
+				 *
+				 * ?ver=: assets() returns bare paths; these are import()ed, not
+				 * enqueued, so the cache-buster must be appended here.
+				 */
+				'intl'       => $phone_field_assets['js'] . '?ver=' . HT_CTC_VERSION,
+				'utils'      => $phone_field_assets['utils'] . '?ver=' . HT_CTC_VERSION,
+				// Resolved BCP-47 tag, not the raw WP locale — pass it straight to
+				// the library, never reshape it in JS.
+				'intl_lang'  => HT_CTC_Phone_Field::locale()['tag'],
+				'intl_ui'    => HT_CTC_Phone_Field::locale_strings( get_user_locale() ),
 				'tz'         => esc_attr( get_option( 'gmt_offset' ) ),
 			);
 

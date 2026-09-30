@@ -14,8 +14,8 @@ $s5_icon_size = isset($ccw_options_cs['s5_icon_size']) ? esc_attr( $ccw_options_
             <a target="_blank" class="nofocus icon icon-whatsapp2 icon-2 ccw-analytics" id="stye-5" data-ccw="style-5" 
                 href="<?php echo esc_url($redirect_a) ?>" rel="noreferrer" 
                 style = "color: <?php echo esc_attr($s5_color) ?>; font-size: <?php echo esc_attr($s5_icon_size) ?>;"
-                onmouseover = "this.style.color = '<?php echo esc_attr($s5_hover_color) ?>' "
-                onmouseout  = "this.style.color = '<?php echo esc_attr($s5_color) ?>' " >   
+                onmouseover = "this.style.color = '<?php echo esc_js($s5_hover_color) ?>' "
+                onmouseout  = "this.style.color = '<?php echo esc_js($s5_color) ?>' " >   
             </a>
     </div>
 </div>

@@ -14,6 +14,7 @@
   --e-a-color-accent:	#93003f;
   --e-a-color-global:	#1DDDBF;
   --e-a-color-accent-promotion:	#93003f;
+  --e-a-color-accent-promotion-disabled: rgba(147, 0, 63, 0.38);
   --e-a-bg-default:	#ffffff;
   --e-a-bg-invert:	#0C0D0E;
   --e-a-bg-hover:	#F1F2F3;

@@ -68,6 +68,7 @@ require_once AI1WM_CONTROLLER_PATH . '/class-ai1wm-export-controller.php';
 require_once AI1WM_CONTROLLER_PATH . '/class-ai1wm-feedback-controller.php';
 require_once AI1WM_CONTROLLER_PATH . '/class-ai1wm-import-controller.php';
 require_once AI1WM_CONTROLLER_PATH . '/class-ai1wm-main-controller.php';
+require_once AI1WM_CONTROLLER_PATH . '/class-ai1wm-rest-controller.php';
 require_once AI1WM_CONTROLLER_PATH . '/class-ai1wm-reset-controller.php';
 require_once AI1WM_CONTROLLER_PATH . '/class-ai1wm-schedules-controller.php';
 require_once AI1WM_CONTROLLER_PATH . '/class-ai1wm-status-controller.php';

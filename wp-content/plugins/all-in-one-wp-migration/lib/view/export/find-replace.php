@@ -35,9 +35,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<p>
 			<span>
 				<strong><?php esc_html_e( 'Search for', 'all-in-one-wp-migration' ); ?></strong>
-				<small class="ai1wm-query-find-text ai1wm-tooltip" title="Search the database for this text"> <?php echo esc_html( __( '<text>', 'all-in-one-wp-migration' ) ); ?> </small>
+				<small class="ai1wm-query-find-text ai1wm-tooltip" title="<?php esc_attr_e( 'Search the database for this text', 'all-in-one-wp-migration' ); ?>"> <?php echo esc_html( __( '<text>', 'all-in-one-wp-migration' ) ); ?> </small>
 				<strong><?php esc_html_e( 'Replace with', 'all-in-one-wp-migration' ); ?></strong>
-				<small class="ai1wm-query-replace-text ai1wm-tooltip" title="Replace the database with this text"> <?php echo esc_html( __( '<another-text>', 'all-in-one-wp-migration' ) ); ?> </small>
+				<small class="ai1wm-query-replace-text ai1wm-tooltip" title="<?php esc_attr_e( 'Replace the database with this text', 'all-in-one-wp-migration' ); ?>"> <?php echo esc_html( __( '<another-text>', 'all-in-one-wp-migration' ) ); ?> </small>
 				<strong><?php esc_html_e( 'in the database', 'all-in-one-wp-migration' ); ?></strong>
 			</span>
 			<span class="ai1wm-query-arrow ai1wm-icon-chevron-right"></span>

@@ -45,6 +45,7 @@ if ( ! class_exists( 'HT_CTC_Defaults_Greetings' ) ) {
 		 */
 		public $g_settings = '';
 
+
 		/**
 		 * Initialize default values.
 		 */

@@ -498,7 +498,7 @@
 	line-height: 21px;
 	min-height: 20px;
 	overflow: visible;
-	padding: 0;
+	padding: 0 !important;
 	-js-display: flex;
 	display: flex;
 	align-items: center;
@@ -889,8 +889,24 @@
 .wcf-embed-checkout-form table.shop_table tbody tr.cart_item td.product-name {
 	-js-display: flex;
 	display: flex;
+	flex-wrap: wrap;
 	width: 100%;
 	align-items: center;
+}
+
+/* Name block shares the first line with the quantity instead of pushing it to wrap. */
+.wcf-embed-checkout-form table.shop_table tbody tr.cart_item td.product-name > *:first-child {
+	flex: 1 1 0;
+	min-width: 0;
+}
+
+/* Item meta (variation attributes, FBT "Bought together") renders below the name, not squeezed beside it. */
+/* contain stops nowrap meta from widening the table cell on mobile (auto table layout). */
+.wcf-embed-checkout-form table.shop_table tbody tr.cart_item td.product-name dl.variation {
+	flex: 0 0 100%;
+	min-width: 0;
+	margin: 6px 0 0;
+	contain: inline-size;
 }
 
 .wcf-embed-checkout-form .woocommerce form.woocommerce-form-login .form-row label,
@@ -1625,6 +1641,12 @@ a.et_pb_more_button::after {
 .wcf-embed-checkout-form.wcf-embed-checkout-form-modern-checkout .woocommerce-checkout #wc-stripe-express-checkout-element,
 .wcf-embed-checkout-form.wcf-embed-checkout-form-modern-checkout .woocommerce-checkout #wc-stripe-express-checkout-button-separator {
 	flex: 1 0 100%;
+}
+
+/* Official Stripe plugin Express Checkout — full width on Instant Checkout (left column is a grid container). */
+.wcf-embed-checkout-form.wcf-embed-checkout-form-instant-checkout .woocommerce-checkout #wc-stripe-express-checkout-element,
+.wcf-embed-checkout-form.wcf-embed-checkout-form-instant-checkout .woocommerce-checkout #wc-stripe-express-checkout-button-separator {
+	width: 100%;
 }
 
 .wcf-embed-checkout-form.wcf-embed-checkout-form-modern-checkout .wcf-customer-info-main-wrapper {
@@ -4180,4 +4202,36 @@ h3#wcf_shipping_options_heading {
 	font-size: 13px;
 	display: block;
 	margin-top: 5px;
+}
+
+/* FBT provenance meta — stacked annotation: muted label line over a single ellipsized name line. */
+.wcf-embed-checkout-form table.shop_table td dl dt.variation-Boughttogether,
+.wcf-embed-checkout-form table.shop_table td dl dd.variation-Boughttogether {
+	float: none;
+	display: block;
+	margin: 0;
+	padding: 0 8px 0 0;
+	border-right: 2px solid var( --wcf-field-border-color );
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.4;
+}
+
+.wcf-embed-checkout-form table.shop_table td dl dt.variation-Boughttogether {
+	color: var( --wcf-field-label-color );
+}
+
+.wcf-embed-checkout-form table.shop_table td dl dd.variation-Boughttogether {
+	color: var( --wcf-field-text-color );
+}
+
+.wcf-embed-checkout-form table.shop_table td dl dd.variation-Boughttogether p {
+	margin: 0;
+}
+
+.wcf-embed-checkout-form .wcf-fbt-parent-name {
+	display: block;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }

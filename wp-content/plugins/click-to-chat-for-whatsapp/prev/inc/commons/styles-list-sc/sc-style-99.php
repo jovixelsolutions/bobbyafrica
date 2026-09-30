@@ -6,8 +6,10 @@ $s_99_img_height_desktop = esc_attr($a['s99_img_height_desktop']);
 $s_99_img_width_desktop = esc_attr($a['s99_img_width_desktop']);
 $s_99_img_height_mobile = esc_attr($a['s99_img_height_mobile']);
 $s_99_img_width_mobile = esc_attr($a['s99_img_width_mobile']);
-$s_99_desktop_img = esc_attr($a['s99_desktop_img']);
-$s_99_mobile_img = esc_attr($a['s99_mobile_img']);
+// URL fields: esc_url() validates scheme (rejects javascript:/data:) instead of
+// just HTML-encoding chars like esc_attr would.
+$s_99_desktop_img = esc_url( $a['s99_desktop_img'] );
+$s_99_mobile_img  = esc_url( $a['s99_mobile_img'] );
 
 // img url
 // image - width, height based on device

@@ -433,53 +433,56 @@ class AdminMenu {
 		$localize = apply_filters(
 			'cartflows_admin_localized_vars',
 			array(
-				'current_user'                      => ! empty( wp_get_current_user()->user_firstname ) ? wp_get_current_user()->user_firstname : wp_get_current_user()->display_name,
-				'cf_pro_status'                     => $cf_pro_status,
-				'cf_pro_type'                       => 'free',
-				'cf_pro_type_inactive'              => $cf_pro_type_inactive,
-				'woocommerce_status'                => $this->get_plugin_status( 'woocommerce/woocommerce.php' ),
-				'default_page_builder'              => $page_builder,
-				'required_plugins'                  => \Cartflows_Helper::get_plugins_groupby_page_builders(),
-				'required_plugins_data'             => $this->get_required_plugins_data(),
-				'is_any_required_plugins_missing'   => $this->get_any_required_plugins_status(),
-				'admin_base_slug'                   => $this->menu_slug,
-				'admin_base_url'                    => admin_url(),
-				'title_length'                      => apply_filters(
+				'current_user'                         => ! empty( wp_get_current_user()->user_firstname ) ? wp_get_current_user()->user_firstname : wp_get_current_user()->display_name,
+				'cf_pro_status'                        => $cf_pro_status,
+				'cf_pro_type'                          => 'free',
+				'cf_pro_type_inactive'                 => $cf_pro_type_inactive,
+				'woocommerce_status'                   => $this->get_plugin_status( 'woocommerce/woocommerce.php' ),
+				'default_page_builder'                 => $page_builder,
+				'required_plugins'                     => \Cartflows_Helper::get_plugins_groupby_page_builders(),
+				'required_plugins_data'                => $this->get_required_plugins_data(),
+				'is_any_required_plugins_missing'      => $this->get_any_required_plugins_status(),
+				'admin_base_slug'                      => $this->menu_slug,
+				'admin_base_url'                       => admin_url(),
+				'is_onboarding_completed'              => '1' === get_option( 'wcf_setup_complete', false ),
+				'title_length'                         => apply_filters(
 					'cartflows_flows_steps_title_length',
 					array(
 						'max'            => 50,
 						'display_length' => 40,
 					)
 				),
-				'plugin_dir'                        => CARTFLOWS_URL,
-				'admin_url'                         => admin_url( 'admin.php' ),
-				'ajax_url'                          => admin_url( 'admin-ajax.php' ),
-				'is_rtl'                            => is_rtl(),
-				'home_slug'                         => $this->menu_slug,
-				'is_pro'                            => _is_cartflows_pro(),
-				'is_file_mod_disabled'              => function_exists( 'wcf_file_mod_disabled' ) ? wcf_file_mod_disabled() : false, // Keep false by default if function not exists.
-				'page_builder'                      => $page_builder,
-				'page_builder_name'                 => $page_builder_name,
-				'global_checkout'                   => \Cartflows_Helper::get_common_setting( 'global_checkout' ),
-				'flows_count'                       => 1, // Removing the flow count condition.
-				'currentFlowSteps'                  => $current_flow_steps,
+				'plugin_dir'                           => CARTFLOWS_URL,
+				'admin_url'                            => admin_url( 'admin.php' ),
+				'ajax_url'                             => admin_url( 'admin-ajax.php' ),
+				'is_rtl'                               => is_rtl(),
+				'home_slug'                            => $this->menu_slug,
+				'is_pro'                               => _is_cartflows_pro(),
+				'is_file_mod_disabled'                 => function_exists( 'wcf_file_mod_disabled' ) ? wcf_file_mod_disabled() : false, // Keep false by default if function not exists.
+				'page_builder'                         => $page_builder,
+				'page_builder_name'                    => $page_builder_name,
+				'global_checkout'                      => \Cartflows_Helper::get_common_setting( 'global_checkout' ),
+				'flows_count'                          => 1, // Removing the flow count condition.
+				'currentFlowSteps'                     => $current_flow_steps,
 				// Delete this code after 3 major update. Added in 1.10.4.
-				'license_status'                    => \_is_cartflows_pro_license_activated(),
-				'license_popup_url'                 => admin_url( 'admin.php?page=cartflows&path=settings&tab=license' ),
-				'store_checkout_show_product_tab'   => \Cartflows_Helper::display_product_tab_in_store_checkout(),
-				'cf_domain_url'                     => CARTFLOWS_DOMAIN_URL,
-				'cf_upgrade_to_pro_url'             => \Cartflows_Helper::get_upgrade_to_pro_link(),
-				'logo_url'                          => esc_url_raw( CARTFLOWS_URL . 'assets/images/cartflows-logo.svg' ),
-				'create_product_src'                => $product_src,
-				'cf_font_family'                    => AdminHelper::get_font_family(),
-				'flows_and_steps'                   => ! empty( $flows_and_steps ) ? $flows_and_steps : '',
-				'store_checkout_flows_and_steps'    => \Cartflows_Helper::get_instance()->get_flows_and_steps( '', 'store-checkout' ),
-				'woo_currency'                      => function_exists( 'get_woocommerce_currency_symbol' ) ? get_woocommerce_currency_symbol() : '',
-				'template_library_url'              => wcf()->get_site_url(),
-				'image_placeholder'                 => esc_url_raw( CARTFLOWS_URL . 'admin-core/assets/images/image-placeholder.png' ),
-				'google_fonts'                      => \CartFlows_Font_Families::get_google_fonts(),
-				'system_fonts'                      => \CartFlows_Font_Families::get_system_fonts(),
-				'font_weights'                      => array(
+				'license_status'                       => \_is_cartflows_pro_license_activated(),
+				'license_popup_url'                    => admin_url( 'admin.php?page=cartflows&path=settings&tab=license' ),
+				'store_checkout_show_product_tab'      => \Cartflows_Helper::display_product_tab_in_store_checkout(),
+				'cf_domain_url'                        => CARTFLOWS_DOMAIN_URL,
+				'cf_upgrade_to_pro_url'                => \Cartflows_Helper::get_upgrade_to_pro_link(),
+				'logo_url'                             => esc_url_raw( CARTFLOWS_URL . 'assets/images/cartflows-logo.svg' ),
+				'create_product_src'                   => $product_src,
+				'cf_font_family'                       => AdminHelper::get_font_family(),
+				'flows_and_steps'                      => ! empty( $flows_and_steps ) ? $flows_and_steps : '',
+				'store_checkout_flows_and_steps'       => \Cartflows_Helper::get_instance()->get_flows_and_steps( '', 'store-checkout' ),
+				'woo_currency'                         => function_exists( 'get_woocommerce_currency_symbol' ) ? get_woocommerce_currency_symbol() : '',
+				'template_library_url'                 => wcf()->get_site_url(),
+				'image_placeholder'                    => esc_url_raw( CARTFLOWS_URL . 'admin-core/assets/images/image-placeholder.png' ),
+				'ai_connected'                         => class_exists( '\Cartflows_Ai_Auth' ) ? \Cartflows_Ai_Auth::get_instance()->get_auth_status() : false,
+				'can_manage_ai_auth'                   => current_user_can( 'manage_options' ),
+				'google_fonts'                         => \CartFlows_Font_Families::get_google_fonts(),
+				'system_fonts'                         => \CartFlows_Font_Families::get_system_fonts(),
+				'font_weights'                         => array(
 					'100' => __( 'Thin 100', 'cartflows' ),
 					'200' => __( 'Extra-Light 200', 'cartflows' ),
 					'300' => __( 'Light 300', 'cartflows' ),
@@ -490,28 +493,43 @@ class AdminMenu {
 					'800' => __( 'Extra-Bold 800', 'cartflows' ),
 					'900' => __( 'Ultra-Bold 900', 'cartflows' ),
 				),
-				'global_checkout_id'                => $global_checkout_id ? absint( $global_checkout_id ) : '',
-				'flow_action'                       => $flow_action,
-				'step_action'                       => $step_action,
-				'old_global_checkout'               => get_option( '_cartflows_old_global_checkout', false ),
-				'woopayments_status'                => $this->get_plugin_status( 'woocommerce-payments/woocommerce-payments.php' ),
-				'ca_status'                         => $this->get_plugin_status( 'woo-cart-abandonment-recovery/woo-cart-abandonment-recovery.php' ),
-				'suretriggers_status'               => $this->get_plugin_status( 'suretriggers/suretriggers.php' ),
-				'moderncart_status'                 => $this->get_plugin_status( 'modern-cart/modern-cart.php' ),
-				'cpsw_connection_status'            => 'success' === get_option( 'cpsw_test_con_status', false ) || 'success' === get_option( 'cpsw_con_status', false ),
-				'current_user_can_manage_cartflows' => current_user_can( 'cartflows_manage_settings' ),
-				'is_set_report_email_ids'           => get_option( 'cartflows_stats_report_email_ids', false ),
-				'cf_docs_data'                      => get_option( 'cartflows_docs_data', false ),
-				'woo_order_url'                     => $order_url,
-				'integrations'                      => $this->get_recommendation_integrations(),
-				'plugin_installer_nonce'            => wp_create_nonce( 'updates' ),
-				'instant_checkout_notice_status'    => \Cartflows_Helper::get_admin_settings_option( 'wcf-instant-checkout-notice-skipped', false, false ),
-				'cartflows_admin_notices'           => $this->cartflows_admin_notices(),
-				'whats_new_rss_feed'                => $this->get_whats_new_rss_feeds_data(),
-				'cartflows_current_version'         => CARTFLOWS_VER,
-				'cartflows_previous_versions'       => \Cartflows_Helper::get_rollback_versions_options(),
-				'rollback_url'                      => esc_url( add_query_arg( 'version', 'VERSION', wp_nonce_url( admin_url( 'admin-post.php?action=cartflows_rollback' ), 'cartflows_rollback' ) ) ),
-				'utm_param_pro_plans'               => 'utm_source=carflows-dashboard&utm_medium=free-cartflows&utm_campaign=go-pro',
+				'global_checkout_id'                   => $global_checkout_id ? absint( $global_checkout_id ) : '',
+				'flow_action'                          => $flow_action,
+				'step_action'                          => $step_action,
+				'old_global_checkout'                  => get_option( '_cartflows_old_global_checkout', false ),
+				'woopayments_status'                   => $this->get_plugin_status( 'woocommerce-payments/woocommerce-payments.php' ),
+				'ca_status'                            => $this->get_plugin_status( 'woo-cart-abandonment-recovery/woo-cart-abandonment-recovery.php' ),
+				'suretriggers_status'                  => $this->get_plugin_status( 'suretriggers/suretriggers.php' ),
+				'moderncart_status'                    => $this->get_plugin_status( 'modern-cart/modern-cart.php' ),
+				'cpsw_connection_status'               => 'success' === get_option( 'cpsw_test_con_status', false ) || 'success' === get_option( 'cpsw_con_status', false ),
+				'current_user_can_manage_cartflows'    => current_user_can( 'cartflows_manage_settings' ),
+				'is_set_report_email_ids'              => get_option( 'cartflows_stats_report_email_ids', false ),
+				'cf_docs_data'                         => get_option( 'cartflows_docs_data', false ),
+				'woo_order_url'                        => $order_url,
+				'integrations'                         => $this->get_recommendation_integrations(),
+				'plugin_installer_nonce'               => wp_create_nonce( 'updates' ),
+				'instant_checkout_notice_status'       => \Cartflows_Helper::get_admin_settings_option( 'wcf-instant-checkout-notice-skipped', false, false ),
+				'cartflows_admin_notices'              => $this->cartflows_admin_notices(),
+				'whats_new_rss_feed'                   => $this->get_whats_new_rss_feeds_data(),
+				'cartflows_current_version'            => CARTFLOWS_VER,
+				'cartflows_previous_versions'          => \Cartflows_Helper::get_rollback_versions_options(),
+				'rollback_url'                         => esc_url( add_query_arg( 'version', 'VERSION', wp_nonce_url( admin_url( 'admin-post.php?action=cartflows_rollback' ), 'cartflows_rollback' ) ) ),
+				'utm_defaults'                         => \Cartflows_Helper::get_utm_defaults(),
+				/**
+				 * Filters whether to hide already-added products from the checkout product search dropdown.
+				 *
+				 * When `true`, products already present in the current checkout step's product list are
+				 * filtered out of the search results, preventing duplicate selection through the UI.
+				 *
+				 * Note: this is a UI-level restriction only. The server-side save path (REST/AJAX) is
+				 * not gated by this filter, so duplicates submitted directly to the save endpoint will
+				 * still be persisted.
+				 *
+				 * @since x.x.x
+				 *
+				 * @param bool $restrict Whether to hide already-added products in the search dropdown. Default false.
+				 */
+				'restrict_duplicate_checkout_products' => apply_filters( 'cartflows_restrict_duplicate_checkout_products', false ),
 			)
 		);
 
@@ -841,6 +859,15 @@ class AdminMenu {
 			array(),
 			CARTFLOWS_VER
 		);
+
+		wp_register_style(
+			'wcf-canvas-base-style',
+			$build_url . 'style-editor-app.css',
+			array(),
+			CARTFLOWS_VER
+		);
+		// Enqueue the registered style.
+		wp_enqueue_style( 'wcf-canvas-base-style' );
 
 		wp_enqueue_script( $handle );
 

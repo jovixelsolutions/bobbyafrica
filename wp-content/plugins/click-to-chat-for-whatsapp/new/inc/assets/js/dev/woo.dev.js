@@ -11,7 +11,6 @@
  */
 ( function htCtcWooModule ( $ ) {
 	$( function handleWooReady () {
-		console.log( 'WooCommerce Dev JS Loaded' );
 
 		try {
 			/**
@@ -28,7 +27,6 @@
 				//  && !document.querySelector('.ctc_woo_schedule')
 				// in shop page - cart button might not exist
 				// display (might be added display none)
-				console.log( 'Displaying .ctc_woo_place' );
 				displayCtcWooPlace();
 			}
 		} catch ( error ) {
@@ -61,7 +59,6 @@
 			 * or related products list at single product page.
 			 */
 		function initializeCartLayout () {
-			console.log( 'Initializing cart layout' );
 
 			const singleCartButton = document.querySelector( '.single_add_to_cart_button' );
 
@@ -73,9 +70,6 @@
 			const shopCartButton =
 				document.querySelector( '.button.add_to_cart_button' ) ||
 				document.querySelector( '.add_to_cart_button' );
-
-			console.log( 'Single Cart Button:', singleCartButton );
-			console.log( 'Shop/archive list Cart Button:', shopCartButton );
 
 			// Single Product Page - s1 Button Styling
 			applyS1Styling( '.ctc_woo_single_cart_layout .s1_btn', singleCartButton );
@@ -107,15 +101,7 @@
 				document.querySelectorAll( selector ) :
 				[ document.querySelector( selector ) ];
 
-			console.log( `Applying cart styling to: ${selector}` );
-			console.log( `${selector}` );
-
-			console.log( 'Source Button:', sourceButton );
-			console.log( 'Target Buttons:', targetButtons );
-
 			if ( ! sourceButton || ! targetButtons.length || ! targetButtons[ 0 ] ) { return; }
-
-			console.log( 'Applying styles to:', targetButtons );
 
 			targetButtons.forEach( ( targetButton ) => {
 				copyNodeStyle( sourceButton, targetButton );
@@ -144,15 +130,11 @@
 		 * @param {HTMLElement} referenceButton - The button to use as a style reference.
 		 */
 		function applyS8Styling ( selector, referenceButton ) {
-			console.log( `Applying s8 styling to: ${selector}` );
-			console.log( 'Reference Button:', referenceButton );
 
 			// Select all elements, not just one
 			const targetElements = document.querySelectorAll( selector );
 
 			if ( ! targetElements.length || ! referenceButton ) { return; }
-
-			console.log( 'Applying styles to:', targetElements );
 
 			targetElements.forEach( ( targetElement ) => {
 				$( targetElement )

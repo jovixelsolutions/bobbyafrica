@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$s5_options = get_option( 'ht_ctc_s5' );
+$s5_options = HT_CTC_Utils::get_option( 'ht_ctc_s5' );
 
 $s5_line_1           = esc_attr( $s5_options['s5_line_1'] );
 $s5_line_1_color     = esc_attr( $s5_options['s5_line_1_color'] );

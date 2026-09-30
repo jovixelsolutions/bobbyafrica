@@ -1,3 +1,443 @@
-/*! For license information please see editor-v1-adapters.js.LICENSE.txt */
-!function(){"use strict";var e={"./packages/packages/libs/editor-v1-adapters/src/ajax/index.ts":function(e,t,n){n.r(t),n.d(t,{ajax:function(){return r}});const r={async load(e){const t=window;return new Promise((n,r)=>{t.elementorCommon?.ajax?.load({...e,success:n,error:r})})},invalidateCache(e){const t=window;t.elementorCommon?.ajax?.invalidateCache(e)}}},"./packages/packages/libs/editor-v1-adapters/src/canvas/get-canvas-iframe-document.ts":function(e,t,n){function getCanvasIframeDocument(){return window.elementor?.$preview?.[0]?.contentDocument}n.r(t),n.d(t,{getCanvasIframeDocument:function(){return getCanvasIframeDocument}})},"./packages/packages/libs/editor-v1-adapters/src/canvas/index.ts":function(e,t,n){n.r(t),n.d(t,{getCanvasIframeDocument:function(){return r.getCanvasIframeDocument}});var r=n("./packages/packages/libs/editor-v1-adapters/src/canvas/get-canvas-iframe-document.ts")},"./packages/packages/libs/editor-v1-adapters/src/config/enqueue-font.ts":function(e,t,n){n.r(t),n.d(t,{enqueueFont:function(){return enqueueFont}});const enqueueFont=(e,t="preview")=>window.elementor?.helpers?.enqueueFont?.(e,t)??null},"./packages/packages/libs/editor-v1-adapters/src/config/get-elementor-globals.ts":function(e,t,n){n.r(t),n.d(t,{getElementorConfig:function(){return getElementorConfig},getElementorFrontendConfig:function(){return getElementorFrontendConfig}});const getElementorConfig=()=>window.elementor?.config??{},getElementorFrontendConfig=()=>window.elementorFrontend?.config??{}},"./packages/packages/libs/editor-v1-adapters/src/config/index.ts":function(e,t,n){n.r(t),n.d(t,{enqueueFont:function(){return a.enqueueFont},getElementorConfig:function(){return r.getElementorConfig},getElementorFrontendConfig:function(){return r.getElementorFrontendConfig}});var r=n("./packages/packages/libs/editor-v1-adapters/src/config/get-elementor-globals.ts"),a=n("./packages/packages/libs/editor-v1-adapters/src/config/enqueue-font.ts");n("./packages/packages/libs/editor-v1-adapters/src/config/supported-fonts.ts")},"./packages/packages/libs/editor-v1-adapters/src/config/supported-fonts.ts":function(e,t,n){n.r(t)},"./packages/packages/libs/editor-v1-adapters/src/data-hooks/block-command.ts":function(e,t,n){n.r(t),n.d(t,{blockCommand:function(){return blockCommand}});var r=n("./packages/packages/libs/editor-v1-adapters/src/data-hooks/register-data-hook.ts");function blockCommand({command:e,condition:t}){return(0,r.registerDataHook)("dependency",e,e=>!t(e))}},"./packages/packages/libs/editor-v1-adapters/src/data-hooks/register-data-hook.ts":function(e,t,n){n.r(t),n.d(t,{registerDataHook:function(){return registerDataHook}});let r=0;function registerDataHook(e,t,n){const a=window,s=a.$e?.modules?.hookData,o={after:s?.After,dependency:s?.Dependency}[e];if(!o)throw new Error(`Data hook '${e}' is not available`);const i=++r,c=new class extends o{getCommand(){return t}getId(){return`${t}--data--${i}`}apply(t,r){const a={},s=window,o=s.$e?.commands?.currentTrace;return o&&(a.commandsCurrentTrace=o),"dependency"===e?n(t,a):n(t,r,a)}};return c.register(),c}},"./packages/packages/libs/editor-v1-adapters/src/dispatchers/dispatchers.ts":function(e,t,n){n.r(t),n.d(t,{openRoute:function(){return openRoute},registerRoute:function(){return registerRoute},runCommand:function(){return runCommand},runCommandSync:function(){return runCommandSync}});var r=n("./packages/packages/libs/editor-v1-adapters/src/dispatchers/utils.ts");async function runCommand(e,t,{internal:n=!1}={}){const a=runCommandSync(e,t,{internal:n});return a instanceof Promise?a:(0,r.isJQueryDeferred)(a)?(0,r.promisifyJQueryDeferred)(a):Promise.resolve(a)}function runCommandSync(e,t,{internal:n=!1}={}){const r=window,a=n?r.$e?.internal:r.$e?.run;if(!a){throw new Error(`\`${n?"$e.internal":"$e.run"}()\` is not available`)}return a(e,t)}function openRoute(e){const t=window;if(!t.$e?.route)return Promise.reject("`$e.route()` is not available");try{return Promise.resolve(t.$e.route(e))}catch(e){return Promise.reject(e)}}function registerRoute(e){const t=window;if(!t.$e?.routes?.register)return Promise.reject("`$e.routes.register()` is not available");const n=e.split("/");if(n.length<2)return Promise.reject(`\`${e}\` is an invalid route`);const r=n.pop(),a=n.join("/");try{return Promise.resolve(t.$e.routes.register(a,r,()=>null))}catch(e){return Promise.reject(e)}}},"./packages/packages/libs/editor-v1-adapters/src/dispatchers/utils.ts":function(e,t,n){function isJQueryDeferred(e){return!!e&&"object"==typeof e&&Object.hasOwn(e,"promise")&&Object.hasOwn(e,"then")&&Object.hasOwn(e,"fail")}function promisifyJQueryDeferred(e){return new Promise((t,n)=>{e.then(t,n)})}n.r(t),n.d(t,{isJQueryDeferred:function(){return isJQueryDeferred},promisifyJQueryDeferred:function(){return promisifyJQueryDeferred}})},"./packages/packages/libs/editor-v1-adapters/src/edit-mode.ts":function(e,t,n){n.r(t),n.d(t,{changeEditMode:function(){return changeEditMode},getCurrentEditMode:function(){return getCurrentEditMode},useEditMode:function(){return useEditMode}});var r=n("./packages/packages/libs/editor-v1-adapters/src/hooks/use-listen-to.ts"),a=n("./packages/packages/libs/editor-v1-adapters/src/listeners/index.ts");function useEditMode(){return(0,r.default)((0,a.windowEvent)("elementor/edit-mode/change"),getCurrentEditMode)}function getCurrentEditMode(){return window.elementor.channels.dataEditMode.request("activeMode")}function changeEditMode(e){return window.elementor.changeEditMode(e)}},"./packages/packages/libs/editor-v1-adapters/src/hooks/index.ts":function(e,t,n){n.r(t),n.d(t,{useIsRouteActive:function(){return r.default},useListenTo:function(){return a.default},useRouteStatus:function(){return s.default}});var r=n("./packages/packages/libs/editor-v1-adapters/src/hooks/use-is-route-active.ts"),a=n("./packages/packages/libs/editor-v1-adapters/src/hooks/use-listen-to.ts"),s=n("./packages/packages/libs/editor-v1-adapters/src/hooks/use-route-status.ts")},"./packages/packages/libs/editor-v1-adapters/src/hooks/use-is-route-active.ts":function(e,t,n){n.r(t),n.d(t,{default:function(){return useIsRouteActive}});var r=n("./packages/packages/libs/editor-v1-adapters/src/listeners/index.ts"),a=n("./packages/packages/libs/editor-v1-adapters/src/readers/index.ts"),s=n("./packages/packages/libs/editor-v1-adapters/src/hooks/use-listen-to.ts");function useIsRouteActive(e){return(0,s.default)([(0,r.routeOpenEvent)(e),(0,r.routeCloseEvent)(e)],()=>(0,a.isRouteActive)(e),[e])}},"./packages/packages/libs/editor-v1-adapters/src/hooks/use-listen-to.ts":function(e,t,n){n.r(t),n.d(t,{default:function(){return useListenTo}});var r=n("react"),a=n("./packages/packages/libs/editor-v1-adapters/src/listeners/index.ts");function useListenTo(e,t,n=[]){const[s,o]=(0,r.useState)(()=>t());return(0,r.useEffect)(()=>{const updateState=()=>o(t());return updateState(),(0,a.listenTo)(e,updateState)},n),s}},"./packages/packages/libs/editor-v1-adapters/src/hooks/use-route-status.ts":function(e,t,n){n.r(t),n.d(t,{default:function(){return useRouteStatus}});var r=n("./packages/packages/libs/editor-v1-adapters/src/edit-mode.ts"),a=n("./packages/packages/libs/editor-v1-adapters/src/hooks/use-is-route-active.ts");function useRouteStatus(e,{blockOnKitRoutes:t=!0,allowedEditModes:n=["edit"]}={}){const s=(0,a.default)(e),o=(0,a.default)("panel/global"),i=(0,r.useEditMode)(),c=!n.includes(i);return{isActive:s&&!c,isBlocked:c||t&&o}}},"./packages/packages/libs/editor-v1-adapters/src/listeners/event-creators.ts":function(e,t,n){n.r(t),n.d(t,{commandEndEvent:function(){return commandEndEvent},commandStartEvent:function(){return commandStartEvent},routeCloseEvent:function(){return routeCloseEvent},routeOpenEvent:function(){return routeOpenEvent},v1ReadyEvent:function(){return v1ReadyEvent},windowEvent:function(){return windowEvent}});const commandStartEvent=e=>({type:"command",name:e,state:"before"}),commandEndEvent=e=>({type:"command",name:e,state:"after"}),routeOpenEvent=e=>({type:"route",name:e,state:"open"}),routeCloseEvent=e=>({type:"route",name:e,state:"close"}),windowEvent=e=>({type:"window-event",name:e}),v1ReadyEvent=()=>windowEvent("elementor/initialized")},"./packages/packages/libs/editor-v1-adapters/src/listeners/index.ts":function(e,t,n){n.r(t),n.d(t,{commandEndEvent:function(){return r.commandEndEvent},commandStartEvent:function(){return r.commandStartEvent},dispatchReadyEvent:function(){return o.dispatchReadyEvent},flushListeners:function(){return a.flushListeners},isReady:function(){return s.isReady},listenTo:function(){return a.listenTo},routeCloseEvent:function(){return r.routeCloseEvent},routeOpenEvent:function(){return r.routeOpenEvent},setReady:function(){return s.setReady},v1ReadyEvent:function(){return r.v1ReadyEvent},windowEvent:function(){return r.windowEvent}});var r=n("./packages/packages/libs/editor-v1-adapters/src/listeners/event-creators.ts"),a=n("./packages/packages/libs/editor-v1-adapters/src/listeners/listeners.ts"),s=(n("./packages/packages/libs/editor-v1-adapters/src/listeners/types.ts"),n("./packages/packages/libs/editor-v1-adapters/src/listeners/is-ready.ts")),o=n("./packages/packages/libs/editor-v1-adapters/src/listeners/utils.ts")},"./packages/packages/libs/editor-v1-adapters/src/listeners/is-ready.ts":function(e,t,n){n.r(t),n.d(t,{isReady:function(){return isReady},setReady:function(){return setReady}});let r=!1;function isReady(){return r}function setReady(e){r=e}},"./packages/packages/libs/editor-v1-adapters/src/listeners/listeners.ts":function(e,t,n){n.r(t),n.d(t,{flushListeners:function(){return flushListeners},listenTo:function(){return listenTo}});var r=n("./packages/packages/libs/editor-v1-adapters/src/listeners/is-ready.ts"),a=n("./packages/packages/libs/editor-v1-adapters/src/listeners/utils.ts");const s=new Map;let o=new AbortController;function listenTo(e,t){Array.isArray(e)||(e=[e]);const n=e.map(e=>{const{type:n,name:r}=e;switch(n){case"command":return function registerCommandListener(e,t,n){return registerWindowEventListener(`elementor/commands/run/${t}`,t=>{"command"===t.type&&t.command===e&&n(t)})}(r,e.state,t);case"route":return function registerRouteListener(e,t,n){return registerWindowEventListener(`elementor/routes/${t}`,t=>{"route"===t.type&&t.route.startsWith(e)&&n(t)})}(r,e.state,t);case"window-event":return registerWindowEventListener(r,t)}});return()=>{n.forEach(e=>e())}}function flushListeners(){o.abort(),s.clear(),(0,r.setReady)(!1),o=new AbortController}function registerWindowEventListener(e,t){return!s.has(e)&&(s.set(e,[]),function addListener(e){window.addEventListener(e,function makeEventHandler(e){return t=>{if(!(0,r.isReady)())return;const n=(0,a.normalizeEvent)(t);s.get(e)?.forEach(e=>{e(n)})}}(e),{signal:o.signal})}(e)),s.get(e)?.push(t),()=>{const n=s.get(e);if(!n?.length)return;const r=n.filter(e=>e!==t);s.set(e,r)}}},"./packages/packages/libs/editor-v1-adapters/src/listeners/types.ts":function(e,t,n){n.r(t)},"./packages/packages/libs/editor-v1-adapters/src/listeners/utils.ts":function(e,t,n){n.r(t),n.d(t,{dispatchReadyEvent:function(){return dispatchReadyEvent},normalizeEvent:function(){return normalizeEvent}});var r=n("./packages/packages/libs/editor-v1-adapters/src/listeners/is-ready.ts");function dispatchReadyEvent(){return function getV1LoadingPromise(){const e=window.__elementorEditorV1LoadingPromise;if(!e)return Promise.reject("Elementor Editor V1 is not loaded");return e}().then(()=>{(0,r.setReady)(!0),window.dispatchEvent(new CustomEvent("elementor/initialized"))})}function normalizeEvent(e){return e instanceof CustomEvent&&e.detail?.command?{type:"command",command:e.detail.command,args:e.detail.args,originalEvent:e}:e instanceof CustomEvent&&e.detail?.route?{type:"route",route:e.detail.route,originalEvent:e}:{type:"window-event",event:e.type,originalEvent:e}}},"./packages/packages/libs/editor-v1-adapters/src/readers/index.ts":function(e,t,n){n.r(t),n.d(t,{EXPERIMENTAL_FEATURES:function(){return r},isExperimentActive:function(){return isExperimentActive},isRouteActive:function(){return isRouteActive}});const r={};function isRouteActive(e){const t=window;return!!t.$e?.routes?.isPartOf(e)}const isExperimentActive=e=>{const t=window;return!!t.elementorCommon?.config?.experimentalFeatures?.[e]}},"./packages/packages/libs/editor-v1-adapters/src/undoable/get-history-manager.ts":function(e,t,n){n.r(t),n.d(t,{getHistoryManager:function(){return getHistoryManager}});var r=n("@elementor/utils");const a=(0,r.createError)({code:"history_manager_not_available",message:"Cannot access History manager."});function getHistoryManager(){const e=window,t=e.elementor?.documents?.getCurrent?.()?.history;if(!t)throw new a;return t}},"./packages/packages/libs/editor-v1-adapters/src/undoable/index.ts":function(e,t,n){n.r(t),n.d(t,{undoable:function(){return r.undoable}});var r=n("./packages/packages/libs/editor-v1-adapters/src/undoable/undoable.ts")},"./packages/packages/libs/editor-v1-adapters/src/undoable/undoable.ts":function(e,t,n){n.r(t),n.d(t,{undoable:function(){return undoable}});var r=n("@elementor/utils"),a=n("./packages/packages/libs/editor-v1-adapters/src/undoable/get-history-manager.ts");function undoable(e,t){e.redo??=e.do;const n=t.debounce?(0,r.debounce)(addHistoryItem,t.debounce.wait):addHistoryItem;return r=>{const a=r,s=e;let o,i=s.do(a);return n({title:normalizeToGenerator(t.title)(a,i),subTitle:normalizeToGenerator(t.subtitle)(a,i),type:"",restore:(e,t)=>{t?i=s.redo(a,i,o):o=s.undo(a,i)}}),i}}function normalizeToGenerator(e){return"function"==typeof e?e:()=>e??""}function addHistoryItem(e){(0,a.getHistoryManager)().addItem(e)}},"@elementor/utils":function(e){e.exports=window.elementorV2.utils},react:function(e){e.exports=window.React}},t={};function __webpack_require__(n){var r=t[n];if(void 0!==r)return r.exports;var a=t[n]={exports:{}};return e[n](a,a.exports,__webpack_require__),a.exports}__webpack_require__.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return __webpack_require__.d(t,{a:t}),t},__webpack_require__.d=function(e,t){for(var n in t)__webpack_require__.o(t,n)&&!__webpack_require__.o(e,n)&&Object.defineProperty(e,n,{enumerable:!0,get:t[n]})},__webpack_require__.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},__webpack_require__.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})};var n={};!function(){__webpack_require__.r(n),__webpack_require__.d(n,{EXPERIMENTAL_FEATURES:function(){return a.EXPERIMENTAL_FEATURES},__privateDispatchReadyEvent:function(){return r.dispatchReadyEvent},__privateFlushListeners:function(){return r.flushListeners},__privateIsRouteActive:function(){return a.isRouteActive},__privateListenTo:function(){return r.listenTo},__privateOpenRoute:function(){return e.openRoute},__privateRegisterRoute:function(){return e.registerRoute},__privateRunCommand:function(){return e.runCommand},__privateRunCommandSync:function(){return e.runCommandSync},__privateSetReady:function(){return r.setReady},__privateUseIsRouteActive:function(){return t.useIsRouteActive},__privateUseListenTo:function(){return t.useListenTo},__privateUseRouteStatus:function(){return t.useRouteStatus},ajax:function(){return s.ajax},blockCommand:function(){return u.blockCommand},changeEditMode:function(){return i.changeEditMode},commandEndEvent:function(){return r.commandEndEvent},commandStartEvent:function(){return r.commandStartEvent},enqueueFont:function(){return p.enqueueFont},getCanvasIframeDocument:function(){return d.getCanvasIframeDocument},getCurrentEditMode:function(){return i.getCurrentEditMode},getElementorConfig:function(){return p.getElementorConfig},getElementorFrontendConfig:function(){return p.getElementorFrontendConfig},isExperimentActive:function(){return a.isExperimentActive},registerDataHook:function(){return c.registerDataHook},routeCloseEvent:function(){return r.routeCloseEvent},routeOpenEvent:function(){return r.routeOpenEvent},undoable:function(){return o.undoable},useEditMode:function(){return i.useEditMode},v1ReadyEvent:function(){return r.v1ReadyEvent},windowEvent:function(){return r.windowEvent}});var e=__webpack_require__("./packages/packages/libs/editor-v1-adapters/src/dispatchers/dispatchers.ts"),t=__webpack_require__("./packages/packages/libs/editor-v1-adapters/src/hooks/index.ts"),r=__webpack_require__("./packages/packages/libs/editor-v1-adapters/src/listeners/index.ts"),a=__webpack_require__("./packages/packages/libs/editor-v1-adapters/src/readers/index.ts"),s=__webpack_require__("./packages/packages/libs/editor-v1-adapters/src/ajax/index.ts"),o=__webpack_require__("./packages/packages/libs/editor-v1-adapters/src/undoable/index.ts"),i=__webpack_require__("./packages/packages/libs/editor-v1-adapters/src/edit-mode.ts"),c=__webpack_require__("./packages/packages/libs/editor-v1-adapters/src/data-hooks/register-data-hook.ts"),u=__webpack_require__("./packages/packages/libs/editor-v1-adapters/src/data-hooks/block-command.ts"),d=__webpack_require__("./packages/packages/libs/editor-v1-adapters/src/canvas/index.ts"),p=__webpack_require__("./packages/packages/libs/editor-v1-adapters/src/config/index.ts")}(),(window.elementorV2=window.elementorV2||{}).editorV1Adapters=n}(),window.elementorV2.editorV1Adapters?.init?.();
+(function(react, _elementor_utils) {
+
+//#region \0rolldown/runtime.js
+	var __defProp = Object.defineProperty;
+	var __name = (target, value) => __defProp(target, "name", {
+		value,
+		configurable: true
+	});
+	var __exportAll = (all, no_symbols) => {
+		let target = {};
+		for (var name in all) {
+			__defProp(target, name, {
+				get: all[name],
+				enumerable: true
+			});
+		}
+		if (!no_symbols) {
+			__defProp(target, Symbol.toStringTag, { value: "Module" });
+		}
+		return target;
+	};
+
+//#endregion
+
+//#region packages/packages/libs/editor-v1-adapters/src/dispatchers/utils.ts
+	function isJQueryDeferred(value) {
+		return !!value && "object" === typeof value && Object.hasOwn(value, "promise") && Object.hasOwn(value, "then") && Object.hasOwn(value, "fail");
+	}
+	function promisifyJQueryDeferred(deferred) {
+		return new Promise((resolve, reject) => {
+			deferred.then(resolve, reject);
+		});
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-v1-adapters/src/dispatchers/dispatchers.ts
+	async function runCommand(command, args, { internal = false } = {}) {
+		const result = runCommandSync(command, args, { internal });
+		if (result instanceof Promise) return result;
+		if (isJQueryDeferred(result)) return promisifyJQueryDeferred(result);
+		return Promise.resolve(result);
+	}
+	function runCommandSync(command, args, { internal = false } = {}) {
+		const extendedWindow = window;
+		const run = internal ? extendedWindow.$e?.internal : extendedWindow.$e?.run;
+		if (!run) throw new Error(`\`${internal ? "$e.internal" : "$e.run"}()\` is not available`);
+		return run(command, args);
+	}
+	function openRoute(route) {
+		const extendedWindow = window;
+		if (!extendedWindow.$e?.route) return Promise.reject("`$e.route()` is not available");
+		try {
+			return Promise.resolve(extendedWindow.$e.route(route));
+		} catch (e) {
+			return Promise.reject(e);
+		}
+	}
+	function registerRoute(route) {
+		const extendedWindow = window;
+		if (!extendedWindow.$e?.routes?.register) return Promise.reject("`$e.routes.register()` is not available");
+		const routeParts = route.split("/");
+		if (routeParts.length < 2) return Promise.reject(`\`${route}\` is an invalid route`);
+		const componentRoute = routeParts.pop();
+		const component = routeParts.join("/");
+		try {
+			return Promise.resolve(extendedWindow.$e.routes.register(component, componentRoute, () => null));
+		} catch (e) {
+			return Promise.reject(e);
+		}
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-v1-adapters/src/listeners/event-creators.ts
+	var commandStartEvent = (command) => {
+		return {
+			type: "command",
+			name: command,
+			state: "before"
+		};
+	};
+	var commandEndEvent = (command) => {
+		return {
+			type: "command",
+			name: command,
+			state: "after"
+		};
+	};
+	var routeOpenEvent = (route) => {
+		return {
+			type: "route",
+			name: route,
+			state: "open"
+		};
+	};
+	var routeCloseEvent = (route) => {
+		return {
+			type: "route",
+			name: route,
+			state: "close"
+		};
+	};
+	var windowEvent = (event) => {
+		return {
+			type: "window-event",
+			name: event
+		};
+	};
+	var v1ReadyEvent = () => {
+		return windowEvent("elementor/initialized");
+	};
+
+//#endregion
+//#region packages/packages/libs/editor-v1-adapters/src/listeners/is-ready.ts
+	var ready = false;
+	function isReady() {
+		return ready;
+	}
+	function setReady(value) {
+		ready = value;
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-v1-adapters/src/listeners/utils.ts
+	function dispatchReadyEvent() {
+		return getV1LoadingPromise().then(() => {
+			setReady(true);
+			window.dispatchEvent(new CustomEvent("elementor/initialized"));
+		});
+	}
+	function getV1LoadingPromise() {
+		const v1LoadingPromise = window.__elementorEditorV1LoadingPromise;
+		if (!v1LoadingPromise) return Promise.reject("Elementor Editor V1 is not loaded");
+		return v1LoadingPromise;
+	}
+	function normalizeEvent(e) {
+		if (e instanceof CustomEvent && e.detail?.command) return {
+			type: "command",
+			command: e.detail.command,
+			args: e.detail.args,
+			originalEvent: e
+		};
+		if (e instanceof CustomEvent && e.detail?.route) return {
+			type: "route",
+			route: e.detail.route,
+			originalEvent: e
+		};
+		return {
+			type: "window-event",
+			event: e.type,
+			originalEvent: e
+		};
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-v1-adapters/src/listeners/listeners.ts
+	var callbacksByEvent = /* @__PURE__ */ new Map();
+	var abortController = new AbortController();
+	function listenTo(eventDescriptors, callback) {
+		if (!Array.isArray(eventDescriptors)) eventDescriptors = [eventDescriptors];
+		const cleanups = eventDescriptors.map((event) => {
+			const { type, name } = event;
+			switch (type) {
+				case "command": return registerCommandListener(name, event.state, callback);
+				case "route": return registerRouteListener(name, event.state, callback);
+				case "window-event": return registerWindowEventListener(name, callback);
+			}
+		});
+		return () => {
+			cleanups.forEach((cleanup) => cleanup());
+		};
+	}
+	function flushListeners() {
+		abortController.abort();
+		callbacksByEvent.clear();
+		setReady(false);
+		abortController = new AbortController();
+	}
+	function registerCommandListener(command, state, callback) {
+		return registerWindowEventListener(`elementor/commands/run/${state}`, (e) => {
+			if (e.type === "command" && e.command === command) callback(e);
+		});
+	}
+	function registerRouteListener(route, state, callback) {
+		return registerWindowEventListener(`elementor/routes/${state}`, (e) => {
+			if (e.type === "route" && e.route.startsWith(route)) callback(e);
+		});
+	}
+	var V1_READY_EVENT_NAME = "elementor/initialized";
+	function registerWindowEventListener(event, callback) {
+		if (!callbacksByEvent.has(event)) {
+			callbacksByEvent.set(event, []);
+			addListener(event);
+		}
+		callbacksByEvent.get(event)?.push(callback);
+		if (event === V1_READY_EVENT_NAME && isReady()) Promise.resolve().then(() => {
+			if (callbacksByEvent.get(event)?.includes(callback)) callback({
+				type: "window-event",
+				event,
+				originalEvent: new CustomEvent(event)
+			});
+		});
+		return () => {
+			const callbacks = callbacksByEvent.get(event);
+			if (!callbacks?.length) return;
+			const filtered = callbacks.filter((cb) => cb !== callback);
+			callbacksByEvent.set(event, filtered);
+		};
+	}
+	function addListener(event) {
+		window.addEventListener(event, makeEventHandler(event), { signal: abortController.signal });
+	}
+	function makeEventHandler(event) {
+		return (e) => {
+			if (!isReady()) return;
+			const normalizedEvent = normalizeEvent(e);
+			callbacksByEvent.get(event)?.forEach((callback) => {
+				callback(normalizedEvent);
+			});
+		};
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-v1-adapters/src/readers/index.ts
+	var EXPERIMENTAL_FEATURES = {};
+	function isRouteActive(route) {
+		return !!window.$e?.routes?.isPartOf(route);
+	}
+	var isExperimentActive = (experiment) => {
+		return !!window.elementorCommon?.config?.experimentalFeatures?.[experiment];
+	};
+
+//#endregion
+//#region packages/packages/libs/editor-v1-adapters/src/hooks/use-listen-to.ts
+	function useListenTo(event, getSnapshot, deps = []) {
+		const [snapshot, setSnapshot] = (0, react.useState)(() => getSnapshot());
+		(0, react.useEffect)(() => {
+			const updateState = () => setSnapshot(getSnapshot());
+			updateState();
+			return listenTo(event, updateState);
+		}, deps);
+		return snapshot;
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-v1-adapters/src/hooks/use-is-route-active.ts
+	function useIsRouteActive(route) {
+		return useListenTo([routeOpenEvent(route), routeCloseEvent(route)], () => isRouteActive(route), [route]);
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-v1-adapters/src/edit-mode.ts
+	function useEditMode() {
+		return useListenTo(windowEvent("elementor/edit-mode/change"), getCurrentEditMode);
+	}
+	function getCurrentEditMode() {
+		return window.elementor.channels.dataEditMode.request("activeMode");
+	}
+	function changeEditMode(newMode) {
+		return window.elementor.changeEditMode(newMode);
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-v1-adapters/src/hooks/use-route-status.ts
+	function useRouteStatus(route, { blockOnKitRoutes = true, allowedEditModes = ["edit"] } = {}) {
+		const isRouteActive = useIsRouteActive(route);
+		const isKitRouteActive = useIsRouteActive("panel/global");
+		const currentEditMode = useEditMode();
+		const isBlockedByEditMode = !allowedEditModes.includes(currentEditMode);
+		return {
+			isActive: isRouteActive && !isBlockedByEditMode,
+			isBlocked: isBlockedByEditMode || blockOnKitRoutes && isKitRouteActive
+		};
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-v1-adapters/src/ajax/index.ts
+	var ajax = {
+		async load(data) {
+			const extendedWindow = window;
+			return new Promise((success, error) => {
+				extendedWindow.elementorCommon?.ajax?.load({
+					...data,
+					success,
+					error
+				});
+			});
+		},
+		invalidateCache(data) {
+			window.elementorCommon?.ajax?.invalidateCache(data);
+		}
+	};
+
+//#endregion
+//#region packages/packages/libs/editor-v1-adapters/src/undoable/get-history-manager.ts
+	var HistoryManagerNotAvailable = (0, _elementor_utils.createError)({
+		code: "history_manager_not_available",
+		message: "Cannot access History manager."
+	});
+	function getHistoryManager() {
+		const historyManger = window.elementor?.documents?.getCurrent?.()?.history;
+		if (!historyManger) throw new HistoryManagerNotAvailable();
+		return historyManger;
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-v1-adapters/src/undoable/undoable.ts
+	function undoable(actions, options) {
+		actions.redo ?? (actions.redo = actions.do);
+		const _addHistoryItem = options.debounce ? (0, _elementor_utils.debounce)(addHistoryItem, options.debounce.wait) : addHistoryItem;
+		return (payload) => {
+			const _payload = payload;
+			const _actions = actions;
+			let doReturn = _actions.do(_payload);
+			let undoReturn;
+			_addHistoryItem({
+				title: normalizeToGenerator(options.title)(_payload, doReturn),
+				subTitle: normalizeToGenerator(options.subtitle)(_payload, doReturn),
+				type: "",
+				restore: (_, isRedo) => {
+					if (isRedo) {
+						doReturn = _actions.redo(_payload, doReturn, undoReturn);
+						return;
+					}
+					undoReturn = _actions.undo(_payload, doReturn);
+				}
+			});
+			return doReturn;
+		};
+	}
+	function normalizeToGenerator(value) {
+		return typeof value === "function" ? value : () => value ?? "";
+	}
+	function addHistoryItem(item) {
+		getHistoryManager().addItem(item);
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-v1-adapters/src/data-hooks/register-data-hook.ts
+	var hookId = 0;
+	function registerDataHook(type, command, callback) {
+		const hooksClasses = window.$e?.modules?.hookData;
+		const HookClass = {
+			after: hooksClasses?.After,
+			dependency: hooksClasses?.Dependency
+		}[type];
+		if (!HookClass) throw new Error(`Data hook '${type}' is not available`);
+		const currentHookId = ++hookId;
+		const hook = new class extends HookClass {
+			getCommand() {
+				return command;
+			}
+			getId() {
+				return `${command}--data--${currentHookId}`;
+			}
+			apply(args, result) {
+				const hookOptions = {};
+				const currentWindow = window;
+				const commandsCurrentTrace = currentWindow.$e?.commands?.currentTrace;
+				if (commandsCurrentTrace) hookOptions.commandsCurrentTrace = commandsCurrentTrace;
+				const currentHistoryItemId = currentWindow.elementor?.documents?.getCurrent()?.history?.getCurrentId();
+				if (currentHistoryItemId) hookOptions.currentHistoryItemId = currentHistoryItemId;
+				if (type === "dependency") return callback(args, hookOptions);
+				return callback(args, result, hookOptions);
+			}
+		}();
+		hook.register();
+		return hook;
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-v1-adapters/src/data-hooks/block-command.ts
+	function blockCommand({ command, condition }) {
+		return registerDataHook("dependency", command, (args) => {
+			return !condition(args);
+		});
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-v1-adapters/src/canvas/get-canvas-iframe-document.ts
+	function getCanvasIframeDocument() {
+		return window.elementor?.$preview?.[0]?.contentDocument;
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-v1-adapters/src/config/get-elementor-globals.ts
+	var getElementorConfig = () => {
+		return window.elementor?.config ?? {};
+	};
+	var getElementorFrontendConfig = () => {
+		return window.elementorFrontend?.config ?? {};
+	};
+
+//#endregion
+//#region packages/packages/libs/editor-v1-adapters/src/config/enqueue-font.ts
+	var enqueueFont = (fontFamily, context = "preview") => {
+		return window.elementor?.helpers?.enqueueFont?.(fontFamily, context) ?? null;
+	};
+
+//#endregion
+//#region packages/packages/libs/editor-v1-adapters/src/index.ts
+	var src_exports = /* @__PURE__ */ __exportAll({
+		EXPERIMENTAL_FEATURES: () => EXPERIMENTAL_FEATURES,
+		__privateDispatchReadyEvent: () => dispatchReadyEvent,
+		__privateFlushListeners: () => flushListeners,
+		__privateIsReady: () => isReady,
+		__privateIsRouteActive: () => isRouteActive,
+		__privateListenTo: () => listenTo,
+		__privateOpenRoute: () => openRoute,
+		__privateRegisterRoute: () => registerRoute,
+		__privateRunCommand: () => runCommand,
+		__privateRunCommandSync: () => runCommandSync,
+		__privateSetReady: () => setReady,
+		__privateUseIsRouteActive: () => useIsRouteActive,
+		__privateUseListenTo: () => useListenTo,
+		__privateUseRouteStatus: () => useRouteStatus,
+		ajax: () => ajax,
+		blockCommand: () => blockCommand,
+		changeEditMode: () => changeEditMode,
+		commandEndEvent: () => commandEndEvent,
+		commandStartEvent: () => commandStartEvent,
+		enqueueFont: () => enqueueFont,
+		getCanvasIframeDocument: () => getCanvasIframeDocument,
+		getCurrentEditMode: () => getCurrentEditMode,
+		getElementorConfig: () => getElementorConfig,
+		getElementorFrontendConfig: () => getElementorFrontendConfig,
+		isExperimentActive: () => isExperimentActive,
+		registerDataHook: () => registerDataHook,
+		routeCloseEvent: () => routeCloseEvent,
+		routeOpenEvent: () => routeOpenEvent,
+		undoable: () => undoable,
+		useEditMode: () => useEditMode,
+		v1ReadyEvent: () => v1ReadyEvent,
+		windowEvent: () => windowEvent
+	});
+
+//#endregion
+//#region \0elementor-package-library-entry
+	(window.elementorV2 = window.elementorV2 || {}).editorV1Adapters = src_exports;
+
+//#endregion
+})(React, elementorV2.utils);
+window.elementorV2.editorV1Adapters?.init?.();
 //# sourceMappingURL=editor-v1-adapters.js.map

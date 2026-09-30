@@ -19,11 +19,17 @@ $ccw_options_cs = get_option( 'ccw_options_cs', array() );
 $is_mobile = ht_ccw()->device_type->is_mobile;
 
 $return_type = isset( $values['return_type'] ) ? esc_attr( $values['return_type'] ) : 'chat';
-$group_id = isset( $values['group_id'] ) ? esc_attr( $values['group_id'] ) : '';
-$page_url = get_permalink();
-$text = isset( $values['initial'] ) ? esc_attr( $values['initial'] ) : '';
 
-$initial_text = str_replace( '{{url}}', $page_url, $text );
+// Strict sanitization for values that will be interpolated into a JS string
+// inside an HTML onclick attribute. esc_attr alone is insufficient there:
+// the browser HTML-decodes the attribute before executing the JS, so &#039;
+// becomes ' again and can break out of the JS string.
+$group_id = isset( $values['group_id'] ) ? preg_replace( '/[^A-Za-z0-9]/', '', (string) $values['group_id'] ) : '';
+$num      = preg_replace( '/[^0-9+]/', '', (string) ( isset( $num ) ? $num : '' ) );
+
+$page_url     = get_permalink();
+$text         = isset( $values['initial'] ) ? (string) $values['initial'] : '';
+$initial_text = rawurlencode( str_replace( '{{url}}', (string) $page_url, $text ) );
 
 
 // $an_on_load = "animated bounce infinite";

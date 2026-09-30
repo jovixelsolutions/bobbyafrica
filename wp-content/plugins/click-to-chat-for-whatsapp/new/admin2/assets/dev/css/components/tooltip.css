@@ -1,0 +1,156 @@
+/* ==========================================================================
+   TOOLTIP
+   ==========================================================================
+   CSS-only tooltip via data-tip attribute — instant, unlike the native
+   title attribute's ~1s delay. Usage:
+
+       <button data-tip="Click to copy">…</button>
+       <button data-tip="Undo" data-tip-pos="bottom">…</button>
+
+   Shows on hover and keyboard focus. Top-centered by default;
+   data-tip-pos="bottom" flips it below the element. data-tip is visual
+   only — elements without visible text still need an aria-label.
+   ========================================================================== */
+
+[data-tip] {
+    position: relative;
+}
+
+/* Bubble */
+[data-tip]::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(3px) scale(0.96);
+    transform-origin: bottom center;
+    background: var(--tooltip-bg, rgba(23, 30, 46, 0.94));
+    color: var(--tooltip-text, #f8fafc);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    font-size: 11.5px;
+    font-weight: 500;
+    font-family: var(--font-main, inherit);
+    line-height: 1.4;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    white-space: nowrap;
+    padding: 5px 10px;
+    border-radius: 7px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+        0 2px 4px rgba(15, 23, 42, 0.12),
+        0 8px 20px -6px rgba(15, 23, 42, 0.35);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.14s ease, transform 0.14s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+    z-index: 50;
+}
+
+/* Arrow — skipped for dashicons, whose icon glyph is drawn via ::before;
+   those elements get an arrow-less bubble. */
+[data-tip]:not(.dashicons)::before {
+    content: "";
+    position: absolute;
+    bottom: calc(100% + 3px);
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--tooltip-bg, rgba(23, 30, 46, 0.94));
+    border-bottom-width: 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.14s ease;
+    z-index: 50;
+}
+
+[data-tip]:hover::after,
+[data-tip]:focus-visible::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0) scale(1);
+}
+
+[data-tip]:not(.dashicons):hover::before,
+[data-tip]:not(.dashicons):focus-visible::before {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Bottom placement */
+[data-tip][data-tip-pos="bottom"]::after {
+    bottom: auto;
+    top: calc(100% + 8px);
+    transform: translateX(-50%) translateY(-3px) scale(0.96);
+    transform-origin: top center;
+}
+
+[data-tip][data-tip-pos="bottom"]:not(.dashicons)::before {
+    bottom: auto;
+    top: calc(100% + 3px);
+    border-top-color: transparent;
+    border-bottom-color: var(--tooltip-bg, rgba(23, 30, 46, 0.94));
+    border-top-width: 0;
+    border-bottom-width: 5px;
+}
+
+[data-tip][data-tip-pos="bottom"]:hover::after,
+[data-tip][data-tip-pos="bottom"]:focus-visible::after {
+    transform: translateX(-50%) translateY(0) scale(1);
+}
+
+/*
+ * Edge alignment — data-tip-align="end".
+ *
+ * The bubble is centred on its control, so a control near the viewport edge gets a
+ * bubble that runs off it. The dashboard clips that overflow (see main.css), which
+ * stops the stray scrollbar but leaves the text cut. For controls that sit at the
+ * end of a row, pin the bubble's trailing edge to theirs instead. Logical
+ * properties so RTL flips with the layout; the ::before arrow stays on the control.
+ */
+[data-tip][data-tip-align="end"]::after {
+    inset-inline-start: auto;
+    inset-inline-end: 0;
+    transform: translateY(3px) scale(0.96);
+    transform-origin: bottom right;
+}
+
+[data-tip][data-tip-align="end"][data-tip-pos="bottom"]::after {
+    transform: translateY(-3px) scale(0.96);
+    transform-origin: top right;
+}
+
+[data-tip][data-tip-align="end"]:hover::after,
+[data-tip][data-tip-align="end"]:focus-visible::after {
+    transform: translateY(0) scale(1);
+}
+
+/* Reduced motion: fade only, no rise/scale */
+@media (prefers-reduced-motion: reduce) {
+    [data-tip]::after,
+    [data-tip][data-tip-pos="bottom"]::after {
+        transition: opacity 0.14s ease;
+        transform: translateX(-50%);
+    }
+
+    /* End-aligned bubbles are pinned by inset, not shifted by a transform. */
+    [data-tip][data-tip-align="end"]::after,
+    [data-tip][data-tip-align="end"][data-tip-pos="bottom"]::after {
+        transform: none;
+    }
+}
+
+/* Dark theme: light bubble for contrast against dark surfaces */
+html[data-theme="dark"] {
+    --tooltip-bg: rgba(236, 239, 244, 0.96);
+    --tooltip-text: #111827;
+}
+
+html[data-theme="dark"] [data-tip]::after {
+    border-color: rgba(15, 23, 42, 0.12);
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.25),
+        0 8px 20px -6px rgba(0, 0, 0, 0.5);
+}

@@ -37,19 +37,57 @@ class Logger {
 	 * @return void
 	 */
 	private function log( string $log_level, $message ): void {
-		$backtrace = debug_backtrace(); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
+		$raw_message = $this->message_to_string( $message );
+		$backtrace = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
 
-		$class    = $backtrace[2]['class'] ?? null;
-		$type     = $backtrace[2]['type'] ?? null;
-		$function = $backtrace[2]['function'];
+		$caller = $this->caller_from_backtrace( $backtrace );
 
-		if ( $class ) {
-			$message = '[' . $this->prefix . ']: ' . $log_level . ' in ' . "$class$type$function()" . ': ' . $message;
-		} else {
-			$message = '[' . $this->prefix . ']: ' . $log_level . ' in ' . "$function()" . ': ' . $message;
+		$formatted_message = '[' . $this->prefix . ']: ' . $log_level . ' in ' . $caller . ': ' . $raw_message;
+
+		error_log( $formatted_message ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+
+		LogStore::instance()->append(
+			$log_level,
+			$raw_message,
+			[
+				'source' => $this->prefix,
+				'call_stack' => $caller,
+			]
+		);
+	}
+
+	/**
+	 * @param mixed $message
+	 * @return string
+	 */
+	private function message_to_string( $message ): string {
+		if ( is_string( $message ) ) {
+			return $message;
 		}
 
-		error_log( $message ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+		if ( is_scalar( $message ) ) {
+			return (string) $message;
+		}
+
+		$encoded = wp_json_encode( $message );
+
+		return is_string( $encoded ) ? $encoded : '';
+	}
+
+	/**
+	 * @param array<int, array<string, mixed>> $backtrace
+	 * @return string
+	 */
+	private function caller_from_backtrace( array $backtrace ): string {
+		$class    = $backtrace[2]['class'] ?? null;
+		$type     = $backtrace[2]['type'] ?? null;
+		$function = $backtrace[2]['function'] ?? '';
+
+		if ( $class ) {
+			return "$class$type$function()";
+		}
+
+		return "$function()";
 	}
 
 	/**

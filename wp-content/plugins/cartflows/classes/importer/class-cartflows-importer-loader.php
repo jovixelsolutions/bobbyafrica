@@ -62,6 +62,7 @@ if ( ! class_exists( 'CartFlows_Importer_Loader' ) ) :
 
 			include_once CARTFLOWS_DIR . 'classes/importer/batch-process/class-cartflows-batch-process.php';
 			include_once CARTFLOWS_DIR . 'classes/importer/class-cartflows-importer.php';
+			include_once CARTFLOWS_DIR . 'classes/importer/class-cartflows-reporting.php';
 		}
 	}
 

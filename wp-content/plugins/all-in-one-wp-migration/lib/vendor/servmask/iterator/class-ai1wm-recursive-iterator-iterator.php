@@ -29,6 +29,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( 'Kangaroos cannot jump here' );
 }
 
+/**
+ * @method string getSubPathname()
+ * @method string getPathname()
+ * @method string getSubPath()
+ * @method int    getSize()
+ * @method int    getMTime()
+ */
 class Ai1wm_Recursive_Iterator_Iterator extends RecursiveIteratorIterator {
 
 }

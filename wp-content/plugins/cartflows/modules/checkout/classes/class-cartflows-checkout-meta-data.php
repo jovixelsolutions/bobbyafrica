@@ -104,6 +104,11 @@ class Cartflows_Checkout_Meta_Data extends Cartflows_Step_Meta_Base {
 						$checkout_products[ $index ]['name']          = $product_obj->get_name();
 						$checkout_products[ $index ]['img_url']       = get_the_post_thumbnail_url( $product['product'] );
 						$checkout_products[ $index ]['regular_price'] = Cartflows_Helper::get_product_original_price( $product_obj );
+					} else {
+						// Product or variation no longer exists — provide safe defaults so the editor doesn't crash.
+						$checkout_products[ $index ]['name']          = '';
+						$checkout_products[ $index ]['img_url']       = '';
+						$checkout_products[ $index ]['regular_price'] = '';
 					}
 				}
 			} else {
@@ -917,7 +922,7 @@ class Cartflows_Checkout_Meta_Data extends Cartflows_Step_Meta_Base {
 				'multiple'    => false,
 				'allow_clear' => true,
 				/* translators: %1$1s: link html start, %2$12: link html end*/
-				'desc'        => sprintf( __( 'For more information about the CartFlows coupon please %1$1s Click here.%2$2s', 'cartflows' ), '<a href="https://cartflows.com/docs/enable-coupons-on-cartflows-page/?utm_source=dashboard&utm_medium=free-cartflows&utm_campaign=docs" class="!text-gray-600" target="_blank">', '</a>' ),
+				'desc'        => sprintf( __( 'For more information about the CartFlows coupon please %1$1s Click here.%2$2s', 'cartflows' ), '<a href="' . esc_url( \Cartflows_Helper::get_kb_doc_link( 'https://cartflows.com/docs/enable-coupons-on-cartflows-page/' ) ) . '" class="!text-gray-600" target="_blank">', '</a>' ),
 			),
 
 		);
@@ -957,7 +962,7 @@ class Cartflows_Checkout_Meta_Data extends Cartflows_Step_Meta_Base {
 							'type'    => 'doc',
 							'icon'    => 'info',
 							/* translators: %1$1s: link html start, %2$12: link html end*/
-							'content' => sprintf( __( 'For more information about the checkout product settings please %1$1s Click here.%2$2s', 'cartflows' ), '<a href="https://cartflows.com/docs/set-product-quantity-and-discount/?utm_source=dashboard&utm_medium=free-cartflows&utm_campaign=docs" target="_blank">', '</a>' ),
+							'content' => sprintf( __( 'For more information about the checkout product settings please %1$1s Click here.%2$2s', 'cartflows' ), '<a href="' . esc_url( \Cartflows_Helper::get_kb_doc_link( 'https://cartflows.com/docs/set-product-quantity-and-discount/' ) ) . '" target="_blank">', '</a>' ),
 						),
 					),
 				),
@@ -1110,7 +1115,37 @@ class Cartflows_Checkout_Meta_Data extends Cartflows_Step_Meta_Base {
 			);
 		}
 
-		return apply_filters( 'cartflows_admin_checkout_settings_fields', $settings );
+		// Pro-only sections: register them here so their upgrade nudge shows; Pro replaces them with the real fields.
+		if ( ! _is_cartflows_pro() ) {
+			$settings['settings']['checkout-link'] = array(
+				'title'    => __( 'Checkout Link', 'cartflows' ),
+				'slug'     => 'checkout-link',
+				'priority' => 30,
+				'fields'   => array(
+					'checkout-link' => array(
+						'type'    => 'pro-notice',
+						'feature' => 'Checkout Link',
+					),
+				),
+			);
+			// Checkout Expiry does not apply to the Store Checkout, so skip its nudge there.
+			$flow_id = absint( get_post_meta( $step_id, 'wcf-flow-id', true ) );
+			if ( ! ( $flow_id && absint( Cartflows_Helper::get_global_setting( '_cartflows_store_checkout' ) ) === $flow_id ) ) {
+				$settings['settings']['checkout-expiry'] = array(
+					'title'    => __( 'Checkout Expiry', 'cartflows' ),
+					'slug'     => 'checkout-expiry',
+					'priority' => 40,
+					'fields'   => array(
+						'checkout-expiry' => array(
+							'type'    => 'pro-notice',
+							'feature' => 'Checkout Expiry',
+						),
+					),
+				);
+			}
+		}
+
+		return apply_filters( 'cartflows_admin_checkout_settings_fields', $settings, $step_id );
 	}
 
 	/**
@@ -1163,7 +1198,7 @@ class Cartflows_Checkout_Meta_Data extends Cartflows_Step_Meta_Base {
 
 		$formatted_name = '';
 
-		if ( is_object( $formatted_name ) ) {
+		if ( is_object( $product_object ) ) {
 			$formatted_name = rawurldecode( $product_object->get_formatted_name() );
 		}
 		return $formatted_name;

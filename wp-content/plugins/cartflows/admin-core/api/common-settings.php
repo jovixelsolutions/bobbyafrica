@@ -68,7 +68,7 @@ class CommonSettings extends ApiBase {
 
 		$options['cartflows_delete_plugin_data']     = get_option( 'cartflows_delete_plugin_data' );
 		$options['cartflows_stats_report_emails']    = get_option( 'cartflows_stats_report_emails', 'enable' );
-		$options['cf_usage_optin']                   = get_option( 'cf_usage_optin', 'no' );
+		$options['cf_usage_optin']                   = get_site_option( 'cf_usage_optin', 'no' );
 		$options['cartflows_stats_report_email_ids'] = get_option( 'cartflows_stats_report_email_ids', get_option( 'admin_email' ) );
 
 		// The toggle field expects an 'enable'/'disable' string (backComp). Older code paths

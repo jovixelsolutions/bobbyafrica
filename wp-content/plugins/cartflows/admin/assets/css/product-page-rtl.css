@@ -1,0 +1,27 @@
+/**
+ * CartFlows — WooCommerce product edit screen tweaks.
+ *
+ * Sets the CartFlows brand icon on the "CartFlows" product data tab
+ * (added by modules/woo-dynamic-flow/) so it stops falling back to the
+ * generic wrench icon that WooCommerce uses for tabs with no icon set.
+ */
+
+/* CartFlows tab icon — brand SVG rendered as a mask so it inherits currentColor
+   just like WooCommerce's native Dashicons/WooCommerce-font tab icons. */
+#woocommerce-product-data ul.wc-tabs li.cartflows_options a::before {
+	content: "";
+	display: inline-block;
+	width: 13px;
+	height: 13px;
+	vertical-align: baseline;
+	background-color: currentColor;
+	-webkit-mask-image: url( "../../../assets/images/cartflows-icon.svg" );
+	-webkit-mask-repeat: no-repeat;
+	-webkit-mask-position: center center;
+	-webkit-mask-size: 13px 13px;
+	mask-image: url( "../../../assets/images/cartflows-icon.svg" );
+	mask-repeat: no-repeat;
+	mask-position: center center;
+	mask-size: 13px 13px;
+	font-family: inherit;
+}

@@ -6,5 +6,8 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'WP\\McpSchema\\' => array($vendorDir . '/wordpress/php-mcp-schema/src'),
+    'WP\\MCP\\' => array($vendorDir . '/wordpress/mcp-adapter/includes'),
     'Elementor\\WPNotificationsPackage\\' => array($vendorDir . '/elementor/wp-notifications-package/src'),
+    'Automattic\\Jetpack\\Autoloader\\' => array($vendorDir . '/automattic/jetpack-autoloader/src'),
 );

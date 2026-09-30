@@ -17,7 +17,7 @@ class Validation {
 
 	private const VALID_EFFECTS = [ 'fade', 'slide', 'scale', 'custom' ];
 	private const VALID_TYPES = [ 'in', 'out' ];
-	private const VALID_DIRECTIONS = [ '', 'left', 'right', 'top', 'bottom' ];
+	private const VALID_DIRECTIONS = [ '', 'left', 'right', 'top', 'bottom', 'top-left', 'top-right', 'bottom-left', 'bottom-right' ];
 	private const VALID_REPEAT_MODES = [ '', 'loop', 'times' ];
 
 	public function sanitize( $document ) {
@@ -299,8 +299,7 @@ class Validation {
 			return false;
 		}
 
-		// Validate direction (can be empty string)
-		if ( ! $this->is_valid_string_prop( $animation_value, 'direction', self::VALID_DIRECTIONS ) ) {
+		if ( array_key_exists( 'direction', $animation_value ) && ! $this->is_valid_string_prop( $animation_value, 'direction', self::VALID_DIRECTIONS ) ) {
 			return false;
 		}
 

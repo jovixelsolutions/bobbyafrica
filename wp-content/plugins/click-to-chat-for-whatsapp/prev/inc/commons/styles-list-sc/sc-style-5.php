@@ -10,8 +10,9 @@ $s5_color = $s5_color;
 $s5_hover_color = $s5_hover_color;
 $s5_icon_size = $s5_icon_size;
 
-$input_onhover = "this.style.color= '$s5_hover_color'; ";
-$input_onhover_out = "this.style.color= '$s5_color'; ";
+// JS-context: esc_js() so values cannot break out of the JS string literal.
+$input_onhover     = "this.style.color= '" . esc_js( $s5_hover_color ) . "'; ";
+$input_onhover_out = "this.style.color= '" . esc_js( $s5_color ) . "'; ";
 
 $o .= '<div class="ccw_plugin sc_item pointer '.$inline_issue.' " style=" '.$css.' color: '.$s5_color.';  "  onclick="'.$img_click_link.'"  onmouseover= " '.$input_onhover.' "  onmouseout= " '.$input_onhover_out.' " >';
 $o .= '<span class="icon icon-whatsapp2 icon-2 ccw-analytics" data-ccw="style-5-sc" style=" font-size: '.$s5_icon_size.'; "></span>';

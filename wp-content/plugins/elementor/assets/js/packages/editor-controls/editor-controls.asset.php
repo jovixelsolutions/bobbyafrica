@@ -20,6 +20,7 @@ return [
 		'elementor-v2-icons',
 		'elementor-v2-locations',
 		'elementor-v2-query',
+		'elementor-v2-schema',
 		'elementor-v2-session',
 		'elementor-v2-ui',
 		'elementor-v2-utils',

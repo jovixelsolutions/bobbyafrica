@@ -16,8 +16,48 @@ input.input-margin {
 	margin: 0 0 3px 0 !important;
 }
 
-.options .submit {
+.options-form .submit {
 	position: sticky !important;
-	bottom: 1px;
-	float: right;
+	bottom: 0;
+	padding: 15px 10px;
+	background: rgba(240, 240, 241, 0.95);
+	border-top: 1px solid #dcdcdc;
+	z-index: 999;
+	backdrop-filter: blur(5px);
+}
+
+/* Minimal Premium UI tweaks */
+.ccw-settings-field {
+    margin-bottom: 8px;
+}
+.ccw-settings-field select.regular-text {
+    max-width: 25rem;
+}
+.ccw-settings-field label {
+    font-weight: 600;
+    color: #1d2327;
+}
+.ccw-settings-field label:has(input[type="checkbox"]) {
+    font-weight: 400;
+}
+.ccw-settings-field p.description {
+    margin-top: 6px;
+    color: #646970;
+    font-size: 13px;
+    line-height: 1.5;
+}
+.ccw-settings-field input[type="text"],
+.ccw-settings-field select {
+    border-radius: 6px;
+    border: 1px solid #8c8f94;
+    transition: all 0.2s ease;
+}
+.ccw-settings-field input[type="text"]:focus,
+.ccw-settings-field select:focus {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+}
+.form-table th {
+    font-weight: 600;
+    color: #1d2327;
 }

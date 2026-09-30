@@ -40,7 +40,7 @@ if ( ! class_exists( 'HT_CTC_Group_Shortcode' ) ) {
 		 */
 		public function shortcode( $atts = array(), $content = null, $shortcode = '' ) {
 
-			$options   = get_option( 'ht_ctc_group' );
+			$options   = HT_CTC_Utils::get_option( 'ht_ctc_group' );
 			$ht_ctc_os = array();
 
 			$group_id       = esc_attr( $options['group_id'] );
@@ -96,6 +96,10 @@ if ( ! class_exists( 'HT_CTC_Group_Shortcode' ) ) {
 
 			// group_id
 			$group_id = esc_attr( $a['group_id'] );
+
+			// if ( '' === $group_id ) {
+			// return '';
+			// }
 
 			// hide on devices
 			// if 'yes' then hide

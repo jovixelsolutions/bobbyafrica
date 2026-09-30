@@ -280,7 +280,7 @@ function OptinStep() {
 										name="cf_usage_optin"
 										value="yes"
 										label={ __(
-											'I agree to share usage data to help improve CartFlows.',
+											'Help improve CartFlows by sharing non-sensitive usage data.',
 											'cartflows'
 										) }
 										desc={ sprintf(

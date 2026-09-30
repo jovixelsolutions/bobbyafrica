@@ -1,0 +1,77 @@
+/* ==========================================================================
+   THEME TOGGLE
+   ========================================================================== */
+.theme-toggle {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: var(--radius);
+    transition: var(--transition);
+    position: relative;
+}
+
+.theme-toggle:hover {
+    color: var(--text);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.theme-toggle .light-icon,
+.theme-toggle .dark-icon {
+    position: absolute;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+html[data-theme="dark"] .theme-toggle .light-icon {
+    opacity: 1;
+    transform: rotate(0);
+}
+
+html[data-theme="dark"] .theme-toggle .dark-icon {
+    opacity: 0;
+    transform: rotate(90deg);
+}
+
+html[data-theme="light"] .theme-toggle .light-icon {
+    opacity: 0;
+    transform: rotate(-90deg);
+}
+
+html[data-theme="light"] .theme-toggle .dark-icon {
+    opacity: 1;
+    transform: rotate(0);
+}
+
+/* Theme selector styles live in components/dropdowns.css (settings dropdown). */
+
+/* Theme Icon */
+.theme-icon {
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    transition: var(--transition);
+}
+
+.theme-option:has(input:checked) .theme-icon {
+    color: var(--primary-readable);
+}
+
+.theme-option:hover .theme-icon {
+    color: var(--text);
+}
+
+/* Theme Icons Dark Mode */
+html[data-theme="light"] .theme-toggle-dropdown .dark-icon {
+    display: none;
+}
+
+html[data-theme="dark"] .theme-toggle-dropdown .light-icon {
+    display: none;
+}

@@ -366,11 +366,14 @@ function ai1wm_cookies_path( $params ) {
 /**
  * Get error log absolute path
  *
- * @param  string $nonce Log nonce
+ * @param  mixed  $nonce Log file identifier
  * @return string
  */
 function ai1wm_error_path( $nonce ) {
-	return AI1WM_STORAGE_PATH . DIRECTORY_SEPARATOR . sprintf( AI1WM_ERROR_NAME, $nonce );
+	// Build the file name from the base name of a clean string identifier.
+	$nonce = is_scalar( $nonce ) ? str_replace( chr( 0 ), '', (string) $nonce ) : '';
+
+	return AI1WM_STORAGE_PATH . DIRECTORY_SEPARATOR . sprintf( AI1WM_ERROR_NAME, ai1wm_basename( $nonce ) );
 }
 
 /**
@@ -415,7 +418,10 @@ function ai1wm_backup_url( $params ) {
  * @return integer
  */
 function ai1wm_archive_bytes( $params ) {
-	return filesize( ai1wm_archive_path( $params ) );
+	$archive_path = ai1wm_archive_path( $params );
+	clearstatcache( true, $archive_path );
+
+	return filesize( $archive_path );
 }
 
 /**
@@ -2471,6 +2477,13 @@ function ai1wm_allowed_html_tags() {
 		),
 		'br'     => array(),
 		'em'     => array(),
+		'h3'     => array(),
+		'i'      => array(
+			'class'       => array(),
+			'aria-hidden' => array(),
+			'aria-label'  => array(),
+		),
+		'small'  => array(),
 		'strong' => array(),
 		'input'  => array(
 			'type'       => array(),

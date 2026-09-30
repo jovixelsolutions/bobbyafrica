@@ -1,0 +1,258 @@
+/* Segment Control (Radio Buttons) */
+.field-radio-wrapper.segment-control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 0px;
+    padding: 12px 0;
+    border-bottom: 1px solid #f1f5f9;
+    /* padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface); */
+}
+
+.field-radio-wrapper.segment-control:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+/* First item in a segment-control group gets top-rounded corners */
+/* .field-radio-wrapper.segment-control:first-of-type {
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    border: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+} */
+
+/* Last item gets bottom-rounded corners, no bottom border */
+/* .field-radio-wrapper.segment-control:last-of-type {
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    border: 1px solid var(--border);
+    border-top: none;
+    padding-bottom: 12px;
+} */
+
+/* Single item (first AND last) — full card */
+/* .field-radio-wrapper.segment-control:only-of-type {
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+} */
+
+.field-radio-wrapper.segment-control .field-label {
+    /* Center the label text with the optional "?" help toggle (a 24px tap target
+       that otherwise drops ~4px below the text baseline). */
+    /* display: inline-flex;
+    align-items: center; */
+    margin-bottom: 0;
+    font-weight: 500;
+    color: var(--text);
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+.field-radio-wrapper.segment-control .radio-options {
+    position: relative; /* For glider */
+    display: inline-flex;
+    background-color: rgba(0, 0, 0, 0.04);
+    padding: 4px;
+    border-radius: 10px;
+    gap: 0px; /* Gap handled by flex padding if needed, but zero is better for glider */
+    width: 210px; /* Fixed width so 2-option & 3-option controls share the same left/right edges */
+    flex-shrink: 0;
+}
+
+/* The Sliding Indicator */
+.segment-glider {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    height: calc(100% - 8px);
+    width: var(--glider-width, 50%);
+    background: #fff;
+    border-radius: 7px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+    transition: transform 0.4s var(--ease-prism), background-color 0.3s ease, border-color 0.3s ease, width 0.3s ease;
+    z-index: 1;
+    pointer-events: none;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.radio-options[data-count="2"] { --glider-width: calc(50% - 4px); }
+.radio-options[data-count="3"] { --glider-width: calc(33.33% - 4px); }
+
+/* Glider Positioning Logic */
+.radio-options:has(.segment-option:nth-child(1) input:checked) .segment-glider { transform: translateX(0); }
+.radio-options:has(.segment-option:nth-child(2) input:checked) .segment-glider { transform: translateX(100%); }
+.radio-options:has(.segment-option:nth-child(3) input:checked) .segment-glider { transform: translateX(200%); }
+
+/* Glider Color States - Transitions the background of the indicator itself! */
+.radio-options:has(input[value="show"]:checked) .segment-glider,
+.radio-options:has(input[value="checked"]:checked) .segment-glider {
+    background-color: #dcfce7; /* green-100 */
+    border: 1px solid #bbf7d0;
+}
+
+.radio-options:has(input[value="hide"]:checked) .segment-glider,
+.radio-options:has(input[value="unchecked"]:checked) .segment-glider {
+    background-color: #fee2e2; /* red-100 */
+    border: 1px solid #fecaca;
+}
+
+.radio-options:has(input[value="g"]:checked) .segment-glider,
+.radio-options:has(input[value="global"]:checked) .segment-glider {
+    background-color: #f5f3ff; /* violet-50 */
+    border: 1px solid #ddd6fe;
+}
+
+/* Inherited Global States (Visual Reflection) */
+.radio-options:has(input[value="g"][data-global-state="show"]:checked) .segment-glider {
+    background-color: #f0fdf4; /* green-50 */
+    border: 1px dashed #86efac;
+}
+
+.radio-options:has(input[value="g"][data-global-state="hide"]:checked) .segment-glider {
+    background-color: #fef2f2; /* red-50 */
+    border: 1px dashed #fca5a5;
+}
+
+html[data-theme="dark"] .field-radio-wrapper.segment-control .radio-options {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Segment Option */
+.radio-option.segment-option {
+    position: relative;
+    margin: 0;
+    cursor: pointer;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2; /* Above glider */
+}
+
+.radio-option.segment-option:active {
+    transform: scale(0.96);
+    transition: transform 0.1s var(--ease-prism);
+}
+
+/* Hide Actual Radio Input */
+.radio-option.segment-option input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    margin: 0;
+}
+
+/* Span Styling (Default State) */
+.radio-option.segment-option span {
+    display: block;
+    padding: 6px 14px;
+    font-size: 0.825rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background-color: transparent;
+    transition: color 0.3s ease, transform 0.2s ease;
+    user-select: none;
+    white-space: nowrap;
+    text-align: center;
+    width: 100%;
+}
+
+/* Hover State */
+.radio-option.segment-option:hover span {
+    color: var(--text);
+}
+
+/* Checked State - Common Base */
+.radio-option.segment-option input:checked+span {
+    font-weight: 600;
+    color: var(--primary-readable);
+    /* Color handled by specific variant logic below for more precision */
+}
+
+/* Specific Variant Colors for Checked State */
+.radio-option.segment-option input[value="show"]:checked+span,
+.radio-option.segment-option input[value="checked"]:checked+span {
+    color: #166534; /* green-800 */
+}
+
+.radio-option.segment-option input[value="hide"]:checked+span,
+.radio-option.segment-option input[value="unchecked"]:checked+span {
+    color: #991b1b; /* red-800 */
+}
+
+.radio-option.segment-option input[value="g"]:checked+span,
+.radio-option.segment-option input[value="global"]:checked+span {
+    color: #4f46e5; /* indigo-600 */
+}
+
+/* Inherited Global Label Colors */
+.radio-option.segment-option input[value="g"][data-global-state="show"]:checked+span {
+    color: #15803d; /* green-700 */
+}
+
+.radio-option.segment-option input[value="g"][data-global-state="hide"]:checked+span {
+    color: #b91c1c; /* red-700 */
+}
+
+
+/* Old variant styles removed as they are now handled by the glider and updated span logic */
+
+
+/* Dark Mode Adjustments */
+html[data-theme="dark"] .field-radio-wrapper.segment-control {
+    border-bottom-color: #334155;
+    /* slate-700 */
+}
+
+html[data-theme="dark"] .radio-option.segment-option:hover span {
+    background-color: #1e293b;
+    /* slate-800 */
+    color: #f1f5f9;
+}
+
+html[data-theme="dark"] .radio-option.segment-option input:checked+span {
+    background-color: transparent;
+    border-color: transparent;
+    border-bottom: none;
+    color: var(--primary);
+    box-shadow: none;
+}
+
+/* Dark Mode - Variants for Glider */
+html[data-theme="dark"] .radio-options:has(input[value="show"]:checked) .segment-glider {
+    background-color: rgba(34, 197, 94, 0.15);
+    border-color: rgba(74, 222, 128, 0.3);
+}
+
+html[data-theme="dark"] .radio-options:has(input[value="hide"]:checked) .segment-glider {
+    background-color: rgba(239, 68, 68, 0.15);
+    border-color: rgba(248, 113, 113, 0.3);
+}
+
+html[data-theme="dark"] .radio-options:has(input[value="g"]:checked) .segment-glider {
+    background-color: rgba(79, 70, 229, 0.15);
+    border-color: rgba(129, 140, 248, 0.3);
+}
+
+/* Dark Mode - Inherited Global States */
+html[data-theme="dark"] .radio-options:has(input[value="g"][data-global-state="show"]:checked) .segment-glider {
+    background-color: rgba(22, 163, 74, 0.1);
+    border: 1px dashed rgba(74, 222, 128, 0.5);
+}
+
+html[data-theme="dark"] .radio-options:has(input[value="g"][data-global-state="hide"]:checked) .segment-glider {
+    background-color: rgba(220, 38, 38, 0.1);
+    border: 1px dashed rgba(248, 113, 113, 0.5);
+}
+
+/* Dark Mode - Span Colors */
+html[data-theme="dark"] .radio-option.segment-option input[value="show"]:checked+span { color: #4ade80; }
+html[data-theme="dark"] .radio-option.segment-option input[value="hide"]:checked+span { color: #f87171; }
+html[data-theme="dark"] .radio-option.segment-option input[value="g"]:checked+span { color: #818cf8; }
+
+/* Dark Mode - Inherited Span Colors */
+html[data-theme="dark"] .radio-option.segment-option input[value="g"][data-global-state="show"]:checked+span { color: #4ade80; }
+html[data-theme="dark"] .radio-option.segment-option input[value="g"][data-global-state="hide"]:checked+span { color: #f87171; }

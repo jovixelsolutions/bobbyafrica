@@ -196,7 +196,7 @@ class Cartflows_Flow_Post_Type {
 				</div>
 				<div class="contents">
 					<div class="wcf-notice">
-						<p>Upgrade to CartFlows Pro for adding more flows and other features. <a href ="https://cartflows.com/?utm_source=dashboard&utm_medium=free-cartflows&utm_campaign=go-pro" target="_blank"> Click here</a> to upgrade.</p>
+						<p>Upgrade to CartFlows Pro for adding more flows and other features. <a href ="<?php echo esc_url( \Cartflows_Helper::get_upgrade_to_pro_link( '', 'https://cartflows.com/' ) ); ?>" target="_blank"> Click here</a> to upgrade.</p>
 					</div>
 				</div>
 			</div>
@@ -281,7 +281,19 @@ class Cartflows_Flow_Post_Type {
 
 		global $post;
 
-		$first_step = $this->get_first_step_url( $post );
+		$flow = $post;
+
+		// The flow post type is not publicly queryable, so WP drops the query var — resolve the legacy funnel URL by slug.
+		if ( ! $this->is_flow_post_type( $flow ) && ! empty( $_GET[ CARTFLOWS_FLOW_POST_TYPE ] ) && is_string( $_GET[ CARTFLOWS_FLOW_POST_TYPE ] ) ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$slug     = sanitize_title( wp_unslash( $_GET[ CARTFLOWS_FLOW_POST_TYPE ] ) ); //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$flow_obj = ! empty( $slug ) ? get_page_by_path( $slug, OBJECT, CARTFLOWS_FLOW_POST_TYPE ) : null;
+
+			if ( $flow_obj instanceof WP_Post && 'publish' === $flow_obj->post_status ) {
+				$flow = $flow_obj;
+			}
+		}
+
+		$first_step = $this->get_first_step_url( $flow );
 
 		if ( $first_step ) {
 

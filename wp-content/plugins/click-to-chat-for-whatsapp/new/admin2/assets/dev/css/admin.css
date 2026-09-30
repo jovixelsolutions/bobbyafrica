@@ -1,0 +1,50 @@
+/* ==========================================================================
+   ADMIN CSS - CLICK TO CHAT FOR WHATSAPP
+   ========================================================================== */
+
+/* Base Styles */
+@import "./base/variables.css";
+@import "./base/reset.css";
+@import "./base/typography.css";
+@import "./base/icons.css";
+@import "./base/editor.css";
+@import "./base/wp.css";
+
+/* Layout */
+@import "./layout/header.css";
+@import "./layout/sidebar.css";
+@import "./layout/main.css";
+@import "./layout/grid.css";
+
+/* Components */
+@import "./components/buttons.css";
+@import "./components/cards.css";
+@import "./components/inputs.css";
+@import "./components/segment-control.css";
+@import "./components/dropdowns.css";
+@import "./components/tabs.css";
+@import "./components/info-boxes.css";
+@import "./components/pro-features.css";
+@import "./components/pro-upgrade.css";
+@import "./components/repeater.css";
+@import "./components/toggle.css";
+@import "./components/toast.css";
+@import "./components/tooltip.css";
+@import "./components/save-error.css";
+@import "./components/links.css";
+@import "./components/block-content.css";
+@import "./components/block-feature-box.css";
+@import "./components/skeleton.css";
+@import "./components/contextual-panel.css";
+@import "./components/preview-site-view.css";
+
+/* Modules */
+@import "./modules/omni-channel.css";
+@import "./modules/omni-premium.css";
+@import "./modules/omni-delete.css";
+
+/* Base Styles - loads last for safe overrides */
+@import "./base/intl-tel-input.css";
+
+/* Responsive - Should be last to override specific styles if needed */
+@import "./layout/responsive.css";

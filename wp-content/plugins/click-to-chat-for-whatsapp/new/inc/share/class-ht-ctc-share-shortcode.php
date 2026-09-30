@@ -40,7 +40,7 @@ if ( ! class_exists( 'HT_CTC_Share_Shortcode' ) ) {
 		 */
 		public function shortcode( $atts = array(), $content = null, $shortcode = '' ) {
 
-			$options   = get_option( 'ht_ctc_share' );
+			$options   = HT_CTC_Utils::get_option( 'ht_ctc_share' );
 			$ht_ctc_os = array();
 
 			$share_text     = esc_attr( $options['share_text'] );

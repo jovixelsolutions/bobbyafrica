@@ -1,0 +1,663 @@
+/* ==========================================================================
+   FORM INPUTS
+   ========================================================================== */
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    gap: 1rem;
+}
+
+.ctc-admin-dashboard label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text);
+    font-size: 0.95rem;
+}
+
+/* Text & Select Inputs */
+.ctc-admin-dashboard input[type="text"],
+.ctc-admin-dashboard input[type="email"],
+.ctc-admin-dashboard input[type="password"],
+.ctc-admin-dashboard input[type="number"],
+.ctc-admin-dashboard input[type="url"],
+.ctc-admin-dashboard input[type="tel"],
+.ctc-admin-dashboard input[type="time"],
+.ctc-admin-dashboard textarea,
+.ctc-admin-dashboard select {
+    width: 100%;
+    padding: 0.625rem 0.875rem;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    transition: all 0.2s var(--ease-prism);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02);
+    appearance: none;
+    /* Normalize select appearance */
+}
+
+.ctc-admin-dashboard input[type="text"]:hover,
+.ctc-admin-dashboard input[type="email"]:hover,
+.ctc-admin-dashboard input[type="password"]:hover,
+.ctc-admin-dashboard input[type="number"]:hover,
+.ctc-admin-dashboard input[type="url"]:hover,
+.ctc-admin-dashboard input[type="tel"]:hover,
+.ctc-admin-dashboard input[type="time"]:hover,
+.ctc-admin-dashboard textarea:hover,
+.ctc-admin-dashboard select:hover {
+    border-color: var(--text-secondary);
+}
+
+.ctc-admin-dashboard input[type="text"]:focus,
+.ctc-admin-dashboard input[type="email"]:focus,
+.ctc-admin-dashboard input[type="password"]:focus,
+.ctc-admin-dashboard input[type="number"]:focus,
+.ctc-admin-dashboard input[type="url"]:focus,
+.ctc-admin-dashboard input[type="tel"]:focus,
+.ctc-admin-dashboard input[type="time"]:focus,
+.ctc-admin-dashboard textarea:focus,
+.ctc-admin-dashboard select:focus {
+    outline: none;
+    border-color: var(--primary);
+    background-color: var(--surface);
+    box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+html[data-theme="dark"] .ctc-admin-dashboard select {
+    color: var(--text);
+}
+
+.ctc-admin-dashboard input::placeholder,
+.ctc-admin-dashboard textarea::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+/* Invert native clock/calendar icon in dark mode and trigger native dark picker */
+
+html[data-theme="dark"] .ctc-admin-dashboard input[type="time"],
+html[data-theme="dark"] .ctc-admin-dashboard select {
+    color-scheme: dark;
+}
+
+html[data-theme="dark"] .ctc-admin-dashboard input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.5) brightness(1.8);
+    cursor: pointer;
+}
+
+
+.ctc-admin-dashboard textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Custom Select Wrapper */
+/* Custom Select Wrapper */
+/* .select-wrapper {
+    position: relative;
+    display: block;
+}
+
+.select-wrapper select {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    background-image: none !important;
+    padding-inline-end: 2.5rem !important;
+    cursor: pointer;
+    background-color: var(--input-bg);
+}
+
+.select-wrapper::after {
+    content: '';
+    position: absolute;
+    inset-inline-end: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.25rem;
+    height: 1.25rem;
+    background-color: var(--text-secondary);
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'%3E%3Cpath fill-rule='evenodd' d='M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'%3E%3Cpath fill-rule='evenodd' d='M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    pointer-events: none;
+    transition: background-color 0.2s ease;
+    opacity: 0.5;
+    z-index: 2;
+}
+
+.select-wrapper:hover::after {
+    background-color: var(--text);
+    opacity: 1;
+}
+
+.select-wrapper:focus-within::after {
+    background-color: var(--primary);
+    opacity: 1;
+} */
+
+/* Checkbox & Radio */
+.ctc-admin-dashboard input[type="checkbox"],
+.ctc-admin-dashboard input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 1.5rem;
+    /* 24px box to meet the WCAG 2.5.8 minimum touch-target size. */
+    height: 1.5rem;
+    border: 1px solid var(--border);
+    background-color: var(--surface);
+    border-radius: 0.25rem;
+    cursor: pointer;
+    vertical-align: text-bottom;
+    margin-inline-end: 0.5rem;
+    position: relative;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+    /* Inner shadow for depth */
+}
+
+.ctc-admin-dashboard input[type="radio"] {
+    border-radius: 50%;
+}
+
+/* Prevent WordPress default styling from rendering double checkmarks or dots on checked inputs. */
+.ctc-admin-dashboard input[type="checkbox"]:checked::before,
+.ctc-admin-dashboard input[type="checkbox"]:checked::after,
+.ctc-admin-dashboard input[type="radio"]:checked::before,
+.ctc-admin-dashboard input[type="radio"]:checked::after {
+    content: none;
+}
+
+html[data-theme="dark"] .ctc-admin-dashboard input[type="checkbox"]:not(:checked),
+html[data-theme="dark"] .ctc-admin-dashboard input[type="radio"]:not(:checked) {
+    border-color: rgba(255, 255, 255, 0.25);
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Hover States (Unchecked) */
+.ctc-admin-dashboard input[type="checkbox"]:hover:not(:checked),
+.ctc-admin-dashboard input[type="radio"]:hover:not(:checked) {
+    border-color: var(--text-secondary);
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* html[data-theme="dark"] input[type="checkbox"]:hover:not(:checked),
+html[data-theme="dark"] input[type="radio"]:hover:not(:checked) {
+    background-color: rgba(255, 255, 255, 0.08);
+} */
+
+/* Checked State */
+.ctc-admin-dashboard input[type="checkbox"]:checked,
+.ctc-admin-dashboard input[type="radio"]:checked {
+    background-color: var(--control-checked-bg);
+    border-color: var(--control-checked-bg);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    /* Outer shadow when active/filled */
+}
+
+/* Hover State (Checked) */
+.ctc-admin-dashboard input[type="checkbox"]:checked:hover,
+.ctc-admin-dashboard input[type="radio"]:checked:hover {
+    background-color: var(--control-checked-bg-hover);
+    border-color: var(--control-checked-bg-hover);
+}
+
+/* Checkmark Icon */
+.ctc-admin-dashboard input[type="checkbox"]:checked {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='white'%3E%3Cpath fill-rule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clip-rule='evenodd'/%3E%3C/svg%3E");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Radio Dot */
+.ctc-admin-dashboard input[type="radio"]:checked {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8' cy='8' r='3'/%3E%3C/svg%3E");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Focus State */
+.ctc-admin-dashboard input[type="checkbox"]:focus,
+.ctc-admin-dashboard input[type="radio"]:focus {
+    box-shadow: 0 0 0 2px var(--primary-glow), 0 1px 2px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary);
+    outline: none;
+}
+
+/* Color Picker */
+.field-color-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+/* Let the label flex/wrap so a long label never squeezes the color box
+   (keeps all color inputs the same width & left edge across rows). */
+.field-color-wrapper>label {
+    flex: 1;
+    min-width: 0;
+    margin-bottom: 0;
+}
+
+.color-input-group {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    gap: 0.75rem;
+    padding: 0.25rem;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding-inline-end: 0.75rem;
+    transition: all 0.2s ease;
+}
+
+.color-swatch-wrapper {
+    position: relative;
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+}
+
+.ctc-admin-dashboard input[type="color"] {
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    background: none;
+    border-radius: calc(var(--radius-sm) - 2px);
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+.ctc-admin-dashboard input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.ctc-admin-dashboard input[type="color"]::-webkit-color-swatch {
+    border: none;
+    border-radius: calc(var(--radius-sm) - 2px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.no-color-visual {
+    position: absolute;
+    top: 0;
+    inset-inline-start: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: var(--surface);
+    border-radius: calc(var(--radius-sm) - 2px);
+    border: 1px solid var(--border);
+    display: none;
+    z-index: 2;
+}
+
+.color-input-group.is-empty .no-color-visual {
+    display: block;
+}
+
+
+.color-hex-input {
+    border: none !important;
+    background: transparent !important;
+    font-family: monospace;
+    font-size: 0.9rem;
+    color: var(--text);
+    text-transform: uppercase;
+    width: 7rem;
+    padding: 0;
+    margin: 0;
+    height: auto;
+    box-shadow: none !important;
+}
+
+.color-hex-input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/* Keep the clean borderless look for mouse users, but keyboard focus needs a
+   visible ring. Specificity must beat the generic
+   `.ctc-admin-dashboard input[type="text"]:focus` outline:none (its glow
+   box-shadow is also killed by this input's `box-shadow: none !important`). */
+.ctc-admin-dashboard input[type="text"].color-hex-input:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Undo + reset cluster next to the color input */
+.color-field-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    flex-shrink: 0;
+}
+
+/* Undo (back to last saved value) and reset (back to default) buttons.
+   Each shows only when clicking it would change the field. */
+.color-undo-btn,
+.color-default-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 1.75rem;
+    height: 1.75rem;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: var(--surface);
+    cursor: pointer;
+}
+
+.color-undo-btn {
+    color: var(--text-secondary);
+}
+
+.color-undo-btn:hover,
+.color-default-btn:hover {
+    border-color: var(--primary);
+}
+
+/* Only recolor the icon on hover when the button has no color fill
+   (JS sets a contrast-safe icon color on .has-color buttons). */
+.color-undo-btn:not(.has-color):hover {
+    color: var(--primary);
+}
+
+/* visibility (not display) so the row width doesn't jump when they appear */
+.color-undo-btn.is-hidden,
+.color-default-btn.is-hidden {
+    visibility: hidden;
+}
+
+.color-default-btn-swatch {
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    /* Theme-aware border so light swatches (e.g. #ffffff default) stay visible
+       on light surfaces and dark swatches on dark ones. */
+    border: 1px solid var(--border);
+    pointer-events: none;
+}
+
+/* Widget Style & Position */
+.position-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.position-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.position-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.position-field {
+    position: relative;
+}
+
+.position-field .unit {
+    position: absolute;
+    inset-inline-end: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    pointer-events: none;
+}
+
+.info-link {
+    color: var(--primary-readable);
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.info-link:hover {
+    text-decoration: underline;
+    color: var(--primary-readable-hover);
+}
+
+/* Style select options */
+.style-select option {
+    padding: 0.5rem;
+    background-color: var(--surface);
+}
+
+/* Field Column */
+.field-col {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.field-col .form-group {
+    flex: 1;
+}
+
+.ctc-admin-dashboard select {
+    padding: 0.625rem 0.875rem;
+    font-size: 0.875rem;
+    width: 100%
+}
+
+/* Switch Premium */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 3rem;
+    height: 1.75rem;
+    flex-shrink: 0;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--border);
+    /* Default unchecked */
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+    border-radius: 9999px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 1.25rem;
+    width: 1.25rem;
+    left: 0.25rem;
+    bottom: 0.25rem;
+    background-color: white;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+input:checked+.slider {
+    background-color: var(--primary);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 0 4px var(--primary-glow);
+}
+
+input:checked+.slider:before {
+    transform: translateX(1.25rem);
+}
+
+input:disabled+.slider {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Switch Wrapper */
+.field-switch-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: space-between;
+    background: var(--surface);
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+}
+
+.field-switch-wrapper label:first-child {
+    margin-bottom: 0;
+    flex: 1;
+    font-weight: 500;
+}
+
+/* Switch Interface */
+.switch-interface {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    font-weight: 500;
+    margin-inline-start: 4px;
+    border: none;
+}
+
+.switch-interface:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--text);
+}
+
+.switch-interface .dashicons {
+    font-size: 16px;
+    opacity: 0.7;
+}
+
+[data-theme="dark"] .switch-interface:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Adaptive Help Icons */
+.help-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 0;
+    /* Keep a >=24px tap target while the icon stays 16px (WCAG 2.5.8). */
+    min-width: 24px;
+    min-height: 24px;
+    margin-inline-start: 6px;
+    cursor: pointer;
+    color: var(--text-secondary);
+    opacity: 0.5;
+    transition: all 0.2s ease;
+    vertical-align: middle;
+}
+
+.help-toggle:hover {
+    opacity: 1;
+    color: var(--primary-readable);
+    transform: scale(1.1);
+}
+
+.help-toggle .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    /* The dashicons "?" glyph sits ~3px low within its own box (font metric), so it reads
+       off-center next to the label even when the button is vertically centered. Nudge it up. */
+    transform: translateY(-3px);
+}
+
+.form-group .help-click-text {
+    max-height: 0;
+    overflow: hidden;
+    margin-top: 0;
+    margin-bottom: 0;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 13px;
+    line-height: 1.5;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 6px;
+    padding: 0 10px;
+}
+
+[data-theme="dark"] .form-group .help-click-text {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.form-group.help-active .help-click-text {
+    max-height: 500px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    opacity: 1;
+    border-left: 3px solid var(--primary);
+}
+
+.form-group.help-active .help-toggle {
+    opacity: 1;
+    color: var(--primary-readable);
+}
+
+/* Keep focus visible in Windows High Contrast / forced-colors mode (box-shadow focus rings are not rendered there). */
+@media (forced-colors: active) {
+    .ctc-admin-dashboard :is(input, select, textarea, button, a, [tabindex]):focus-visible {
+        outline: 2px solid Highlight;
+        outline-offset: 2px;
+    }
+}

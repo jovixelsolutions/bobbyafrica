@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$s3_options = get_option( 'ht_ctc_s3' );
+$s3_options = HT_CTC_Utils::get_option( 'ht_ctc_s3' );
 
 $img_size = esc_attr( $s3_options['s3_img_size'] );
 if ( '' === $img_size ) {

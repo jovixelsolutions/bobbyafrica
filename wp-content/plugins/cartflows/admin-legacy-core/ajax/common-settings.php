@@ -30,6 +30,18 @@ class CommonSettings extends AjaxBase {
 	private static $instance;
 
 	/**
+	 * URL the client should hard-navigate to after a successful save.
+	 *
+	 * Set by save_other_settings() when the "Switch to New UI" toggle is
+	 * enabled so the dashboard reloads through the new admin loader. Read by
+	 * save_global_settings() and merged into the final response payload so
+	 * do_action() hooks and other side-effects still run before the redirect.
+	 *
+	 * @var string
+	 */
+	private $pending_redirect = '';
+
+	/**
 	 * Initiator
 	 *
 	 * @since 1.0.0
@@ -180,6 +192,15 @@ class CommonSettings extends AjaxBase {
 		$response_data = array(
 			'messsage' => __( 'Successfully saved data!', 'cartflows' ),
 		);
+
+		// If a tab handler queued a redirect (e.g. "Switch to New UI" toggle
+		// was just enabled), pass it through so the client hard-navigates
+		// after save.
+		if ( ! empty( $this->pending_redirect ) ) {
+			$response_data['redirect_to'] = $this->pending_redirect;
+			$response_data['messsage']    = __( 'Switching to the new CartFlows UI…', 'cartflows' );
+		}
+
 		wp_send_json_success( $response_data );
 	}
 
@@ -335,6 +356,18 @@ class CommonSettings extends AjaxBase {
 		if ( isset( $_POST['cf_usage_optin'] ) ) {
 			$enable_non_sensative_data_tracking = sanitize_text_field( $_POST['cf_usage_optin'] );
 			AdminHelper::update_admin_settings_option( 'cf_usage_optin', $enable_non_sensative_data_tracking, false );
+		}
+
+		// "Switch to New UI" — one-shot toggle. When enabled, drop the legacy-admin
+		// option so the next request boots the new admin loader, and queue a redirect
+		// that save_global_settings() will merge into the final response.
+		if ( isset( $_POST['cartflows-switch-to-new-ui'] ) ) {
+			$switch_to_new_ui = sanitize_text_field( wp_unslash( $_POST['cartflows-switch-to-new-ui'] ) );
+
+			if ( 'enable' === $switch_to_new_ui ) {
+				delete_option( 'cartflows-legacy-admin' );
+				$this->pending_redirect = admin_url( 'admin.php?page=' . CARTFLOWS_SLUG );
+			}
 		}
 	}
 

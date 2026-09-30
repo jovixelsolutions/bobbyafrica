@@ -74,8 +74,11 @@ class Ai1wm_Main_Controller {
 	 * @return void
 	 */
 	private function activate_actions() {
-		// Load core functionality
+		// Load admin header styles
 		add_action( 'admin_head', array( $this, 'admin_head' ) );
+
+		// Load core functionality
+		add_action( 'cli_init', array( $this, 'cli_init' ) );
 		add_action( 'admin_init', array( $this, 'init' ) );
 		add_action( 'admin_init', array( $this, 'router' ) );
 		add_action( 'admin_init', array( $this, 'wp_importing' ), 5 );
@@ -91,7 +94,6 @@ class Ai1wm_Main_Controller {
 		add_action( 'plugins_loaded', array( $this, 'ai1wm_loaded' ), 10 );
 		add_action( 'plugins_loaded', array( $this, 'ai1wm_commands' ), 10 );
 		add_action( 'plugins_loaded', array( $this, 'ai1wm_buttons' ), 10 );
-		add_action( 'plugins_loaded', array( $this, 'wp_cli' ), 10 );
 
 		// Register scripts and styles
 		add_action( 'admin_enqueue_scripts', array( $this, 'register_servmask_scripts_and_styles' ), 5 );
@@ -111,6 +113,9 @@ class Ai1wm_Main_Controller {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_reset_scripts_and_styles' ), 5 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_updater_scripts_and_styles' ), 5 );
 
+		// Render the bulk delete button below the backups list
+		add_action( 'ai1wm_backups_left_end', 'Ai1wm_Backups_Controller::bulk_delete_button' );
+
 		// Handle export/import exceptions (errors)
 		add_action( 'ai1wm_status_export_error', array( $this, 'handle_error_cleanup' ), 5, 2 );
 		add_action( 'ai1wm_status_import_error', array( $this, 'handle_error_cleanup' ), 5, 2 );
@@ -127,6 +132,9 @@ class Ai1wm_Main_Controller {
 
 		// Add custom schedules
 		add_filter( 'cron_schedules', array( $this, 'add_cron_schedules' ), 9999 );
+
+		// Map the full-site import meta capability
+		add_filter( 'map_meta_cap', array( $this, 'add_map_meta_cap' ), 9999, 4 );
 	}
 
 	/**
@@ -242,6 +250,12 @@ class Ai1wm_Main_Controller {
 
 		// Add storage folder daily cleanup cron
 		add_action( 'ai1wm_storage_cleanup', 'Ai1wm_Export_Controller::cleanup' );
+
+		// Register REST API routes
+		add_action( 'rest_api_init', 'Ai1wm_Rest_Controller::register_routes' );
+
+		// Let a valid secret_key authenticate read-only poll/log routes after an import wipes user credentials
+		add_filter( 'rest_authentication_errors', 'Ai1wm_Rest_Controller::allow_secret_key_auth', 1000 );
 	}
 
 	/**
@@ -249,7 +263,7 @@ class Ai1wm_Main_Controller {
 	 *
 	 * @return void
 	 */
-	public function wp_cli() {
+	public function cli_init() {
 		if ( defined( 'WP_CLI' ) && count( Ai1wm_Extensions::get() ) === 0 ) {
 			WP_CLI::add_command( 'ai1wm', 'Ai1wm_WP_CLI_Command', array( 'shortdesc' => __( 'All-in-One WP Migration Command', 'all-in-one-wp-migration' ) ) );
 		}
@@ -314,11 +328,15 @@ class Ai1wm_Main_Controller {
 	/**
 	 * Check user role capability
 	 *
+	 * Only administrators are warned. is_super_admin() covers both installs: the
+	 * super admin list on multisite, and delete_users, meaning an administrator, on
+	 * a standalone install.
+	 *
 	 * @return void
 	 */
 	public function check_user_role_capability() {
-		if ( ( $user = wp_get_current_user() ) && in_array( 'administrator', $user->roles ) ) {
-			if ( ! $user->has_cap( 'export' ) || ! $user->has_cap( 'import' ) ) {
+		if ( is_super_admin() ) {
+			if ( ! ( current_user_can( 'ai1wm_export_site' ) || current_user_can( 'ai1wm_import_site' ) ) ) {
 				if ( is_multisite() ) {
 					return add_action( 'network_admin_notices', array( $this, 'missing_role_capability_notice' ) );
 				} else {
@@ -691,7 +709,7 @@ class Ai1wm_Main_Controller {
 		add_menu_page(
 			'All-in-One WP Migration',
 			'All-in-One WP Migration',
-			'export',
+			'ai1wm_export_site',
 			'ai1wm_export',
 			'Ai1wm_Export_Controller::index',
 			'',
@@ -702,7 +720,7 @@ class Ai1wm_Main_Controller {
 			'ai1wm_export',
 			__( 'Export', 'all-in-one-wp-migration' ),
 			__( 'Export', 'all-in-one-wp-migration' ),
-			'export',
+			'ai1wm_export_site',
 			'ai1wm_export',
 			'Ai1wm_Export_Controller::index'
 		);
@@ -711,7 +729,7 @@ class Ai1wm_Main_Controller {
 			'ai1wm_export',
 			__( 'Import', 'all-in-one-wp-migration' ),
 			__( 'Import', 'all-in-one-wp-migration' ),
-			'import',
+			'ai1wm_import_site',
 			'ai1wm_import',
 			'Ai1wm_Import_Controller::index'
 		);
@@ -720,17 +738,17 @@ class Ai1wm_Main_Controller {
 			'ai1wm_export',
 			__( 'Backups', 'all-in-one-wp-migration' ),
 			__( 'Backups', 'all-in-one-wp-migration' ) . ' ' . Ai1wm_Template::get_content( 'main/backups', array( 'count' => Ai1wm_Backups::count_files() ) ),
-			'import',
+			'ai1wm_import_site',
 			'ai1wm_backups',
 			'Ai1wm_Backups_Controller::index'
 		);
 
-		if ( ! ( defined( 'AI1WMVE_PATH' ) || defined( 'AI1WMKE_PATH' ) ) ) {
+		if ( ! ( defined( 'AI1WMVE_PATH' ) || defined( 'AI1WMKE_PATH' ) || defined( 'AI1WMME_PATH' ) || defined( 'AI1WMUE_PATH' ) ) ) {
 			add_submenu_page(
 				'ai1wm_export',
 				__( 'Reset Hub', 'all-in-one-wp-migration' ),
 				__( 'Reset Hub', 'all-in-one-wp-migration' ) . Ai1wm_Template::get_content( 'main/premium-badge' ),
-				'export',
+				'ai1wm_export_site',
 				'ai1wm_reset',
 				'Ai1wm_Reset_Controller::index'
 			);
@@ -739,7 +757,7 @@ class Ai1wm_Main_Controller {
 				'ai1wm_export',
 				__( 'Schedules', 'all-in-one-wp-migration' ),
 				__( 'Schedules', 'all-in-one-wp-migration' ) . Ai1wm_Template::get_content( 'main/premium-badge' ),
-				'export',
+				'ai1wm_export_site',
 				'ai1wm_schedules',
 				'Ai1wm_Schedules_Controller::index'
 			);
@@ -850,7 +868,7 @@ class Ai1wm_Main_Controller {
 				'please_do_not_close_this_browser'    => __( 'Please do not close this browser window or your import will fail', 'all-in-one-wp-migration' ),
 				'backup_encrypted'                    => __( 'The backup is encrypted', 'all-in-one-wp-migration' ),
 				'backup_encrypted_message'            => __( 'Please enter a password to restore the backup', 'all-in-one-wp-migration' ),
-				'submit'                              => __( 'Submit', 'all-in-one-wp-migration' ),
+				'unlock'                              => __( 'Unlock', 'all-in-one-wp-migration' ),
 				'enter_password'                      => __( 'Enter a password', 'all-in-one-wp-migration' ),
 				'repeat_password'                     => __( 'Repeat the password', 'all-in-one-wp-migration' ),
 				'passwords_do_not_match'              => __( 'The passwords do not match', 'all-in-one-wp-migration' ),
@@ -885,6 +903,10 @@ class Ai1wm_Main_Controller {
 
 				// Backups
 				'want_to_delete_this_file'            => __( 'Are you sure you want to delete this backup?', 'all-in-one-wp-migration' ),
+				'want_to_delete_selected_singular'    => __( 'Are you sure you want to delete %d selected backup?', 'all-in-one-wp-migration' ),
+				'want_to_delete_selected_plural'      => __( 'Are you sure you want to delete %d selected backups?', 'all-in-one-wp-migration' ),
+				'delete_selected'                     => __( 'Delete (%d selected)', 'all-in-one-wp-migration' ),
+				'session_expired'                     => __( 'Your session has expired. The page will reload so you can log in again.', 'all-in-one-wp-migration' ),
 				'unlimited'                           => __( 'Backup restore requires the Unlimited Extension. <a href="https://servmask.com/products/unlimited-extension" target="_blank">Get it here</a>', 'all-in-one-wp-migration' ),
 				'restore_from_file'                   => sprintf(
 					/* translators: 1: Link to Unlimited Extension */
@@ -1280,22 +1302,28 @@ class Ai1wm_Main_Controller {
 	 * @return void
 	 */
 	public function init() {
-		$user = $password = false;
+		// Capture the HTTP Basic credentials so a loopback export/import/reset can replay them past
+		// a server-level auth wall. Restrict the capture to a user who can run a migration: init()
+		// runs on admin_init, which also fires on admin-ajax.php and admin-post.php requests that
+		// have not authenticated.
+		if ( current_user_can( 'ai1wm_export_site' ) || current_user_can( 'ai1wm_import_site' ) ) {
+			$user = $password = false;
 
-		// Set username
-		if ( isset( $_SERVER['PHP_AUTH_USER'] ) ) {
-			$user = $_SERVER['PHP_AUTH_USER'];
-		} elseif ( isset( $_SERVER['REMOTE_USER'] ) ) {
-			$user = $_SERVER['REMOTE_USER'];
-		}
+			// Set username
+			if ( isset( $_SERVER['PHP_AUTH_USER'] ) ) {
+				$user = $_SERVER['PHP_AUTH_USER'];
+			} elseif ( isset( $_SERVER['REMOTE_USER'] ) ) {
+				$user = $_SERVER['REMOTE_USER'];
+			}
 
-		// Set password
-		if ( isset( $_SERVER['PHP_AUTH_PW'] ) ) {
-			$password = $_SERVER['PHP_AUTH_PW'];
-		}
+			// Set password
+			if ( isset( $_SERVER['PHP_AUTH_PW'] ) ) {
+				$password = $_SERVER['PHP_AUTH_PW'];
+			}
 
-		if ( $user !== false && $password !== false ) {
-			update_option( AI1WM_AUTH_HEADER, base64_encode( sprintf( '%s:%s', $user, $password ) ) );
+			if ( $user !== false && $password !== false ) {
+				update_option( AI1WM_AUTH_HEADER, base64_encode( sprintf( '%s:%s', $user, $password ) ) );
+			}
 		}
 
 		// Check for updates
@@ -1318,11 +1346,6 @@ class Ai1wm_Main_Controller {
 		add_action( 'wp_ajax_nopriv_ai1wm_export', 'Ai1wm_Export_Controller::export' );
 		add_action( 'wp_ajax_nopriv_ai1wm_import', 'Ai1wm_Import_Controller::import' );
 		add_action( 'wp_ajax_nopriv_ai1wm_status', 'Ai1wm_Status_Controller::status' );
-		add_action( 'wp_ajax_nopriv_ai1wm_feedback', 'Ai1wm_Feedback_Controller::feedback' );
-
-		add_action( 'wp_ajax_nopriv_ai1wm_backup_delete', 'Ai1wm_Backups_Controller::delete' );
-		add_action( 'wp_ajax_nopriv_ai1wm_backup_list', 'Ai1wm_Backups_Controller::backup_list' );
-		add_action( 'wp_ajax_nopriv_ai1wm_backup_add_label', 'Ai1wm_Backups_Controller::add_label' );
 
 		// Private actions
 		add_action( 'wp_ajax_ai1wm_export', 'Ai1wm_Export_Controller::export' );
@@ -1330,15 +1353,20 @@ class Ai1wm_Main_Controller {
 		add_action( 'wp_ajax_ai1wm_status', 'Ai1wm_Status_Controller::status' );
 		add_action( 'wp_ajax_ai1wm_feedback', 'Ai1wm_Feedback_Controller::feedback' );
 
-		add_action( 'wp_ajax_ai1wm_backup_clean', 'Ai1wm_Backups_Controller::clean' );
-		add_action( 'wp_ajax_ai1wm_backup_delete', 'Ai1wm_Backups_Controller::delete' );
-		add_action( 'wp_ajax_ai1wm_backup_list', 'Ai1wm_Backups_Controller::backup_list' );
-		add_action( 'wp_ajax_ai1wm_backup_get_config', 'Ai1wm_Backups_Controller::backup_get_config' );
-		add_action( 'wp_ajax_ai1wm_backup_check_encryption', 'Ai1wm_Backups_Controller::backup_check_encryption' );
-		add_action( 'wp_ajax_ai1wm_backup_list_content', 'Ai1wm_Backups_Controller::backup_list_content' );
-		add_action( 'wp_ajax_ai1wm_backup_add_label', 'Ai1wm_Backups_Controller::add_label' );
-		add_action( 'wp_ajax_ai1wm_backup_download_file', 'Ai1wm_Backups_Controller::download_file' );
-		add_action( 'wp_ajax_ai1wm_backup_download_backup', 'Ai1wm_Backups_Controller::download_backup' );
+		if ( current_user_can( 'ai1wm_import_site' ) ) {
+			add_action( 'wp_ajax_ai1wm_backup_clean', 'Ai1wm_Backups_Controller::clean' );
+			add_action( 'wp_ajax_ai1wm_backup_delete', 'Ai1wm_Backups_Controller::delete' );
+			add_action( 'wp_ajax_ai1wm_backup_list', 'Ai1wm_Backups_Controller::backup_list' );
+			add_action( 'wp_ajax_ai1wm_backup_get_config', 'Ai1wm_Backups_Controller::backup_get_config' );
+			add_action( 'wp_ajax_ai1wm_backup_check_encryption', 'Ai1wm_Backups_Controller::backup_check_encryption' );
+			add_action( 'wp_ajax_ai1wm_backup_list_content', 'Ai1wm_Backups_Controller::backup_list_content' );
+			add_action( 'wp_ajax_ai1wm_backup_add_label', 'Ai1wm_Backups_Controller::add_label' );
+			add_action( 'wp_ajax_ai1wm_backup_download_file', 'Ai1wm_Backups_Controller::download_file' );
+		}
+
+		if ( current_user_can( 'ai1wm_export_site' ) || current_user_can( 'ai1wm_import_site' ) ) {
+			add_action( 'wp_ajax_ai1wm_backup_download_backup', 'Ai1wm_Backups_Controller::download_backup' );
+		}
 	}
 
 	/**
@@ -1371,6 +1399,35 @@ class Ai1wm_Main_Controller {
 		);
 
 		return $schedules;
+	}
+
+	/**
+	 * Add map meta capabilities
+	 *
+	 * @param  array<int, string> $caps    Primitive capabilities required of the user
+	 * @param  string             $cap     Capability being checked
+	 * @param  int                $user_id The user ID
+	 * @param  array<int, mixed>  $args    Adds context to the capability check, typically starting with an object ID
+	 * @return array<int, string>
+	 */
+	public function add_map_meta_cap( $caps, $cap, $user_id, $args ) {
+		if ( $cap === 'ai1wm_export_site' ) {
+			if ( is_multisite() ) {
+				return array( 'export', 'manage_network' );
+			}
+
+			return array( 'export', 'manage_options' );
+		}
+
+		if ( $cap === 'ai1wm_import_site' ) {
+			if ( is_multisite() ) {
+				return array( 'import', 'manage_network' );
+			}
+
+			return array( 'import', 'manage_options' );
+		}
+
+		return $caps;
 	}
 
 	/**

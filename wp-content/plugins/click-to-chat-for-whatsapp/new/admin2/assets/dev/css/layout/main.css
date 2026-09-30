@@ -1,0 +1,95 @@
+/* ==========================================================================
+   MAIN LAYOUT
+   ========================================================================== */
+
+/* Dashboard Wrapper */
+.ctc-admin-dashboard {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    /* Clip horizontal overflow without breaking sticky positioning. */
+    overflow-x: clip;
+}
+
+.dashboard-content {
+    display: flex;
+    flex: 1;
+    /* Removed overflow: hidden to allow child sticky elements to work relative to window scroll */
+    /* overflow: hidden; */
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+}
+
+.panel-header {
+    margin-bottom: 2rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.panel-header .panel-title {
+    font-size: 1.75rem;
+    color: var(--text);
+    margin: 0 0 0.5rem 0;
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+.panel-header p {
+    color: var(--text-secondary);
+    margin-bottom: 0;
+}
+
+.settings-panel {
+    display: none;
+    max-width: 860px;
+}
+
+.settings-panel.active {
+    display: block;
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Row / Col Layout */
+.row {
+    display: flex;
+    gap: 1rem;
+}
+
+.col {
+    flex: 1;
+}
+
+@keyframes highlightJump {
+    0% {
+        background-color: transparent;
+    }
+
+    50% {
+        background-color: rgba(234, 179, 8, 0.1);
+    }
+
+    100% {
+        background-color: transparent;
+    }
+}
+
+.ctc-highlight-jump {
+    animation: highlightJump 2s ease-in-out;
+    border-radius: 8px;
+}

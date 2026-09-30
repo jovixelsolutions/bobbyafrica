@@ -641,13 +641,13 @@
 					var val = $( '.show_effect' )
 						.val();
 
-					if ( 'From Center' === val ) {
+					if ( 'center' === val ) {
 						ee = 'ht_ctc_an_entry_center';
 						$( '.ctc_demo_style' )
 							.addClass( ee );
 						$( '.ctc_demo_style' )
 							.show();
-					} else if ( 'From Corner' === val ) {
+					} else if ( 'corner' === val ) {
 						setTimeout( () => {
 							$( '.ctc_demo_style' )
 								.show( 180 );

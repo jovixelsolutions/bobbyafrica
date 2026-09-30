@@ -250,7 +250,9 @@ class Manager extends Base_Object {
 	 * @since 3.1.0
 	 * @access public
 	 *
-	 * @param string $feature_name
+	 * @param string $feature_name       Experiment feature name.
+	 * @param bool   $check_dependencies When true, also require dependency experiments to be active.
+	 *                                   Missing or hidden dependencies are treated as active for compatibility.
 	 *
 	 * @return bool
 	 */
@@ -263,7 +265,16 @@ class Manager extends Base_Object {
 
 		if ( $check_dependencies && isset( $feature['dependencies'] ) && is_array( $feature['dependencies'] ) ) {
 			foreach ( $feature['dependencies'] as $dependency ) {
+				if ( $dependency instanceof Non_Existing_Dependency ) {
+					continue;
+				}
+
 				$dependent_feature = $this->get_features( $dependency->get_name() );
+
+				if ( $this->is_removed_or_hidden_dependency( $dependent_feature ) ) {
+					continue;
+				}
+
 				$feature_state = self::STATE_ACTIVE === $this->get_feature_actual_state( $dependent_feature );
 
 				if ( ! $feature_state ) {
@@ -343,13 +354,11 @@ class Manager extends Base_Object {
 			'name' => 'container',
 			'title' => esc_html__( 'Container', 'elementor' ),
 			'description' => sprintf(
-				/* translators: 1: Link opening tag, 2: Link closing tag, 3: Link opening tag, 4: Link closing tag, 5: Link opening tag, 6: Link closing tag */
-				esc_html__( 'Create advanced layouts and responsive designs with %1$sFlexbox%2$s and %3$sGrid%4$s container elements. Give it a try using the %5$sContainer playground%6$s.', 'elementor' ),
+				/* translators: 1: Link opening tag, 2: Link closing tag, 3: Link opening tag, 4: Link closing tag */
+				esc_html__( 'Create advanced layouts and responsive designs with %1$sFlexbox%2$s and %3$sGrid%4$s container elements.', 'elementor' ),
 				'<a target="_blank" href="https://go.elementor.com/wp-dash-flex-container/">',
 				'</a>',
 				'<a target="_blank" href="https://go.elementor.com/wp-dash-grid-container/">',
-				'</a>',
-				'<a target="_blank" href="https://go.elementor.com/wp-dash-flex-container-playground/">',
 				'</a>'
 			),
 			'release_status' => self::RELEASE_STATUS_STABLE,
@@ -378,6 +387,16 @@ class Manager extends Base_Object {
 				'default_active' => true,
 				'minimum_installation_version' => '3.30.0',
 			],
+		] );
+
+		$this->add_feature( [
+			'name' => 'e_optimized_css_files',
+			'title' => esc_html__( 'Optimized CSS Files', 'elementor' ),
+			'tag' => esc_html__( 'Performance', 'elementor' ),
+			'description' => esc_html__( 'Keeps external CSS files available and consistent for sites behind page caching or a CDN.', 'elementor' ),
+			'release_status' => self::RELEASE_STATUS_ALPHA,
+			'default' => self::STATE_INACTIVE,
+			'generator_tag' => true,
 		] );
 	}
 
@@ -772,18 +791,39 @@ class Manager extends Base_Object {
 
 			// Validate if the current feature dependency is available.
 			foreach ( $feature['dependencies'] as $dependency ) {
-				$dependency_feature = $this->get_features( $dependency->get_name() );
-
-				if ( ! $dependency_feature ) {
-					$rollback( $feature_option_key, self::STATE_INACTIVE );
-
-					throw new Exceptions\Dependency_Exception(
+				if ( $dependency instanceof Non_Existing_Dependency ) {
+					$this->warn_removed_or_hidden_dependency(
 						sprintf(
-							'The feature `%s` has a dependency `%s` that is not available.',
+							'The feature `%s` has a dependency `%s` that is not available in Core.',
 							esc_html( $feature['name'] ),
 							esc_html( $dependency->get_name() )
 						)
 					);
+					continue;
+				}
+
+				$dependency_feature = $this->get_features( $dependency->get_name() );
+
+				if ( ! $dependency_feature ) {
+					$this->warn_removed_or_hidden_dependency(
+						sprintf(
+							'The feature `%s` has a dependency `%s` that is not available in Core.',
+							esc_html( $feature['name'] ),
+							esc_html( $dependency->get_name() )
+						)
+					);
+					continue;
+				}
+
+				if ( $this->is_removed_or_hidden_dependency( $dependency_feature ) ) {
+					$this->warn_removed_or_hidden_dependency(
+						sprintf(
+							'The feature `%1$s` depends on hidden experiment `%2$s`.',
+							esc_html( $feature['name'] ),
+							esc_html( $dependency_feature['name'] )
+						)
+					);
+					continue;
 				}
 
 				$dependency_state = $this->get_feature_actual_state( $dependency_feature );
@@ -938,26 +978,32 @@ class Manager extends Base_Object {
 	/**
 	 * @param array $experimental_data
 	 * @return array
-	 *
-	 * @throws Exceptions\Dependency_Exception If the feature dependency is not initialized or depends on a hidden experiment.
 	 */
 	private function initialize_feature_dependencies( array $experimental_data ): array {
 		foreach ( $experimental_data['dependencies'] as $key => $dependency ) {
 			$feature = $this->get_features( $dependency );
 
 			if ( ! isset( $feature ) ) {
-				// since we must validate the state of each dependency, we have to make sure that dependencies are initialized in the correct order, otherwise, error.
-				throw new Exceptions\Dependency_Exception(
+				$this->warn_removed_or_hidden_dependency(
 					sprintf(
-						'Feature %s cannot be initialized before dependency feature: %s.',
+						'Feature %1$s depends on experiment %2$s that is not registered in Core.',
 						esc_html( $experimental_data['name'] ),
 						esc_html( $dependency )
 					)
 				);
+
+				$experimental_data['dependencies'][ $key ] = $this->create_dependency_class( $dependency, null );
+				continue;
 			}
 
 			if ( ! empty( $feature[ static::TYPE_HIDDEN ] ) ) {
-				throw new Exceptions\Dependency_Exception( 'Depending on a hidden experiment is not allowed.' );
+				$this->warn_removed_or_hidden_dependency(
+					sprintf(
+						'Feature %1$s depends on hidden experiment %2$s.',
+						esc_html( $experimental_data['name'] ),
+						esc_html( $dependency )
+					)
+				);
 			}
 
 			$experimental_data['dependencies'][ $key ] = $this->create_dependency_class( $dependency, $feature );
@@ -965,6 +1011,23 @@ class Manager extends Base_Object {
 		}
 
 		return $experimental_data;
+	}
+
+	private function is_removed_or_hidden_dependency( $dependency_feature ): bool {
+		if ( ! $dependency_feature ) {
+			return true;
+		}
+
+		return ! empty( $dependency_feature[ static::TYPE_HIDDEN ] );
+	}
+
+	private function warn_removed_or_hidden_dependency( string $message ): void {
+		if ( ! defined( 'WP_DEBUG' ) || ! WP_DEBUG ) {
+			return;
+		}
+
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Developer notice; message is escaped.
+		_doing_it_wrong( __METHOD__, esc_html( $message ), ELEMENTOR_VERSION );
 	}
 
 	/**

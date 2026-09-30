@@ -1,0 +1,314 @@
+/* ==========================================================================
+   CONTEXTUAL SETTINGS PANEL
+
+   The settings for the thing you picked, shown at the picker. Pairs with
+   modules/components/layouts/ContextualPanel.js (the drawer) and
+   ContextualTrigger.js (the Customize control that opens it).
+
+   Its own file rather than part of layout/grid.css: the panel is a generic
+   component — the JS documents it for styles, greetings, forms, positions and
+   WooCommerce — so it is not the grid's to own, and scoping it under `.grid`
+   would narrow it to one picker for no reason.
+
+   The TRIGGER and CARET rules below do name `.grid` and `.grid-option`. That
+   mirrors ContextualTrigger.js, which reaches for the same two selectors: the
+   panel is generic, the control that opens it is grid-only for now. They live
+   here, with the feature, rather than in grid.css — one place to look.
+
+   Loaded after layout/grid.css (see admin.css), so these rules sit on top of
+   the tile styles they extend.
+   ========================================================================== */
+
+.ctc-contextual-panel {
+    grid-column: 1 / -1;
+    width: 100%;
+
+    /* No top margin: the grid's own row gap is the whole distance to the tile above,
+       which is what lets the caret below bridge it. */
+    margin: 0 0 0.75rem;
+
+    /* Primary, and 2px: the panel belongs to the selected tile rather than being a
+       card that happens to sit nearby. */
+    border: 2px solid var(--primary);
+    border-radius: var(--radius-sm);
+
+    /*
+     * Theme tokens, no literal fallbacks. `--bg-card` and `--text-secondary` below are the
+     * real names — an earlier `--card-bg` / `--text-muted` resolved to nothing and silently
+     * fell through to a hardcoded white, which read fine in light mode and broke dark mode.
+     * A fallback would hide that same mistake next time, so there isn't one.
+     */
+    background-color: var(--bg-card);
+
+    /* --bg-card is translucent; without the blur the panel reads as washed out rather
+       than frosted. .ctc-card used to supply this. */
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.ctc-contextual-panel.is-open {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/*
+ * A collapsed panel, and the cards of items that are not the open one, stay in the DOM
+ * rather than being removed: they hold unsaved edits, and SettingsManager.collectChanges()
+ * only sees inputs still inside #ctc-settings-form. `hidden` is what takes them out of
+ * flow — stated explicitly rather than left to the UA sheet, because the panel is a grid
+ * child and this has to beat its grid-column placement.
+ */
+.ctc-contextual-panel[hidden],
+.ctc-contextual-card[hidden] {
+    display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Header
+   -------------------------------------------------------------------------- */
+.ctc-contextual-header {
+    padding: 0.875rem 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+
+    /* Inner radius = panel radius - border width, so the curves nest instead of
+       leaving a sliver of border showing around the tint. */
+    border-start-start-radius: calc(var(--radius-sm) - 2px);
+    border-start-end-radius: calc(var(--radius-sm) - 2px);
+    background: var(--primary-light);
+}
+
+/* Typography matched to .ctc-card-header, which the panel no longer inherits. */
+.ctc-contextual-header h3 {
+    margin: 0 0 0.125rem 0;
+    color: var(--text);
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+}
+
+.ctc-contextual-header p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+}
+
+.ctc-contextual-content {
+    padding: 1.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   Scope note — "the same Style 1 everywhere"
+   -------------------------------------------------------------------------- */
+
+/*
+ * A footnote under the fields, not a banner over them.
+ *
+ * It sat in the header twice — as a chip, then as an (i) that opened it — and both put a
+ * caveat above the controls it qualifies. Read in source order it now arrives where a
+ * footnote belongs: after the thing the panel was opened to do.
+ *
+ * Always visible, and plain text. Down here it costs nothing to leave open, which spares
+ * the disclosure entirely; and being real text it can be selected, copied and picked up by
+ * browser page translation, none of which a `data-tip` bubble allows.
+ *
+ * Separated by the same hairline as the header, so the card reads header / fields / note.
+ */
+.ctc-contextual-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.375rem;
+    margin: 0;
+    padding: 0.625rem 1.25rem 0.875rem;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    line-height: 1.5;
+}
+
+/* Held on the first line — the note wraps to two at most panel widths. */
+.ctc-contextual-note .dashicons {
+    flex: 0 0 auto;
+    width: 0.875rem;
+    height: 0.875rem;
+    margin-top: 0.125rem;
+    font-size: 0.875rem;
+    line-height: 0.875rem;
+}
+
+/* --------------------------------------------------------------------------
+   Ownership cue
+   -------------------------------------------------------------------------- */
+
+/*
+ * A caret on the SELECTED TILE pointing down into the panel — not on the panel pointing
+ * up. With four tiles per row and the panel below all of them, this is what says which
+ * tile is being edited.
+ *
+ * On the tile rather than the panel because a caret on the panel would have to be told
+ * where the tile is, which means measuring at open time — and that measurement is stale
+ * the moment anything reflows. Hanging it off the tile lets CSS keep it centered forever.
+ *
+ * `:has()` rather than a JS-toggled class, so no state has to be kept in sync; browsers
+ * without it simply lose the caret. `.grid-option` is already position:relative and its
+ * ::after is the selected check chip, so this uses ::before.
+ */
+.grid:has(> .ctc-contextual-panel.is-open) > .grid-option.selected::before {
+    content: "";
+    position: absolute;
+    bottom: -12px;
+    inset-inline-start: 50%;
+    z-index: 30;
+    width: 16px;
+    height: 8px;
+    margin-inline-start: -8px;
+    background: var(--primary);
+    clip-path: polygon(50% 100%, 0 0, 100% 0);
+}
+
+/* --------------------------------------------------------------------------
+   Colour rows
+   -------------------------------------------------------------------------- */
+
+/*
+ * Label on its own line, controls beneath.
+ *
+ * The base control is label-left / swatch-right, sized for a 520px card. The panel is
+ * bounded by the grid it sits in (~470px, less padding), and the swatch + hex input +
+ * undo/reset cluster needs ~330px of that — leaving the label ~63px, which wrapped
+ * "Icon Color on Hover" onto three lines and clipped it. Giving the label the full width
+ * costs one line and puts every control on a single left edge.
+ */
+.ctc-contextual-card .field-color-wrapper {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.375rem 0.5rem;
+}
+
+.ctc-contextual-card .field-color-wrapper > label {
+    flex: 1 1 100%;
+}
+
+/* `.color-input-group` is flex-shrink:0 by default and would overflow the panel. */
+.ctc-contextual-card .color-input-group {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 100%;
+}
+
+.ctc-contextual-card .color-hex-input {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Customize trigger
+   -------------------------------------------------------------------------- */
+
+/*
+ * Rendered on every option that declares a contextual group, shown only on the selected
+ * one. Choosing a style and editing it are separate intentions, so the panel opens from
+ * this control rather than as a side effect of selection.
+ */
+/*
+ * Base control. A standalone trigger — one placed beside a field rather than on a tile —
+ * gets this and nothing else. The grid turns it into a footer bar below.
+ */
+.ctc-cx-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    padding: 4px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background: var(--bg-card);
+    color: var(--primary-readable);
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.ctc-cx-trigger:hover,
+.ctc-cx-trigger[aria-expanded="true"] {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: #fff;
+}
+
+/* On a tile it is revealed only for the selected option. */
+.grid-option > .ctc-cx-trigger {
+    display: none;
+}
+
+/*
+ * On a tile the trigger is a footer bar, not a floating control.
+ *
+ * In flow, NOT absolute: absolute positioning overlays the tile's sub-text, and
+ * `inset-inline: 0` resolves against the padding box, so the tile's border would show as
+ * a ring around the button and the two radii could never meet. In flow it reserves its
+ * own height, and the negative margins pull it out to the padding-box edges.
+ */
+.grid-option.selected > .ctc-cx-trigger {
+    display: inline-flex;
+    align-self: stretch;
+    gap: 0.25rem;
+    width: auto;
+    min-height: 24px;
+    margin: 0.375rem -0.5rem -0.5rem;
+    padding: 2px 4px;
+    border: 0;
+    border-top: 1px solid var(--border-color);
+    border-radius: 0;
+
+    /* Inner radius = tile radius - tile border width, so the curves nest. */
+    border-end-start-radius: calc(var(--radius) - 2px);
+    border-end-end-radius: calc(var(--radius) - 2px);
+    background: var(--primary-light);
+    color: var(--primary-readable);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    line-height: 1.8;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.grid-option.selected > .ctc-cx-trigger:hover,
+.grid-option.selected > .ctc-cx-trigger[aria-expanded="true"] {
+    background: var(--primary);
+    color: #fff;
+}
+
+.ctc-cx-trigger:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: -2px;
+}
+
+.ctc-cx-trigger .dashicons {
+    flex: 0 0 auto;
+    width: 12px;
+    height: 12px;
+    font-size: 12px;
+    line-height: 12px;
+}
+
+/*
+ * The collapse chevron is a hairline glyph where the pencil is a solid one, so at the
+ * same 12px it reads smaller and lighter beside the bold label. Grow the DRAWN glyph
+ * only — the 12px box above is left alone so the label does not shift sideways when the
+ * icon swaps between states.
+ */
+.ctc-cx-trigger .dashicons-arrow-up-alt2 {
+    font-size: 16px;
+}
+
+/* A tile can be narrower than "Customize" — clip the word, never the icon. */
+.ctc-cx-trigger-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

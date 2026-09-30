@@ -1,18 +1,3 @@
-__( 'Code with AI', 'elementor' );
-__( 'Create with AI', 'elementor' );
-__( 'Animate with AI', 'elementor' );
-__( 'Generate variations with AI', 'elementor' );
-__( 'AI Variation', 'elementor' );
-__( 'Coming soon', 'elementor' );
-__( 'AI Layout', 'elementor' );
-__( 'Build with AI', 'elementor' );
-__( 'Build with AI', 'elementor' );
-__( 'Create any layout with a prompt', 'elementor' );
-__( 'Now you can generate any layout or container for your website’s design.', 'elementor' );
-__( 'Try it', 'elementor' );
-__( 'Analyzing your post to craft an excerpt...', 'elementor' );
-__( 'Write with AI', 'elementor' );
-__( 'Edit with AI', 'elementor' );
 __( 'Craft a catchy slogan for', 'elementor' );
 __( 'Write a strong section header for', 'elementor' );
 __( 'Create a blog title for', 'elementor' );
@@ -79,50 +64,23 @@ __( 'Slightly shift right on hover', 'elementor' );
 __( 'Apply a subtle 3D tilt', 'elementor' );
 __( 'Rotate gently clockwise on hover', 'elementor' );
 __( 'Scale down and move up on hover', 'elementor' );
-__( 'Minimalist design with bold typography about', 'elementor' );
-__( 'Elegant style with serif fonts discussing', 'elementor' );
-__( 'Retro vibe with muted colors and classic fonts about', 'elementor' );
-__( 'Futuristic design with neon accents about', 'elementor' );
-__( 'Professional look with clean lines for', 'elementor' );
-__( 'Earthy tones and organic shapes featuring', 'elementor' );
-__( 'Luxurious theme with rich colors discussing', 'elementor' );
-__( 'Tech-inspired style with modern fonts about', 'elementor' );
-__( 'Warm hues with comforting visuals about', 'elementor' );
-__( 'Change the content to be about [topic]', 'elementor' );
-__( 'Generate lorem ipsum placeholder text for all paragraphs', 'elementor' );
-__( 'Revise the content to focus on [topic] and then translate it into Spanish', 'elementor' );
-__( 'Shift the focus of the content to [topic] in order to showcase our company\'s mission and values', 'elementor' );
-__( 'Alter the content to provide helpful tips related to [topic]', 'elementor' );
-__( 'Adjust the content to include FAQs and answers for common inquiries about [topic]', 'elementor' );
-__( "Press '/' for suggestions or describe the changes you want to apply (optional)...", 'elementor' );
-__( 'Create a unique logo with AI', 'elementor' );
-__( 'Ready to stand out? Let AI turn your vision or idea into a unique, professional vector or logo with just a click.', 'elementor' );
-__( 'Give it a try', 'elementor' );
-__( 'Text', 'elementor' );
-__( 'Images', 'elementor' );
-__( 'Code', 'elementor' );
-__( 'Containers', 'elementor' );
-__( 'Animation', 'elementor' );
-__( 'Get improved results from AI by adding personal context.', 'elementor' );
-__( 'Let’s do it', 'elementor' );
-__( 'You’ve used %s of credits for this AI feature.', 'elementor' );
-__( 'Get maximum access.', 'elementor' );
-__( 'Upgrade now to keep using this feature. You still have credits for other AI features (%s, etc.)',
-		'elementor' );
-__( 'Upgrade now', 'elementor' );
-__( 'Get spot-on suggestions from AI Copilot and AI Context with appropriate designs, layouts, and content for your business.', 'elementor' );
-__( 'Generate professional texts about any topic, in any tone.', 'elementor' );
-__( 'Effortlessly create or enhance stunning images and bring your ideas to life.', 'elementor' );
-__( 'Unleash infinite possibilities with the custom code generator.', 'elementor' );
-__( 'Access 30-days of AI History with the AI Starter plan and 90-days with the Power plan.', 'elementor' );
-__( 'Upgrade Elementor AI', 'elementor' );
-__( 'Get Elementor AI', 'elementor' );
-__( 'Upgrade', 'elementor' );
-__( 'Unlimited access to Elementor AI', 'elementor' );
-__( 'Upgrade', 'elementor' );
-__( 'You’re using a limited license. Get maximum access to Elementor AI.', 'elementor' );
-__( 'Suggested prompts', 'elementor' );
-__( 'Describe the text and tone you want to use', 'elementor' );
+__( 'Write with AI', 'elementor' );
+__( 'Edit with AI', 'elementor' );
+__( 'Analyzing your post to craft an excerpt...', 'elementor' );
+__( 'Create any layout with a prompt', 'elementor' );
+__( 'Now you can generate any layout or container for your website’s design.', 'elementor' );
+__( 'Try it', 'elementor' );
+__( 'AI Layout', 'elementor' );
+__( 'Build with AI', 'elementor' );
+__( 'Build with AI', 'elementor' );
+__( 'Coming soon', 'elementor' );
+__( 'Not Now', 'elementor' );
+__( 'Close', 'elementor' );
+__( 'AI', 'elementor' );
+__( 'Beta', 'elementor' );
+__( 'search', 'elementor' );
+__( 'You’ve used %s credits for this AI feature.', 'elementor' );
+__( 'Upgrade for unlimited access', 'elementor' );
 __( 'It\'s time to upgrade.', 'elementor' );
 __( 'Enjoy the free trial? Upgrade now for unlimited access to built-in image, text and custom code generators.', 'elementor' );
 __( 'Upgrade', 'elementor' );
@@ -165,56 +123,64 @@ __( 'Please upload a file with dimensions less than 2048x2048 pixels.', 'element
 __( 'Temporary external service issue', 'elementor' );
 __( 'It seems that one of our partner services is temporarily unavailable. Please try again in a few minutes.', 'elementor' );
 __( 'Try Again', 'elementor' );
-__( 'You’ve used %s credits for this AI feature.', 'elementor' );
-__( 'Upgrade for unlimited access', 'elementor' );
-__( 'search', 'elementor' );
-__( 'AI', 'elementor' );
-__( 'Beta', 'elementor' );
-__( 'Close', 'elementor' );
-__( 'Not Now', 'elementor' );
+__( 'F', 'elementor' );
+__( 'Last 7 days', 'elementor' );
+__( 'Last 30 days', 'elementor' );
+__( 'Show prompt history', 'elementor' );
+__( 'Loading', 'elementor' );
+__( 'things', 'elementor' );
+__( 'texts', 'elementor' );
+__( 'code', 'elementor' );
+__( 'images', 'elementor' );
+__( 'blocks', 'elementor' );
+__( 'Prompt history modal', 'elementor' );
+__( 'Prepare to be amazed', 'elementor' );
+__( 'This is where you\'ll find all the %s you\'ve generated using Elementor AI.', 'elementor' );
+__( 'History', 'elementor' );
+__( 'Hide prompt history', 'elementor' );
+__( 'Remove item', 'elementor' );
+__( 'Remove', 'elementor' );
+__( 'Reuse prompt', 'elementor' );
+__( 'Reuse prompt', 'elementor' );
+__( 'Restore', 'elementor' );
+__( 'Restore', 'elementor' );
+__( 'Edit result', 'elementor' );
+__( 'Edit', 'elementor' );
+__( 'F j, g:i A', 'elementor' );
+__( 'Want to see your %s generation history for as far as the past 90 days?', 'elementor' );
+__( 'Want to see your %s generation history for the past 90 days?', 'elementor' );
+__( 'Upgrade now', 'elementor' );
+__( 'Describe the text and tone you want to use', 'elementor' );
+__( 'Suggested prompts', 'elementor' );
+__( 'Upgrade', 'elementor' );
+__( 'You’re using a limited license. Get maximum access to Elementor AI.', 'elementor' );
+__( 'Get spot-on suggestions from AI Copilot and AI Context with appropriate designs, layouts, and content for your business.', 'elementor' );
+__( 'Generate professional texts about any topic, in any tone.', 'elementor' );
+__( 'Effortlessly create or enhance stunning images and bring your ideas to life.', 'elementor' );
+__( 'Unleash infinite possibilities with the custom code generator.', 'elementor' );
+__( 'Access 30-days of AI History with the AI Starter plan and 90-days with the Power plan.', 'elementor' );
+__( 'Upgrade Elementor AI', 'elementor' );
+__( 'Get Elementor AI', 'elementor' );
+__( 'Upgrade', 'elementor' );
+__( 'Unlimited access to Elementor AI', 'elementor' );
+__( 'You’ve used %s of credits for this AI feature.', 'elementor' );
+__( 'Get maximum access.', 'elementor' );
+__( 'Upgrade now to keep using this feature. You still have credits for other AI features (%s, etc.)',
+		'elementor' );
+__( 'Upgrade now', 'elementor' );
+__( 'Get improved results from AI by adding personal context.', 'elementor' );
+__( 'Let’s do it', 'elementor' );
+__( 'Text', 'elementor' );
+__( 'Images', 'elementor' );
+__( 'Code', 'elementor' );
+__( 'Containers', 'elementor' );
+__( 'Animation', 'elementor' );
 __( 'AI Variation from library', 'elementor' );
-__( 'Step into the future with Elementor AI', 'elementor' );
-__( 'Create smarter with AI text and code generators built right into the editor.', 'elementor' );
-__( 'I approve the ', 'elementor' );
-__( 'Terms of Service', 'elementor' );
-__( 'Privacy Policy', 'elementor' );
-__( ' of the Elementor AI service.', 'elementor' );
-__( 'This includes consenting to the collection and use of data to improve user experience.', 'elementor' );
-__( 'Get Started', 'elementor' );
-__( 'Simplify language', 'elementor' );
-__( 'Make it longer', 'elementor' );
-__( 'Make it shorter', 'elementor' );
-__( 'Fix spelling & grammar', 'elementor' );
-__( 'Change tone', 'elementor' );
-__( 'Translate to', 'elementor' );
-__( 'Describe the text and tone you want to use...', 'elementor' );
-__( 'Generate text', 'elementor' );
-__( 'Text generated by AI may be inaccurate or offensive.', 'elementor' );
-__( 'New prompt', 'elementor' );
-__( 'Use text', 'elementor' );
-__( 'Regenerate', 'elementor' );
-__( 'Use Layout', 'elementor' );
-__( 'Expand', 'elementor' );
-__( 'Minimize', 'elementor' );
-__( 'Leave Elementor AI?', 'elementor' );
-__( "Your progress will be deleted, and can't be recovered.", 'elementor' );
-__( 'Describe the code you want to use...', 'elementor' );
-__( 'Generate code', 'elementor' );
-__( 'New prompt', 'elementor' );
-__( 'Code generated by AI may be inaccurate.', 'elementor' );
-__( 'Insert', 'elementor' );
-__( 'Here’s a breakdown of what was done for creating the animation', 'elementor' );
-__( 'Describe the animation you want to create...', 'elementor' );
-__( 'Generate Animation', 'elementor' );
-__( 'New prompt', 'elementor' );
-__( 'Use animation', 'elementor' );
-__( 'Step into the future with Elementor AI', 'elementor' );
-__( 'Create smarter with AI text and code generators built right into the editor.', 'elementor' );
-__( 'By clicking "Connect", I approve the ', 'elementor' );
-__( 'Terms of Service', 'elementor' );
-__( 'Privacy Policy', 'elementor' );
-__( ' of the Elementor AI service.', 'elementor' );
-__( 'Connect', 'elementor' );
+__( 'Generate variations with AI', 'elementor' );
+__( 'AI Variation', 'elementor' );
+__( 'Code with AI', 'elementor' );
+__( 'Create with AI', 'elementor' );
+__( 'Animate with AI', 'elementor' );
 __( 'Step into the future with Elementor AI', 'elementor' );
 __( 'Create websites faster with AI built right into the Editor.', 'elementor' );
 __( 'I approve the ', 'elementor' );
@@ -224,13 +190,114 @@ __( ' of the Elementor AI service. ', 'elementor' );
 __( 'This includes consenting to the collection and use of data to improve user experience.', 'elementor' );
 __( 'Get Started', 'elementor' );
 __( 'Connect', 'elementor' );
-__( 'things', 'elementor' );
-__( 'texts', 'elementor' );
-__( 'code', 'elementor' );
-__( 'images', 'elementor' );
-__( 'blocks', 'elementor' );
-__( 'Loading', 'elementor' );
-__( 'Show prompt history', 'elementor' );
+__( 'Step into the future with Elementor AI', 'elementor' );
+__( 'Create smarter with AI text and code generators built right into the editor.', 'elementor' );
+__( 'By clicking "Connect", I approve the ', 'elementor' );
+__( 'Terms of Service', 'elementor' );
+__( 'Privacy Policy', 'elementor' );
+__( ' of the Elementor AI service.', 'elementor' );
+__( 'Connect', 'elementor' );
+__( 'Here’s a breakdown of what was done for creating the animation', 'elementor' );
+__( 'Describe the animation you want to create...', 'elementor' );
+__( 'Generate Animation', 'elementor' );
+__( 'New prompt', 'elementor' );
+__( 'Use animation', 'elementor' );
+__( 'Code generated by AI may be inaccurate.', 'elementor' );
+__( 'Insert', 'elementor' );
+__( 'Describe the code you want to use...', 'elementor' );
+__( 'Generate code', 'elementor' );
+__( 'New prompt', 'elementor' );
+__( 'Reference a website', 'elementor' );
+__( 'Create variations from Template Library', 'elementor' );
+__( 'You’ve got the power.', 'elementor' );
+__( 'Craft your prompt to affect content, images and/or colors - whichever you decide.', 'elementor' );
+__( 'Remove', 'elementor' );
+__( 'Preview', 'elementor' );
+__( 'Loading...', 'elementor' );
+__( 'The app is not responding. Please try again later. (#408)', 'elementor' );
+__( 'AI', 'elementor' );
+__( 'Beta', 'elementor' );
+__( 'Go Pro', 'elementor' );
+__( 'Pro', 'elementor' );
+__( "This result includes an Elementor Pro widget that's not available with your current plan. Upgrade to use all the widgets in this result.", 'elementor' );
+__( 'Upgrade your plan for best results.', 'elementor' );
+__( 'You won’t be able to use layouts with Elementor Pro widgets until you do.', 'elementor' );
+__( 'Go Pro', 'elementor' );
+__( 'Suggested Prompts', 'elementor' );
+__( 'Hero section on [topic] with heading, text, buttons on the right, and an image on the left', 'elementor.com' ) },
+	// Translators: [Topic] is a placeholder for the user - please translate it as well
+	{ text: __( 'About Us section on [topic] with heading, text, and big image below', 'elementor.com' ) },
+	{ text: __( 'Team section with four image boxes showcasing team members', 'elementor.com' ) },
+	// Translators: [Topic] is a placeholder for the user - please translate it as well
+	{ text: __( 'FAQ section with a toggle widget showcasing FAQs about [topic]', 'elementor.com' ) },
+	{ text: __( 'Gallery section with a carousel displaying three images at once', 'elementor.com' ) },
+	// Translators: [Topic] is a placeholder for the user - please translate it as well
+	{ text: __( 'Contact section with a form for [topic]', 'elementor.com' ) },
+	{ text: __( 'Client section featuring companies\' logos', 'elementor.com' ) },
+	// Translators: [Topic] is a placeholder for the user - please translate it as well
+	{ text: __( 'Testimonial section with testimonials, each featuring a star rating and an image', 'elementor.com' ) },
+	// Translators: [Topic] is a placeholder for the user - please translate it as well
+	{ text: __( 'Service section about [topic], showcasing four services with buttons', 'elementor.com' ) },
+	// Translators: [Topic] is a placeholder for the user - please translate it as well
+	{ text: __( 'Stats section with counters displaying data about [topic]', 'elementor.com' ) },
+	{ text: __( 'Quote section with colored background, featuring a centered quote', 'elementor.com' ) },
+	// Translators: [Topic] is a placeholder for the user - please translate it as well
+	{ text: __( 'Pricing section for [topic] with a pricing list', 'elementor.com' ) },
+	// Translators: [Topic] is a placeholder for the user - please translate it as well
+	{ text: __( 'Subscribe section featuring a simple email form, inviting users to stay informed on [topic]', 'elementor.com' ) },
+] );
+
+const IconButtonWithTooltip = ( { tooltip, ...props } ) => (
+	<Tooltip title={ tooltip }>
+		<Box component="span" sx={ { cursor: props.disabled ? 'default' : 'pointer' } }>
+			<IconButton { ...props } />
+		</Box>
+	</Tooltip>
+);
+
+IconButtonWithTooltip.propTypes = {
+	tooltip: PropTypes.string,
+	disabled: PropTypes.bool,
+};
+
+const BackButton = ( props ) => (
+	<IconButtonWithTooltip size="small" color="secondary" tooltip={ __( 'Back to results', 'elementor' );
+__( 'Edit prompt', 'elementor' );
+__( 'Generate', 'elementor' );
+__( "Press '/' for suggested prompts or describe the layout you want to create", 'elementor' );
+__( 'Preview unavailable', 'elementor' );
+__( 'Cancel', 'elementor' );
+__( 'Yes, leave', 'elementor' );
+__( 'Regenerate', 'elementor' );
+__( 'Use Layout', 'elementor' );
+__( 'Expand', 'elementor' );
+__( 'Minimize', 'elementor' );
+__( 'Leave Elementor AI?', 'elementor' );
+__( "Your progress will be deleted, and can't be recovered.", 'elementor' );
+__( 'Back', 'elementor' );
+__( 'Enhance prompt', 'elementor' );
+__( 'Generate again', 'elementor' );
+__( 'Generate images', 'elementor' );
+__( 'Bringing your vision to life...', 'elementor' );
+__( 'Hold tight, painting dreams might take a moment.', 'elementor' );
+__( 'Generate', 'elementor' );
+__( 'Use Image', 'elementor' );
+__( 'Edit', 'elementor' );
+__( 'Edit', 'elementor' );
+__( 'Zoom', 'elementor' );
+__( 'Zoom', 'elementor' );
+__( 'Copy prompt', 'elementor' );
+__( 'Aspect ratio', 'elementor' );
+__( 'Reference strength', 'elementor' );
+__( 'Prompt', 'elementor' );
+__( 'Reference image', 'elementor' );
+__( 'Style', 'elementor' );
+__( 'Image type', 'elementor' );
+__( 'New prompt', 'elementor' );
+__( 'Leave Elementor AI?', 'elementor' );
+__( 'Images will be gone forever and we won’t be able to recover them.', 'elementor' );
+__( 'Cancel', 'elementor' );
+__( 'Yes, leave', 'elementor' );
 __( 'None', 'elementor' );
 __( 'Photographic', 'elementor' );
 __( 'None', 'elementor' );
@@ -287,140 +354,15 @@ __( 'Landscape', 'elementor' );
 __( 'Portrait', 'elementor' );
 __( 'Portrait', 'elementor' );
 __( 'Portrait', 'elementor' );
-__( 'Leave Elementor AI?', 'elementor' );
-__( 'Images will be gone forever and we won’t be able to recover them.', 'elementor' );
-__( 'Cancel', 'elementor' );
-__( 'Yes, leave', 'elementor' );
-__( 'New prompt', 'elementor' );
-__( 'Image type', 'elementor' );
-__( 'Style', 'elementor' );
-__( 'Reference strength', 'elementor' );
-__( 'Prompt', 'elementor' );
-__( 'Reference image', 'elementor' );
-__( 'Aspect ratio', 'elementor' );
-__( 'Use Image', 'elementor' );
-__( 'Edit', 'elementor' );
-__( 'Edit', 'elementor' );
-__( 'Zoom', 'elementor' );
-__( 'Zoom', 'elementor' );
-__( 'Copy prompt', 'elementor' );
-__( 'Generate', 'elementor' );
-__( 'Bringing your vision to life...', 'elementor' );
-__( 'Hold tight, painting dreams might take a moment.', 'elementor' );
-__( 'Generate images', 'elementor' );
-__( 'Generate again', 'elementor' );
-__( 'Enhance prompt', 'elementor' );
-__( 'Back', 'elementor' );
-__( 'Cancel', 'elementor' );
-__( 'Yes, leave', 'elementor' );
-__( 'Preview unavailable', 'elementor' );
-__( 'Hero section on [topic] with heading, text, buttons on the right, and an image on the left', 'elementor.com' ) },
-	// Translators: [Topic] is a placeholder for the user - please translate it as well
-	{ text: __( 'About Us section on [topic] with heading, text, and big image below', 'elementor.com' ) },
-	{ text: __( 'Team section with four image boxes showcasing team members', 'elementor.com' ) },
-	// Translators: [Topic] is a placeholder for the user - please translate it as well
-	{ text: __( 'FAQ section with a toggle widget showcasing FAQs about [topic]', 'elementor.com' ) },
-	{ text: __( 'Gallery section with a carousel displaying three images at once', 'elementor.com' ) },
-	// Translators: [Topic] is a placeholder for the user - please translate it as well
-	{ text: __( 'Contact section with a form for [topic]', 'elementor.com' ) },
-	{ text: __( 'Client section featuring companies\' logos', 'elementor.com' ) },
-	// Translators: [Topic] is a placeholder for the user - please translate it as well
-	{ text: __( 'Testimonial section with testimonials, each featuring a star rating and an image', 'elementor.com' ) },
-	// Translators: [Topic] is a placeholder for the user - please translate it as well
-	{ text: __( 'Service section about [topic], showcasing four services with buttons', 'elementor.com' ) },
-	// Translators: [Topic] is a placeholder for the user - please translate it as well
-	{ text: __( 'Stats section with counters displaying data about [topic]', 'elementor.com' ) },
-	{ text: __( 'Quote section with colored background, featuring a centered quote', 'elementor.com' ) },
-	// Translators: [Topic] is a placeholder for the user - please translate it as well
-	{ text: __( 'Pricing section for [topic] with a pricing list', 'elementor.com' ) },
-	// Translators: [Topic] is a placeholder for the user - please translate it as well
-	{ text: __( 'Subscribe section featuring a simple email form, inviting users to stay informed on [topic]', 'elementor.com' ) },
-] );
-
-const IconButtonWithTooltip = ( { tooltip, ...props } ) => (
-	<Tooltip title={ tooltip }>
-		<Box component="span" sx={ { cursor: props.disabled ? 'default' : 'pointer' } }>
-			<IconButton { ...props } />
-		</Box>
-	</Tooltip>
-);
-
-IconButtonWithTooltip.propTypes = {
-	tooltip: PropTypes.string,
-	disabled: PropTypes.bool,
-};
-
-const BackButton = ( props ) => (
-	<IconButtonWithTooltip size="small" color="secondary" tooltip={ __( 'Back to results', 'elementor' );
-__( 'Edit prompt', 'elementor' );
-__( 'Generate', 'elementor' );
-__( "Press '/' for suggested prompts or describe the layout you want to create", 'elementor' );
-__( 'Suggested Prompts', 'elementor' );
-__( 'Upgrade your plan for best results.', 'elementor' );
-__( 'You won’t be able to use layouts with Elementor Pro widgets until you do.', 'elementor' );
-__( 'Go Pro', 'elementor' );
-__( 'Go Pro', 'elementor' );
-__( 'Pro', 'elementor' );
-__( "This result includes an Elementor Pro widget that's not available with your current plan. Upgrade to use all the widgets in this result.", 'elementor' );
-__( 'AI', 'elementor' );
-__( 'Beta', 'elementor' );
-__( 'Reference a website', 'elementor' );
-__( 'Create variations from Template Library', 'elementor' );
-__( 'Want to see your %s generation history for as far as the past 90 days?', 'elementor' );
-__( 'Want to see your %s generation history for the past 90 days?', 'elementor' );
-__( 'Upgrade now', 'elementor' );
-__( 'F j, g:i A', 'elementor' );
-__( 'Remove item', 'elementor' );
-__( 'Remove', 'elementor' );
-__( 'Reuse prompt', 'elementor' );
-__( 'Reuse prompt', 'elementor' );
-__( 'Restore', 'elementor' );
-__( 'Restore', 'elementor' );
-__( 'Edit result', 'elementor' );
-__( 'Edit', 'elementor' );
-__( 'History', 'elementor' );
-__( 'Hide prompt history', 'elementor' );
-__( 'Prepare to be amazed', 'elementor' );
-__( 'This is where you\'ll find all the %s you\'ve generated using Elementor AI.', 'elementor' );
-__( 'Prompt history modal', 'elementor' );
-__( 'F', 'elementor' );
-__( 'Last 7 days', 'elementor' );
-__( 'Last 30 days', 'elementor' );
-__( 'Resize', 'elementor' );
-__( 'Make an image larger and improve it’s resolution.', 'elementor' );
-__( 'Upscale to', 'elementor' );
-__( 'Current', 'elementor' );
-__( 'Output', 'elementor' );
-__( 'Replace Background', 'elementor' );
-__( 'Generate a new background with a prompt.', 'elementor' );
-__( 'Describe what you want to generate in the background (English only)', 'elementor' );
-__( 'Generate Again', 'elementor' );
-__( 'Replace Background', 'elementor' );
-__( 'Remove Background', 'elementor' );
-__( 'Create an image of the subject with a transparent background', 'elementor' );
-__( 'Remove Background', 'elementor' );
-__( 'Unify images', 'elementor' );
-__( 'Select a set of parameters and AI will automate your adjustments:', 'elementor' );
-__( 'Background Color', 'elementor' );
-__( '%1$d/%2$d selected', 'elementor' );
-__( 'Clear all', 'elementor' );
-__( 'Select all', 'elementor' );
-__( 'Example GIF', 'elementor' );
-__( 'Expand Image', 'elementor' );
-__( 'Position image in it’s new size to generate content around the edges.', 'elementor' );
-__( 'Reference strength', 'elementor' );
-__( 'Original image size', 'elementor' );
-__( 'Isolate Object', 'elementor' );
-__( 'Remove the background, center your object, and add a drop shadow for a clean look.', 'elementor' );
-__( 'Background Color', 'elementor' );
-__( 'Isolate Object', 'elementor' );
-__( 'Generative Fill', 'elementor' );
-__( 'Mark an area and edit it with a prompt.', 'elementor' );
-__( 'Describe what you want to generate in the marked area (English only)', 'elementor' );
 __( 'Undo', 'elementor' );
 __( 'Redo', 'elementor' );
-__( 'Generate with a prompt', 'elementor' );
-__( 'Edit with AI', 'elementor' );
+__( 'Cleanup', 'elementor' );
+__( 'Remove unwanted area from your image.', 'elementor' );
+__( 'describe your image', 'elementor' );
+__( 'Imagine anything create everything', 'elementor' );
+__( 'Generate images by selecting the desired type and style, and entering a prompt.', 'elementor' );
+__( 'Spark your imagination with images generated by our community', 'elementor' );
+__( 'Image preview', 'elementor' );
 __( 'Expand Image', 'elementor' );
 __( 'Generative Fill', 'elementor' );
 __( 'Resize', 'elementor' );
@@ -430,20 +372,78 @@ __( 'Replace Background', 'elementor' );
 __( 'Cleanup', 'elementor' );
 __( 'Isolate object', 'elementor' );
 __( 'Stay tuned! More incredible AI tools are coming your way soon.', 'elementor' );
-__( 'Image preview', 'elementor' );
-__( 'describe your image', 'elementor' );
-__( 'Imagine anything create everything', 'elementor' );
-__( 'Generate images by selecting the desired type and style, and entering a prompt.', 'elementor' );
-__( 'Spark your imagination with images generated by our community', 'elementor' );
-__( 'Cleanup', 'elementor' );
-__( 'Remove unwanted area from your image.', 'elementor' );
+__( 'Generate with a prompt', 'elementor' );
+__( 'Edit with AI', 'elementor' );
 __( 'Undo', 'elementor' );
 __( 'Redo', 'elementor' );
+__( 'Generative Fill', 'elementor' );
+__( 'Mark an area and edit it with a prompt.', 'elementor' );
+__( 'Describe what you want to generate in the marked area (English only)', 'elementor' );
+__( 'Isolate Object', 'elementor' );
+__( 'Remove the background, center your object, and add a drop shadow for a clean look.', 'elementor' );
+__( 'Background Color', 'elementor' );
+__( 'Isolate Object', 'elementor' );
+__( 'Expand Image', 'elementor' );
+__( 'Position image in it’s new size to generate content around the edges.', 'elementor' );
+__( 'Reference strength', 'elementor' );
+__( 'Original image size', 'elementor' );
+__( 'Unify images', 'elementor' );
+__( 'Select a set of parameters and AI will automate your adjustments:', 'elementor' );
+__( 'Background Color', 'elementor' );
+__( '%1$d/%2$d selected', 'elementor' );
+__( 'Clear all', 'elementor' );
+__( 'Select all', 'elementor' );
+__( 'Example GIF', 'elementor' );
+__( 'Remove Background', 'elementor' );
+__( 'Create an image of the subject with a transparent background', 'elementor' );
+__( 'Remove Background', 'elementor' );
+__( 'Replace Background', 'elementor' );
+__( 'Generate a new background with a prompt.', 'elementor' );
+__( 'Describe what you want to generate in the background (English only)', 'elementor' );
+__( 'Generate Again', 'elementor' );
+__( 'Replace Background', 'elementor' );
+__( 'Resize', 'elementor' );
+__( 'Make an image larger and improve it’s resolution.', 'elementor' );
+__( 'Upscale to', 'elementor' );
+__( 'Current', 'elementor' );
+__( 'Output', 'elementor' );
 __( 'Variations', 'elementor' );
 __( 'Create new versions of the original image.', 'elementor' );
-__( 'Loading...', 'elementor' );
-__( 'The app is not responding. Please try again later. (#408)', 'elementor' );
-__( 'Preview', 'elementor' );
-__( 'Remove', 'elementor' );
-__( 'You’ve got the power.', 'elementor' );
-__( 'Craft your prompt to affect content, images and/or colors - whichever you decide.', 'elementor' );
+__( 'Simplify language', 'elementor' );
+__( 'Make it longer', 'elementor' );
+__( 'Make it shorter', 'elementor' );
+__( 'Fix spelling & grammar', 'elementor' );
+__( 'Change tone', 'elementor' );
+__( 'Translate to', 'elementor' );
+__( 'Describe the text and tone you want to use...', 'elementor' );
+__( 'Generate text', 'elementor' );
+__( 'Text generated by AI may be inaccurate or offensive.', 'elementor' );
+__( 'New prompt', 'elementor' );
+__( 'Use text', 'elementor' );
+__( 'Step into the future with Elementor AI', 'elementor' );
+__( 'Create smarter with AI text and code generators built right into the editor.', 'elementor' );
+__( 'I approve the ', 'elementor' );
+__( 'Terms of Service', 'elementor' );
+__( 'Privacy Policy', 'elementor' );
+__( ' of the Elementor AI service.', 'elementor' );
+__( 'This includes consenting to the collection and use of data to improve user experience.', 'elementor' );
+__( 'Get Started', 'elementor' );
+__( 'Create a unique logo with AI', 'elementor' );
+__( 'Ready to stand out? Let AI turn your vision or idea into a unique, professional vector or logo with just a click.', 'elementor' );
+__( 'Give it a try', 'elementor' );
+__( 'Minimalist design with bold typography about', 'elementor' );
+__( 'Elegant style with serif fonts discussing', 'elementor' );
+__( 'Retro vibe with muted colors and classic fonts about', 'elementor' );
+__( 'Futuristic design with neon accents about', 'elementor' );
+__( 'Professional look with clean lines for', 'elementor' );
+__( 'Earthy tones and organic shapes featuring', 'elementor' );
+__( 'Luxurious theme with rich colors discussing', 'elementor' );
+__( 'Tech-inspired style with modern fonts about', 'elementor' );
+__( 'Warm hues with comforting visuals about', 'elementor' );
+__( 'Change the content to be about [topic]', 'elementor' );
+__( 'Generate lorem ipsum placeholder text for all paragraphs', 'elementor' );
+__( 'Revise the content to focus on [topic] and then translate it into Spanish', 'elementor' );
+__( 'Shift the focus of the content to [topic] in order to showcase our company\'s mission and values', 'elementor' );
+__( 'Alter the content to provide helpful tips related to [topic]', 'elementor' );
+__( 'Adjust the content to include FAQs and answers for common inquiries about [topic]', 'elementor' );
+__( "Press '/' for suggestions or describe the changes you want to apply (optional)...", 'elementor' );

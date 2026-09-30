@@ -158,6 +158,23 @@ class Facade {
 	}
 
 	/**
+	 * Get a Facade instance by admin page
+	 *
+	 * @param string $plugin_page The admin page slug
+	 * @return Facade|null The facade instance or null if not found
+	 */
+	public static function get_by_plugin_page( string $plugin_page ): ?Facade {
+		foreach ( self::$instances as $instance ) {
+			$admin_page = $instance->get_config( 'admin_page' );
+			$normalized_plugin_page = explode( 'page=', $admin_page, 2 )[1] ?? $admin_page;
+			if ( $normalized_plugin_page === $plugin_page ) {
+				return $instance;
+			}
+		}
+		return null;
+	}
+
+	/**
 	 * Get a Facade instance by plugin_slug or throw exception if not found
 	 *
 	 * @param string $plugin_slug The plugin slug

@@ -271,6 +271,117 @@ document.addEventListener('DOMContentLoaded', function () {
     startRotation();
   });
 
+  document.querySelectorAll('[data-marketplace-product-carousel]').forEach(function (carousel) {
+    const section = carousel.closest('.marketplace-product-section');
+    const buttons = section ? section.querySelectorAll('[data-carousel-scroll]') : [];
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const firstCard = carousel.querySelector('.product-card');
+    let timer = null;
+
+    if (!firstCard) {
+      return;
+    }
+
+    function scrollByCard(direction) {
+      const styles = window.getComputedStyle(carousel);
+      const gap = parseFloat(styles.columnGap || styles.gap) || 0;
+      const distance = firstCard.getBoundingClientRect().width + gap;
+      const atEnd = carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 4;
+      if (direction > 0 && atEnd) {
+        carousel.scrollTo({ left: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
+        return;
+      }
+      carousel.scrollBy({ left: direction * distance, behavior: reducedMotion ? 'auto' : 'smooth' });
+    }
+
+    function stopRotation() {
+      if (timer) {
+        window.clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    function startRotation() {
+      stopRotation();
+      if (!reducedMotion && !document.hidden && !carousel.matches(':hover') && !carousel.contains(document.activeElement)) {
+        timer = window.setInterval(function () {
+          scrollByCard(1);
+        }, 3500);
+      }
+    }
+
+    buttons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        scrollByCard(Number(button.getAttribute('data-carousel-scroll')) || 1);
+        startRotation();
+      });
+    });
+    carousel.addEventListener('mouseenter', stopRotation);
+    carousel.addEventListener('mouseleave', startRotation);
+    carousel.addEventListener('focusin', stopRotation);
+    carousel.addEventListener('focusout', function (event) {
+      if (!carousel.contains(event.relatedTarget)) {
+        startRotation();
+      }
+    });
+    document.addEventListener('visibilitychange', startRotation);
+    startRotation();
+  });
+
+  document.querySelectorAll('[data-marketplace-banner-carousel]').forEach(function (carousel) {
+    const slides = Array.from(carousel.querySelectorAll('[data-marketplace-banner-slide]'));
+    const buttons = carousel.querySelectorAll('[data-banner-step]');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (slides.length < 2) {
+      return;
+    }
+
+    let activeIndex = 0;
+    let timer = null;
+
+    function showSlide(index) {
+      activeIndex = (index + slides.length) % slides.length;
+      slides.forEach(function (slide, slideIndex) {
+        const active = slideIndex === activeIndex;
+        slide.hidden = !active;
+        slide.setAttribute('aria-hidden', active ? 'false' : 'true');
+      });
+    }
+
+    function stopRotation() {
+      if (timer) {
+        window.clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    function startRotation() {
+      stopRotation();
+      if (!reducedMotion && !document.hidden && !carousel.matches(':hover') && !carousel.contains(document.activeElement)) {
+        timer = window.setInterval(function () {
+          showSlide(activeIndex + 1);
+        }, 5000);
+      }
+    }
+
+    buttons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        showSlide(activeIndex + Number(button.getAttribute('data-banner-step')));
+        startRotation();
+      });
+    });
+    carousel.addEventListener('mouseenter', stopRotation);
+    carousel.addEventListener('mouseleave', startRotation);
+    carousel.addEventListener('focusin', stopRotation);
+    carousel.addEventListener('focusout', function (event) {
+      if (!carousel.contains(event.relatedTarget)) {
+        startRotation();
+      }
+    });
+    document.addEventListener('visibilitychange', startRotation);
+    startRotation();
+  });
+
   const mobileBuyBar = document.querySelector('.marketplace-mobile-buy-bar');
   if (mobileBuyBar) {
     const mobileBuyButton = mobileBuyBar.querySelector('.marketplace-mobile-buy-button');
@@ -314,28 +425,4 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  document.querySelectorAll('[data-product-id]').forEach(function (button) {
-    button.addEventListener('click', function (event) {
-      event.preventDefault();
-      const productId = button.getAttribute('data-product-id');
-      if (!productId) {
-        return;
-      }
-
-      const request = new XMLHttpRequest();
-      request.open('POST', bobbyafricaMarketData.ajaxurl, true);
-      request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-      request.onreadystatechange = function () {
-        if (request.readyState !== 4) {
-          return;
-        }
-
-        if (request.status >= 200 && request.status < 300) {
-          window.location.href = '/bobbyafrica/cart/';
-        }
-      };
-
-      request.send('action=woocommerce_add_to_cart&product_id=' + encodeURIComponent(productId) + '&quantity=1&_wpnonce=' + encodeURIComponent(bobbyafricaMarketData.nonce));
-    });
-  });
 });

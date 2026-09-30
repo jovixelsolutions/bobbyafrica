@@ -98,7 +98,7 @@ class Meta_Options {
 						'label'        => __( 'Cart abandoned cut-off time', 'woo-cart-abandonment-recovery' ),
 						'name'         => 'wcf_ca_cron_run_time',
 						'value'        => wcf_ca()->utils->wcar_get_option( 'wcf_ca_cron_run_time', 20 ),
-						'desc'         => __( 'Consider cart abandoned after above entered minutes of item being added to cart and order not placed.', 'woo-cart-abandonment-recovery' ),
+						'desc'         => __( 'Consider cart abandoned after above entered minutes of item being added to cart and order not placed. Minimum value: 10 minutes.', 'woo-cart-abandonment-recovery' ),
 						'after'        => __( 'minutes', 'woo-cart-abandonment-recovery' ),
 						'min'          => '10',
 						'is_fullwidth' => true,
@@ -108,7 +108,7 @@ class Meta_Options {
 						'label'        => __( 'Abandoned cart lost time', 'woo-cart-abandonment-recovery' ),
 						'name'         => 'wcf_ca_cart_lost_time',
 						'value'        => wcf_ca()->utils->wcar_get_option( 'wcf_ca_cart_lost_time', WCF_DEFAULT_CART_LOST_TIME ),
-						'desc'         => __( 'Consider cart lost after above entered days of item being added to cart and order not placed.', 'woo-cart-abandonment-recovery' ),
+						'desc'         => __( 'Consider cart lost after above entered days of item being added to cart and order not placed. Minimum value: 10 days.', 'woo-cart-abandonment-recovery' ),
 						'after'        => __( 'days', 'woo-cart-abandonment-recovery' ),
 						'min'          => '10',
 						'is_fullwidth' => true,
@@ -280,15 +280,6 @@ class Meta_Options {
 						'name'         => 'wcf_ca_rollback',
 						'desc'         => __( 'Experiencing an issue with the current version of Cart Abandonment Recovery? Roll back to a previous version to help troubleshoot the problem.', 'woo-cart-abandonment-recovery' ),
 						'options'      => $rollback_options,
-						'is_fullwidth' => true,
-					],
-					// TODO: Remove this after new UI is enabled by default.
-					'cartflows_ca_use_new_ui'   => [
-						'type'         => 'ui_switch',
-						'label'        => __( 'Use Legacy Interface', 'woo-cart-abandonment-recovery' ),
-						'name'         => 'cartflows_ca_use_new_ui',
-						'value'        => wcf_ca()->utils->wcar_get_option( 'cartflows_ca_use_new_ui' ),
-						'desc'         => __( 'Switch back to legacy user interface.', 'woo-cart-abandonment-recovery' ),
 						'is_fullwidth' => true,
 					],
 					'wcf-ca-delete-plugin-data' => [
@@ -602,6 +593,105 @@ class Meta_Options {
 				'group'        => 'woo_style',
 				'priority'     => 60,
 			],
+			'modify_product_table'      => [
+				'type'         => 'toggle',
+				'label'        => __( 'Modify Product Table', 'woo-cart-abandonment-recovery' ),
+				'name'         => 'modify_product_table',
+				'desc'         => __( 'Customize how the abandoned products table renders in this email.', 'woo-cart-abandonment-recovery' ),
+				'is_fullwidth' => true,
+				'group'        => 'product_table',
+				'priority'     => 61,
+			],
+			'product_image_size'        => [
+				'type'         => 'select',
+				'label'        => __( 'Product Image Size', 'woo-cart-abandonment-recovery' ),
+				'name'         => 'product_image_size',
+				'desc'         => __( 'Image size in the abandoned products table.', 'woo-cart-abandonment-recovery' ),
+				'options'      => [
+					[
+						'id'   => 'small',
+						'name' => __( 'Small (32px)', 'woo-cart-abandonment-recovery' ),
+					],
+					[
+						'id'   => 'medium',
+						'name' => __( 'Medium (48px)', 'woo-cart-abandonment-recovery' ),
+					],
+					[
+						'id'   => 'large',
+						'name' => __( 'Large (64px)', 'woo-cart-abandonment-recovery' ),
+					],
+				],
+				'is_fullwidth' => true,
+				'group'        => 'product_table',
+				'conditions'   => [
+					'fields' => [
+						[
+							'name'     => 'modify_product_table',
+							'operator' => '==',
+							'value'    => true,
+						],
+					],
+				],
+				'priority'     => 62,
+			],
+			'show_prices_with_tax'      => [
+				'type'         => 'toggle',
+				'label'        => __( 'Show Prices With Tax', 'woo-cart-abandonment-recovery' ),
+				'name'         => 'show_prices_with_tax',
+				'desc'         => __( 'Include tax in prices shown in the abandoned products table.', 'woo-cart-abandonment-recovery' ),
+				'is_fullwidth' => true,
+				'group'        => 'product_table',
+				'conditions'   => [
+					'fields' => [
+						[
+							'name'     => 'modify_product_table',
+							'operator' => '==',
+							'value'    => true,
+						],
+					],
+				],
+				'priority'     => 64,
+			],
+			'visible_columns'           => [
+				'type'         => 'multi-select',
+				'label'        => __( 'Visible Columns', 'woo-cart-abandonment-recovery' ),
+				'name'         => 'visible_columns',
+				'desc'         => __( 'Choose which columns appear in the products table.', 'woo-cart-abandonment-recovery' ),
+				'options'      => [
+					[
+						'id'   => 'image',
+						'name' => __( 'Image', 'woo-cart-abandonment-recovery' ),
+					],
+					[
+						'id'   => 'name',
+						'name' => __( 'Name', 'woo-cart-abandonment-recovery' ),
+					],
+					[
+						'id'   => 'quantity',
+						'name' => __( 'Quantity', 'woo-cart-abandonment-recovery' ),
+					],
+					[
+						'id'   => 'price',
+						'name' => __( 'Price', 'woo-cart-abandonment-recovery' ),
+					],
+					[
+						'id'   => 'subtotal',
+						'name' => __( 'Subtotal', 'woo-cart-abandonment-recovery' ),
+					],
+				],
+				'is_fullwidth' => true,
+				'group'        => 'product_table',
+				'conditions'   => [
+					'fields' => [
+						[
+							'name'     => 'modify_product_table',
+							'operator' => '==',
+							'value'    => true,
+						],
+					],
+				],
+				'priority'     => 66,
+			],
 			'send_test_email'           => [
 				'type'         => 'test_email',
 				'label'        => __( 'Send Test Email To', 'woo-cart-abandonment-recovery' ),
@@ -609,6 +699,61 @@ class Meta_Options {
 				'desc'         => '',
 				'is_fullwidth' => true,
 				'priority'     => 70,
+			],
+			'admin_email_copy_status'   => [
+				'type'         => 'toggle',
+				'label'        => __( 'Send a Copy to Admin', 'woo-cart-abandonment-recovery' ),
+				'name'         => 'admin_email_copy_status',
+				'desc'         => __( 'Send the admin a copy of each recovery email from this template. Test emails are excluded.', 'woo-cart-abandonment-recovery' ),
+				'is_fullwidth' => true,
+				'group'        => 'admin_copy',
+				'priority'     => 72,
+			],
+			'admin_email_copy_type'     => [
+				'type'         => 'select',
+				'label'        => __( 'Copy Type', 'woo-cart-abandonment-recovery' ),
+				'name'         => 'admin_email_copy_type',
+				'desc'         => __( 'BCC keeps the admin address hidden from the customer.', 'woo-cart-abandonment-recovery' ),
+				'options'      => [
+					[
+						'id'   => 'bcc',
+						'name' => __( 'BCC (hidden)', 'woo-cart-abandonment-recovery' ),
+					],
+					[
+						'id'   => 'cc',
+						'name' => __( 'CC (visible)', 'woo-cart-abandonment-recovery' ),
+					],
+				],
+				'is_fullwidth' => true,
+				'group'        => 'admin_copy',
+				'conditions'   => [
+					'fields' => [
+						[
+							'name'     => 'admin_email_copy_status',
+							'operator' => '==',
+							'value'    => true,
+						],
+					],
+				],
+				'priority'     => 74,
+			],
+			'admin_email_copy_address'  => [
+				'type'         => 'text',
+				'label'        => __( 'Copy To Email Address', 'woo-cart-abandonment-recovery' ),
+				'name'         => 'admin_email_copy_address',
+				'desc'         => __( 'Separate multiple email addresses with commas. Defaults to the site admin email when left empty.', 'woo-cart-abandonment-recovery' ),
+				'is_fullwidth' => true,
+				'group'        => 'admin_copy',
+				'conditions'   => [
+					'fields' => [
+						[
+							'name'     => 'admin_email_copy_status',
+							'operator' => '==',
+							'value'    => true,
+						],
+					],
+				],
+				'priority'     => 76,
 			],
 			'override_global_coupon'    => [
 				'type'         => 'toggle',
@@ -808,7 +953,7 @@ class Meta_Options {
 						'label'        => __( 'Cart abandoned cut-off time', 'woo-cart-abandonment-recovery' ),
 						'name'         => 'wcf_ca_cron_run_time',
 						'value'        => wcf_ca()->utils->wcar_get_option( 'wcf_ca_cron_run_time', 20 ),
-						'desc'         => __( 'Consider cart abandoned after above entered minutes of item being added to cart and order not placed.', 'woo-cart-abandonment-recovery' ),
+						'desc'         => __( 'Consider cart abandoned after above entered minutes of item being added to cart and order not placed. Minimum value: 10 minutes.', 'woo-cart-abandonment-recovery' ),
 						'after'        => __( 'minutes', 'woo-cart-abandonment-recovery' ),
 						'min'          => '10',
 						'is_fullwidth' => true,
@@ -818,7 +963,7 @@ class Meta_Options {
 						'label'        => __( 'Abandoned cart lost time', 'woo-cart-abandonment-recovery' ),
 						'name'         => 'wcf_ca_cart_lost_time',
 						'value'        => wcf_ca()->utils->wcar_get_option( 'wcf_ca_cart_lost_time', WCF_DEFAULT_CART_LOST_TIME ),
-						'desc'         => __( 'Consider cart lost after above entered days of item being added to cart and order not placed.', 'woo-cart-abandonment-recovery' ),
+						'desc'         => __( 'Consider cart lost after above entered days of item being added to cart and order not placed. Minimum value: 10 days.', 'woo-cart-abandonment-recovery' ),
 						'after'        => __( 'days', 'woo-cart-abandonment-recovery' ),
 						'min'          => '10',
 						'is_fullwidth' => true,
@@ -986,6 +1131,22 @@ class Meta_Options {
 				],
 			],
 			'priority' => 35,
+		];
+
+		$settings['banner-settings'] = [
+			'title'    => __( 'On-site Banner', 'woo-cart-abandonment-recovery' ),
+			'slug'     => 'banner-settings',
+			'fields'   => [
+				'wcf-ca-banner-status' => [
+					'type'                => 'toggle',
+					'label'               => __( 'Enable On-site Reminder Banner', 'woo-cart-abandonment-recovery' ),
+					'name'                => 'wcf_ca_banner_status',
+					'is_fullwidth'        => true,
+					'is_pro'              => true,
+					'pro_upgrade_message' => __( 'Display a reminder banner to returning shoppers about the items they left in their cart.', 'woo-cart-abandonment-recovery' ),
+				],
+			],
+			'priority' => 40,
 		];
 
 		return $settings;

@@ -1,3 +1,87 @@
-/*! For license information please see env.js.LICENSE.txt */
-!function(){"use strict";var n={d:function(e,t){for(var r in t)n.o(t,r)&&!n.o(e,r)&&Object.defineProperty(e,r,{enumerable:!0,get:t[r]})},o:function(n,e){return Object.prototype.hasOwnProperty.call(n,e)},r:function(n){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(n,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(n,"__esModule",{value:!0})}},e={};n.r(e),n.d(e,{InvalidEnvError:function(){return InvalidEnvError},__resetEnv:function(){return __resetEnv},initEnv:function(){return initEnv},parseEnv:function(){return parseEnv}});let t=null;function initEnv(n){t=n}function __resetEnv(){t=null}function parseEnv(n,e=n=>n){let r={},o=!1;const i=new Proxy(r,{get(n,e){return o||parse(),r[e]},ownKeys(){return o||parse(),Reflect.ownKeys(r)},getOwnPropertyDescriptor(){return{configurable:!0,enumerable:!0}}}),parse=()=>{try{const o=t?.[n];if(!o)throw new InvalidEnvError("Settings object not found");if("object"!=typeof o)throw new InvalidEnvError(`Expected settings to be \`object\`, but got \`${typeof o}\``);r=e(o)}catch(e){if(!(e instanceof InvalidEnvError))throw e;console.warn(`${n} - ${e.message}`),r={}}finally{o=!0}};return{validateEnv:parse,env:i}}class InvalidEnvError extends Error{}(window.elementorV2=window.elementorV2||{}).env=e}(),window.elementorV2.env?.init?.();
+(function() {
+
+//#region \0rolldown/runtime.js
+	var __defProp = Object.defineProperty;
+	var __name = (target, value) => __defProp(target, "name", {
+		value,
+		configurable: true
+	});
+	var __exportAll = (all, no_symbols) => {
+		let target = {};
+		for (var name in all) {
+			__defProp(target, name, {
+				get: all[name],
+				enumerable: true
+			});
+		}
+		if (!no_symbols) {
+			__defProp(target, Symbol.toStringTag, { value: "Module" });
+		}
+		return target;
+	};
+
+//#endregion
+
+//#region packages/packages/libs/env/src/index.ts
+	var src_exports = /* @__PURE__ */ __exportAll({
+		InvalidEnvError: () => InvalidEnvError,
+		__resetEnv: () => __resetEnv,
+		initEnv: () => initEnv,
+		parseEnv: () => parseEnv
+	});
+	var globalEnv = null;
+	function initEnv(env) {
+		globalEnv = env;
+	}
+	function __resetEnv() {
+		globalEnv = null;
+	}
+	function parseEnv(key, parseFn = (rawSettings) => rawSettings) {
+		let parsedEnv = {};
+		let isParsed = false;
+		const proxiedEnv = new Proxy(parsedEnv, {
+			get(target, property) {
+				if (!isParsed) parse();
+				return parsedEnv[property];
+			},
+			ownKeys() {
+				if (!isParsed) parse();
+				return Reflect.ownKeys(parsedEnv);
+			},
+			getOwnPropertyDescriptor() {
+				return {
+					configurable: true,
+					enumerable: true
+				};
+			}
+		});
+		const parse = () => {
+			try {
+				const env = globalEnv?.[key];
+				if (!env) throw new InvalidEnvError(`Settings object not found`);
+				if (typeof env !== "object") throw new InvalidEnvError(`Expected settings to be \`object\`, but got \`${typeof env}\``);
+				parsedEnv = parseFn(env);
+			} catch (e) {
+				if (e instanceof InvalidEnvError) {
+					console.warn(`${key} - ${e.message}`);
+					parsedEnv = {};
+				} else throw e;
+			} finally {
+				isParsed = true;
+			}
+		};
+		return {
+			validateEnv: parse,
+			env: proxiedEnv
+		};
+	}
+	var InvalidEnvError = class extends Error {};
+
+//#endregion
+//#region \0elementor-package-library-entry
+	(window.elementorV2 = window.elementorV2 || {}).env = src_exports;
+
+//#endregion
+})();
+window.elementorV2.env?.init?.();
 //# sourceMappingURL=env.js.map

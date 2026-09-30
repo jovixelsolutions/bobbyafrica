@@ -115,7 +115,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Share_Page' ) ) {
 		 * @return void
 		 */
 		public function share_text_cb() {
-			$options = get_option( 'ht_ctc_share' );
+			$options = HT_CTC_Utils::get_option( 'ht_ctc_share' );
 			$value   = ( isset( $options['share_text'] ) ) ? esc_attr( $options['share_text'] ) : '';
 			?>
 		<div class="row">
@@ -135,7 +135,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Share_Page' ) ) {
 		 * @return void
 		 */
 		public function share_cta_cb() {
-			$options = get_option( 'ht_ctc_share' );
+			$options = HT_CTC_Utils::get_option( 'ht_ctc_share' );
 			$value   = ( isset( $options['call_to_action'] ) ) ? esc_attr( $options['call_to_action'] ) : '';
 			?>
 		<div class="row">
@@ -156,7 +156,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Share_Page' ) ) {
 		 * @return void
 		 */
 		public function share_ctc_webandapi_cb() {
-			$options = get_option( 'ht_ctc_share' );
+			$options = HT_CTC_Utils::get_option( 'ht_ctc_share' );
 
 			if ( isset( $options['webandapi'] ) ) {
 				?>
@@ -192,7 +192,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Share_Page' ) ) {
 		 * @return void
 		 */
 		public function share_ctc_device_cb() {
-			$options = get_option( 'ht_ctc_share' );
+			$options = HT_CTC_Utils::get_option( 'ht_ctc_share' );
 			$dbrow   = 'ht_ctc_share';
 			$type    = 'share';
 
@@ -207,7 +207,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Share_Page' ) ) {
 		 * @return void
 		 */
 		public function share_show_hide_cb() {
-			$options = get_option( 'ht_ctc_share' );
+			$options = HT_CTC_Utils::get_option( 'ht_ctc_share' );
 			$dbrow   = 'ht_ctc_share';
 			$type    = 'share';
 

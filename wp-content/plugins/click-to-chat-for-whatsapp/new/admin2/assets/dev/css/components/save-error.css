@@ -1,0 +1,81 @@
+/* ==========================================================================
+   SAVE ERROR STATE
+   Persistent "Save failed" badge next to the save button, with a details
+   popover (friendly hint + exact technical message + copy button).
+   Shown by UIManager on 'settings:error'; cleared on 'settings:saved'.
+   ========================================================================== */
+
+.ctc-save-error {
+    position: relative;
+    display: none;
+    align-items: center;
+}
+
+.ctc-save-error.visible {
+    display: inline-flex;
+}
+
+.ctc-save-error-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: 8px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--error, #d63638);
+    background: transparent;
+    color: var(--error, #d63638);
+    font-size: 12px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.ctc-save-error-badge .dashicons {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+}
+
+.ctc-save-error-pop {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 10000;
+    width: 320px;
+    max-width: 80vw;
+    padding: 12px;
+    background: var(--bg-card, #fff);
+    color: var(--text, #1d2327);
+    border: 1px solid var(--border-color, #c3c4c7);
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: left;
+}
+
+.ctc-save-error.open .ctc-save-error-pop {
+    display: block;
+}
+
+.ctc-save-error-title {
+    margin: 0 0 6px;
+    font-weight: 600;
+    color: var(--error, #d63638);
+}
+
+.ctc-save-error-hint {
+    margin: 0 0 8px;
+}
+
+.ctc-save-error-detail {
+    display: block;
+    margin: 0 0 8px;
+    padding: 6px 8px;
+    background: var(--bg-secondary, #f6f7f7);
+    color: var(--text-secondary, inherit);
+    border-radius: 4px;
+    word-break: break-word;
+    white-space: pre-wrap;
+}

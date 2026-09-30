@@ -55,6 +55,21 @@ if ( ! class_exists( 'Cartflows_Astra_Compatibility' ) ) :
 			// Update Astra's admin top level menu position.
 			add_filter( 'astra_menu_priority', array( $this, 'update_admin_menu_position' ), 10, 1 );
 
+			// FBT below_* positions — Astra renders the whole summary in one priority-10 callback,
+			// so remap to its per-element after-hooks that fire inside the structure.
+			add_filter( 'cartflows_fbt_position_hooks', array( $this, 'override_fbt_position_hooks' ) );
+		}
+
+		/**
+		 * Remap FBT summary positions to Astra's per-element after-hooks.
+		 *
+		 * @param array<string, array{string, int}> $map Default position hook map.
+		 * @return array<string, array{string, int}>
+		 */
+		public function override_fbt_position_hooks( $map ) {
+			$map['below_title'] = array( 'astra_woo_single_title_after', 10 );
+			$map['below_price'] = array( 'astra_woo_single_price_after', 10 );
+			return $map;
 		}
 
 		/**

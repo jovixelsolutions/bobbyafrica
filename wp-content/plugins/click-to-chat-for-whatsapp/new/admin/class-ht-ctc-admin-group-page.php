@@ -110,7 +110,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Group_Page' ) ) {
 		 * @return void
 		 */
 		public function group_id_cb() {
-			$options = get_option( 'ht_ctc_group' );
+			$options = HT_CTC_Utils::get_option( 'ht_ctc_group' );
 			$value   = ( isset( $options['group_id'] ) ) ? esc_attr( $options['group_id'] ) : '';
 			?>
 		<div class="row">
@@ -129,7 +129,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Group_Page' ) ) {
 		 * @return void
 		 */
 		public function group_cta_cb() {
-			$options = get_option( 'ht_ctc_group' );
+			$options = HT_CTC_Utils::get_option( 'ht_ctc_group' );
 			$value   = ( isset( $options['call_to_action'] ) ) ? esc_attr( $options['call_to_action'] ) : '';
 			?>
 		<div class="row">
@@ -149,7 +149,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Group_Page' ) ) {
 		 * @return void
 		 */
 		public function group_ctc_device_cb() {
-			$options = get_option( 'ht_ctc_group' );
+			$options = HT_CTC_Utils::get_option( 'ht_ctc_group' );
 			$dbrow   = 'ht_ctc_group';
 			$type    = 'group';
 
@@ -163,7 +163,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Group_Page' ) ) {
 		 * @return void
 		 */
 		public function group_show_hide_cb() {
-			$options = get_option( 'ht_ctc_group' );
+			$options = HT_CTC_Utils::get_option( 'ht_ctc_group' );
 			$dbrow   = 'ht_ctc_group';
 			$type    = 'group';
 

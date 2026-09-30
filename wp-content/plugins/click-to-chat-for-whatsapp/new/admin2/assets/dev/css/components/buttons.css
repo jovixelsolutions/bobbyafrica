@@ -1,0 +1,188 @@
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+.save-button {
+    /* Single-cell grid: the three states (default / saving / saved) stack in
+       the same cell, so the button is always as wide as its widest label and
+       nothing in the header shifts when it swaps state. Sizing to the widest
+       label rather than a fixed min-width is what makes this hold up in
+       translation, where "Save Changes" and "Saved" differ by more than they
+       do in English. */
+    display: grid;
+    grid-template-areas: "state";
+    align-items: center;
+    justify-items: center;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    color: white;
+    border: none;
+    border-radius: var(--radius-pill);
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow-bloom);
+    position: relative;
+    overflow: hidden;
+}
+
+.save-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    inset-inline-start: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: inset-inline-start 0.6s var(--ease-prism);
+}
+
+.save-button:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 15px 30px -10px var(--primary-glow);
+}
+
+.save-button:hover::before {
+    inset-inline-start: 100%;
+}
+
+.save-button:active {
+    transform: translateY(1px) scale(0.98);
+    filter: brightness(0.9);
+}
+
+/* All three share the cell. `visibility`, not `display`, so the inactive ones
+   keep reserving their width — and stay out of the accessibility tree, so the
+   button's name is only ever the state on screen. */
+.save-button .default-state,
+.save-button .loading-state,
+.save-button .saved-state {
+    grid-area: state;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    visibility: hidden;
+}
+
+/* Which one shows is driven entirely by a class on the button
+   (SettingsManager.setSaveButtonState) — no inline styles to fight. */
+.save-button .default-state,
+.save-button.is-loading .loading-state,
+.save-button.is-saved .saved-state {
+    visibility: visible;
+}
+
+.save-button.is-loading .default-state,
+.save-button.is-saved .default-state {
+    visibility: hidden;
+}
+
+/* Hide text inside default/loading state on mobile if needed, though responsive.css handles this better */
+/* For now, rely on responsible.css to hide text inside save-button */
+
+.save-button .dashicons,
+.save-button .ctc-icon {
+    font-size: 1.25rem;
+    /* Fallback for dashicons */
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+/* Feature Button */
+.pro-feature-btn {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.pro-feature-btn:hover {
+    border-color: #f59e0b;
+    color: #f59e0b;
+    background-color: rgba(245, 158, 11, 0.05);
+}
+
+/* Dashicons ship a fixed 20px box; at 0.75rem the glyph sat top-left inside it
+   and rode ~4px above the label. Let the box follow the glyph instead. */
+.pro-feature-btn .dashicons {
+    margin-inline-start: 0.5rem;
+    font-size: 0.75rem;
+    width: auto;
+    height: auto;
+    line-height: 1;
+    transition: transform 0.2s ease;
+}
+
+/* The mark is the external-link arrow, so the nudge follows it: out and up. */
+.pro-feature-btn:hover .dashicons {
+    transform: translate(2px, -2px);
+}
+
+
+/* Unsaved Changes Indicator */
+.save-button.has-unsaved-changes {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    box-shadow: 0 0 30px -5px rgba(245, 158, 11, 0.45);
+}
+
+.save-button.has-unsaved-changes:hover {
+    box-shadow: 0 15px 30px -10px rgba(245, 158, 11, 0.45);
+}
+
+/* Saved confirmation — deliberately the SAME paint as "Saving…" and as the
+   idle button. Colour on this button carries one meaning only: amber when
+   changes are waiting, brand when they are not. Idle, saving and saved are all
+   "nothing pending", so they look alike, and the only colour event in the whole
+   cycle is the amber that appears the moment you have something to save. A
+   green here would make colour carry a second, unrelated meaning at the same
+   time, which is what made the old green sit oddly among everything else.
+
+   What marks the confirmation instead: the label becomes "Saved", the spinner
+   becomes a check, and that check scales in (below) — all of it where the user
+   is already looking, since they just clicked here. Green still exists as the
+   success signal, in the toast, for anyone who looked away.
+
+   Spelled out rather than simply omitting the rule, because a mid-flight edit
+   can leave .has-unsaved-changes on the button at the same time; without this
+   the confirmation would flash amber and read as "still not saved". */
+.save-button.is-saved,
+.save-button.is-saved.has-unsaved-changes {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    box-shadow: var(--shadow-bloom);
+}
+
+.save-button.is-saved:hover {
+    box-shadow: 0 15px 30px -10px var(--primary-glow);
+}
+
+/* The check arrives with the state swap rather than fading in with the
+   button, which reads as confirmation instead of decoration. */
+.save-button.is-saved .saved-state .ctc-icon {
+    animation: ctcSavedCheck 0.28s var(--ease-prism) both;
+}
+
+@keyframes ctcSavedCheck {
+    from {
+        opacity: 0;
+        transform: scale(0.6);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .save-button.is-saved .saved-state .ctc-icon {
+        animation: none;
+    }
+}

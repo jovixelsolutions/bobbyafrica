@@ -1,3 +1,185 @@
-/*! For license information please see unlock-v4-promo.js.LICENSE.txt */
-!function(){"use strict";var e={"./packages/apps/unlock-v4-promo/src/components/atomic-elements-promo.tsx":function(e,t,o){o.r(t),o.d(t,{AtomicElementsPromo:function(){return AtomicElementsPromo}});var r=o("react"),n=o("@elementor/editor-current-user"),i=o("@elementor/editor-notifications"),s=o("@elementor/editor-ui"),a=o("@elementor/http-client"),c=o("@elementor/ui"),l=o("@wordpress/i18n"),m=o("./packages/apps/unlock-v4-promo/src/hooks/use-promo-suppressed-message.ts");const p="https://assets.elementor.com/v4-promotion/v1/images/atomic_elements_section_260.png",u="https://go.elementor.com/wp-dash-opt-in-v4-help-center/";function AtomicElementsPromo(){const[e,t]=(0,m.usePromoSuppressedMessage)(),o=(0,n.getCurrentUser)()?.capabilities?.includes("manage_options"),_=(0,r.useCallback)(async()=>{try{(await(0,a.httpService)().post("elementor/v1/operations/opt-in-v4")).data.success&&window.location.reload()}catch{(0,i.notify)({type:"error",message:(0,l.__)("Failed to activate Atomic elements","elementor"),id:"atomic-elements-promo-error"})}},[]);return e||!o?null:r.createElement(s.ThemeProvider,null,r.createElement(c.Divider,null),r.createElement(c.Box,{sx:{bgcolor:"background.default",display:"flex",flexDirection:"column"}},r.createElement(c.Box,{sx:{display:"flex",alignItems:"center",gap:1,pl:2.5,pr:1,py:1}},r.createElement(c.Typography,{variant:"subtitle2",sx:{flexGrow:1,gap:1,display:"flex",alignItems:"center"}},(0,l.__)("Atomic Elements","elementor"),r.createElement(c.Chip,{label:(0,l.__)("New","elementor"),size:"tiny",variant:"standard",color:"secondary"})),r.createElement(c.CloseButton,{slotProps:{icon:{fontSize:"small"}},onClick:t})),r.createElement(c.Box,{sx:{maxHeight:205,mx:2,overflow:"hidden"}},r.createElement(c.Box,{component:"img",src:p,alt:"",sx:{width:"100%",objectFit:"cover",objectPosition:"center",display:"block"}})),r.createElement(c.Box,{sx:{pl:2.5,pr:4,pt:2}},r.createElement(c.Typography,{variant:"caption",color:"text.tertiary"},(0,l.__)("Build with modern, flexible elements designed for reusable styles and cleaner layouts. Your existing site and content stay exactly the same.","elementor"))),r.createElement(c.Box,{sx:{display:"flex",justifyContent:"flex-end",gap:1,pb:1.5,pl:2,pr:2.5,pt:1}},r.createElement(c.Button,{variant:"text",size:"small",color:"secondary",href:u,target:"_blank"},(0,l.__)("Learn more","elementor")),r.createElement(c.Button,{variant:"contained",size:"small",color:"inherit",sx:{bgcolor:"text.primary",color:"background.paper","&:hover":{bgcolor:"text.secondary",color:"background.paper"}},onClick:_},(0,l.__)("Activate now","elementor")))),r.createElement(c.Divider,null))}},"./packages/apps/unlock-v4-promo/src/hooks/use-promo-suppressed-message.ts":function(e,t,o){o.r(t),o.d(t,{usePromoSuppressedMessage:function(){return usePromoSuppressedMessage}});var r=o("react"),n=o("@elementor/editor-current-user"),i=o("@elementor/editor-notifications"),s=o("@wordpress/i18n");const a="atomic_elements_promo",usePromoSuppressedMessage=()=>{const[e,t]=(0,n.useSuppressedMessage)(a),o=(0,r.useCallback)(()=>{e||(t(),(0,i.notify)({type:"default",message:(0,s.__)("You can enable the Atomic editor anytime from Editor Settings.","elementor"),id:a}))},[e,t]);return[e,o]}},"./packages/apps/unlock-v4-promo/src/init.ts":function(e,t,o){o.r(t),o.d(t,{init:function(){return init}});var r=o("@elementor/editor-elements-panel-notice"),n=o("./packages/apps/unlock-v4-promo/src/components/atomic-elements-promo.tsx");function init(){const{experimentalFeatures:e={}}=window.elementorCommon?.config||{},t=e?.e_atomic_elements,o=e?.container;!t&&o&&(0,r.register)(n.AtomicElementsPromo)}},"@elementor/editor-current-user":function(e){e.exports=window.elementorV2.editorCurrentUser},"@elementor/editor-elements-panel-notice":function(e){e.exports=window.elementorV2.editorElementsPanelNotice},"@elementor/editor-notifications":function(e){e.exports=window.elementorV2.editorNotifications},"@elementor/editor-ui":function(e){e.exports=window.elementorV2.editorUi},"@elementor/http-client":function(e){e.exports=window.elementorV2.httpClient},"@elementor/ui":function(e){e.exports=window.elementorV2.ui},"@wordpress/i18n":function(e){e.exports=window.wp.i18n},react:function(e){e.exports=window.React}},t={};function __webpack_require__(o){var r=t[o];if(void 0!==r)return r.exports;var n=t[o]={exports:{}};return e[o](n,n.exports,__webpack_require__),n.exports}__webpack_require__.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return __webpack_require__.d(t,{a:t}),t},__webpack_require__.d=function(e,t){for(var o in t)__webpack_require__.o(t,o)&&!__webpack_require__.o(e,o)&&Object.defineProperty(e,o,{enumerable:!0,get:t[o]})},__webpack_require__.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},__webpack_require__.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})};var o={};!function(){__webpack_require__.r(o),__webpack_require__.d(o,{AtomicElementsPromo:function(){return t.AtomicElementsPromo},init:function(){return e.init}});var e=__webpack_require__("./packages/apps/unlock-v4-promo/src/init.ts"),t=__webpack_require__("./packages/apps/unlock-v4-promo/src/components/atomic-elements-promo.tsx")}(),(window.elementorV2=window.elementorV2||{}).unlockV4Promo=o}(),window.elementorV2.unlockV4Promo?.init?.();
+(function(_elementor_editor_elements_panel_notice, react, _elementor_editor_current_user, _elementor_editor_notifications, _elementor_editor_ui, _elementor_http_client, _elementor_ui, _wordpress_i18n) {
+
+//#region \0rolldown/runtime.js
+	var __create = Object.create;
+	var __defProp = Object.defineProperty;
+	var __name = (target, value) => __defProp(target, "name", {
+		value,
+		configurable: true
+	});
+	var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+	var __getOwnPropNames = Object.getOwnPropertyNames;
+	var __getProtoOf = Object.getPrototypeOf;
+	var __hasOwnProp = Object.prototype.hasOwnProperty;
+	var __exportAll = (all, no_symbols) => {
+		let target = {};
+		for (var name in all) {
+			__defProp(target, name, {
+				get: all[name],
+				enumerable: true
+			});
+		}
+		if (!no_symbols) {
+			__defProp(target, Symbol.toStringTag, { value: "Module" });
+		}
+		return target;
+	};
+	var __copyProps = (to, from, except, desc) => {
+		if (from && typeof from === "object" || typeof from === "function") {
+			for (var keys = __getOwnPropNames(from), i = 0, n = keys.length, key; i < n; i++) {
+				key = keys[i];
+				if (!__hasOwnProp.call(to, key) && key !== except) {
+					__defProp(to, key, {
+						get: ((k) => from[k]).bind(null, key),
+						enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable
+					});
+				}
+			}
+		}
+		return to;
+	};
+	var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", {
+		value: mod,
+		enumerable: true
+	}) : target, mod));
+
+//#endregion
+react = __toESM(react);
+
+//#region packages/apps/unlock-v4-promo/src/hooks/use-promo-suppressed-message.ts
+	var MESSAGE_KEY = "atomic_elements_promo";
+	var usePromoSuppressedMessage = () => {
+		const [suppressed, setSuppressMessage] = (0, _elementor_editor_current_user.useSuppressedMessage)(MESSAGE_KEY);
+		return [suppressed, (0, react.useCallback)(() => {
+			if (!suppressed) {
+				setSuppressMessage();
+				(0, _elementor_editor_notifications.notify)({
+					type: "default",
+					message: (0, _wordpress_i18n.__)("You can enable the Atomic editor anytime from Editor Settings.", "elementor"),
+					id: MESSAGE_KEY
+				});
+			}
+		}, [suppressed, setSuppressMessage])];
+	};
+
+//#endregion
+//#region packages/apps/unlock-v4-promo/src/components/atomic-elements-promo.tsx
+	var PROMO_IMAGE = "https://assets.elementor.com/v4-promotion/v1/images/atomic_elements_section_260.png";
+	var LEARN_MORE_URL = "https://go.elementor.com/wp-dash-opt-in-v4-help-center/";
+	function AtomicElementsPromo() {
+		const [suppressed, toggleSuppressMessage] = usePromoSuppressedMessage();
+		const isAdmin = (0, _elementor_editor_current_user.getCurrentUser)()?.capabilities?.includes("manage_options");
+		const activateAtomicElements = (0, react.useCallback)(async () => {
+			try {
+				if ((await (0, _elementor_http_client.httpService)().post("elementor/v1/operations/opt-in-v4")).data.success) window.location.reload();
+			} catch {
+				(0, _elementor_editor_notifications.notify)({
+					type: "error",
+					message: (0, _wordpress_i18n.__)("Failed to activate Atomic elements", "elementor"),
+					id: "atomic-elements-promo-error"
+				});
+			}
+		}, []);
+		if (suppressed || !isAdmin) return null;
+		return /* @__PURE__ */ react.createElement(_elementor_editor_ui.ThemeProvider, null, /* @__PURE__ */ react.createElement(_elementor_ui.Divider, null), /* @__PURE__ */ react.createElement(_elementor_ui.Box, { sx: {
+			bgcolor: "background.default",
+			display: "flex",
+			flexDirection: "column"
+		} }, /* @__PURE__ */ react.createElement(_elementor_ui.Box, { sx: {
+			display: "flex",
+			alignItems: "center",
+			gap: 1,
+			pl: 2.5,
+			pr: 1,
+			py: 1
+		} }, /* @__PURE__ */ react.createElement(_elementor_ui.Typography, {
+			variant: "subtitle2",
+			sx: {
+				flexGrow: 1,
+				gap: 1,
+				display: "flex",
+				alignItems: "center"
+			}
+		}, (0, _wordpress_i18n.__)("Atomic Elements", "elementor"), /* @__PURE__ */ react.createElement(_elementor_ui.Chip, {
+			label: (0, _wordpress_i18n.__)("New", "elementor"),
+			size: "tiny",
+			variant: "standard",
+			color: "secondary"
+		})), /* @__PURE__ */ react.createElement(_elementor_ui.CloseButton, {
+			slotProps: { icon: { fontSize: "small" } },
+			onClick: toggleSuppressMessage
+		})), /* @__PURE__ */ react.createElement(_elementor_ui.Box, { sx: {
+			maxHeight: 205,
+			mx: 2,
+			overflow: "hidden"
+		} }, /* @__PURE__ */ react.createElement(_elementor_ui.Box, {
+			component: "img",
+			src: PROMO_IMAGE,
+			alt: "",
+			sx: {
+				width: "100%",
+				objectFit: "cover",
+				objectPosition: "center",
+				display: "block"
+			}
+		})), /* @__PURE__ */ react.createElement(_elementor_ui.Box, { sx: {
+			pl: 2.5,
+			pr: 4,
+			pt: 2
+		} }, /* @__PURE__ */ react.createElement(_elementor_ui.Typography, {
+			variant: "caption",
+			color: "text.tertiary"
+		}, (0, _wordpress_i18n.__)("Build with modern, flexible elements designed for reusable styles and cleaner layouts. Your existing site and content stay exactly the same.", "elementor"))), /* @__PURE__ */ react.createElement(_elementor_ui.Box, { sx: {
+			display: "flex",
+			justifyContent: "flex-end",
+			gap: 1,
+			pb: 1.5,
+			pl: 2,
+			pr: 2.5,
+			pt: 1
+		} }, /* @__PURE__ */ react.createElement(_elementor_ui.Button, {
+			variant: "text",
+			size: "small",
+			color: "secondary",
+			href: LEARN_MORE_URL,
+			target: "_blank"
+		}, (0, _wordpress_i18n.__)("Learn more", "elementor")), /* @__PURE__ */ react.createElement(_elementor_ui.Button, {
+			variant: "contained",
+			size: "small",
+			color: "inherit",
+			sx: {
+				bgcolor: "text.primary",
+				color: "background.paper",
+				"&:hover": {
+					bgcolor: "text.secondary",
+					color: "background.paper"
+				}
+			},
+			onClick: activateAtomicElements
+		}, (0, _wordpress_i18n.__)("Activate now", "elementor")))), /* @__PURE__ */ react.createElement(_elementor_ui.Divider, null));
+	}
+
+//#endregion
+//#region packages/apps/unlock-v4-promo/src/init.ts
+	function init() {
+		const { experimentalFeatures = {} } = window.elementorCommon?.config || {};
+		const currentAtomicElementsExperimentState = experimentalFeatures?.e_atomic_elements;
+		const currentContainerExperimentState = experimentalFeatures?.container;
+		if (!currentAtomicElementsExperimentState && currentContainerExperimentState) (0, _elementor_editor_elements_panel_notice.register)(AtomicElementsPromo);
+	}
+
+//#endregion
+//#region packages/apps/unlock-v4-promo/src/index.ts
+	var src_exports = /* @__PURE__ */ __exportAll({
+		AtomicElementsPromo: () => AtomicElementsPromo,
+		init: () => init
+	});
+
+//#endregion
+//#region \0elementor-package-library-entry
+	(window.elementorV2 = window.elementorV2 || {}).unlockV4Promo = src_exports;
+
+//#endregion
+})(elementorV2.editorElementsPanelNotice, React, elementorV2.editorCurrentUser, elementorV2.editorNotifications, elementorV2.editorUi, elementorV2.httpClient, elementorV2.ui, wp.i18n);
+window.elementorV2.unlockV4Promo?.init?.();
 //# sourceMappingURL=unlock-v4-promo.js.map

@@ -28,7 +28,7 @@ if ( ! class_exists( 'Astra_Notices' ) ) :
 		 * @var array Notices.
 		 * @since 1.0.0
 		 */
-		private static $version = '1.1.14';
+		private static $version = '1.1.16';
 
 		/**
 		 * Notices
@@ -116,9 +116,10 @@ if ( ! class_exists( 'Astra_Notices' ) ) :
 		 * @return void
 		 */
 		public function dismiss_notice() {
-			$notice_id           = ( isset( $_POST['notice_id'] ) ) ? sanitize_key( $_POST['notice_id'] ) : '';
+			check_ajax_referer( 'astra-notices', 'nonce' );
+
+			$notice_id           = ( isset( $_POST['notice_id'] ) ) ? sanitize_key( wp_unslash( $_POST['notice_id'] ) ) : '';
 			$repeat_notice_after = ( isset( $_POST['repeat_notice_after'] ) ) ? absint( $_POST['repeat_notice_after'] ) : '';
-			$nonce               = ( isset( $_POST['nonce'] ) ) ? sanitize_key( $_POST['nonce'] ) : '';
 			$notice              = $this->get_notice_by_id( $notice_id );
 			$capability          = isset( $notice['capability'] ) ? $notice['capability'] : 'manage_options';
 
@@ -142,15 +143,11 @@ if ( ! class_exists( 'Astra_Notices' ) ) :
 				return;
 			}
 
-			if ( false === wp_verify_nonce( $nonce, 'astra-notices' ) ) {
-				wp_send_json_error( esc_html_e( 'WordPress Nonce not validated.', 'woo-cart-abandonment-recovery' ) );
-			}
-
 			// Valid inputs?
 			if ( ! empty( $notice_id ) ) {
 
 				if ( in_array( $notice_id, $wp_default_meta_keys, true ) ) {
-					wp_send_json_error( esc_html_e( 'Invalid notice ID.', 'woo-cart-abandonment-recovery' ) );
+					wp_send_json_error( esc_html__( 'Invalid notice ID.', 'woo-cart-abandonment-recovery' ) );
 				}
 
 				if ( ! empty( $repeat_notice_after ) ) {

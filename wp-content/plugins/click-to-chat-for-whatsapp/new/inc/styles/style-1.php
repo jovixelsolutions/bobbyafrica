@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$s1_options = get_option( 'ht_ctc_s1' );
+$s1_options = HT_CTC_Utils::get_option( 'ht_ctc_s1' );
 $s1_options = apply_filters( 'ht_ctc_fh_s1_options', $s1_options );
 
 $s1_css        = '';

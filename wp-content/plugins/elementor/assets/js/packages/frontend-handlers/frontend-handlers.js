@@ -1,3 +1,265 @@
-/*! For license information please see frontend-handlers.js.LICENSE.txt */
-!function(){"use strict";var e={"./packages/packages/core/frontend-handlers/src/handlers-registry.ts":function(e,t,n){n.r(t),n.d(t,{elementSelectorHandlers:function(){return o},elementTypeHandlers:function(){return r},register:function(){return register},registerBySelector:function(){return registerBySelector},unregister:function(){return unregister},unregisterBySelector:function(){return unregisterBySelector}});const r=new Map,o=new Map,register=({elementType:e,id:t,callback:n})=>{r.has(e)||r.set(e,new Map),r.get(e)?.has(t)||r.get(e)?.set(t,n)};Object.defineProperty(window,"registerElementorElement",{value:register,enumerable:!0});const unregister=({elementType:e,id:t})=>{r.has(e)&&(t?(r.get(e)?.delete(t),0===r.get(e)?.size&&r.delete(e)):r.delete(e))},registerBySelector=({id:e,selector:t,callback:n})=>{o.has(t)||o.set(t,new Map),o.get(t)?.has(e)||o.get(t)?.set(e,n)},unregisterBySelector=({selector:e,id:t})=>{o.has(e)&&(t?(o.get(e)?.delete(t),0===o.get(e)?.size&&o.delete(e)):o.delete(e))}},"./packages/packages/core/frontend-handlers/src/init.ts":function(e,t,n){n.r(t),n.d(t,{init:function(){return init}});var r=n("./packages/packages/core/frontend-handlers/src/lifecycle-events.ts");const o="[data-e-type]";let s=!1;const l=new Set;let a=0;function init(){window.addEventListener("elementor/element/render",e=>{const t=e,{id:n,type:o,element:s}=t.detail;(0,r.onElementRender)({element:s,elementType:o,elementId:n})}),window.addEventListener("elementor/element/destroy",e=>{const t=e,{id:n,type:o,element:s}=t.detail;(0,r.onElementDestroy)({elementType:o,elementId:n,element:s})});const bootDomHandlers=()=>{!function scanDocumentForAtomicElements(){document.querySelectorAll(o).forEach(e=>{const t=e,{eType:n,id:r}=t.dataset;n&&r&&triggerAtomicRender(t)})}(),function startObservingDomForNewAtomicElements(){if(s||"undefined"==typeof MutationObserver)return;s=!0;new MutationObserver(e=>{for(const t of e)t.addedNodes.forEach(e=>{l.add(e)});!function queueProcessPendingMutationNodes(){if(a||!l.size)return;a=requestAnimationFrame(()=>{a=0;const e=Array.from(l);l.clear();const t=new Set;for(const n of e)Node.ELEMENT_NODE===n.nodeType&&collectAtomicElementsInSubtree(n).forEach(e=>{t.add(e)});t.forEach(e=>triggerAtomicRender(e))})}()}).observe(document.documentElement,{childList:!0,subtree:!0})}()};document.addEventListener("DOMContentLoaded",bootDomHandlers),"loading"!==document.readyState&&bootDomHandlers()}function triggerAtomicRender(e){const t=e.dataset.eType,n=e.dataset.id;t&&n&&(0,r.onElementRender)({element:e,elementType:t,elementId:n})}function collectAtomicElementsInSubtree(e){const t=[];return e.matches(o)&&t.push(e),e.querySelectorAll(o).forEach(e=>{t.push(e)}),t}},"./packages/packages/core/frontend-handlers/src/lifecycle-events.ts":function(e,t,n){n.r(t),n.d(t,{onElementDestroy:function(){return onElementDestroy},onElementRender:function(){return onElementRender},onElementSelectorRender:function(){return onElementSelectorRender}});var r=n("./packages/packages/core/frontend-handlers/src/handlers-registry.ts");const o=new WeakMap,s="elementor/element/rendered",l="elementor/element/destroyed",onElementRender=({element:e,elementType:t,elementId:n})=>{cleanupOnUnmount(e);const o=new AbortController,a=[],dispatchRenderedEvent=()=>{onElementSelectorRender({element:e,controller:o}),e.dispatchEvent(new CustomEvent(s,{bubbles:!0,detail:{element:e,elementType:t,elementId:n}}))};e.isConnected?dispatchRenderedEvent():requestAnimationFrame(()=>{dispatchRenderedEvent()}),r.elementTypeHandlers.has(t)&&(setUnmountEntry({element:e,controller:o,manualUnmount:a}),Array.from(r.elementTypeHandlers.get(t)?.values()??[]).forEach(t=>{const n=e.getAttribute("data-e-settings"),r=t({element:e,signal:o.signal,settings:n?JSON.parse(n):{},listenToChildren:t=>({render:n=>{const listener=e=>{const{elementType:r}=e.detail;t.includes(r)&&n()};e.addEventListener(s,listener,{signal:o.signal}),e.addEventListener(l,listener,{signal:o.signal})}})});"function"==typeof r&&a.push(r)}))},onElementSelectorRender=({element:e,controller:t})=>{let n=!1;const o=[];Array.from(r.elementSelectorHandlers.entries()??[]).forEach(([r,s])=>{e.matches(r)&&(n=!0,Array.from(s.values()??[]).forEach(n=>{const r=e.getAttribute("data-e-settings"),s=n({element:e,signal:t.signal,settings:r?JSON.parse(r):{}});"function"==typeof s&&o.push(s)}))}),n&&setUnmountEntry({element:e,controller:t,manualUnmount:o})},onElementDestroy=({elementType:e,elementId:t,element:n})=>{var r;n&&(cleanupOnUnmount(n),(r={element:n,elementType:e,elementId:t}).element.dispatchEvent(new CustomEvent(l,{bubbles:!0,detail:r})))},setUnmountEntry=({element:e,controller:t,manualUnmount:n})=>{const r=o.get(e);r?r.manualUnmount.push(...n):o.set(e,{controller:t,manualUnmount:n})},cleanupOnUnmount=e=>{const t=o.get(e);t&&(t.controller.abort(),t.manualUnmount.forEach(e=>e()),o.delete(e))}}},t={};function __webpack_require__(n){var r=t[n];if(void 0!==r)return r.exports;var o=t[n]={exports:{}};return e[n](o,o.exports,__webpack_require__),o.exports}__webpack_require__.d=function(e,t){for(var n in t)__webpack_require__.o(t,n)&&!__webpack_require__.o(e,n)&&Object.defineProperty(e,n,{enumerable:!0,get:t[n]})},__webpack_require__.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},__webpack_require__.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})};var n={};!function(){__webpack_require__.r(n),__webpack_require__.d(n,{init:function(){return t.init},register:function(){return e.register},registerBySelector:function(){return e.registerBySelector},unregister:function(){return e.unregister},unregisterBySelector:function(){return e.unregisterBySelector}});var e=__webpack_require__("./packages/packages/core/frontend-handlers/src/handlers-registry.ts"),t=__webpack_require__("./packages/packages/core/frontend-handlers/src/init.ts")}(),(window.elementorV2=window.elementorV2||{}).frontendHandlers=n}(),window.elementorV2.frontendHandlers?.init?.();
+(function() {
+
+//#region \0rolldown/runtime.js
+	var __defProp = Object.defineProperty;
+	var __name = (target, value) => __defProp(target, "name", {
+		value,
+		configurable: true
+	});
+	var __exportAll = (all, no_symbols) => {
+		let target = {};
+		for (var name in all) {
+			__defProp(target, name, {
+				get: all[name],
+				enumerable: true
+			});
+		}
+		if (!no_symbols) {
+			__defProp(target, Symbol.toStringTag, { value: "Module" });
+		}
+		return target;
+	};
+
+//#endregion
+
+//#region packages/packages/core/frontend-handlers/src/handlers-registry.ts
+	var elementTypeHandlers = /* @__PURE__ */ new Map();
+	var elementSelectorHandlers = /* @__PURE__ */ new Map();
+	var register = ({ elementType, id, callback }) => {
+		if (!elementTypeHandlers.has(elementType)) elementTypeHandlers.set(elementType, /* @__PURE__ */ new Map());
+		if (!elementTypeHandlers.get(elementType)?.has(id)) elementTypeHandlers.get(elementType)?.set(id, callback);
+	};
+	Object.defineProperty(window, "registerElementorElement", {
+		value: register,
+		enumerable: true
+	});
+	var unregister = ({ elementType, id }) => {
+		if (!elementTypeHandlers.has(elementType)) return;
+		if (id) {
+			elementTypeHandlers.get(elementType)?.delete(id);
+			if (elementTypeHandlers.get(elementType)?.size === 0) elementTypeHandlers.delete(elementType);
+		} else elementTypeHandlers.delete(elementType);
+	};
+	var registerBySelector = ({ id, selector, callback }) => {
+		if (!elementSelectorHandlers.has(selector)) elementSelectorHandlers.set(selector, /* @__PURE__ */ new Map());
+		if (!elementSelectorHandlers.get(selector)?.has(id)) elementSelectorHandlers.get(selector)?.set(id, callback);
+	};
+	var unregisterBySelector = ({ selector, id }) => {
+		if (!elementSelectorHandlers.has(selector)) return;
+		if (id) {
+			elementSelectorHandlers.get(selector)?.delete(id);
+			if (elementSelectorHandlers.get(selector)?.size === 0) elementSelectorHandlers.delete(selector);
+		} else elementSelectorHandlers.delete(selector);
+	};
+
+//#endregion
+//#region packages/packages/core/frontend-handlers/src/lifecycle-events.ts
+	var unmountCallbacks = /* @__PURE__ */ new WeakMap();
+	var ELEMENT_RENDERED_EVENT_NAME = "elementor/element/rendered";
+	var ELEMENT_DESTROYED_EVENT_NAME = "elementor/element/destroyed";
+	var dispatchDestroyedEvent = (params) => {
+		params.element.dispatchEvent(new CustomEvent(ELEMENT_DESTROYED_EVENT_NAME, {
+			bubbles: true,
+			detail: params
+		}));
+	};
+	var onElementRender = ({ element, elementType, elementId }) => {
+		cleanupOnUnmount(element);
+		const controller = new AbortController();
+		const manualUnmount = [];
+		const dispatchRenderedEvent = () => {
+			onElementSelectorRender({
+				element,
+				controller
+			});
+			element.dispatchEvent(new CustomEvent(ELEMENT_RENDERED_EVENT_NAME, {
+				bubbles: true,
+				detail: {
+					element,
+					elementType,
+					elementId
+				}
+			}));
+		};
+		if (!element.isConnected) requestAnimationFrame(() => {
+			dispatchRenderedEvent();
+		});
+		else dispatchRenderedEvent();
+		if (!elementTypeHandlers.has(elementType)) return;
+		setUnmountEntry({
+			element,
+			controller,
+			manualUnmount
+		});
+		Array.from(elementTypeHandlers.get(elementType)?.values() ?? []).forEach((handler) => {
+			const settings = element.getAttribute("data-e-settings");
+			const listenToChildren = (elementTypes) => ({ render: (callback) => {
+				const listener = (event) => {
+					const { elementType: childType } = event.detail;
+					if (!elementTypes.includes(childType)) return;
+					callback(event);
+				};
+				element.addEventListener(ELEMENT_RENDERED_EVENT_NAME, listener, { signal: controller.signal });
+				element.addEventListener(ELEMENT_DESTROYED_EVENT_NAME, listener, { signal: controller.signal });
+			} });
+			const unmount = handler({
+				element,
+				signal: controller.signal,
+				settings: settings ? JSON.parse(settings) : {},
+				listenToChildren
+			});
+			if (typeof unmount === "function") manualUnmount.push(unmount);
+		});
+	};
+	var onElementSelectorRender = ({ element, controller }) => {
+		let requiresCleanup = false;
+		const manualUnmount = [];
+		Array.from(elementSelectorHandlers.entries() ?? []).forEach(([selector, handlers]) => {
+			if (!element.matches(selector)) return;
+			requiresCleanup = true;
+			Array.from(handlers.values() ?? []).forEach((handler) => {
+				const settings = element.getAttribute("data-e-settings");
+				const unmount = handler({
+					element,
+					signal: controller.signal,
+					settings: settings ? JSON.parse(settings) : {}
+				});
+				if (typeof unmount === "function") manualUnmount.push(unmount);
+			});
+		});
+		if (requiresCleanup) setUnmountEntry({
+			element,
+			controller,
+			manualUnmount
+		});
+	};
+	var onElementDestroy = ({ elementType, elementId, element }) => {
+		if (!element) return;
+		cleanupOnUnmount(element);
+		dispatchDestroyedEvent({
+			element,
+			elementType,
+			elementId
+		});
+	};
+	var setUnmountEntry = ({ element, controller, manualUnmount }) => {
+		const existingEntry = unmountCallbacks.get(element);
+		if (existingEntry) existingEntry.manualUnmount.push(...manualUnmount);
+		else unmountCallbacks.set(element, {
+			controller,
+			manualUnmount
+		});
+	};
+	var cleanupOnUnmount = (element) => {
+		const entry = unmountCallbacks.get(element);
+		if (entry) {
+			entry.controller.abort();
+			entry.manualUnmount.forEach((callback) => callback());
+			unmountCallbacks.delete(element);
+		}
+	};
+
+//#endregion
+//#region packages/packages/core/frontend-handlers/src/init.ts
+	var ATOMIC_SELECTOR = "[data-e-type]";
+	var domMutationObserverStarted = false;
+	var pendingMutationNodes = /* @__PURE__ */ new Set();
+	var pendingMutationsRafId = 0;
+	function init() {
+		window.addEventListener("elementor/element/render", (_event) => {
+			const { id, type, element } = _event.detail;
+			onElementRender({
+				element,
+				elementType: type,
+				elementId: id
+			});
+		});
+		window.addEventListener("elementor/element/destroy", (_event) => {
+			const { id, type, element } = _event.detail;
+			onElementDestroy({
+				elementType: type,
+				elementId: id,
+				element
+			});
+		});
+		const bootDomHandlers = () => {
+			scanDocumentForAtomicElements();
+			startObservingDomForNewAtomicElements();
+		};
+		document.addEventListener("DOMContentLoaded", bootDomHandlers);
+		if ("loading" !== document.readyState) bootDomHandlers();
+	}
+	function triggerAtomicRender(atom) {
+		const eType = atom.dataset.eType;
+		const id = atom.dataset.id;
+		if (!eType || !id) return;
+		onElementRender({
+			element: atom,
+			elementType: eType,
+			elementId: id
+		});
+	}
+	function collectAtomicElementsInSubtree(root) {
+		const found = [];
+		if (root.matches(ATOMIC_SELECTOR)) found.push(root);
+		root.querySelectorAll(ATOMIC_SELECTOR).forEach((el) => {
+			found.push(el);
+		});
+		return found;
+	}
+	function scanDocumentForAtomicElements() {
+		document.querySelectorAll(ATOMIC_SELECTOR).forEach((el) => {
+			const atom = el;
+			const { eType, id } = atom.dataset;
+			if (!eType || !id) return;
+			triggerAtomicRender(atom);
+		});
+	}
+	function startObservingDomForNewAtomicElements() {
+		if (domMutationObserverStarted || "undefined" === typeof MutationObserver) return;
+		domMutationObserverStarted = true;
+		new MutationObserver((mutations) => {
+			for (const mutation of mutations) mutation.addedNodes.forEach((node) => {
+				pendingMutationNodes.add(node);
+			});
+			queueProcessPendingMutationNodes();
+		}).observe(document.documentElement, {
+			childList: true,
+			subtree: true
+		});
+	}
+	function queueProcessPendingMutationNodes() {
+		if (pendingMutationsRafId || !pendingMutationNodes.size) return;
+		pendingMutationsRafId = requestAnimationFrame(() => {
+			pendingMutationsRafId = 0;
+			const roots = Array.from(pendingMutationNodes);
+			pendingMutationNodes.clear();
+			const atoms = /* @__PURE__ */ new Set();
+			for (const node of roots) {
+				if (Node.ELEMENT_NODE !== node.nodeType) continue;
+				collectAtomicElementsInSubtree(node).forEach((atom) => {
+					atoms.add(atom);
+				});
+			}
+			atoms.forEach((atom) => triggerAtomicRender(atom));
+		});
+	}
+
+//#endregion
+//#region packages/packages/core/frontend-handlers/src/index.ts
+	var src_exports = /* @__PURE__ */ __exportAll({
+		init: () => init,
+		register: () => register,
+		registerBySelector: () => registerBySelector,
+		unregister: () => unregister,
+		unregisterBySelector: () => unregisterBySelector
+	});
+
+//#endregion
+//#region \0elementor-package-library-entry
+	(window.elementorV2 = window.elementorV2 || {}).frontendHandlers = src_exports;
+
+//#endregion
+})();
+window.elementorV2.frontendHandlers?.init?.();
 //# sourceMappingURL=frontend-handlers.js.map

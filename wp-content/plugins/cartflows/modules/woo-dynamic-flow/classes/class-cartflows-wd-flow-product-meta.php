@@ -57,6 +57,7 @@ class Cartflows_Wd_Flow_Product_Meta {
 		if ( ! empty( $current_screen ) && 'product' === $current_screen->id ) {
 
 			wp_enqueue_script( 'wcf-product-page-setting', CARTFLOWS_URL . 'admin/assets/js/product-page.js', array( 'jquery' ), CARTFLOWS_VER, true );
+			wp_enqueue_style( 'wcf-product-page-setting', CARTFLOWS_URL . 'admin/assets/css/product-page.css', array(), CARTFLOWS_VER );
 		}
 	}
 
@@ -151,7 +152,7 @@ class Cartflows_Wd_Flow_Product_Meta {
 		);
 
 		/* translators: %1$s,%2$s HTML content */
-		echo '<span class="wcf-shortcode-notice"><p>' . wp_kses_post( sprintf( __( 'If you want to start the flow from the product page, select the appropriate flow & button text field if required. Refer %1$sthis article%2$s for more information.', 'cartflows' ), '<a href="https://cartflows.com/docs/how-to-start-a-flow-from-product-page/?utm_source=dashboard&utm_medium=free-cartflows&utm_campaign=docs" style="text-decoration:none;" target="_blank">', '</a>' ) );
+		echo '<span class="wcf-shortcode-notice"><p>' . wp_kses_post( sprintf( __( 'If you want to start the flow from the product page, select the appropriate flow & button text field if required. Refer %1$sthis article%2$s for more information.', 'cartflows' ), '<a href="' . esc_url( \Cartflows_Helper::get_kb_doc_link( 'https://cartflows.com/docs/how-to-start-a-flow-from-product-page/' ) ) . '" style="text-decoration:none;" target="_blank">', '</a>' ) );
 
 		echo '</div>';
 

@@ -98,8 +98,12 @@ class wplc_Plugin_Public
   public function add_chat_element()
   {
     if ($this->can_display_chat()) {
-      $party = substr($this->options['callus_url'], strrpos($this->options['callus_url'], '/') + 1);
-      $url = substr($this->options['callus_url'], 0, strrpos($this->options['callus_url'], '/'));
+      $callus_url = $this->options['callus_url'];
+      if (!wplc_Admin_Settings::sanitize_callus_url($callus_url)) {
+        return;
+      }
+      $party = substr($callus_url, strrpos($callus_url, '/') + 1);
+      $url = substr($callus_url, 0, strrpos($callus_url, '/'));
       $extra_params=' ';
       $extra_params.= 'enable-poweredby="'.(($this->options['powered_by']) ? 'true' : 'false').'"';
       echo '<call-us-selector phonesystem-url="' . $url . '" party="' . $party . '"'.$extra_params.'></call-us-selector>';
@@ -149,13 +153,14 @@ class wplc_Plugin_Public
     if (empty($nonce)) {
       return new WP_Error( 'invalid_nonce', 'Empty nonce', array( 'status' => 400 ) );
     }    
-    if ($nonce!=$stored_nonce) {
+    if ($nonce!==$stored_nonce) {
       return new WP_Error( 'invalid_nonce', 'Nonce does not match', array( 'status' => 400 ) );
     }    
     if (empty($chaturl) || !wplc_Admin_Settings::sanitize_callus_url($chaturl)){
       return new WP_Error( 'invalid_chaturl', 'Chaturl is invalid', array( 'status' => 400 ) );
     }    
     $options=$this->plugin_settings->read_config();
+    wplc_Admin_Settings::sanitize_callus_url($chaturl);
     $options['callus_url']=$chaturl;
     update_option('wplc_display_options', $options);
     update_option('wplc_activated', 2);

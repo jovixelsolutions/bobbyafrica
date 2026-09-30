@@ -265,11 +265,12 @@ class Cartflows_Checkout_Ajax {
 			'success' => false,
 		);
 
-		$email_address = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : false;
-		$password      = isset( $_POST['password'] ) ? wp_unslash( $_POST['password'] ) : false; // phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		// wp_signon() accepts username or email via user_login; sanitize_email() would drop usernames.
+		$user_login = isset( $_POST['email'] ) ? sanitize_text_field( wp_unslash( $_POST['email'] ) ) : '';
+		$password   = isset( $_POST['password'] ) ? wp_unslash( $_POST['password'] ) : ''; // phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		$creds = array(
-			'user_login'    => $email_address,
+			'user_login'    => $user_login,
 			'user_password' => $password,
 			'remember'      => false,
 		);
@@ -284,7 +285,7 @@ class Cartflows_Checkout_Ajax {
 			// Mirror WC's process_login() so security plugins see the failure.
 			do_action( 'woocommerce_login_failed' );
 			// Generic error to prevent user enumeration.
-			$response['error'] = __( 'Invalid email address or password.', 'cartflows' );
+			$response['error'] = __( 'Invalid username or password.', 'cartflows' );
 		}
 
 		wp_send_json_success( $response );
@@ -301,6 +302,16 @@ class Cartflows_Checkout_Ajax {
 		if ( ! check_ajax_referer( 'wcf-file-upload', 'security', false ) ) {
 			wp_send_json_error(
 				array( 'error' => __( 'Nonce validation failed.', 'cartflows' ) )
+			);
+		}
+
+		// Security: this endpoint is nopriv, so bind every upload to a real checkout step's file field to prevent arbitrary writes.
+		$checkout_id = empty( $_POST['checkout_id'] ) ? 0 : absint( $_POST['checkout_id'] ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$field_key   = empty( $_POST['field_key'] ) ? '' : sanitize_text_field( wp_unslash( $_POST['field_key'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+
+		if ( ! $this->is_valid_file_upload_field( $checkout_id, $field_key ) ) {
+			wp_send_json_error(
+				array( 'error' => __( 'This upload is not associated with a valid checkout file field.', 'cartflows' ) )
 			);
 		}
 
@@ -352,6 +363,61 @@ class Cartflows_Checkout_Ajax {
 	}
 
 	/**
+	 * Resolve a checkout field from step meta, using the same accessors and gates as the renderer.
+	 *
+	 * @since 3.2.1
+	 *
+	 * @param int    $checkout_id Checkout step post ID.
+	 * @param string $field_key   Billing/shipping field key.
+	 * @return array|null The field definition when it is rendered on a checkout step, else null.
+	 */
+	private function get_upload_field( $checkout_id, $field_key ) {
+
+		if ( empty( $checkout_id ) || empty( $field_key ) ) {
+			return null;
+		}
+
+		// Must be a checkout step specifically (post type is shared across all step types).
+		if ( CARTFLOWS_STEP_POST_TYPE !== get_post_type( $checkout_id ) || 'checkout' !== get_post_meta( $checkout_id, 'wcf-step-type', true ) ) {
+			return null;
+		}
+
+		// Custom checkout fields must be enabled, mirroring the render path gate.
+		if ( ! _is_wcf_meta_custom_checkout( $checkout_id ) ) {
+			return null;
+		}
+
+		$field_type   = ( 0 === strpos( $field_key, 'shipping_' ) ) ? 'shipping' : 'billing';
+		$saved_fields = wcf()->options->get_checkout_meta_value( $checkout_id, 'wcf_field_order_' . $field_type );
+
+		if ( ! is_array( $saved_fields ) || empty( $saved_fields[ $field_key ] ) || ! is_array( $saved_fields[ $field_key ] ) ) {
+			return null;
+		}
+
+		return $saved_fields[ $field_key ];
+	}
+
+	/**
+	 * Confirm an upload targets a rendered checkout file field.
+	 *
+	 * @since 3.2.1
+	 *
+	 * @param int    $checkout_id Checkout step post ID.
+	 * @param string $field_key   Billing/shipping field key.
+	 * @return bool True when the field is an enabled file-upload field on a checkout step.
+	 */
+	private function is_valid_file_upload_field( $checkout_id, $field_key ) {
+
+		$field = $this->get_upload_field( $checkout_id, $field_key );
+
+		if ( null === $field || empty( $field['enabled'] ) ) {
+			return false;
+		}
+
+		return isset( $field['type'] ) && 'file' === $field['type'];
+	}
+
+	/**
 	 * Retrieve file size and type restrictions from field settings.
 	 *
 	 * @since 2.2.2
@@ -366,20 +432,15 @@ class Cartflows_Checkout_Ajax {
 		$field_key   = empty( $_POST['field_key'] ) ? '' : sanitize_text_field( wp_unslash( $_POST['field_key'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		$checkout_id = empty( $_POST['checkout_id'] ) ? 0 : absint( $_POST['checkout_id'] ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
-		if ( empty( $field_key ) || empty( $checkout_id ) ) {
+		$field = $this->get_upload_field( $checkout_id, $field_key );
+
+		if ( null === $field ) {
 			return compact( 'max_size', 'extensions' );
 		}
 
-		$field_type   = ( 0 === strpos( $field_key, 'shipping_' ) ) ? 'shipping' : 'billing';
-		$saved_fields = get_post_meta( $checkout_id, 'wcf_field_order_' . $field_type, true );
-
-		if ( ! is_array( $saved_fields ) || empty( $saved_fields[ $field_key ] ) || ! is_array( $saved_fields[ $field_key ] ) ) {
-			return compact( 'max_size', 'extensions' );
-		}
-
-		$custom_attributes = empty( $saved_fields[ $field_key ]['custom_attributes'] ) || ! is_array( $saved_fields[ $field_key ]['custom_attributes'] )
+		$custom_attributes = empty( $field['custom_attributes'] ) || ! is_array( $field['custom_attributes'] )
 			? array()
-			: $saved_fields[ $field_key ]['custom_attributes'];
+			: $field['custom_attributes'];
 
 		if ( empty( $custom_attributes ) ) {
 			return compact( 'max_size', 'extensions' );
@@ -416,6 +477,129 @@ class Cartflows_Checkout_Ajax {
 	}
 
 	/**
+	 * Absolute path and URL of the protected checkout upload directory.
+	 *
+	 * @since 3.2.1
+	 *
+	 * @return array Path and URL checkout uploads are stored under.
+	 */
+	private function get_checkout_upload_dir() {
+
+		$upload_dir = wp_upload_dir();
+
+		return array(
+			'path' => trailingslashit( $upload_dir['basedir'] ) . 'cartflows-checkout',
+			'url'  => trailingslashit( $upload_dir['baseurl'] ) . 'cartflows-checkout',
+		);
+	}
+
+	/**
+	 * Point wp_handle_upload() at the protected checkout upload directory.
+	 *
+	 * @since 3.2.1
+	 *
+	 * @param array $dirs Upload directory data.
+	 * @return array
+	 */
+	public function set_checkout_upload_dir( $dirs ) {
+
+		$checkout_dir = $this->get_checkout_upload_dir();
+
+		$dirs['path']   = $checkout_dir['path'];
+		$dirs['url']    = $checkout_dir['url'];
+		$dirs['subdir'] = '';
+
+		return $dirs;
+	}
+
+	/**
+	 * Create the checkout upload directory with a deny-all .htaccess and an index.php.
+	 *
+	 * Security: this endpoint is nopriv and the files are shopper-supplied, so the directory
+	 * that holds them must never execute or list what it contains.
+	 *
+	 * @since 3.2.1
+	 *
+	 * @return void
+	 */
+	private function protect_checkout_upload_dir() {
+
+		$checkout_dir = $this->get_checkout_upload_dir();
+
+		if ( ! wp_mkdir_p( $checkout_dir['path'] ) ) {
+			return;
+		}
+
+		if ( ! function_exists( 'WP_Filesystem' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+		}
+
+		if ( ! WP_Filesystem() ) {
+			return;
+		}
+
+		global $wp_filesystem;
+
+		$htaccess = trailingslashit( $checkout_dir['path'] ) . '.htaccess';
+
+		if ( ! $wp_filesystem->exists( $htaccess ) ) {
+			$rules  = "# Generated by CartFlows - checkout uploads must never be executed or served as code.\n";
+			$rules .= "<IfModule mod_php.c>\n\tphp_flag engine off\n</IfModule>\n";
+			$rules .= "<IfModule mod_php7.c>\n\tphp_flag engine off\n</IfModule>\n";
+			$rules .= "<IfModule mod_php8.c>\n\tphp_flag engine off\n</IfModule>\n";
+			$rules .= "<FilesMatch \"\\.(?i:php|phar|phtml|php[0-9]|phps|pl|py|cgi|shtml)$\">\n";
+			$rules .= "\t<IfModule mod_authz_core.c>\n\t\tRequire all denied\n\t</IfModule>\n";
+			$rules .= "\t<IfModule !mod_authz_core.c>\n\t\tDeny from all\n\t</IfModule>\n";
+			$rules .= "</FilesMatch>\n";
+
+			$wp_filesystem->put_contents( $htaccess, $rules, FS_CHMOD_FILE );
+		}
+
+		$index = trailingslashit( $checkout_dir['path'] ) . 'index.php';
+
+		if ( ! $wp_filesystem->exists( $index ) ) {
+			$wp_filesystem->put_contents( $index, "<?php\n// Silence is golden.\n", FS_CHMOD_FILE );
+		}
+	}
+
+	/**
+	 * Re-encode an uploaded image so an appended payload cannot survive inside it.
+	 *
+	 * Security: a valid GIF or JPEG with PHP appended passes wp_check_filetype_and_ext();
+	 * re-encoding keeps only the image data. An image that cannot be re-encoded is deleted.
+	 *
+	 * @since 3.2.1
+	 *
+	 * @param string $path Absolute path of the uploaded file.
+	 * @return bool True when the stored file is safe to keep.
+	 */
+	private function reencode_uploaded_image( $path ) {
+
+		$filetype = wp_check_filetype( $path );
+
+		if ( empty( $filetype['type'] ) || 0 !== strpos( $filetype['type'], 'image/' ) ) {
+			return true;
+		}
+
+		$editor = wp_get_image_editor( $path );
+
+		if ( is_wp_error( $editor ) ) {
+			wp_delete_file( $path );
+			return false;
+		}
+
+		$saved = $editor->save( $path );
+
+		if ( is_wp_error( $saved ) ) {
+			wp_delete_file( $path );
+			return false;
+		}
+
+		return true;
+	}
+
+
+	/**
 	 * Move the uploaded file into the WordPress uploads directory.
 	 *
 	 * @since 2.2.2
@@ -425,8 +609,12 @@ class Cartflows_Checkout_Ajax {
 	 */
 	private function move_uploaded_file( array $file ) {
 
-		$upload_dir   = wp_upload_dir();
-		$file['name'] = wp_unique_filename( $upload_dir['path'], 'wcf_' . wp_generate_uuid4() . '.' . $file['ext'] );
+		$this->protect_checkout_upload_dir();
+
+		$checkout_dir = $this->get_checkout_upload_dir();
+		$file['name'] = wp_unique_filename( $checkout_dir['path'], 'wcf_' . wp_generate_uuid4() . '.' . $file['ext'] );
+
+		add_filter( 'upload_dir', array( $this, 'set_checkout_upload_dir' ) );
 
 		$result = wp_handle_upload(
 			$file,
@@ -436,9 +624,17 @@ class Cartflows_Checkout_Ajax {
 			)
 		);
 
+		remove_filter( 'upload_dir', array( $this, 'set_checkout_upload_dir' ) );
+
 		if ( isset( $result['error'] ) ) {
 			wp_send_json_error(
 				array( 'error' => esc_html( $result['error'] ) )
+			);
+		}
+
+		if ( ! $this->reencode_uploaded_image( $result['file'] ) ) {
+			wp_send_json_error(
+				array( 'error' => __( 'This image could not be processed. Please upload a different file.', 'cartflows' ) )
 			);
 		}
 

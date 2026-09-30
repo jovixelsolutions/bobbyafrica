@@ -17,28 +17,28 @@ function bobbyafrica_child_enqueue_assets() {
 		'bobbyafrica-child-style',
 		get_stylesheet_uri(),
 		array( 'astra-theme-css', 'bobbyafrica-quicksand' ),
-		wp_get_theme()->get( 'Version' )
+		filemtime( get_stylesheet_directory() . '/style.css' )
 	);
 
 	wp_enqueue_style(
 		'bobbyafrica-child-main',
 		get_stylesheet_directory_uri() . '/assets/css/main.css',
 		array( 'bobbyafrica-child-style' ),
-		'1.0.0'
+		filemtime( get_stylesheet_directory() . '/assets/css/main.css' )
 	);
 
 	wp_enqueue_style(
 		'bobbyafrica-child-responsive',
 		get_stylesheet_directory_uri() . '/assets/css/responsive.css',
 		array( 'bobbyafrica-child-main' ),
-		'1.0.0'
+		filemtime( get_stylesheet_directory() . '/assets/css/responsive.css' )
 	);
 
 	wp_enqueue_script(
 		'bobbyafrica-child-main',
 		get_stylesheet_directory_uri() . '/assets/js/main.js',
 		array( 'jquery' ),
-		'1.0.0',
+		filemtime( get_stylesheet_directory() . '/assets/js/main.js' ),
 		true
 	);
 

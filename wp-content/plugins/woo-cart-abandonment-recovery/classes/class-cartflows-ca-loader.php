@@ -96,7 +96,8 @@ if ( ! class_exists( 'CARTFLOWS_CA_Loader' ) ) {
 			define( 'CARTFLOWS_CA_BASE', plugin_basename( CARTFLOWS_CA_FILE ) );
 			define( 'CARTFLOWS_CA_DIR', plugin_dir_path( CARTFLOWS_CA_FILE ) );
 			define( 'CARTFLOWS_CA_URL', plugins_url( '/', CARTFLOWS_CA_FILE ) );
-			define( 'CARTFLOWS_CA_VER', '2.1.1' );
+			define( 'CARTFLOWS_CA_VER', '2.1.3' );
+			define( 'CARTFLOWS_CA_DB_VER', '1.1.0' );
 			define( 'CARTFLOWS_CA_REQ_PRO_VER', '1.2.0' );
 
 			define( 'CARTFLOWS_CA_SLUG', 'cartflows_ca' );
@@ -267,6 +268,9 @@ if ( ! class_exists( 'CARTFLOWS_CA_Loader' ) ) {
 
 			/* Update compatibility. */
 			require_once CARTFLOWS_CA_DIR . 'classes/class-cartflows-ca-update.php';
+
+			/* Database schema updater (consented migration for existing installs). */
+			require_once CARTFLOWS_CA_DIR . 'modules/cart-abandonment/classes/class-cartflows-ca-db-updater.php';
 
 			include_once CARTFLOWS_CA_DIR . 'classes/class-cartflows-ca-settings.php';
 
@@ -443,8 +447,24 @@ if ( ! class_exists( 'CARTFLOWS_CA_Loader' ) ) {
 			$this->update_default_settings();
 			// Create the database tables if they do not exist.
 			$this->initialize_cart_abandonment_tables();
+			// Seed schema columns on a fresh (empty) install.
+			$this->maybe_seed_revenue_columns();
 			// Onboarding.
 			$this->activate();
+		}
+
+		/**
+		 * Add the recovered-revenue schema columns on a fresh install.
+		 *
+		 * Existing installs that already hold data are handled by the
+		 * consented admin-notice flow in Cartflows_Ca_Db_Updater.
+		 *
+		 * @since 2.1.3
+		 * @return void
+		 */
+		public function maybe_seed_revenue_columns(): void {
+			include_once CARTFLOWS_CA_DIR . 'modules/cart-abandonment/classes/class-cartflows-ca-db-updater.php';
+			Cartflows_Ca_Db_Updater::get_instance()->maybe_seed_on_fresh_install();
 		}
 
 		/**

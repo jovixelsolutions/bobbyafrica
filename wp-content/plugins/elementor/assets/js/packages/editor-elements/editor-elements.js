@@ -1,3 +1,1321 @@
-/*! For license information please see editor-elements.js.LICENSE.txt */
-!function(){"use strict";var e={"./packages/packages/libs/editor-elements/src/errors.ts":function(e,t,n){n.r(t),n.d(t,{ElementIndexNotFoundError:function(){return a},ElementLabelNotExistsError:function(){return i},ElementNotFoundError:function(){return r},ElementParentNotFoundError:function(){return l},ElementTypeNotExistsError:function(){return c},StyleNotFoundError:function(){return o}});var s=n("@elementor/utils");const r=(0,s.createError)({code:"element_not_found",message:"Element not found."}),o=(0,s.createError)({code:"style_not_found",message:"Style not found."}),c=(0,s.createError)({code:"element_type_not_exists",message:"Element type does not exist."}),i=(0,s.createError)({code:"element_label_not_exists",message:"Element label does not exist."}),l=(0,s.createError)({code:"element_parent_not_found",message:"Element parent not found."}),a=(0,s.createError)({code:"element_index_not_found",message:"Element index not found."})},"./packages/packages/libs/editor-elements/src/hooks/use-element-children.ts":function(e,t,n){n.r(t),n.d(t,{useElementChildren:function(){return useElementChildren}});var s=n("@elementor/editor-v1-adapters"),r=n("./packages/packages/libs/editor-elements/src/sync/get-container.ts"),o=n("./packages/packages/libs/editor-elements/src/sync/model-utils.ts");function toElementModel({model:e}){return{id:e.get("id"),editorSettings:e.get("editor_settings")??{}}}function useElementChildren(e,t){return(0,s.__privateUseListenTo)([(0,s.v1ReadyEvent)(),(0,s.commandEndEvent)("document/elements/create"),(0,s.commandEndEvent)("document/elements/delete"),(0,s.commandEndEvent)("document/elements/update"),(0,s.commandEndEvent)("document/elements/set-settings")],()=>{const n=(0,r.getContainer)(e),s=n?.model;if(!s)return{};return Object.entries(t).reduce((e,[t,n])=>{const r=(0,o.findChildRecursive)(s,e=>e.get("elType")===t);if(!r)return e[n]=[],e;const c=(0,o.getElementChildren)(r.model,e=>e.get("elType")===n);return e[n]=c.map(toElementModel),e},{})},[e])}},"./packages/packages/libs/editor-elements/src/hooks/use-element-editor-settings.ts":function(e,t,n){n.r(t),n.d(t,{useElementEditorSettings:function(){return useElementEditorSettings}});var s=n("@elementor/editor-v1-adapters"),r=n("./packages/packages/libs/editor-elements/src/sync/get-element-editor-settings.ts");const useElementEditorSettings=e=>(0,s.__privateUseListenTo)((0,s.windowEvent)("elementor/element/update_editor_settings"),()=>(0,r.getElementEditorSettings)(e),[e])},"./packages/packages/libs/editor-elements/src/hooks/use-parent-element.ts":function(e,t,n){n.r(t),n.d(t,{useParentElement:function(){return useParentElement}});var s=n("@elementor/editor-v1-adapters");function useParentElement(e){return(0,s.__privateUseListenTo)([(0,s.commandEndEvent)("document/elements/create")],()=>{if(!e)return null;const t=window,n=t?.elementor?.getContainer?.(e);return n?n.parent:null},[e])}},"./packages/packages/libs/editor-elements/src/hooks/use-selected-element-settings.ts":function(e,t,n){n.r(t),n.d(t,{useSelectedElementSettings:function(){return useSelectedElementSettings}});var s=n("@elementor/editor-v1-adapters"),r=n("./packages/packages/libs/editor-elements/src/sync/get-element-setting.ts"),o=n("./packages/packages/libs/editor-elements/src/sync/get-selected-elements.ts");function useSelectedElementSettings(){return(0,s.__privateUseListenTo)([(0,s.commandEndEvent)("document/elements/select"),(0,s.commandEndEvent)("document/elements/deselect"),(0,s.commandEndEvent)("document/elements/select-all"),(0,s.commandEndEvent)("document/elements/deselect-all"),(0,s.commandEndEvent)("document/elements/set-settings")],()=>{const{element:e,elementType:t}=(0,o.getSelectedElement)();if(!e||!t)return{element:null,elementType:null,settings:null};return{element:e,elementType:t,settings:(0,r.getElementSettings)(e.id,Object.keys(t.propsSchema))}})}},"./packages/packages/libs/editor-elements/src/hooks/use-selected-element.ts":function(e,t,n){n.r(t),n.d(t,{useSelectedElement:function(){return useSelectedElement}});var s=n("@elementor/editor-v1-adapters"),r=n("./packages/packages/libs/editor-elements/src/sync/get-selected-elements.ts");function useSelectedElement(){return(0,s.__privateUseListenTo)([(0,s.commandEndEvent)("document/elements/select"),(0,s.commandEndEvent)("document/elements/deselect"),(0,s.commandEndEvent)("document/elements/select-all"),(0,s.commandEndEvent)("document/elements/deselect-all")],r.getSelectedElement)}},"./packages/packages/libs/editor-elements/src/link-restriction.ts":function(e,t,n){n.r(t),n.d(t,{getAnchoredAncestorId:function(){return getAnchoredAncestorId},getAnchoredDescendantId:function(){return getAnchoredDescendantId},getLinkInLinkRestriction:function(){return getLinkInLinkRestriction},isElementAnchored:function(){return isElementAnchored}});var s=n("./packages/packages/libs/editor-elements/src/sync/get-container.ts"),r=n("./packages/packages/libs/editor-elements/src/sync/get-element-setting.ts");const o="a, [data-action-link]";function getLinkInLinkRestriction(e,t){const n=getAnchoredDescendantId(e);if(n)return{shouldRestrict:!0,reason:"descendant",elementId:n};const s=function checkForInlineLink(e,t){const n=getElementDOM(e);if(!n)return!1;if(n.matches(o))return!1;const s=t??(0,r.getElementSetting)(e,"link")?.value;if(s?.destination)return!1;return null!==n.querySelector(o)}(e,t);if(s)return{shouldRestrict:!0,reason:"descendant",elementId:e};const c=getAnchoredAncestorId(e);return c?{shouldRestrict:!0,reason:"ancestor",elementId:c}:{shouldRestrict:!1}}function getAnchoredDescendantId(e){const t=getElementDOM(e);if(!t)return null;for(const n of Array.from(t.querySelectorAll(o))){const t=findElementIdOf(n);if(t!==e)return t}return null}function getAnchoredAncestorId(e){const t=getElementDOM(e);if(!t||null===t.parentElement)return null;const n=t.parentElement.closest(o);return n?findElementIdOf(n):null}function isElementAnchored(e){const t=getElementDOM(e);return!!t&&(!!t.matches(o)||doesElementContainAnchor(t))}function doesElementContainAnchor(e){for(const t of Array.from(e.children))if(!isElementorElement(t)){if(t.matches(o))return!0;if(doesElementContainAnchor(t))return!0}return!1}function findElementIdOf(e){return e.closest("[data-id]")?.dataset.id||null}function getElementDOM(e){try{return(0,s.getContainer)(e)?.view?.el||null}catch{return null}}function isElementorElement(e){return e.hasAttribute("data-id")}},"./packages/packages/libs/editor-elements/src/styles/consts.ts":function(e,t,n){n.r(t),n.d(t,{ELEMENT_STYLE_CHANGE_EVENT:function(){return r},styleRerenderEvents:function(){return o}});var s=n("@elementor/editor-v1-adapters");const r="elementor/editor-v2/editor-elements/style",o=[(0,s.commandEndEvent)("document/elements/create"),(0,s.commandEndEvent)("document/elements/duplicate"),(0,s.commandEndEvent)("document/elements/import"),(0,s.commandEndEvent)("document/elements/paste"),(0,s.windowEvent)(r)]},"./packages/packages/libs/editor-elements/src/styles/create-element-style.ts":function(e,t,n){n.r(t),n.d(t,{createElementStyle:function(){return createElementStyle},shouldCreateNewLocalStyle:function(){return shouldCreateNewLocalStyle}});var s=n("@elementor/editor-props"),r=n("@elementor/editor-styles"),o=n("./packages/packages/libs/editor-elements/src/sync/get-element-setting.ts"),c=n("./packages/packages/libs/editor-elements/src/sync/update-element-settings.ts"),i=n("./packages/packages/libs/editor-elements/src/styles/mutate-element-styles.ts");function createElementStyle({styleId:e,elementId:t,classesProp:n,label:l,meta:a,props:m,custom_css:d=null,additionalVariants:u=[]}){let p=e;return(0,i.mutateElementStyles)(t,e=>{p??=(0,r.generateId)(`e-${t}-`,Object.keys(e));const i=[{meta:a,props:m,custom_css:d},...u];return e[p]={id:p,label:l,type:"class",variants:i},function addStyleToClassesProp(e,t,n){const r=(0,o.getElementSetting)(e,t),i=s.classesPropTypeUtil.create(e=>[...e??[],n],{base:r});(0,c.updateElementSettings)({id:e,props:{[t]:i},withHistory:!1})}(t,n,p),e}),p}function shouldCreateNewLocalStyle(e){return!e?.styleId&&!e?.provider}},"./packages/packages/libs/editor-elements/src/styles/delete-element-style.ts":function(e,t,n){n.r(t),n.d(t,{deleteElementStyle:function(){return deleteElementStyle}});var s=n("./packages/packages/libs/editor-elements/src/styles/mutate-element-styles.ts");function deleteElementStyle(e,t){(0,s.mutateElementStyles)(e,e=>(delete e[t],e))}},"./packages/packages/libs/editor-elements/src/styles/mutate-element-styles.ts":function(e,t,n){n.r(t),n.d(t,{mutateElementStyles:function(){return mutateElementStyles}});var s=n("@elementor/editor-props"),r=n("@elementor/editor-v1-adapters"),o=n("./packages/packages/libs/editor-elements/src/errors.ts"),c=n("./packages/packages/libs/editor-elements/src/sync/get-container.ts"),i=n("./packages/packages/libs/editor-elements/src/sync/update-element-settings.ts"),l=n("./packages/packages/libs/editor-elements/src/styles/consts.ts");function mutateElementStyles(e,t){const n=(0,c.getContainer)(e);if(!n)throw new o.ElementNotFoundError({context:{elementId:e}});const a=Object.keys(n.model.get("styles")??{}),m=function mutateStyles(e,t){const n=structuredClone(e.model.get("styles"))??{},s=Object.entries(t(n)).map(([e,t])=>(t.variants=function removeEmptyVariants(e){return e.variants.filter(({props:e,custom_css:t})=>Object.keys(e).length>0||t?.raw)}(t),[e,t])).filter(([,e])=>!function isStyleEmpty(e){return 0===e.variants.length}(e)),r=Object.fromEntries(s);return e.model.set("styles",r),r}(n,t);return function clearRemovedClasses(e,{oldIds:t,newIds:n}){const r=t.filter(e=>!n.includes(e)),o=structuredClone(function getClassesProps(e){return Object.entries(e.settings.toJSON()).filter(e=>{const[,t]=e;return s.classesPropTypeUtil.isValid(t)})}(e));o.forEach(([,e])=>{e.value=e.value.filter(e=>!r.includes(e))}),(0,i.updateElementSettings)({id:e.id,props:Object.fromEntries(o),withHistory:!1})}(n,{oldIds:a,newIds:Object.keys(m)}),function notifyChanges(){(function dispatchChangeEvent(){window.dispatchEvent(new CustomEvent(l.ELEMENT_STYLE_CHANGE_EVENT))})(),(0,r.__privateRunCommandSync)("document/save/set-is-modified",{status:!0},{internal:!0})}(),m}},"./packages/packages/libs/editor-elements/src/styles/update-element-style.ts":function(e,t,n){n.r(t),n.d(t,{updateElementStyle:function(){return updateElementStyle}});var s=n("@elementor/editor-props"),r=n("@elementor/editor-styles"),o=n("./packages/packages/libs/editor-elements/src/errors.ts"),c=n("./packages/packages/libs/editor-elements/src/styles/mutate-element-styles.ts");function updateElementStyle(e){(0,c.mutateElementStyles)(e.elementId,t=>{const n=t[e.styleId];if(!n)throw new o.StyleNotFoundError({context:{styleId:e.styleId}});const c=(0,r.getVariantByMeta)(n,e.meta),i=("custom_css"in e?e.custom_css:c?.custom_css)??null;return c?(c.props=(0,s.mergeProps)(c.props,e.props),c.custom_css=i?.raw?i:null):n.variants.push({meta:e.meta,props:e.props,custom_css:i}),t})}},"./packages/packages/libs/editor-elements/src/sync/create-element.ts":function(e,t,n){n.r(t),n.d(t,{createElement:function(){return createElement}});var s=n("@elementor/editor-v1-adapters");function createElement({container:e,model:t,options:n}){return(0,s.__privateRunCommandSync)("document/elements/create",{container:e,model:t,options:{edit:!1,...n}})}},"./packages/packages/libs/editor-elements/src/sync/create-elements.ts":function(e,t,n){n.r(t),n.d(t,{createElements:function(){return createElements}});var s=n("@elementor/editor-v1-adapters"),r=n("@wordpress/i18n"),o=n("./packages/packages/libs/editor-elements/src/sync/create-element.ts"),c=n("./packages/packages/libs/editor-elements/src/sync/delete-element.ts");const createElements=({elements:e,title:t,subtitle:n=(0,r.__)("Item added","elementor")})=>(0,s.undoable)({do:({elements:e})=>{const t=[];return e.forEach(({container:e,options:n,...s})=>{const r=e.lookup?.()??e;if(!r)throw new Error("Parent container not found");const c=(0,o.createElement)({container:r,...s,options:{...n,useHistory:!1}});t.push({container:c,parentContainer:r,model:c.model?.toJSON()||{},options:n})}),{createdElements:t}},undo:(e,{createdElements:t})=>{[...t].reverse().forEach(({container:e})=>{const t=e.lookup?.();t&&(0,c.deleteElement)({container:t,options:{useHistory:!1}})})},redo:(e,{createdElements:t})=>{const n=[];return t.forEach(({parentContainer:e,model:t,options:s})=>{const r=e.lookup?.();if(!r)return;const c=(0,o.createElement)({container:r,model:t,options:{...s,useHistory:!1}});n.push({container:c,parentContainer:r,model:c.model.toJSON(),options:s})}),{createdElements:n}}},{title:t,subtitle:n})({elements:e})},"./packages/packages/libs/editor-elements/src/sync/delete-element.ts":function(e,t,n){n.r(t),n.d(t,{deleteElement:function(){return deleteElement}});var s=n("@elementor/editor-v1-adapters");function deleteElement({container:e,options:t={}}){(0,s.__privateRunCommandSync)("document/elements/delete",{container:e,options:t})}},"./packages/packages/libs/editor-elements/src/sync/drop-element.ts":function(e,t,n){n.r(t),n.d(t,{dropElement:function(){return dropElement}});var s=n("@elementor/editor-v1-adapters"),r=n("./packages/packages/libs/editor-elements/src/sync/get-container.ts");function dropElement({containerId:e,model:t,options:n}){const o=(0,r.getContainer)(e);if(!o)throw new Error(`Container with ID "${e}" not found`);return(0,s.__privateRunCommandSync)("preview/drop",{container:o,model:t,options:n})}},"./packages/packages/libs/editor-elements/src/sync/duplicate-element.ts":function(e,t,n){n.r(t),n.d(t,{duplicateElement:function(){return duplicateElement}});var s=n("@elementor/editor-v1-adapters");function duplicateElement({element:e,options:t={}}){const n=e.view?._index??0,r=!1!==t.clone?n+1:void 0;return(0,s.__privateRunCommandSync)("document/elements/duplicate",{container:e,options:{at:r,edit:!1,...t}})}},"./packages/packages/libs/editor-elements/src/sync/duplicate-elements.ts":function(e,t,n){n.r(t),n.d(t,{duplicateElements:function(){return duplicateElements}});var s=n("@elementor/editor-v1-adapters"),r=n("@wordpress/i18n"),o=n("./packages/packages/libs/editor-elements/src/sync/create-element.ts"),c=n("./packages/packages/libs/editor-elements/src/sync/delete-element.ts"),i=n("./packages/packages/libs/editor-elements/src/sync/duplicate-element.ts"),l=n("./packages/packages/libs/editor-elements/src/sync/get-container.ts");const duplicateElements=({elementIds:e,title:t,subtitle:n=(0,r.__)("Item duplicated","elementor"),onDuplicateElements:a,onRestoreElements:m})=>(0,s.undoable)({do:({elementIds:e})=>{a?.();const t=[];return e.forEach(e=>{const n=(0,l.getContainer)(e);if(!n?.parent)return;const s=(0,i.duplicateElement)({element:n,options:{useHistory:!1}});s.parent&&t.push({container:s,parentContainer:s.parent,model:s.model.toJSON(),at:s.view?._index})}),{duplicatedElements:t}},undo:(e,{duplicatedElements:t})=>{m?.(),[...t].reverse().forEach(({container:e})=>{(0,c.deleteElement)({container:e,options:{useHistory:!1}})})},redo:(e,{duplicatedElements:t})=>{a?.();const n=[];return t.forEach(({parentContainer:e,model:t,at:s})=>{const r=e.lookup?.();if(r){const e=(0,o.createElement)({container:r,model:t,options:{useHistory:!1,clone:!1,at:s}});n.push({container:e,parentContainer:r,model:t,at:s})}}),{duplicatedElements:n}}},{title:t,subtitle:n})({elementIds:e})},"./packages/packages/libs/editor-elements/src/sync/generate-element-id.ts":function(e,t,n){n.r(t),n.d(t,{generateElementId:function(){return generateElementId}});const generateElementId=()=>{const e=window;return e.elementorCommon?.helpers?.getUniqueId?.()??`el-${Date.now()}-${Math.random().toString(36).substring(2,9)}`}},"./packages/packages/libs/editor-elements/src/sync/get-all-descendants.ts":function(e,t,n){function getAllDescendants(e){return[e,...(e.children??[]).flatMap(e=>getAllDescendants(e))]}n.r(t),n.d(t,{getAllDescendants:function(){return getAllDescendants}})},"./packages/packages/libs/editor-elements/src/sync/get-container.ts":function(e,t,n){n.r(t),n.d(t,{getContainer:function(){return getContainer},selectElement:function(){return selectElement}});var s=n("@elementor/editor-v1-adapters");function getContainer(e){const t=window,n=t.elementor?.getContainer?.(e);return n??null}const selectElement=e=>{try{const t=getContainer(e);(0,s.__privateRunCommand)("document/elements/select",{container:t})}catch{}}},"./packages/packages/libs/editor-elements/src/sync/get-current-document-container.ts":function(e,t,n){function getCurrentDocumentContainer(){const e=window;return e.elementor?.documents?.getCurrent?.()?.container??null}n.r(t),n.d(t,{getCurrentDocumentContainer:function(){return getCurrentDocumentContainer}})},"./packages/packages/libs/editor-elements/src/sync/get-current-document-id.ts":function(e,t,n){function getCurrentDocumentId(){const e=window;try{return e.elementor?.documents?.getCurrentId?.()??null}catch{return null}}n.r(t),n.d(t,{getCurrentDocumentId:function(){return getCurrentDocumentId}})},"./packages/packages/libs/editor-elements/src/sync/get-element-editor-settings.ts":function(e,t,n){n.r(t),n.d(t,{getElementEditorSettings:function(){return getElementEditorSettings}});var s=n("./packages/packages/libs/editor-elements/src/sync/get-container.ts");function getElementEditorSettings(e){const t=(0,s.getContainer)(e);return t?.model.get("editor_settings")??{}}},"./packages/packages/libs/editor-elements/src/sync/get-element-interactions.ts":function(e,t,n){n.r(t),n.d(t,{getElementInteractions:function(){return getElementInteractions}});var s=n("./packages/packages/libs/editor-elements/src/sync/get-container.ts");function getElementInteractions(e){const t=(0,s.getContainer)(e),n=t?.model?.get("interactions");return"string"==typeof n?JSON.parse(n):n}},"./packages/packages/libs/editor-elements/src/sync/get-element-label.ts":function(e,t,n){n.r(t),n.d(t,{getElementLabel:function(){return getElementLabel}});var s=n("./packages/packages/libs/editor-elements/src/errors.ts"),r=n("./packages/packages/libs/editor-elements/src/sync/get-container.ts"),o=n("./packages/packages/libs/editor-elements/src/sync/get-widgets-cache.ts"),c=n("./packages/packages/libs/editor-elements/src/sync/get-selected-elements.ts");function getElementLabel(e){e||(e=(0,c.getSelectedElements)()?.[0]?.id);const t=(0,r.getContainer)(e),n=t?.model.get("widgetType")||t?.model.get("elType");if(!n)throw new s.ElementTypeNotExistsError({context:{elementId:e}});const i=(0,o.getWidgetsCache)()?.[n]?.title;if(!i)throw new s.ElementLabelNotExistsError({context:{elementType:n}});return i}},"./packages/packages/libs/editor-elements/src/sync/get-element-setting.ts":function(e,t,n){n.r(t),n.d(t,{getElementSetting:function(){return getElementSetting},getElementSettings:function(){return getElementSettings}});var s=n("./packages/packages/libs/editor-elements/src/sync/get-container.ts");const getElementSetting=(e,t)=>{const n=(0,s.getContainer)(e);return n?.settings?.get(t)??null},getElementSettings=(e,t)=>Object.fromEntries(t.map(t=>[t,getElementSetting(e,t)]))},"./packages/packages/libs/editor-elements/src/sync/get-element-styles.ts":function(e,t,n){n.r(t),n.d(t,{getElementStyles:function(){return getElementStyles}});var s=n("./packages/packages/libs/editor-elements/src/sync/get-container.ts");const getElementStyles=e=>{const t=(0,s.getContainer)(e);return t?.model.get("styles")||null}},"./packages/packages/libs/editor-elements/src/sync/get-element-type.ts":function(e,t,n){n.r(t),n.d(t,{getElementType:function(){return getElementType}});var s=n("./packages/packages/libs/editor-elements/src/sync/get-widgets-cache.ts");function getElementType(e){if(!e)return null;const t=(0,s.getWidgetsCache)(),n=t?.[e];return n?.atomic_controls&&n?.atomic_props_schema?{key:e,controls:n.atomic_controls,propsSchema:n.atomic_props_schema,dependenciesPerTargetMapping:n.dependencies_per_target_mapping??{},title:n.title,styleStates:n.atomic_style_states??[],pseudoStates:n.atomic_pseudo_states??[]}:null}},"./packages/packages/libs/editor-elements/src/sync/get-elements.ts":function(e,t,n){n.r(t),n.d(t,{getElements:function(){return getElements}});var s=n("./packages/packages/libs/editor-elements/src/sync/get-container.ts"),r=n("./packages/packages/libs/editor-elements/src/sync/get-current-document-container.ts");function getElements(e){const t=e?(0,s.getContainer)(e):(0,r.getCurrentDocumentContainer)();if(!t)return[];const n=[...t.model.get("elements")??[]].flatMap(e=>getElements(e.get("id")));return[t,...n]}},"./packages/packages/libs/editor-elements/src/sync/get-selected-elements.ts":function(e,t,n){n.r(t),n.d(t,{getSelectedElement:function(){return getSelectedElement},getSelectedElements:function(){return getSelectedElements}});var s=n("./packages/packages/libs/editor-elements/src/sync/get-element-type.ts");function getSelectedElements(){const e=window;return(e.elementor?.selection?.getElements?.()??[]).reduce((e,t)=>{const n=t.model.get("widgetType")||t.model.get("elType");return n&&e.push({id:t.model.get("id"),type:n}),e},[])}function getSelectedElement(){const e=getSelectedElements(),[t]=e,n=(0,s.getElementType)(t?.type);return 1===e.length&&n&&t?{element:t,elementType:n}:{element:null,elementType:null}}},"./packages/packages/libs/editor-elements/src/sync/get-widgets-cache.ts":function(e,t,n){function getWidgetsCache(){const e=window;return e?.elementor?.widgetsCache||null}n.r(t),n.d(t,{getWidgetsCache:function(){return getWidgetsCache}})},"./packages/packages/libs/editor-elements/src/sync/model-utils.ts":function(e,t,n){function findChildRecursive(e,t){const n=e.get("elements")??[];for(const e of n){if(t(e))return{model:e};const n=findChildRecursive(e,t);if(n)return n}return null}function getElementChildren(e,t){return(e.get("elements")??[]).filter(e=>!t||t(e)).map(e=>({model:e}))}n.r(t),n.d(t,{findChildRecursive:function(){return findChildRecursive},getElementChildren:function(){return getElementChildren}})},"./packages/packages/libs/editor-elements/src/sync/move-element.ts":function(e,t,n){n.r(t),n.d(t,{moveElement:function(){return moveElement}});var s=n("./packages/packages/libs/editor-elements/src/sync/create-element.ts"),r=n("./packages/packages/libs/editor-elements/src/sync/delete-element.ts");function moveElement({element:e,targetContainer:t,options:n={}}){const o=e.lookup?.(),c=t.lookup?.();if(!o)throw new Error(`Element not found: ${e.id}`);if(!c)throw new Error(`Target container not found: ${t.id}`);const i=o.model.toJSON();(0,r.deleteElement)({container:o,options:{...n,useHistory:!1}});return(0,s.createElement)({container:c,model:i,options:{edit:!1,...n,useHistory:!1}})}},"./packages/packages/libs/editor-elements/src/sync/move-elements.ts":function(e,t,n){n.r(t),n.d(t,{moveElements:function(){return moveElements}});var s=n("@elementor/editor-v1-adapters"),r=n("@wordpress/i18n"),o=n("./packages/packages/libs/editor-elements/src/sync/move-element.ts");const moveElements=({moves:e,title:t,subtitle:n=(0,r.__)("Elements moved","elementor"),onMoveElements:c,onRestoreElements:i})=>(0,s.undoable)({do:({moves:e})=>{const t=[];return c?.(),e.forEach(({element:e,targetContainer:n,options:s})=>{const r=e.lookup?.()??e,c=n.lookup?.()??n;if(!r)throw new Error("Element not found");if(!c)throw new Error("Target container not found");if(!r.parent)throw new Error("Element has no parent container");const i=r.parent,l=i.children?.indexOf(r)??-1,a=(0,o.moveElement)({element:r,targetContainer:c,options:{...s,useHistory:!1}});t.push({element:a,originalContainer:i,originalIndex:l,targetContainer:c,options:s})}),{movedElements:t}},undo:(e,{movedElements:t})=>{i?.(),[...t].reverse().forEach(({element:e,originalContainer:t,originalIndex:n})=>{const s=e.lookup?.(),r=t.lookup?.();s&&r&&(0,o.moveElement)({element:s,targetContainer:r,options:{useHistory:!1,at:n>=0?n:void 0}})})},redo:(e,{movedElements:t})=>{const n=[];return c?.(),t.forEach(({element:e,originalContainer:t,originalIndex:s,targetContainer:r,options:c})=>{const i=e.lookup?.(),l=t.lookup?.(),a=r.lookup?.();if(!i||!l||!a)return;const m=(0,o.moveElement)({element:i,targetContainer:a,options:{...c,useHistory:!1}});n.push({element:m,originalContainer:l,originalIndex:s,targetContainer:a,options:c})}),{movedElements:n}}},{title:t,subtitle:n})({moves:e})},"./packages/packages/libs/editor-elements/src/sync/remove-elements.ts":function(e,t,n){n.r(t),n.d(t,{removeElements:function(){return removeElements}});var s=n("@elementor/editor-v1-adapters"),r=n("@wordpress/i18n"),o=n("./packages/packages/libs/editor-elements/src/sync/create-element.ts"),c=n("./packages/packages/libs/editor-elements/src/sync/delete-element.ts"),i=n("./packages/packages/libs/editor-elements/src/sync/get-container.ts");const removeElements=({elementIds:e,title:t,subtitle:n=(0,r.__)("Item removed","elementor"),onRemoveElements:l,onRestoreElements:a})=>(0,s.undoable)({do:({elementIds:e})=>{const t=[];return e.forEach(e=>{const n=(0,i.getContainer)(e);n?.parent&&t.push({container:n,parent:n.parent,model:n.model.toJSON(),at:n.view?._index??0})}),l?.(),t.forEach(({container:e})=>{(0,c.deleteElement)({container:e,options:{useHistory:!1}})}),{removedElements:t}},undo:(e,{removedElements:t})=>{a?.(),[...t].reverse().forEach(({parent:e,model:t,at:n})=>{const s=e.lookup?.();s&&(0,o.createElement)({container:s,model:t,options:{useHistory:!1,at:n}})})},redo:(e,{removedElements:t})=>{l?.();const n=[];return t.forEach(({container:e,parent:t,model:s,at:r})=>{const o=e.lookup?.(),i=t.lookup?.();o&&i&&((0,c.deleteElement)({container:o,options:{useHistory:!1}}),n.push({container:o,parent:i,model:s,at:r}))}),{removedElements:n}}},{title:t,subtitle:n})({elementIds:e})},"./packages/packages/libs/editor-elements/src/sync/replace-element.ts":function(e,t,n){n.r(t),n.d(t,{replaceElement:function(){return replaceElement}});var s=n("./packages/packages/libs/editor-elements/src/errors.ts"),r=n("./packages/packages/libs/editor-elements/src/sync/create-element.ts"),o=n("./packages/packages/libs/editor-elements/src/sync/delete-element.ts"),c=n("./packages/packages/libs/editor-elements/src/sync/get-container.ts");const replaceElement=({currentElementId:e,newElement:t,withHistory:n=!0})=>{const l=(0,c.getContainer)(e);if(!l)throw new s.ElementNotFoundError({context:{elementId:e}});const{container:a,index:m}=function getNewElementContainer(e,t){const{parent:n}=e;if(!n)throw new s.ElementParentNotFoundError({context:{elementId:e.id}});const o=e.view?._index??0;if(-1===o)throw new s.ElementIndexNotFoundError({context:{elementId:e.id}});let c={container:n,index:o};"document"===n.id&&"widget"===t.elType&&(c=function createWrapperForWidget(e,t){const n=(0,r.createElement)({container:e,model:{elType:i},options:{at:t,useHistory:!1}});return{container:n,index:0}}(n,o));return c}(l,t),d=(0,r.createElement)({container:a,model:t,options:{at:m,useHistory:n}});return(0,o.deleteElement)({container:l,options:{useHistory:n}}),d};const i="e-flexbox"},"./packages/packages/libs/editor-elements/src/sync/update-element-editor-settings.ts":function(e,t,n){n.r(t),n.d(t,{updateElementEditorSettings:function(){return updateElementEditorSettings}});var s=n("@elementor/editor-v1-adapters"),r=n("./packages/packages/libs/editor-elements/src/sync/get-container.ts");const updateElementEditorSettings=({elementId:e,settings:t})=>{const n=(0,r.getContainer)(e);if(!n)throw new Error(`Element with id ${e} not found`);const o=n.model.get("editor_settings")??{};n.model.set("editor_settings",{...o,...t}),(0,s.__privateRunCommandSync)("document/save/set-is-modified",{status:!0},{internal:!0})}},"./packages/packages/libs/editor-elements/src/sync/update-element-interactions.ts":function(e,t,n){n.r(t),n.d(t,{playElementInteractions:function(){return playElementInteractions},updateElementInteractions:function(){return updateElementInteractions}});var s=n("@elementor/editor-v1-adapters"),r=n("./packages/packages/libs/editor-elements/src/sync/get-container.ts");const updateElementInteractions=({elementId:e,interactions:t})=>{const n=(0,r.getContainer)(e);if(!n)throw new Error(`Element with id ${e} not found`);n.model.set("interactions",t),window.dispatchEvent(new CustomEvent("elementor/element/update_interactions")),(0,s.__privateRunCommandSync)("document/save/set-is-modified",{status:!0},{internal:!0})},playElementInteractions=(e,t)=>{window.top?.dispatchEvent(new CustomEvent("atomic/play_interactions",{detail:{elementId:e,interactionId:t}}))}},"./packages/packages/libs/editor-elements/src/sync/update-element-settings.ts":function(e,t,n){n.r(t),n.d(t,{updateElementSettings:function(){return updateElementSettings}});var s=n("@elementor/editor-v1-adapters"),r=n("./packages/packages/libs/editor-elements/src/sync/get-container.ts");const updateElementSettings=({id:e,props:t,withHistory:n=!0})=>{const o=(0,r.getContainer)(e);if(!o)return;const c={container:o,settings:{...t}};n?(0,s.__privateRunCommandSync)("document/elements/settings",c):(0,s.__privateRunCommandSync)("document/elements/set-settings",c,{internal:!0})}},"./packages/packages/libs/editor-elements/src/types.ts":function(e,t,n){n.r(t)},"@elementor/editor-props":function(e){e.exports=window.elementorV2.editorProps},"@elementor/editor-styles":function(e){e.exports=window.elementorV2.editorStyles},"@elementor/editor-v1-adapters":function(e){e.exports=window.elementorV2.editorV1Adapters},"@elementor/utils":function(e){e.exports=window.elementorV2.utils},"@wordpress/i18n":function(e){e.exports=window.wp.i18n}},t={};function __webpack_require__(n){var s=t[n];if(void 0!==s)return s.exports;var r=t[n]={exports:{}};return e[n](r,r.exports,__webpack_require__),r.exports}__webpack_require__.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return __webpack_require__.d(t,{a:t}),t},__webpack_require__.d=function(e,t){for(var n in t)__webpack_require__.o(t,n)&&!__webpack_require__.o(e,n)&&Object.defineProperty(e,n,{enumerable:!0,get:t[n]})},__webpack_require__.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},__webpack_require__.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})};var n={};!function(){__webpack_require__.r(n),__webpack_require__.d(n,{ELEMENT_STYLE_CHANGE_EVENT:function(){return R.ELEMENT_STYLE_CHANGE_EVENT},createElement:function(){return c.createElement},createElementStyle:function(){return O.createElementStyle},createElements:function(){return i.createElements},deleteElement:function(){return l.deleteElement},deleteElementStyle:function(){return D.deleteElementStyle},dropElement:function(){return a.dropElement},duplicateElement:function(){return m.duplicateElement},duplicateElements:function(){return d.duplicateElements},findChildRecursive:function(){return w.findChildRecursive},generateElementId:function(){return u.generateElementId},getAllDescendants:function(){return v.getAllDescendants},getAnchoredAncestorId:function(){return L.getAnchoredAncestorId},getAnchoredDescendantId:function(){return L.getAnchoredDescendantId},getContainer:function(){return p.getContainer},getCurrentDocumentContainer:function(){return g.getCurrentDocumentContainer},getCurrentDocumentId:function(){return E.getCurrentDocumentId},getElementChildrenWithFallback:function(){return w.getElementChildren},getElementEditorSettings:function(){return k.getElementEditorSettings},getElementInteractions:function(){return M.getElementInteractions},getElementLabel:function(){return _.getElementLabel},getElementSetting:function(){return f.getElementSetting},getElementSettings:function(){return f.getElementSettings},getElementStyles:function(){return y.getElementStyles},getElementType:function(){return b.getElementType},getElements:function(){return h.getElements},getLinkInLinkRestriction:function(){return L.getLinkInLinkRestriction},getSelectedElements:function(){return C.getSelectedElements},getWidgetsCache:function(){return S.getWidgetsCache},isElementAnchored:function(){return L.isElementAnchored},moveElement:function(){return I.moveElement},moveElements:function(){return q.moveElements},playElementInteractions:function(){return P.playElementInteractions},removeElements:function(){return T.removeElements},replaceElement:function(){return x.replaceElement},selectElement:function(){return p.selectElement},shouldCreateNewLocalStyle:function(){return O.shouldCreateNewLocalStyle},styleRerenderEvents:function(){return R.styleRerenderEvents},updateElementEditorSettings:function(){return A.updateElementEditorSettings},updateElementInteractions:function(){return P.updateElementInteractions},updateElementSettings:function(){return N.updateElementSettings},updateElementStyle:function(){return H.updateElementStyle},useElementChildren:function(){return e.useElementChildren},useElementEditorSettings:function(){return t.useElementEditorSettings},useParentElement:function(){return s.useParentElement},useSelectedElement:function(){return r.useSelectedElement},useSelectedElementSettings:function(){return o.useSelectedElementSettings}});__webpack_require__("./packages/packages/libs/editor-elements/src/types.ts");var e=__webpack_require__("./packages/packages/libs/editor-elements/src/hooks/use-element-children.ts"),t=__webpack_require__("./packages/packages/libs/editor-elements/src/hooks/use-element-editor-settings.ts"),s=__webpack_require__("./packages/packages/libs/editor-elements/src/hooks/use-parent-element.ts"),r=__webpack_require__("./packages/packages/libs/editor-elements/src/hooks/use-selected-element.ts"),o=__webpack_require__("./packages/packages/libs/editor-elements/src/hooks/use-selected-element-settings.ts"),c=__webpack_require__("./packages/packages/libs/editor-elements/src/sync/create-element.ts"),i=__webpack_require__("./packages/packages/libs/editor-elements/src/sync/create-elements.ts"),l=__webpack_require__("./packages/packages/libs/editor-elements/src/sync/delete-element.ts"),a=__webpack_require__("./packages/packages/libs/editor-elements/src/sync/drop-element.ts"),m=__webpack_require__("./packages/packages/libs/editor-elements/src/sync/duplicate-element.ts"),d=__webpack_require__("./packages/packages/libs/editor-elements/src/sync/duplicate-elements.ts"),u=__webpack_require__("./packages/packages/libs/editor-elements/src/sync/generate-element-id.ts"),p=__webpack_require__("./packages/packages/libs/editor-elements/src/sync/get-container.ts"),g=__webpack_require__("./packages/packages/libs/editor-elements/src/sync/get-current-document-container.ts"),E=__webpack_require__("./packages/packages/libs/editor-elements/src/sync/get-current-document-id.ts"),k=__webpack_require__("./packages/packages/libs/editor-elements/src/sync/get-element-editor-settings.ts"),_=__webpack_require__("./packages/packages/libs/editor-elements/src/sync/get-element-label.ts"),f=__webpack_require__("./packages/packages/libs/editor-elements/src/sync/get-element-setting.ts"),y=__webpack_require__("./packages/packages/libs/editor-elements/src/sync/get-element-styles.ts"),b=__webpack_require__("./packages/packages/libs/editor-elements/src/sync/get-element-type.ts"),v=__webpack_require__("./packages/packages/libs/editor-elements/src/sync/get-all-descendants.ts"),w=__webpack_require__("./packages/packages/libs/editor-elements/src/sync/model-utils.ts"),h=__webpack_require__("./packages/packages/libs/editor-elements/src/sync/get-elements.ts"),C=__webpack_require__("./packages/packages/libs/editor-elements/src/sync/get-selected-elements.ts"),S=__webpack_require__("./packages/packages/libs/editor-elements/src/sync/get-widgets-cache.ts"),I=__webpack_require__("./packages/packages/libs/editor-elements/src/sync/move-element.ts"),q=__webpack_require__("./packages/packages/libs/editor-elements/src/sync/move-elements.ts"),T=__webpack_require__("./packages/packages/libs/editor-elements/src/sync/remove-elements.ts"),x=__webpack_require__("./packages/packages/libs/editor-elements/src/sync/replace-element.ts"),A=__webpack_require__("./packages/packages/libs/editor-elements/src/sync/update-element-editor-settings.ts"),N=__webpack_require__("./packages/packages/libs/editor-elements/src/sync/update-element-settings.ts"),L=__webpack_require__("./packages/packages/libs/editor-elements/src/link-restriction.ts"),R=__webpack_require__("./packages/packages/libs/editor-elements/src/styles/consts.ts"),O=__webpack_require__("./packages/packages/libs/editor-elements/src/styles/create-element-style.ts"),D=__webpack_require__("./packages/packages/libs/editor-elements/src/styles/delete-element-style.ts"),H=__webpack_require__("./packages/packages/libs/editor-elements/src/styles/update-element-style.ts"),M=__webpack_require__("./packages/packages/libs/editor-elements/src/sync/get-element-interactions.ts"),P=__webpack_require__("./packages/packages/libs/editor-elements/src/sync/update-element-interactions.ts")}(),(window.elementorV2=window.elementorV2||{}).editorElements=n}(),window.elementorV2.editorElements?.init?.();
+(function(_elementor_editor_v1_adapters, _elementor_session, _elementor_editor_props, _wordpress_i18n, _elementor_utils, _elementor_editor_styles) {
+
+//#region \0rolldown/runtime.js
+	var __defProp = Object.defineProperty;
+	var __name = (target, value) => __defProp(target, "name", {
+		value,
+		configurable: true
+	});
+	var __exportAll = (all, no_symbols) => {
+		let target = {};
+		for (var name in all) {
+			__defProp(target, name, {
+				get: all[name],
+				enumerable: true
+			});
+		}
+		if (!no_symbols) {
+			__defProp(target, Symbol.toStringTag, { value: "Module" });
+		}
+		return target;
+	};
+
+//#endregion
+
+//#region packages/packages/libs/editor-elements/src/sync/get-container.ts
+	function getContainer(id) {
+		return window.elementor?.getContainer?.(id) ?? null;
+	}
+	var selectElement = (elementId) => {
+		try {
+			(0, _elementor_editor_v1_adapters.__privateRunCommand)("document/elements/select", { container: getContainer(elementId) });
+		} catch {}
+	};
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/resolve-element.ts
+	function isConnected(container) {
+		if (!container) return false;
+		if (!container.view?.el) return true;
+		return container.view.el.isConnected;
+	}
+	function resolveContainer(container, id) {
+		const looked = container.lookup?.();
+		if (isConnected(looked)) return looked;
+		const byId = getContainer(id);
+		if (isConnected(byId)) return byId;
+		return null;
+	}
+	function getDocumentUtils() {
+		return window.$e?.components?.get?.("document")?.utils;
+	}
+	function findModelInDocument(id) {
+		return getDocumentUtils()?.findModelById?.(id) ?? null;
+	}
+	function addModelToParent(parentId, childData, options) {
+		return getDocumentUtils()?.addModelToParent?.(parentId, childData, options) ?? false;
+	}
+	function removeModelFromParent(parentId, childId) {
+		return getDocumentUtils()?.removeModelFromParent?.(parentId, childId) ?? false;
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/resolve-insert-index.ts
+	function resolveInsertIndex(position, elements) {
+		const lastIndex = elements.length;
+		switch (position.kind) {
+			case "first": return 0;
+			case "last": return lastIndex;
+			case "index": {
+				const index = typeof position.value === "number" ? position.value : lastIndex;
+				return Math.max(0, Math.min(index, lastIndex));
+			}
+			case "after_type": {
+				const anchor = elements.findIndex((element) => element.elType === position.value);
+				return anchor >= 0 ? anchor + 1 : lastIndex;
+			}
+			case "before_type": {
+				const anchor = elements.findIndex((element) => element.elType === position.value);
+				return anchor >= 0 ? anchor : lastIndex;
+			}
+			default: return lastIndex;
+		}
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/children-dependencies/stash.ts
+	var STASH_KEY_PREFIX = "elementor/editor-state";
+	var STASH_KEY_SEGMENT = "children-deps";
+	function createChildrenStash() {
+		return {
+			get(elementId, childType) {
+				return (0, _elementor_session.getSessionStorageItem)(buildStashKey(elementId, childType));
+			},
+			save(elementId, childType, data) {
+				(0, _elementor_session.setSessionStorageItem)(buildStashKey(elementId, childType), data);
+			},
+			clear(elementId, childType) {
+				(0, _elementor_session.removeSessionStorageItem)(buildStashKey(elementId, childType));
+			},
+			clearAllForElement(elementId) {
+				const prefix = buildElementStashPrefix(elementId);
+				for (let index = sessionStorage.length - 1; index >= 0; index--) {
+					const key = sessionStorage.key(index);
+					if (key?.startsWith(prefix)) (0, _elementor_session.removeSessionStorageItem)(key);
+				}
+			}
+		};
+	}
+	function buildStashKey(elementId, childType) {
+		return `${STASH_KEY_PREFIX}/${elementId}/${STASH_KEY_SEGMENT}/${childType}`;
+	}
+	function buildElementStashPrefix(elementId) {
+		return `${STASH_KEY_PREFIX}/${elementId}/${STASH_KEY_SEGMENT}/`;
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/generate-element-id.ts
+	var generateElementId = () => {
+		return window.elementorCommon?.helpers?.getUniqueId?.() ?? `el-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
+	};
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/children-dependencies/utils.ts
+	function evaluateWhen(when, settings) {
+		return (0, _elementor_editor_props.isDependencyMet)(when, settings).isMet;
+	}
+	function ensureModelId(model) {
+		const { skipDefaultChildren: _skipDefaultChildren, ...rest } = model;
+		return rest.id ? rest : {
+			...rest,
+			id: generateElementId()
+		};
+	}
+	function resolveChildModelData(elementId, rule, stash) {
+		const stashed = rule.stash ? stash.get(elementId, rule.child_type) : void 0;
+		return {
+			modelData: ensureModelId(stashed ?? rule.default_model ?? { elType: rule.child_type }),
+			wasStashed: Boolean(stashed)
+		};
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/children-dependencies/bind-settings-reconcile.ts
+	function bindSettingsReconcile({ model, elementConfig }) {
+		const stash = createChildrenStash();
+		const rules = elementConfig?.children_dependencies;
+		if (!rules?.length) return () => {};
+		const settingsModel = model.get("settings");
+		const elementId = model.get("id");
+		if (!settingsModel?.on || !settingsModel?.off || !elementId) return () => {};
+		const lastMet = /* @__PURE__ */ new Map();
+		rules.forEach((rule) => {
+			lastMet.set(rule.child_type, evaluateWhen(rule.when, settingsModel.toJSON()));
+		});
+		const onChange = () => {
+			const currentSettings = settingsModel.toJSON();
+			rules.forEach((rule) => {
+				const previous = lastMet.get(rule.child_type) ?? false;
+				const current = evaluateWhen(rule.when, currentSettings);
+				if (previous === current) return;
+				lastMet.set(rule.child_type, current);
+				if (current) attachChildFromRule(elementId, rule, stash);
+				else detachChildFromRule(elementId, rule, stash);
+			});
+		};
+		settingsModel.on("change", onChange);
+		return () => {
+			settingsModel.off?.("change", onChange);
+			stash.clearAllForElement(elementId);
+		};
+	}
+	function attachChildFromRule(parentId, rule, stash) {
+		const currentChildren = getDirectChildData(getContainer(parentId) ?? void 0);
+		if (currentChildren.some((child) => child.elType === rule.child_type)) return;
+		const { modelData, wasStashed } = resolveChildModelData(parentId, rule, stash);
+		if (!addModelToParent(parentId, modelData, { at: resolveInsertIndex(rule.position, currentChildren) })) return;
+		if (wasStashed) stash.clear(parentId, rule.child_type);
+		requestNavigatorRefresh(parentId);
+	}
+	function detachChildFromRule(parentId, rule, stash) {
+		const child = (getContainer(parentId) ?? void 0)?.children?.find((candidate) => candidate.model.get("elType") === rule.child_type);
+		if (!child) return;
+		const childSnapshot = child.model.toJSON();
+		if (!removeModelFromParent(parentId, child.id)) return;
+		if (rule.stash) stash.save(parentId, rule.child_type, childSnapshot);
+		requestNavigatorRefresh(parentId);
+	}
+	function requestNavigatorRefresh(parentId) {
+		if (typeof window === "undefined" || typeof window.dispatchEvent !== "function") return;
+		window.dispatchEvent(new CustomEvent("elementor/navigator/refresh-children", { detail: { elementId: parentId } }));
+	}
+	function getDirectChildData(parent) {
+		return (parent?.children ?? []).map((child) => child.model.toJSON());
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/children-dependencies/reconcile-initial-children.ts
+	function reconcileInitialChildren({ elementId, elementConfig, attributes }) {
+		const stash = createChildrenStash();
+		const rules = elementConfig?.children_dependencies;
+		if (!rules?.length) return;
+		const elements = [...attributes.elements ?? []];
+		const settings = attributes.settings ?? {};
+		rules.forEach((rule) => {
+			const isMet = evaluateWhen(rule.when, settings);
+			const existingIndex = elements.findIndex((element) => element.elType === rule.child_type);
+			const isPresent = existingIndex >= 0;
+			if (isMet && !isPresent) {
+				const { modelData, wasStashed } = resolveChildModelData(elementId, rule, stash);
+				const insertAt = resolveInsertIndex(rule.position, elements);
+				elements.splice(insertAt, 0, modelData);
+				if (wasStashed) stash.clear(elementId, rule.child_type);
+				return;
+			}
+			if (!isMet && isPresent) {
+				const [removed] = elements.splice(existingIndex, 1);
+				if (rule.stash && removed) stash.save(elementId, rule.child_type, removed);
+			}
+		});
+		attributes.elements = elements;
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/model-utils.ts
+	function findChildRecursive(model, predicate) {
+		const childModels = model.get("elements") ?? [];
+		for (const childModel of childModels) {
+			if (predicate(childModel)) return { model: childModel };
+			const found = findChildRecursive(childModel, predicate);
+			if (found) return found;
+		}
+		return null;
+	}
+	function getElementChildren(model, predicate) {
+		return (model.get("elements") ?? []).filter((childModel) => !predicate || predicate(childModel)).map((childModel) => ({ model: childModel }));
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/hooks/use-element-children.ts
+	function toElementModel({ model }) {
+		return {
+			id: model.get("id"),
+			editorSettings: model.get("editor_settings") ?? {}
+		};
+	}
+	function useElementChildren(elementId, childrenTypes, { includeSelfAsParent = false } = {}) {
+		return (0, _elementor_editor_v1_adapters.__privateUseListenTo)([
+			(0, _elementor_editor_v1_adapters.v1ReadyEvent)(),
+			(0, _elementor_editor_v1_adapters.commandEndEvent)("document/elements/create"),
+			(0, _elementor_editor_v1_adapters.commandEndEvent)("document/elements/delete"),
+			(0, _elementor_editor_v1_adapters.commandEndEvent)("document/elements/update"),
+			(0, _elementor_editor_v1_adapters.commandEndEvent)("document/elements/set-settings")
+		], () => {
+			const model = getContainer(elementId)?.model;
+			if (!model) return {};
+			return Object.entries(childrenTypes).reduce((acc, [parentType, childType]) => {
+				const parent = includeSelfAsParent && model.get("elType") === parentType ? { model } : findChildRecursive(model, (m) => m.get("elType") === parentType);
+				if (!parent) {
+					acc[childType] = [];
+					return acc;
+				}
+				acc[childType] = getElementChildren(parent.model, (m) => m.get("elType") === childType).map(toElementModel);
+				return acc;
+			}, {});
+		}, [elementId]);
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/get-element-editor-settings.ts
+	function getElementEditorSettings(elementId) {
+		return getContainer(elementId)?.model.get("editor_settings") ?? {};
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/hooks/use-element-editor-settings.ts
+	var useElementEditorSettings = (elementId) => {
+		return (0, _elementor_editor_v1_adapters.__privateUseListenTo)((0, _elementor_editor_v1_adapters.windowEvent)("elementor/element/update_editor_settings"), () => getElementEditorSettings(elementId), [elementId]);
+	};
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/hooks/use-parent-element.ts
+	function useParentElement(elementId) {
+		return (0, _elementor_editor_v1_adapters.__privateUseListenTo)([(0, _elementor_editor_v1_adapters.commandEndEvent)("document/elements/create")], () => {
+			if (!elementId) return null;
+			const element = window?.elementor?.getContainer?.(elementId);
+			if (!element) return null;
+			return element.parent;
+		}, [elementId]);
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/get-widgets-cache.ts
+	function getWidgetsCache() {
+		return window?.elementor?.widgetsCache || null;
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/get-element-type.ts
+	function getElementType(type) {
+		if (!type) return null;
+		const elementType = getWidgetsCache()?.[type];
+		if (!elementType?.atomic_controls) return null;
+		if (!elementType?.atomic_props_schema) return null;
+		return {
+			key: type,
+			controls: elementType.atomic_controls,
+			propsSchema: elementType.atomic_props_schema,
+			dependenciesPerTargetMapping: elementType.dependencies_per_target_mapping ?? {},
+			title: elementType.title,
+			styleStates: elementType.atomic_style_states ?? [],
+			pseudoStates: elementType.atomic_pseudo_states ?? []
+		};
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/get-selected-elements.ts
+	function getSelectedElements() {
+		return (window.elementor?.selection?.getElements?.() ?? []).reduce((acc, el) => {
+			const type = el.model.get("widgetType") || el.model.get("elType");
+			if (type) acc.push({
+				id: el.model.get("id"),
+				type
+			});
+			return acc;
+		}, []);
+	}
+	function getSelectedElement() {
+		const elements = getSelectedElements();
+		const [element] = elements;
+		const elementType = getElementType(element?.type);
+		if (elements.length !== 1 || !elementType || !element) return {
+			element: null,
+			elementType: null
+		};
+		return {
+			element,
+			elementType
+		};
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/hooks/use-selected-element.ts
+	function useSelectedElement() {
+		return (0, _elementor_editor_v1_adapters.__privateUseListenTo)([
+			(0, _elementor_editor_v1_adapters.commandEndEvent)("document/elements/select"),
+			(0, _elementor_editor_v1_adapters.commandEndEvent)("document/elements/deselect"),
+			(0, _elementor_editor_v1_adapters.commandEndEvent)("document/elements/select-all"),
+			(0, _elementor_editor_v1_adapters.commandEndEvent)("document/elements/deselect-all")
+		], getSelectedElement);
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/get-element-setting.ts
+	var getElementSetting = (elementId, settingKey) => {
+		return getContainer(elementId)?.settings?.get(settingKey) ?? null;
+	};
+	var getElementSettings = (elementId, settingKey) => {
+		return Object.fromEntries(settingKey.map((key) => [key, getElementSetting(elementId, key)]));
+	};
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/hooks/use-selected-element-settings.ts
+	function useSelectedElementSettings() {
+		return (0, _elementor_editor_v1_adapters.__privateUseListenTo)([
+			(0, _elementor_editor_v1_adapters.commandEndEvent)("document/elements/select"),
+			(0, _elementor_editor_v1_adapters.commandEndEvent)("document/elements/deselect"),
+			(0, _elementor_editor_v1_adapters.commandEndEvent)("document/elements/select-all"),
+			(0, _elementor_editor_v1_adapters.commandEndEvent)("document/elements/deselect-all"),
+			(0, _elementor_editor_v1_adapters.commandEndEvent)("document/elements/set-settings")
+		], () => {
+			const { element, elementType } = getSelectedElement();
+			if (!element || !elementType) return {
+				element: null,
+				elementType: null,
+				settings: null
+			};
+			return {
+				element,
+				elementType,
+				settings: getElementSettings(element.id, Object.keys(elementType.propsSchema))
+			};
+		});
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/create-element.ts
+	function createElement({ container, model, options }) {
+		return (0, _elementor_editor_v1_adapters.__privateRunCommandSync)("document/elements/create", {
+			container,
+			model,
+			options: {
+				edit: false,
+				...options
+			}
+		});
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/delete-element.ts
+	function deleteElement({ container, options = {} }) {
+		(0, _elementor_editor_v1_adapters.__privateRunCommandSync)("document/elements/delete", {
+			container,
+			options
+		});
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/create-elements.ts
+	var createElements = ({ elements, title, subtitle = (0, _wordpress_i18n.__)("Item added", "elementor") }) => {
+		return (0, _elementor_editor_v1_adapters.undoable)({
+			do: ({ elements: elementsParam }) => {
+				const createdElements = [];
+				elementsParam.forEach(({ container, options, ...elementParams }) => {
+					const parentContainer = container.lookup?.() ?? container;
+					if (!parentContainer) throw new Error("Parent container not found");
+					const element = createElement({
+						container: parentContainer,
+						...elementParams,
+						options: {
+							...options,
+							useHistory: false
+						}
+					});
+					createdElements.push({
+						container: element,
+						parentContainer,
+						model: element.model?.toJSON() || {},
+						options,
+						containerId: element.id,
+						parentContainerId: parentContainer.id
+					});
+				});
+				return { createdElements };
+			},
+			undo: (_, { createdElements }) => {
+				[...createdElements].reverse().forEach(({ container, containerId, parentContainerId }) => {
+					const freshContainer = resolveContainer(container, containerId);
+					if (freshContainer) {
+						deleteElement({
+							container: freshContainer,
+							options: { useHistory: false }
+						});
+						return;
+					}
+					removeModelFromParent(parentContainerId, containerId);
+				});
+			},
+			redo: (_, { createdElements }) => {
+				const newElements = [];
+				createdElements.forEach(({ parentContainer, parentContainerId, model, options }) => {
+					const freshParent = resolveContainer(parentContainer, parentContainerId);
+					if (freshParent) {
+						const element = createElement({
+							container: freshParent,
+							model,
+							options: {
+								...options,
+								useHistory: false
+							}
+						});
+						newElements.push({
+							container: element,
+							parentContainer: freshParent,
+							model: element.model.toJSON(),
+							options,
+							containerId: element.id,
+							parentContainerId: freshParent.id
+						});
+						return;
+					}
+					addModelToParent(parentContainerId, model);
+					newElements.push({
+						container: parentContainer,
+						parentContainer,
+						model,
+						options,
+						containerId: model.id ?? "",
+						parentContainerId
+					});
+				});
+				return { createdElements: newElements };
+			}
+		}, {
+			title,
+			subtitle
+		})({ elements });
+	};
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/drop-element.ts
+	function dropElement({ containerId, model, options }) {
+		const container = getContainer(containerId);
+		if (!container) throw new Error(`Container with ID "${containerId}" not found`);
+		return (0, _elementor_editor_v1_adapters.__privateRunCommandSync)("preview/drop", {
+			container,
+			model,
+			options
+		});
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/duplicate-element.ts
+	function duplicateElement({ element, options = {} }) {
+		const currentIndex = element.view?._index ?? 0;
+		return (0, _elementor_editor_v1_adapters.__privateRunCommandSync)("document/elements/duplicate", {
+			container: element,
+			options: {
+				at: options.clone !== false ? currentIndex + 1 : void 0,
+				edit: false,
+				...options
+			}
+		});
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/duplicate-elements.ts
+	var duplicateElements = ({ elementIds, title, subtitle = (0, _wordpress_i18n.__)("Item duplicated", "elementor"), onDuplicateElements, onRestoreElements }) => {
+		return (0, _elementor_editor_v1_adapters.undoable)({
+			do: ({ elementIds: elementIdsToDuplicate }) => {
+				onDuplicateElements?.();
+				const duplicatedElements = [];
+				elementIdsToDuplicate.forEach((elementId) => {
+					const originalContainer = getContainer(elementId);
+					if (!originalContainer?.parent) return;
+					const duplicatedElement = duplicateElement({
+						element: originalContainer,
+						options: { useHistory: false }
+					});
+					if (!duplicatedElement.parent) return;
+					duplicatedElements.push({
+						container: duplicatedElement,
+						parentContainer: duplicatedElement.parent,
+						model: duplicatedElement.model.toJSON(),
+						at: duplicatedElement.view?._index,
+						containerId: duplicatedElement.id,
+						parentContainerId: duplicatedElement.parent.id
+					});
+				});
+				return { duplicatedElements };
+			},
+			undo: (_, { duplicatedElements }) => {
+				onRestoreElements?.();
+				[...duplicatedElements].reverse().forEach(({ container, containerId, parentContainerId }) => {
+					const freshContainer = resolveContainer(container, containerId);
+					if (freshContainer) {
+						deleteElement({
+							container: freshContainer,
+							options: { useHistory: false }
+						});
+						return;
+					}
+					removeModelFromParent(parentContainerId, containerId);
+				});
+			},
+			redo: (_, { duplicatedElements: previousElements }) => {
+				onDuplicateElements?.();
+				const duplicatedElements = [];
+				previousElements.forEach(({ parentContainer, parentContainerId, model, at }) => {
+					const freshParent = resolveContainer(parentContainer, parentContainerId);
+					if (freshParent) {
+						const createdElement = createElement({
+							container: freshParent,
+							model,
+							options: {
+								useHistory: false,
+								clone: false,
+								at
+							}
+						});
+						duplicatedElements.push({
+							container: createdElement,
+							parentContainer: freshParent,
+							model,
+							at,
+							containerId: createdElement.id,
+							parentContainerId: freshParent.id
+						});
+						return;
+					}
+					addModelToParent(parentContainerId, model, { at });
+					duplicatedElements.push({
+						container: parentContainer,
+						parentContainer,
+						model,
+						at,
+						containerId: model.id ?? "",
+						parentContainerId
+					});
+				});
+				return { duplicatedElements };
+			}
+		}, {
+			title,
+			subtitle
+		})({ elementIds });
+	};
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/get-preview-element-dom.ts
+	function getPreviewElementDOM(id) {
+		try {
+			const fromContainer = getContainer(id)?.view?.el;
+			if (fromContainer) return fromContainer;
+			return queryPreviewDOMByElementId(id);
+		} catch {
+			return null;
+		}
+	}
+	function queryPreviewDOMByElementId(id) {
+		const previewDocument = window.elementor?.getPreviewContainer?.()?.view?.el?.ownerDocument;
+		if (!previewDocument) return null;
+		return previewDocument.querySelector(`[data-id="${id}"]`);
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/get-current-document-container.ts
+	function getCurrentDocumentContainer() {
+		return window.elementor?.documents?.getCurrent?.()?.container ?? null;
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/get-current-document-id.ts
+	function getCurrentDocumentId() {
+		const extendedWindow = window;
+		try {
+			return extendedWindow.elementor?.documents?.getCurrentId?.() ?? null;
+		} catch {
+			return null;
+		}
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/get-element-icon.ts
+	function getElementIcon(elementId) {
+		const container = getContainer(elementId);
+		const type = container?.model.get("widgetType") || container?.model.get("elType");
+		if (!type) return null;
+		return getWidgetsCache()?.[type]?.icon ?? null;
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/errors.ts
+	var ElementNotFoundError = (0, _elementor_utils.createError)({
+		code: "element_not_found",
+		message: "Element not found."
+	});
+	var StyleNotFoundError = (0, _elementor_utils.createError)({
+		code: "style_not_found",
+		message: "Style not found."
+	});
+	var ElementTypeNotExistsError = (0, _elementor_utils.createError)({
+		code: "element_type_not_exists",
+		message: "Element type does not exist."
+	});
+	var ElementLabelNotExistsError = (0, _elementor_utils.createError)({
+		code: "element_label_not_exists",
+		message: "Element label does not exist."
+	});
+	var ElementParentNotFoundError = (0, _elementor_utils.createError)({
+		code: "element_parent_not_found",
+		message: "Element parent not found."
+	});
+	var ElementIndexNotFoundError = (0, _elementor_utils.createError)({
+		code: "element_index_not_found",
+		message: "Element index not found."
+	});
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/get-element-label.ts
+	function getElementLabel(elementId) {
+		if (!elementId) elementId = getSelectedElements()?.[0]?.id;
+		const container = getContainer(elementId);
+		const type = container?.model.get("widgetType") || container?.model.get("elType");
+		if (!type) throw new ElementTypeNotExistsError({ context: { elementId } });
+		const label = getWidgetsCache()?.[type]?.title;
+		if (!label) throw new ElementLabelNotExistsError({ context: { elementType: type } });
+		return label;
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/get-element-title.ts
+	function extractString(value) {
+		if (typeof value === "string") return value || null;
+		if (value && typeof value === "object" && "value" in value && typeof value.value === "string") return value.value || null;
+		return null;
+	}
+	function getElementTitle(elementId) {
+		const editorTitle = extractString(getElementEditorSettings(elementId)?.title);
+		if (editorTitle) return editorTitle;
+		const legacyTitle = extractString(getElementSetting(elementId, "_title"));
+		if (legacyTitle) return legacyTitle;
+		const presetTitle = extractString(getElementSetting(elementId, "presetTitle"));
+		if (presetTitle) return presetTitle;
+		try {
+			return getElementLabel(elementId);
+		} catch {
+			return null;
+		}
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/get-element-styles.ts
+	var getElementStyles = (elementID) => {
+		return getContainer(elementID)?.model.get("styles") || null;
+	};
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/get-all-descendants.ts
+	function getAllDescendants(container) {
+		return [container, ...(container.children ?? []).flatMap((child) => getAllDescendants(child))];
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/get-elements.ts
+	function getElements(root) {
+		const container = root ? getContainer(root) : getCurrentDocumentContainer();
+		if (!container) return [];
+		return [container, ...[...container.model.get("elements") ?? []].flatMap((childModel) => getElements(childModel.get("id")))];
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/move-element.ts
+	function moveElement({ element, targetContainer, options = {} }) {
+		const resolvedElement = element.lookup?.();
+		const resolvedTarget = targetContainer.lookup?.();
+		if (!resolvedElement) throw new Error(`Element not found: ${element.id}`);
+		if (!resolvedTarget) throw new Error(`Target container not found: ${targetContainer.id}`);
+		const modelToRecreate = resolvedElement.model.toJSON();
+		deleteElement({
+			container: resolvedElement,
+			options: {
+				...options,
+				useHistory: false
+			}
+		});
+		return createElement({
+			container: resolvedTarget,
+			model: modelToRecreate,
+			options: {
+				edit: false,
+				...options,
+				useHistory: false
+			}
+		});
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/move-elements.ts
+	var moveElements = ({ moves: movesToMake, title, subtitle = (0, _wordpress_i18n.__)("Elements moved", "elementor"), onMoveElements, onRestoreElements }) => {
+		return (0, _elementor_editor_v1_adapters.undoable)({
+			do: ({ moves }) => {
+				const movedElements = [];
+				onMoveElements?.();
+				moves.forEach(({ element, targetContainer, options }) => {
+					const sourceElement = element.lookup?.() ?? element;
+					const target = targetContainer.lookup?.() ?? targetContainer;
+					if (!sourceElement) throw new Error("Element not found");
+					if (!target) throw new Error("Target container not found");
+					if (!sourceElement.parent) throw new Error("Element has no parent container");
+					const originalContainer = sourceElement.parent;
+					const originalIndex = originalContainer.children?.indexOf(sourceElement) ?? -1;
+					const newElement = moveElement({
+						element: sourceElement,
+						targetContainer: target,
+						options: {
+							...options,
+							useHistory: false
+						}
+					});
+					movedElements.push({
+						element: newElement,
+						originalContainer,
+						originalIndex,
+						targetContainer: target,
+						options,
+						elementId: newElement.id,
+						originalContainerId: originalContainer.id,
+						targetContainerId: target.id
+					});
+				});
+				return { movedElements };
+			},
+			undo: (_, { movedElements }) => {
+				onRestoreElements?.();
+				[...movedElements].reverse().forEach(({ element, elementId, originalContainer, originalContainerId, originalIndex }) => {
+					const freshElement = resolveContainer(element, elementId);
+					const freshOriginalContainer = resolveContainer(originalContainer, originalContainerId);
+					if (!freshElement || !freshOriginalContainer) return;
+					moveElement({
+						element: freshElement,
+						targetContainer: freshOriginalContainer,
+						options: {
+							useHistory: false,
+							at: originalIndex >= 0 ? originalIndex : void 0
+						}
+					});
+				});
+			},
+			redo: (_, { movedElements }) => {
+				const newMovedElements = [];
+				onMoveElements?.();
+				movedElements.forEach(({ element, elementId, originalContainer, originalContainerId, originalIndex, targetContainer, targetContainerId, options }) => {
+					const freshElement = resolveContainer(element, elementId);
+					const freshOriginalContainer = resolveContainer(originalContainer, originalContainerId);
+					const freshTarget = resolveContainer(targetContainer, targetContainerId);
+					if (!freshElement || !freshOriginalContainer || !freshTarget) return;
+					const newElement = moveElement({
+						element: freshElement,
+						targetContainer: freshTarget,
+						options: {
+							...options,
+							useHistory: false
+						}
+					});
+					newMovedElements.push({
+						element: newElement,
+						originalContainer: freshOriginalContainer,
+						originalIndex,
+						targetContainer: freshTarget,
+						options,
+						elementId: newElement.id,
+						originalContainerId: freshOriginalContainer.id,
+						targetContainerId: freshTarget.id
+					});
+				});
+				return { movedElements: newMovedElements };
+			}
+		}, {
+			title,
+			subtitle
+		})({ moves: movesToMake });
+	};
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/remove-elements.ts
+	var removeElements = ({ elementIds, title, subtitle = (0, _wordpress_i18n.__)("Item removed", "elementor"), onRemoveElements, onRestoreElements }) => {
+		return (0, _elementor_editor_v1_adapters.undoable)({
+			do: ({ elementIds: elementIdsParam }) => {
+				const removedElements = [];
+				elementIdsParam.forEach((elementId) => {
+					const container = getContainer(elementId);
+					if (container?.parent) removedElements.push({
+						container,
+						parent: container.parent,
+						model: container.model.toJSON(),
+						at: container.view?._index ?? 0,
+						containerId: container.id,
+						parentId: container.parent.id
+					});
+				});
+				onRemoveElements?.();
+				removedElements.forEach(({ container }) => {
+					deleteElement({
+						container,
+						options: { useHistory: false }
+					});
+				});
+				return { removedElements };
+			},
+			undo: (_, { removedElements }) => {
+				onRestoreElements?.();
+				[...removedElements].reverse().forEach(({ parent, parentId, model, at }) => {
+					const freshParent = resolveContainer(parent, parentId);
+					if (freshParent) {
+						createElement({
+							container: freshParent,
+							model,
+							options: {
+								useHistory: false,
+								at
+							}
+						});
+						return;
+					}
+					addModelToParent(parentId, model, { at });
+				});
+			},
+			redo: (_, { removedElements }) => {
+				onRemoveElements?.();
+				const newRemovedElements = [];
+				removedElements.forEach(({ container, parent, model, at, containerId, parentId }) => {
+					const freshContainer = resolveContainer(container, containerId);
+					const freshParent = resolveContainer(parent, parentId);
+					if (freshContainer && freshParent) {
+						deleteElement({
+							container: freshContainer,
+							options: { useHistory: false }
+						});
+						newRemovedElements.push({
+							container: freshContainer,
+							parent: freshParent,
+							model,
+							at,
+							containerId,
+							parentId
+						});
+						return;
+					}
+					removeModelFromParent(parentId, containerId);
+					newRemovedElements.push({
+						container,
+						parent,
+						model,
+						at,
+						containerId,
+						parentId
+					});
+				});
+				return { removedElements: newRemovedElements };
+			}
+		}, {
+			title,
+			subtitle
+		})({ elementIds });
+	};
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/replace-element.ts
+	var replaceElement = ({ currentElementId, newElement, withHistory = true }) => {
+		const currentElementContainer = getContainer(currentElementId);
+		if (!currentElementContainer) throw new ElementNotFoundError({ context: { elementId: currentElementId } });
+		const { container, index } = getNewElementContainer(currentElementContainer, newElement);
+		const newElementInstance = createElement({
+			container,
+			model: newElement,
+			options: {
+				at: index,
+				useHistory: withHistory
+			}
+		});
+		deleteElement({
+			container: currentElementContainer,
+			options: { useHistory: withHistory }
+		});
+		return newElementInstance;
+	};
+	function getNewElementContainer(currentElementContainer, newElement) {
+		const { parent } = currentElementContainer;
+		if (!parent) throw new ElementParentNotFoundError({ context: { elementId: currentElementContainer.id } });
+		const elementIndex = currentElementContainer.view?._index ?? 0;
+		if (elementIndex === -1) throw new ElementIndexNotFoundError({ context: { elementId: currentElementContainer.id } });
+		let location = {
+			container: parent,
+			index: elementIndex
+		};
+		if (parent.id === "document" && newElement.elType === "widget") location = createWrapperForWidget(parent, elementIndex);
+		return location;
+	}
+	var DEFAULT_CONTAINER_TYPE = "e-flexbox";
+	function createWrapperForWidget(parent, elementIndex) {
+		return {
+			container: createElement({
+				container: parent,
+				model: { elType: DEFAULT_CONTAINER_TYPE },
+				options: {
+					at: elementIndex,
+					useHistory: false
+				}
+			}),
+			index: 0
+		};
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/update-element-editor-settings.ts
+	var updateElementEditorSettings = ({ elementId, settings }) => {
+		const element = getContainer(elementId);
+		if (!element) throw new Error(`Element with id ${elementId} not found`);
+		const editorSettings = element.model.get("editor_settings") ?? {};
+		element.model.set("editor_settings", {
+			...editorSettings,
+			...settings
+		});
+		(0, _elementor_editor_v1_adapters.__privateRunCommandSync)("document/save/set-is-modified", { status: true }, { internal: true });
+	};
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/update-element-settings.ts
+	var updateElementSettings = ({ id, props, withHistory = true }) => {
+		const container = getContainer(id);
+		if (!container) return;
+		const args = {
+			container,
+			settings: { ...props }
+		};
+		if (withHistory) (0, _elementor_editor_v1_adapters.__privateRunCommandSync)("document/elements/settings", args);
+		else (0, _elementor_editor_v1_adapters.__privateRunCommandSync)("document/elements/set-settings", args, { internal: true });
+	};
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/link-restriction.ts
+	var ANCHOR_SELECTOR = "a, [data-action-link]";
+	function getLinkInLinkRestriction(elementId, resolvedValue) {
+		const anchoredDescendantId = getAnchoredDescendantId(elementId);
+		if (anchoredDescendantId) return {
+			shouldRestrict: true,
+			reason: "descendant",
+			elementId: anchoredDescendantId
+		};
+		if (checkForInlineLink(elementId, resolvedValue)) return {
+			shouldRestrict: true,
+			reason: "descendant",
+			elementId
+		};
+		const ancestor = getAnchoredAncestorId(elementId);
+		if (ancestor) return {
+			shouldRestrict: true,
+			reason: "ancestor",
+			elementId: ancestor
+		};
+		return { shouldRestrict: false };
+	}
+	function getAnchoredDescendantId(elementId) {
+		const element = getElementDOM(elementId);
+		if (!element) return null;
+		for (const childAnchorElement of Array.from(element.querySelectorAll(ANCHOR_SELECTOR))) {
+			const childElementId = findElementIdOf(childAnchorElement);
+			if (childElementId !== elementId) return childElementId;
+		}
+		return null;
+	}
+	function getAnchoredAncestorId(elementId) {
+		const element = getElementDOM(elementId);
+		if (!element || element.parentElement === null) return null;
+		const parentAnchor = element.parentElement.closest(ANCHOR_SELECTOR);
+		return parentAnchor ? findElementIdOf(parentAnchor) : null;
+	}
+	function isElementAnchored(elementId) {
+		const element = getElementDOM(elementId);
+		if (!element) return false;
+		if (element.matches(ANCHOR_SELECTOR)) return true;
+		return doesElementContainAnchor(element);
+	}
+	function doesElementContainAnchor(element) {
+		for (const child of Array.from(element.children)) {
+			if (isElementorElement(child)) continue;
+			if (child.matches(ANCHOR_SELECTOR)) return true;
+			if (doesElementContainAnchor(child)) return true;
+		}
+		return false;
+	}
+	function findElementIdOf(element) {
+		return element.closest("[data-id]")?.dataset.id || null;
+	}
+	function checkForInlineLink(elementId, resolvedValue) {
+		const element = getElementDOM(elementId);
+		if (!element) return false;
+		if (element.matches(ANCHOR_SELECTOR)) return false;
+		if ((resolvedValue ?? getElementSetting(elementId, "link")?.value)?.destination) return false;
+		return element.querySelector(ANCHOR_SELECTOR) !== null;
+	}
+	function getElementDOM(id) {
+		return getPreviewElementDOM(id);
+	}
+	function isElementorElement(element) {
+		return element.hasAttribute("data-id");
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/styles/consts.ts
+	var ELEMENT_STYLE_CHANGE_EVENT = "elementor/editor-v2/editor-elements/style";
+	var styleRerenderEvents = [
+		(0, _elementor_editor_v1_adapters.commandEndEvent)("document/elements/create"),
+		(0, _elementor_editor_v1_adapters.commandEndEvent)("document/elements/duplicate"),
+		(0, _elementor_editor_v1_adapters.commandEndEvent)("document/elements/import"),
+		(0, _elementor_editor_v1_adapters.commandEndEvent)("document/elements/paste"),
+		(0, _elementor_editor_v1_adapters.windowEvent)(ELEMENT_STYLE_CHANGE_EVENT)
+	];
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/styles/mutate-element-styles.ts
+	function mutateElementStyles(elementId, mutator) {
+		const container = getContainer(elementId);
+		if (!container) throw new ElementNotFoundError({ context: { elementId } });
+		const oldIds = Object.keys(container.model.get("styles") ?? {});
+		const styles = mutateStyles(container, mutator);
+		clearRemovedClasses(container, {
+			oldIds,
+			newIds: Object.keys(styles)
+		});
+		notifyChanges();
+		return styles;
+	}
+	function mutateStyles(container, mutator) {
+		const styles = structuredClone(container.model.get("styles")) ?? {};
+		const entries = Object.entries(mutator(styles)).map(([styleId, style]) => {
+			style.variants = removeEmptyVariants(style);
+			return [styleId, style];
+		}).filter(([, style]) => {
+			return !isStyleEmpty(style);
+		});
+		const mutatedStyles = Object.fromEntries(entries);
+		container.model.set("styles", mutatedStyles);
+		return mutatedStyles;
+	}
+	function removeEmptyVariants(style) {
+		return style.variants.filter(({ props, custom_css: customCss }) => Object.keys(props).length > 0 || customCss?.raw);
+	}
+	function isStyleEmpty(style) {
+		return style.variants.length === 0;
+	}
+	function clearRemovedClasses(container, { oldIds, newIds }) {
+		const removedIds = oldIds.filter((id) => !newIds.includes(id));
+		if (!removedIds.length) return;
+		const classesProps = structuredClone(getClassesProps(container));
+		classesProps.forEach(([, prop]) => {
+			prop.value = prop.value.filter((value) => !removedIds.includes(value));
+		});
+		updateElementSettings({
+			id: container.id,
+			props: Object.fromEntries(classesProps),
+			withHistory: false
+		});
+	}
+	function getClassesProps(container) {
+		return Object.entries(container.settings.toJSON()).filter((prop) => {
+			const [, value] = prop;
+			return _elementor_editor_props.classesPropTypeUtil.isValid(value);
+		});
+	}
+	function notifyChanges() {
+		dispatchChangeEvent();
+		(0, _elementor_editor_v1_adapters.__privateRunCommandSync)("document/save/set-is-modified", { status: true }, { internal: true });
+	}
+	function dispatchChangeEvent() {
+		window.dispatchEvent(new CustomEvent(ELEMENT_STYLE_CHANGE_EVENT));
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/styles/create-element-style.ts
+	function createElementStyle({ styleId, elementId, classesProp, label, meta, props, custom_css: customCss = null, additionalVariants = [] }) {
+		let id = styleId;
+		mutateElementStyles(elementId, (styles) => {
+			id ?? (id = (0, _elementor_editor_styles.generateId)(`e-${elementId}-`, Object.keys(styles)));
+			const variants = [{
+				meta,
+				props,
+				custom_css: customCss
+			}, ...additionalVariants];
+			styles[id] = {
+				id,
+				label,
+				type: "class",
+				variants
+			};
+			addStyleToClassesProp(elementId, classesProp, id);
+			return styles;
+		});
+		return id;
+	}
+	function addStyleToClassesProp(elementId, classesProp, styleId) {
+		const base = getElementSetting(elementId, classesProp);
+		const classesPropValue = _elementor_editor_props.classesPropTypeUtil.create((prev) => {
+			return [...prev ?? [], styleId];
+		}, { base });
+		updateElementSettings({
+			id: elementId,
+			props: { [classesProp]: classesPropValue },
+			withHistory: false
+		});
+	}
+	function shouldCreateNewLocalStyle(payload) {
+		return !payload?.styleId && !payload?.provider;
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/styles/delete-element-style.ts
+	function deleteElementStyle(elementId, styleId) {
+		mutateElementStyles(elementId, (styles) => {
+			delete styles[styleId];
+			return styles;
+		});
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/styles/update-element-style.ts
+	function updateElementStyle(args) {
+		mutateElementStyles(args.elementId, (styles) => {
+			const style = styles[args.styleId];
+			if (!style) throw new StyleNotFoundError({ context: { styleId: args.styleId } });
+			const variant = (0, _elementor_editor_styles.getVariantByMeta)(style, args.meta);
+			const customCss = ("custom_css" in args ? args.custom_css : variant?.custom_css) ?? null;
+			if (variant) {
+				variant.props = (0, _elementor_editor_props.mergeProps)(variant.props, args.props);
+				variant.custom_css = customCss?.raw ? customCss : null;
+			} else style.variants.push({
+				meta: args.meta,
+				props: args.props,
+				custom_css: customCss
+			});
+			return styles;
+		});
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/get-element-interactions.ts
+	function getElementInteractions(elementId) {
+		const interactions = getContainer(elementId)?.model?.get("interactions");
+		if (typeof interactions === "string") return JSON.parse(interactions);
+		return interactions;
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/utils/get-default-style-tag-from-preview.ts
+	var DEFAULT_STYLE_CLASS_PREFIX = "e-default-";
+	function parseDefaultStyleTagFromClassList(classList) {
+		for (const className of classList) if (className.startsWith("e-default-")) return className.slice(10);
+		return null;
+	}
+	function getDefaultStyleTagFromPreviewElement(elementId) {
+		const renderRoot = getAtomicElementRenderRoot(elementId);
+		if (!renderRoot) return null;
+		return parseDefaultStyleTagFromClassList(renderRoot.classList);
+	}
+	function getAtomicElementRenderRoot(elementId) {
+		const view = getContainerView(elementId);
+		if (view?.getDomElement) {
+			const domElement = view.getDomElement().get?.(0);
+			if (domElement) return domElement;
+		}
+		const wrapper = view?.el ?? getPreviewElementDOM(elementId);
+		if (!wrapper) return null;
+		if (wrapper.hasAttribute("data-id")) return wrapper;
+		const firstChild = wrapper.firstElementChild;
+		if (firstChild instanceof HTMLElement) return firstChild;
+		return wrapper;
+	}
+	function getContainerView(elementId) {
+		return getContainer(elementId)?.view ?? null;
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/sync/update-element-interactions.ts
+	var updateElementInteractions = ({ elementId, interactions }) => {
+		const element = getContainer(elementId);
+		if (!element) throw new Error(`Element with id ${elementId} not found`);
+		element.model.set("interactions", interactions);
+		window.dispatchEvent(new CustomEvent("elementor/element/update_interactions"));
+		(0, _elementor_editor_v1_adapters.__privateRunCommandSync)("document/save/set-is-modified", { status: true }, { internal: true });
+	};
+	var playElementInteractions = (elementId, interactionId) => {
+		window.top?.dispatchEvent(new CustomEvent("atomic/play_interactions", { detail: {
+			elementId,
+			interactionId
+		} }));
+	};
+
+//#endregion
+//#region packages/packages/libs/editor-elements/src/index.ts
+	var src_exports = /* @__PURE__ */ __exportAll({
+		DEFAULT_STYLE_CLASS_PREFIX: () => DEFAULT_STYLE_CLASS_PREFIX,
+		ELEMENT_STYLE_CHANGE_EVENT: () => ELEMENT_STYLE_CHANGE_EVENT,
+		addModelToParent: () => addModelToParent,
+		bindSettingsReconcile: () => bindSettingsReconcile,
+		createElement: () => createElement,
+		createElementStyle: () => createElementStyle,
+		createElements: () => createElements,
+		deleteElement: () => deleteElement,
+		deleteElementStyle: () => deleteElementStyle,
+		dropElement: () => dropElement,
+		duplicateElement: () => duplicateElement,
+		duplicateElements: () => duplicateElements,
+		evaluateWhen: () => evaluateWhen,
+		findChildRecursive: () => findChildRecursive,
+		findModelInDocument: () => findModelInDocument,
+		generateElementId: () => generateElementId,
+		getAllDescendants: () => getAllDescendants,
+		getAnchoredAncestorId: () => getAnchoredAncestorId,
+		getAnchoredDescendantId: () => getAnchoredDescendantId,
+		getContainer: () => getContainer,
+		getCurrentDocumentContainer: () => getCurrentDocumentContainer,
+		getCurrentDocumentId: () => getCurrentDocumentId,
+		getDefaultStyleTagFromPreviewElement: () => getDefaultStyleTagFromPreviewElement,
+		getElementChildrenWithFallback: () => getElementChildren,
+		getElementEditorSettings: () => getElementEditorSettings,
+		getElementIcon: () => getElementIcon,
+		getElementInteractions: () => getElementInteractions,
+		getElementLabel: () => getElementLabel,
+		getElementSetting: () => getElementSetting,
+		getElementSettings: () => getElementSettings,
+		getElementStyles: () => getElementStyles,
+		getElementTitle: () => getElementTitle,
+		getElementType: () => getElementType,
+		getElements: () => getElements,
+		getLinkInLinkRestriction: () => getLinkInLinkRestriction,
+		getPreviewElementDOM: () => getPreviewElementDOM,
+		getSelectedElements: () => getSelectedElements,
+		getWidgetsCache: () => getWidgetsCache,
+		isElementAnchored: () => isElementAnchored,
+		moveElement: () => moveElement,
+		moveElements: () => moveElements,
+		parseDefaultStyleTagFromClassList: () => parseDefaultStyleTagFromClassList,
+		playElementInteractions: () => playElementInteractions,
+		reconcileInitialChildren: () => reconcileInitialChildren,
+		removeElements: () => removeElements,
+		removeModelFromParent: () => removeModelFromParent,
+		replaceElement: () => replaceElement,
+		resolveContainer: () => resolveContainer,
+		resolveInsertIndex: () => resolveInsertIndex,
+		selectElement: () => selectElement,
+		shouldCreateNewLocalStyle: () => shouldCreateNewLocalStyle,
+		styleRerenderEvents: () => styleRerenderEvents,
+		updateElementEditorSettings: () => updateElementEditorSettings,
+		updateElementInteractions: () => updateElementInteractions,
+		updateElementSettings: () => updateElementSettings,
+		updateElementStyle: () => updateElementStyle,
+		useElementChildren: () => useElementChildren,
+		useElementEditorSettings: () => useElementEditorSettings,
+		useParentElement: () => useParentElement,
+		useSelectedElement: () => useSelectedElement,
+		useSelectedElementSettings: () => useSelectedElementSettings
+	});
+
+//#endregion
+//#region \0elementor-package-library-entry
+	(window.elementorV2 = window.elementorV2 || {}).editorElements = src_exports;
+
+//#endregion
+})(elementorV2.editorV1Adapters, elementorV2.session, elementorV2.editorProps, wp.i18n, elementorV2.utils, elementorV2.editorStyles);
+window.elementorV2.editorElements?.init?.();
 //# sourceMappingURL=editor-elements.js.map

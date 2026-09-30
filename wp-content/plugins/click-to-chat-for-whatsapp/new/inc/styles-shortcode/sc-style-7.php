@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$s7_options = get_option( 'ht_ctc_s7' );
+$s7_options = HT_CTC_Utils::get_option( 'ht_ctc_s7' );
 
 $s7_icon_size          = esc_attr( $s7_options['s7_icon_size'] );
 $s7_icon_color         = esc_attr( $s7_options['s7_icon_color'] );

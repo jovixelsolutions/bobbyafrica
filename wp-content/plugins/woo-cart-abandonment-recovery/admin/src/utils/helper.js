@@ -44,3 +44,28 @@ export const generatePaginationPages = ( totalPages, currentPage ) => {
 
 	return pages;
 };
+
+/**
+ * Parse a rules-engine value into a normalized array of groups.
+ *
+ * The stored value can come from REST as either an already-parsed array, a
+ * JSON string, or a double-encoded JSON string (legacy). Returns [] on failure
+ * or non-array input; callers can apply their own default-group fallback on top.
+ *
+ * @param {*} raw Stored rules value (string | array | other).
+ * @return {Array} Parsed array of rule groups, or empty array on failure.
+ */
+export const parseRulesValue = ( raw ) => {
+	let v = raw;
+	if ( typeof v === 'string' ) {
+		try {
+			v = JSON.parse( v );
+			if ( typeof v === 'string' ) {
+				v = JSON.parse( v );
+			}
+		} catch ( e ) {
+			return [];
+		}
+	}
+	return Array.isArray( v ) ? v : [];
+};

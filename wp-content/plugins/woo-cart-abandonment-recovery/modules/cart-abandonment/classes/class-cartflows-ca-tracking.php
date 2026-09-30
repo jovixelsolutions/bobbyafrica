@@ -165,7 +165,11 @@ class Cartflows_Ca_Tracking {
 		$cart_abandonment_table_name = $wpdb->prefix . CARTFLOWS_CA_CART_ABANDONMENT_TABLE;
 		// Can't use placeholders for table/column names, it will be wrapped by a single quote (') instead of a backquote (`).
 		$wcar_status = $wpdb->get_var(
-			$wpdb->prepare( "SELECT `order_status` FROM {$cart_abandonment_table_name}  WHERE `email` = %s", $email ) //phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$wpdb->prepare(
+				"SELECT `order_status` FROM {$cart_abandonment_table_name} WHERE `email` = %s AND `order_status` = %s ORDER BY `time` DESC LIMIT 1", //phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				$email,
+				WCF_CART_COMPLETED_ORDER
+			)
 		); // db call ok; no cache ok.
 		$woo_status  = $order->get_status();
 
@@ -207,7 +211,7 @@ class Cartflows_Ca_Tracking {
 				}
 
 				if ( ( WCF_CART_ABANDONED_ORDER === $capture_status || WCF_CART_LOST_ORDER === $capture_status ) ) {
-					$this->skip_future_emails_when_order_is_completed( sanitize_key( $captured_data->session_id ) );
+					$this->skip_future_emails_when_order_is_completed( sanitize_key( $captured_data->session_id ), false, $order_id );
 					$this->trigger_zapier_webhook( $captured_data->session_id, WCF_CART_COMPLETED_ORDER );
 					$note = __( 'This order was abandoned & subsequently recovered.', 'woo-cart-abandonment-recovery' );
 					$order->add_order_note( $note );
@@ -215,11 +219,12 @@ class Cartflows_Ca_Tracking {
 					if ( WC()->session ) {
 						WC()->session->__unset( 'wcf_session_id' );
 					}
+
+					$wcar_email_admin_recovery = get_option( 'wcar_email_admin_on_recovery' );
+					if ( 'on' === $wcar_email_admin_recovery ) {
+						$this->wcar_send_successful_recovery_email_to_admin( $order_id, $old_order_status, $new_order_status );
+					}
 				}
-			}
-			$wcar_email_admin_recovery = get_option( 'wcar_email_admin_on_recovery' );
-			if ( 'on' === $wcar_email_admin_recovery ) {
-				$this->wcar_send_successful_recovery_email_to_admin( $order_id, $old_order_status, $new_order_status );
 			}
 		}
 	}
@@ -612,7 +617,7 @@ class Cartflows_Ca_Tracking {
 			$trigger_details['coupon_code']      = $checkout_details->coupon_code;
 			$trigger_details['order_status']     = $order_status;
 			$trigger_details['cart_total']       = $checkout_details->cart_total;
-			$trigger_details['product_table']    = Cartflows_Ca_Email_Schedule::get_instance()->get_email_product_block( $checkout_details->cart_contents, $checkout_details->cart_total );
+			$trigger_details['product_table']    = Cartflows_Ca_Email_Schedule::get_instance()->get_email_product_block( $checkout_details->cart_contents, $checkout_details->cart_total, isset( $checkout_details->email_template_id ) ? (int) $checkout_details->email_template_id : 0 );
 
 			$trigger_details = apply_filters( 'woo_ca_webhook_trigger_details', $trigger_details );
 
@@ -789,7 +794,8 @@ class Cartflows_Ca_Tracking {
 
 			if ( isset( $session_checkout_details ) && WCF_CART_COMPLETED_ORDER === $session_checkout_details->order_status ) {
 				WC()->session->__unset( 'wcf_session_id' );
-				$session_id = md5( uniqid( wp_rand(), true ) );
+				$session_id               = md5( uniqid( wp_rand(), true ) );
+				$session_checkout_details = null;
 			}
 
 			if ( isset( $checkout_details['cart_total'] ) && $checkout_details['cart_total'] > 0 ) {
@@ -919,7 +925,7 @@ class Cartflows_Ca_Tracking {
 				} else {
 					if ( $checkout_details && ( WCF_CART_ABANDONED_ORDER === $checkout_details->order_status || WCF_CART_LOST_ORDER === $checkout_details->order_status ) ) {
 
-						$this->skip_future_emails_when_order_is_completed( $session_id );
+						$this->skip_future_emails_when_order_is_completed( $session_id, false, $order_id );
 
 						$this->trigger_zapier_webhook( $session_id, WCF_CART_COMPLETED_ORDER );
 
@@ -942,7 +948,7 @@ class Cartflows_Ca_Tracking {
 								$existing_cart_products = array_keys( (array) $existing_cart_contents );
 								$order_cart_products    = array_keys( (array) $order_cart_contents );
 								if ( $this->check_if_similar_cart( $existing_cart_products, $order_cart_products ) ) {
-									$this->skip_future_emails_when_order_is_completed( $order_data->session_id );
+									$this->skip_future_emails_when_order_is_completed( $order_data->session_id, false, $order_id );
 								}
 							}
 						}
@@ -959,21 +965,57 @@ class Cartflows_Ca_Tracking {
 	/**
 	 * Unschedule future emails for completed orders.
 	 *
-	 * @param string $session_id session id.
+	 * When an order_id is provided the recovery record is linked to
+	 * the real WooCommerce order: the original abandoned cart total is
+	 * preserved in `original_cart_total` and `cart_total` is updated
+	 * to the actual order amount so revenue reports stay accurate.
+	 *
+	 * @param string $session_id    session id.
 	 * @param bool   $skip_complete skip update query.
+	 * @param int    $order_id      WooCommerce order ID (optional).
 	 */
-	public function skip_future_emails_when_order_is_completed( $session_id, $skip_complete = false ): void {
+	public function skip_future_emails_when_order_is_completed( $session_id, $skip_complete = false, $order_id = 0 ): void {
 
 		global $wpdb;
 		$email_history_table    = $wpdb->prefix . CARTFLOWS_CA_EMAIL_HISTORY_TABLE;
 		$cart_abandonment_table = $wpdb->prefix . CARTFLOWS_CA_CART_ABANDONMENT_TABLE;
 
 		if ( ! $skip_complete ) {
+			$update_data = [
+				'order_status' => WCF_CART_COMPLETED_ORDER,
+			];
+
+			if ( $order_id ) {
+				$order = wc_get_order( $order_id );
+				if ( $order ) {
+					$columns_exist = class_exists( 'Cartflows_Ca_Db_Updater' ) && Cartflows_Ca_Db_Updater::columns_exist();
+
+					// order_id and original_cart_total only exist once the schema
+					// migration has run; skip them until then to avoid a failed query.
+					if ( $columns_exist ) {
+						$update_data['order_id'] = absint( $order_id );
+
+						$existing = $wpdb->get_var( // db call ok; no-cache ok.
+							$wpdb->prepare(
+								"SELECT `cart_total` FROM {$cart_abandonment_table} WHERE `session_id` = %s", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+								sanitize_key( $session_id )
+							)
+						);
+
+						if ( null !== $existing ) {
+							$update_data['original_cart_total'] = $existing;
+						}
+					}
+
+					// cart_total already exists; always set it to the real order
+					// total so recovered revenue stays accurate even pre-migration.
+					$update_data['cart_total'] = $order->get_total();
+				}
+			}
+
 			$wpdb->update(
 				$cart_abandonment_table,
-				[
-					'order_status' => WCF_CART_COMPLETED_ORDER,
-				],
+				$update_data,
 				[
 					'session_id' => sanitize_key( $session_id ),
 				]
@@ -1021,18 +1063,36 @@ class Cartflows_Ca_Tracking {
 	/**
 	 * Get the checkout details for the user.
 	 *
+	 * Only matches abandoned/lost carts created within a recent window
+	 * (default 90 days, filterable) to prevent stale abandoned carts from
+	 * being falsely attributed to unrelated new orders from the same email.
+	 *
 	 * @param string $value value.
 	 * @since 1.0.0
 	 */
 	public function get_captured_data_by_email( $value ) {
 		global $wpdb;
 		$cart_abandonment_table = $wpdb->prefix . CARTFLOWS_CA_CART_ABANDONMENT_TABLE;
+		$wp_current_datetime    = current_time( WCF_CA_DATETIME_FORMAT );
+
+		/**
+		 * Maximum age (in days) of an abandoned/lost cart that can still be
+		 * matched to a new order by email, preventing very old carts from
+		 * being falsely attributed to unrelated new orders.
+		 *
+		 * @since 2.1.3
+		 * @param int $days Match window in days. Default 90.
+		 */
+		$match_window_days = absint( apply_filters( 'cartflows_ca_recovery_match_window_days', 90 ) );
+
 		return $wpdb->get_row(
 			$wpdb->prepare(
-				"SELECT * FROM {$cart_abandonment_table} WHERE email = %s AND `order_status` IN (%s, %s) ORDER BY `time` DESC LIMIT 1", //phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				"SELECT * FROM {$cart_abandonment_table} WHERE email = %s AND `order_status` IN (%s, %s) AND `time` >= DATE_SUB(%s, INTERVAL %d DAY) ORDER BY `time` DESC LIMIT 1", //phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 				$value,
 				WCF_CART_ABANDONED_ORDER,
-				WCF_CART_LOST_ORDER
+				WCF_CART_LOST_ORDER,
+				$wp_current_datetime,
+				$match_window_days
 			)
 		);
 	}

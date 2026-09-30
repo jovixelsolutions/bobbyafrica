@@ -65,6 +65,10 @@ class Cartflows_Analytics {
 
 		// Hook-based event: first flow published.
 		add_action( 'transition_post_status', array( $this, 'track_first_flow_published' ), 10, 3 );
+
+		// Meta-level so template imports and Store Checkout are caught, not just the admin save.
+		add_action( 'added_post_meta', array( $this, 'track_first_checkout_configured' ), 10, 4 );
+		add_action( 'updated_post_meta', array( $this, 'track_first_checkout_configured' ), 10, 4 );
 	}
 
 	/**
@@ -143,10 +147,12 @@ class Cartflows_Analytics {
 		$bsf_internal_referer = get_option( 'bsf_product_referers', array() );
 		$store_location       = '';
 		$woo_version          = '';
+		$store_currency       = '';
 
 		if ( wcf()->is_woo_active ) {
 			$store_location = wc_get_base_location();
 			$woo_version    = WC()->version;
+			$store_currency = get_woocommerce_currency();
 		}
 
 		// Sanitize knowledge base search terms before sending.
@@ -164,6 +170,8 @@ class Cartflows_Analytics {
 			'active-gateway-count'       => wcf()->is_woo_active ? count( (array) $this->get_active_gateways() ) : 0,
 			'social-tracking'            => $this->get_social_tracking_flags(),
 			'store-country'              => ! empty( $store_location['country'] ) ? $store_location['country'] : '',
+			// Required to make the fbt_revenue KPI comparable across stores.
+			'store-currency'             => $store_currency,
 			'documentation-search-terms' => $kb_searches,
 			'internal_referer'           => ! empty( $bsf_internal_referer['cartflows'] ) ? $bsf_internal_referer['cartflows'] : '',
 			// Simplified: boolean flag only — no raw feedback object.
@@ -184,13 +192,23 @@ class Cartflows_Analytics {
 		$kpi_data = array();
 
 		for ( $i = 1; $i <= 2; $i++ ) {
-			$date              = wp_date( 'Y-m-d', strtotime( "-{$i} days" ) );
-			$kpi_data[ $date ] = array(
-				'numeric_values' => array(
-					'order_count'  => $this->get_daily_orders_count( $date ),
-					'offer_orders' => $this->get_daily_offer_orders_count( $date ),
-				),
+			$date = wp_date( 'Y-m-d', strtotime( "-{$i} days" ) );
+			// Keys stay present when WooCommerce is inactive so the columns never disappear mid-series.
+			$numeric = array(
+				'order_count'  => $this->get_daily_orders_count( $date ),
+				'offer_orders' => $this->get_daily_offer_orders_count( $date ),
+				'fbt_orders'   => 0,
+				'fbt_revenue'  => '0.00',
 			);
+
+			// FBT only loads when WooCommerce is active, so the class may be absent.
+			if ( class_exists( 'Cartflows_Fbt_Analytics' ) ) {
+				$fbt                    = Cartflows_Fbt_Analytics::get_daily_stats( (string) $date );
+				$numeric['fbt_orders']  = $fbt['fbt_orders'];
+				$numeric['fbt_revenue'] = $fbt['fbt_revenue'];
+			}
+
+			$kpi_data[ $date ] = array( 'numeric_values' => $numeric );
 		}
 
 		return $kpi_data;
@@ -321,20 +339,30 @@ class Cartflows_Analytics {
 			)
 		);
 
-		return array(
-			'total_flows'            => wp_count_posts( CARTFLOWS_FLOW_POST_TYPE )->publish,
-			'total_ic_funnels'       => strval( $flows_with_instant_checkout ),
-			'optin_step_count'       => strval( $steps_counts['optin'] ),
-			'landing_step_count'     => strval( $steps_counts['landing'] ),
-			'checkout_step_count'    => strval( $steps_counts['checkout'] ),
-			'upsell_step_count'      => strval( $steps_counts['upsell'] ),
-			'downsell_step_count'    => strval( $steps_counts['downsell'] ),
-			'thankyou_step_count'    => strval( $steps_counts['thankyou'] ),
-			'optin_custom_fields'    => strval( $custom_fields_data['optin'] ),
-			'checkout_custom_fields' => strval( $custom_fields_data['checkout'] ),
-			'funnels_from_scratch'   => strval( $funnel_building_behavior['scratch'] ),
-			'funnels_from_template'  => strval( $funnel_building_behavior['ready_made_template'] ),
+		$numeric_stats = array(
+			'total_flows'             => wp_count_posts( CARTFLOWS_FLOW_POST_TYPE )->publish,
+			'total_ic_funnels'        => strval( $flows_with_instant_checkout ),
+			'optin_step_count'        => strval( $steps_counts['optin'] ),
+			'landing_step_count'      => strval( $steps_counts['landing'] ),
+			'checkout_step_count'     => strval( $steps_counts['checkout'] ),
+			'upsell_step_count'       => strval( $steps_counts['upsell'] ),
+			'downsell_step_count'     => strval( $steps_counts['downsell'] ),
+			'thankyou_step_count'     => strval( $steps_counts['thankyou'] ),
+			'optin_custom_fields'     => strval( $custom_fields_data['optin'] ),
+			'checkout_custom_fields'  => strval( $custom_fields_data['checkout'] ),
+			'funnels_from_scratch'    => strval( $funnel_building_behavior['scratch'] ),
+			'funnels_from_template'   => strval( $funnel_building_behavior['ready_made_template'] ),
+			// Keys stay present when WooCommerce is inactive so the columns never disappear mid-series.
+			'fbt_products_configured' => '0',
+			'fbt_ai_products'         => '0',
 		);
+
+		// FBT only loads when WooCommerce is active, so the class may be absent.
+		if ( class_exists( 'Cartflows_Fbt_Analytics' ) ) {
+			$numeric_stats = array_merge( $numeric_stats, Cartflows_Fbt_Analytics::get_numeric_stats() );
+		}
+
+		return $numeric_stats;
 	}
 
 	/**
@@ -353,10 +381,12 @@ class Cartflows_Analytics {
 			'paypal-reference-transactions' => ! empty( $common_settings['paypal_reference_transactions'] ) && 'enable' === $common_settings['paypal_reference_transactions'],
 			'cartflows-stats-report-emails' => 'enable' === get_option( 'cartflows_stats_report_emails', 'enable' ),
 			'cartflows-delete-plugin-data'  => 'enable' === get_option( 'cartflows_delete_plugin_data' ),
-			'pre-checkout-offer'            => 'enable' === $common_settings['pre_checkout_offer'],
+			'pre-checkout-offer'            => isset( $common_settings['pre_checkout_offer'] ) && 'enable' === $common_settings['pre_checkout_offer'],
 			'store-checkout-set'            => ! empty( intval( Cartflows_Helper::get_global_setting( '_cartflows_store_checkout' ) ) ),
 			'is-child-theme'                => $theme_data['child_theme'],
 			'suretriggers_active'           => is_plugin_active( 'suretriggers/suretriggers.php' ),
+			// Account-level AI connection — powers FBT Auto Suggest and content generation.
+			'ai_auth_connected'             => class_exists( 'Cartflows_Ai_Auth' ) && (bool) Cartflows_Ai_Auth::get_instance()->get_auth_status(),
 		);
 	}
 
@@ -754,6 +784,29 @@ class Cartflows_Analytics {
 			$events->track( 'first_webhook_configured' );
 		}
 
+		// first_fbt_configured (flag set in modules/frequently-bought-together/classes/class-cartflows-fbt-product-meta.php).
+		$fbt_configured = Cartflows_Helper::get_analytics_flag( 'first_fbt_configured' );
+		if ( is_array( $fbt_configured ) ) {
+			$events->track(
+				'first_fbt_configured',
+				'',
+				array(
+					'source'             => sanitize_text_field( (string) ( $fbt_configured['source'] ?? 'manual' ) ),
+					'days_since_install' => (string) absint( $fbt_configured['days_since_install'] ?? 0 ),
+				)
+			);
+		}
+
+		// first_fbt_widget_added_to_cart (flag set in modules/frequently-bought-together/classes/class-cartflows-fbt-frontend.php).
+		$fbt_atc = Cartflows_Helper::get_analytics_flag( 'first_fbt_widget_added_to_cart' );
+		if ( is_array( $fbt_atc ) ) {
+			$events->track(
+				'first_fbt_widget_added_to_cart',
+				'',
+				array( 'item_count' => (string) absint( $fbt_atc['item_count'] ?? 0 ) )
+			);
+		}
+
 		// ---- Engagement events ----
 
 		$pointer_data = get_option( 'cartflows_pointer_data', array() );
@@ -828,6 +881,36 @@ class Cartflows_Analytics {
 				'step_count'         => (string) $step_count,
 			)
 		);
+	}
+
+	/**
+	 * Track first checkout configured.
+	 *
+	 * Fires whenever wcf-checkout-products is written on a checkout step, so
+	 * template imports and Store Checkout are captured alongside the admin save.
+	 *
+	 * @since 2.2.4
+	 * @param int    $meta_id    Meta row ID.
+	 * @param int    $post_id    Post ID the meta belongs to.
+	 * @param string $meta_key   Meta key being written.
+	 * @param mixed  $meta_value Meta value being written.
+	 * @return void
+	 */
+	public function track_first_checkout_configured( $meta_id, $post_id, $meta_key, $meta_value ) {
+		if ( 'wcf-checkout-products' !== $meta_key ) {
+			return;
+		}
+
+		if ( empty( $meta_value ) ) {
+			return;
+		}
+
+		if ( CARTFLOWS_STEP_POST_TYPE !== get_post_type( $post_id ) ) {
+			return;
+		}
+
+		// Value is the step ID, not a boolean — get_stats reads it back to resolve the layout.
+		Cartflows_Helper::set_analytics_flag( 'first_checkout_configured', $post_id );
 	}
 }
 

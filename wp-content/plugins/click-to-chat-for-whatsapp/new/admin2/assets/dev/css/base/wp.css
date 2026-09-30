@@ -1,0 +1,22 @@
+/* ==========================================================================
+   WP RELATED STYLES
+   ========================================================================== */
+
+/**
+ * On Click to Chat admin pages, hide all admin notices
+ * except those belonging to Click to Chat itself.
+ */
+/* .toplevel_page_click-to-chat .notice:not(.ht-ctc-notice),
+[class^="click-to-chat_page_"] .notice:not(.ht-ctc-notice),
+[class^="click-to-chat_page_"] .update-nag:not(.ht-ctc-notice),
+.toplevel_page_click-to-chat .update-nag:not(.ht-ctc-notice) {
+    display: none !important;
+} */
+
+
+.toplevel_page_click-to-chat .notice,
+/* [class^="click-to-chat_page_"] .notice, */
+/* [class^="click-to-chat_page_"] .update-nag, */
+.toplevel_page_click-to-chat .update-nag {
+    display: none !important;
+}

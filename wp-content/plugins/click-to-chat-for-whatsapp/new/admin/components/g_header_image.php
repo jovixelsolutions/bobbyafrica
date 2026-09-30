@@ -37,7 +37,7 @@ if ( '' === $g_header_image ) {
 	<div class="row row_g_header_image">
 		<div class="col s12" style="display:flex; gap:8px; align-items:center;">
 			<input type="hidden" name="<?php echo esc_attr( $dbrow ); ?>[g_header_image]" class="g_header_image" value="<?php echo esc_attr( $g_header_image ); ?>" />
-			<img class="g_header_image_preview" style="width:50px; height:50px; border-radius:50%; <?php echo esc_attr( $hide_img ); ?>" src="<?php echo esc_url( $g_header_image ); ?>" style="max-width: 100%;" />
+			<img class="g_header_image_preview" alt="Header Image" style="width:50px; height:50px; border-radius:50%; <?php echo esc_attr( $hide_img ); ?>" src="<?php echo esc_url( $g_header_image ); ?>" style="max-width: 100%;" />
 			<input type="button" class="button-primary ctc_add_image_wp" value="Add Header Image" data-agent=""/>
 			<input type="button" class="button-secondary ctc_remove_image_wp" style="margin: 0 1px; <?php echo esc_attr( $hide_remove_img_button ); ?>" value="Remove Image" data-agent=""/>
 		</div>

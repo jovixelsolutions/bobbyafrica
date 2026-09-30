@@ -1,3 +1,343 @@
-/*! For license information please see utils.js.LICENSE.txt */
-!function(){"use strict";var e={"./packages/packages/libs/utils/src/debounce.ts":function(e,r,t){function debounce(e,r){let t=null;const cancel=()=>{t&&(clearTimeout(t),t=null)},run=(...n)=>{cancel(),t=setTimeout(()=>{e(...n),t=null},r)};return run.flush=(...r)=>{cancel(),e(...r)},run.cancel=cancel,run.pending=()=>!!t,run}t.r(r),t.d(r,{debounce:function(){return debounce}})},"./packages/packages/libs/utils/src/encoding.ts":function(e,r,t){t.r(r),t.d(r,{decodeString:function(){return decodeString},encodeString:function(){return encodeString}});const encodeString=e=>{const r=Array.from((new TextEncoder).encode(e),e=>String.fromCharCode(e)).join("");return btoa(r)},decodeString=(e,r)=>{try{const r=atob(e),t=new Uint8Array(Array.from(r,e=>e.charCodeAt(0)));return(new TextDecoder).decode(t)}catch{return void 0!==r?r:""}}},"./packages/packages/libs/utils/src/errors/create-error.ts":function(e,r,t){t.r(r),t.d(r,{createError:function(){return createError}});var n=t("./packages/packages/libs/utils/src/errors/elementor-error.ts");const createError=({code:e,message:r})=>class extends n.ElementorError{constructor({cause:t,context:n}={}){super(r,{cause:t,code:e,context:n})}}},"./packages/packages/libs/utils/src/errors/elementor-error.ts":function(e,r,t){t.r(r),t.d(r,{ElementorError:function(){return ElementorError}});class ElementorError extends Error{constructor(e,{code:r,context:t=null,cause:n=null}){super(e,{cause:n}),this.context=t,this.code=r}}},"./packages/packages/libs/utils/src/errors/ensure-error.ts":function(e,r,t){t.r(r),t.d(r,{ensureError:function(){return ensureError}});const ensureError=e=>{if(e instanceof Error)return e;let r,t=null;try{r=JSON.stringify(e)}catch(e){t=e,r="Unable to stringify the thrown value"}return new Error(`Unexpected non-error thrown: ${r}`,{cause:t})}},"./packages/packages/libs/utils/src/errors/index.ts":function(e,r,t){t.r(r),t.d(r,{ElementorError:function(){return n.ElementorError},createError:function(){return s.createError},ensureError:function(){return a.ensureError}});var n=t("./packages/packages/libs/utils/src/errors/elementor-error.ts"),s=t("./packages/packages/libs/utils/src/errors/create-error.ts"),a=t("./packages/packages/libs/utils/src/errors/ensure-error.ts")},"./packages/packages/libs/utils/src/generate-unique-id.ts":function(e,r,t){function generateUniqueId(e=""){return`${e?`${e}-`:""}${Date.now()}-${Math.random().toString(36).substring(2,9)}`}t.r(r),t.d(r,{generateUniqueId:function(){return generateUniqueId}})},"./packages/packages/libs/utils/src/hash.ts":function(e,r,t){function hash(e){return JSON.stringify(e,(e,r)=>function isPlainObject(e){return!!e&&"object"==typeof e&&!Array.isArray(e)}(r)?Object.keys(r).sort().reduce((e,t)=>(e[t]=r[t],e),{}):r)}function hashString(e,r){let t=5381,n=e.length;for(;n;)t=33*t^e.charCodeAt(--n);const s=(t>>>0).toString(36);if(void 0===r)return s;return s.slice(-r).padStart(r,"0")}t.r(r),t.d(r,{hash:function(){return hash},hashString:function(){return hashString}})},"./packages/packages/libs/utils/src/is-pro.ts":function(e,r,t){function hasProInstalled(){return window.elementor?.helpers?.hasPro?.()??!1}function isProActive(){return!!hasProInstalled()&&(window.elementorPro?.config?.isActive??!1)}function isProAtLeast(e){const r=function getProVersion(){return window.elementorPro?.config?.version??"0.0"}();if(!r)return!1;const[t,n]=r.split(".").map(Number),[s,a]=e.split(".").map(Number);return t>s||t===s&&n>=a}t.r(r),t.d(r,{hasProInstalled:function(){return hasProInstalled},isProActive:function(){return isProActive},isProAtLeast:function(){return isProAtLeast}})},"./packages/packages/libs/utils/src/string-helpers.ts":function(e,r,t){t.r(r),t.d(r,{capitalize:function(){return capitalize}});const capitalize=e=>e.charAt(0).toUpperCase()+e.slice(1)},"./packages/packages/libs/utils/src/throttle.ts":function(e,r,t){function throttle(e,r,t=!1){let n=null,s=!1;const cancel=()=>{n&&(clearTimeout(n),n=null)},run=(...a)=>{n?s=!0:(e(...a),n=setTimeout(()=>{n=null,s&&t&&e(...a),s=!1},r))};return run.flush=(...r)=>{cancel(),e(...r)},run.cancel=cancel,run.pending=()=>!!n,run}t.r(r),t.d(r,{throttle:function(){return throttle}})},"./packages/packages/libs/utils/src/translations.ts":function(e,r,t){function createTranslate({configKey:e,defaultStrings:r={}}){return(t,...n)=>{const s=window.elementorAppConfig,a=s?.[e]?.translations;let c={...r,...a}[t];if(!c)return t;for(let e=0;e<n.length;e++)c=c.replace(`%${e+1}$s`,n[e]),c=c.replace("%s",n[e]);return c}}t.r(r),t.d(r,{createTranslate:function(){return createTranslate}})},"./packages/packages/libs/utils/src/use-debounce-state.ts":function(e,r,t){t.r(r),t.d(r,{useDebounceState:function(){return useDebounceState}});var n=t("react"),s=t("./packages/packages/libs/utils/src/debounce.ts");function useDebounceState(e={}){const{delay:r=300,initialValue:t=""}=e,[a,c]=(0,n.useState)(t),[u,o]=(0,n.useState)(t),i=(0,n.useRef)(null);(0,n.useEffect)(()=>()=>{i.current?.cancel?.()},[]);const l=(0,n.useCallback)(e=>{i.current?.cancel?.(),i.current=(0,s.debounce)(()=>{c(e)},r),i.current()},[r]);return{debouncedValue:a,inputValue:u,handleChange:e=>{o(e),l(e)},setInputValue:o}}},"./packages/packages/libs/utils/src/use-search-state.ts":function(e,r,t){t.r(r),t.d(r,{useSearchState:function(){return useSearchState}});var n=t("./packages/packages/libs/utils/src/use-debounce-state.ts");function useSearchState({localStorageKey:e}){const{debouncedValue:r,inputValue:t,handleChange:s}=(0,n.useDebounceState)({delay:300,initialValue:(()=>{if(e){const r=localStorage.getItem(e);if(r)return localStorage.removeItem(e),r}return""})()});return{debouncedValue:r,inputValue:t,handleChange:s}}},"./packages/packages/libs/utils/src/version.ts":function(e,r,t){t.r(r),t.d(r,{compareVersions:function(){return compareVersions},isVersionGreaterOrEqual:function(){return isVersionGreaterOrEqual},isVersionLessThan:function(){return isVersionLessThan}});const compareVersions=(e,r)=>{const t=String(e||"0.0.0").split(".").map(Number),n=String(r||"0.0.0").split(".").map(Number);for(let e=0;e<Math.max(t.length,n.length);e++){const r=t[e]||0,s=n[e]||0;if(r!==s)return r-s}return 0},isVersionLessThan=(e,r)=>compareVersions(e,r)<0,isVersionGreaterOrEqual=(e,r)=>compareVersions(e,r)>=0},react:function(e){e.exports=window.React}},r={};function __webpack_require__(t){var n=r[t];if(void 0!==n)return n.exports;var s=r[t]={exports:{}};return e[t](s,s.exports,__webpack_require__),s.exports}__webpack_require__.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return __webpack_require__.d(r,{a:r}),r},__webpack_require__.d=function(e,r){for(var t in r)__webpack_require__.o(r,t)&&!__webpack_require__.o(e,t)&&Object.defineProperty(e,t,{enumerable:!0,get:r[t]})},__webpack_require__.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},__webpack_require__.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})};var t={};!function(){__webpack_require__.r(t),__webpack_require__.d(t,{ElementorError:function(){return e.ElementorError},capitalize:function(){return i.capitalize},compareVersions:function(){return l.compareVersions},createError:function(){return e.createError},createTranslate:function(){return g.createTranslate},debounce:function(){return n.debounce},decodeString:function(){return a.decodeString},encodeString:function(){return a.encodeString},ensureError:function(){return e.ensureError},generateUniqueId:function(){return o.generateUniqueId},hasProInstalled:function(){return p.hasProInstalled},hash:function(){return c.hash},hashString:function(){return c.hashString},isProActive:function(){return p.isProActive},isProAtLeast:function(){return p.isProAtLeast},isVersionGreaterOrEqual:function(){return l.isVersionGreaterOrEqual},isVersionLessThan:function(){return l.isVersionLessThan},throttle:function(){return s.throttle},useDebounceState:function(){return r.useDebounceState},useSearchState:function(){return u.useSearchState}});var e=__webpack_require__("./packages/packages/libs/utils/src/errors/index.ts"),r=__webpack_require__("./packages/packages/libs/utils/src/use-debounce-state.ts"),n=__webpack_require__("./packages/packages/libs/utils/src/debounce.ts"),s=__webpack_require__("./packages/packages/libs/utils/src/throttle.ts"),a=__webpack_require__("./packages/packages/libs/utils/src/encoding.ts"),c=__webpack_require__("./packages/packages/libs/utils/src/hash.ts"),u=__webpack_require__("./packages/packages/libs/utils/src/use-search-state.ts"),o=__webpack_require__("./packages/packages/libs/utils/src/generate-unique-id.ts"),i=__webpack_require__("./packages/packages/libs/utils/src/string-helpers.ts"),l=__webpack_require__("./packages/packages/libs/utils/src/version.ts"),p=__webpack_require__("./packages/packages/libs/utils/src/is-pro.ts"),g=__webpack_require__("./packages/packages/libs/utils/src/translations.ts")}(),(window.elementorV2=window.elementorV2||{}).utils=t}(),window.elementorV2.utils?.init?.();
+(function(react) {
+
+//#region \0rolldown/runtime.js
+	var __defProp$1 = Object.defineProperty;
+	var __name = (target, value) => __defProp$1(target, "name", {
+		value,
+		configurable: true
+	});
+	var __exportAll = (all, no_symbols) => {
+		let target = {};
+		for (var name in all) {
+			__defProp$1(target, name, {
+				get: all[name],
+				enumerable: true
+			});
+		}
+		if (!no_symbols) {
+			__defProp$1(target, Symbol.toStringTag, { value: "Module" });
+		}
+		return target;
+	};
+
+//#endregion
+
+//#region packages/packages/libs/utils/src/errors/elementor-error.ts
+	var __defProp = Object.defineProperty;
+	var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, {
+		enumerable: true,
+		configurable: true,
+		writable: true,
+		value
+	}) : obj[key] = value;
+	var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+	var ElementorError = class extends Error {
+		constructor(message, { code, context = null, cause = null }) {
+			super(message, { cause });
+			__publicField(this, "context");
+			__publicField(this, "code");
+			this.context = context;
+			this.code = code;
+		}
+	};
+
+//#endregion
+//#region packages/packages/libs/utils/src/errors/create-error.ts
+	var createError = ({ code, message }) => {
+		return class extends ElementorError {
+			constructor({ cause, context } = {}) {
+				super(message, {
+					cause,
+					code,
+					context
+				});
+			}
+		};
+	};
+
+//#endregion
+//#region packages/packages/libs/utils/src/errors/ensure-error.ts
+	var ensureError = (error) => {
+		if (error instanceof Error) return error;
+		let message;
+		let cause = null;
+		try {
+			message = JSON.stringify(error);
+		} catch (e) {
+			cause = e;
+			message = "Unable to stringify the thrown value";
+		}
+		return new Error(`Unexpected non-error thrown: ${message}`, { cause });
+	};
+
+//#endregion
+//#region packages/packages/libs/utils/src/debounce.ts
+	function debounce(fn, wait) {
+		let timer = null;
+		const cancel = () => {
+			if (!timer) return;
+			clearTimeout(timer);
+			timer = null;
+		};
+		const flush = (...args) => {
+			cancel();
+			fn(...args);
+		};
+		const run = (...args) => {
+			cancel();
+			timer = setTimeout(() => {
+				fn(...args);
+				timer = null;
+			}, wait);
+		};
+		const pending = () => !!timer;
+		run.flush = flush;
+		run.cancel = cancel;
+		run.pending = pending;
+		return run;
+	}
+
+//#endregion
+//#region packages/packages/libs/utils/src/use-debounce-state.ts
+	function useDebounceState(options = {}) {
+		const { delay = 300, initialValue = "" } = options;
+		const [debouncedValue, setDebouncedValue] = (0, react.useState)(initialValue);
+		const [inputValue, setInputValue] = (0, react.useState)(initialValue);
+		const runRef = (0, react.useRef)(null);
+		(0, react.useEffect)(() => {
+			return () => {
+				runRef.current?.cancel?.();
+			};
+		}, []);
+		const debouncedSetValue = (0, react.useCallback)((val) => {
+			runRef.current?.cancel?.();
+			runRef.current = debounce(() => {
+				setDebouncedValue(val);
+			}, delay);
+			runRef.current();
+		}, [delay]);
+		const handleChange = (val) => {
+			setInputValue(val);
+			debouncedSetValue(val);
+		};
+		return {
+			debouncedValue,
+			inputValue,
+			handleChange,
+			setInputValue
+		};
+	}
+
+//#endregion
+//#region packages/packages/libs/utils/src/use-debounced-callback.ts
+	function useDebouncedCallback(callback, delay) {
+		const callbackRef = (0, react.useRef)(callback);
+		(0, react.useEffect)(() => {
+			callbackRef.current = callback;
+		}, [callback]);
+		const debounced = (0, react.useMemo)(() => debounce((...args) => callbackRef.current(...args), delay), [delay]);
+		(0, react.useEffect)(() => {
+			return () => {
+				debounced.cancel();
+			};
+		}, [debounced]);
+		return debounced;
+	}
+
+//#endregion
+//#region packages/packages/libs/utils/src/throttle.ts
+	function throttle(fn, wait, shouldExecuteIgnoredCalls = false) {
+		let timer = null;
+		let ignoredExecution = false;
+		const cancel = () => {
+			if (!timer) return;
+			clearTimeout(timer);
+			timer = null;
+		};
+		const flush = (...args) => {
+			cancel();
+			fn(...args);
+		};
+		const run = (...args) => {
+			if (timer) {
+				ignoredExecution = true;
+				return;
+			}
+			fn(...args);
+			timer = setTimeout(() => {
+				timer = null;
+				if (ignoredExecution && shouldExecuteIgnoredCalls) fn(...args);
+				ignoredExecution = false;
+			}, wait);
+		};
+		const pending = () => !!timer;
+		run.flush = flush;
+		run.cancel = cancel;
+		run.pending = pending;
+		return run;
+	}
+
+//#endregion
+//#region packages/packages/libs/utils/src/encoding.ts
+	var encodeString = (value) => {
+		const binary = Array.from(new TextEncoder().encode(value), (b) => String.fromCharCode(b)).join("");
+		return btoa(binary);
+	};
+	var decodeString = (value, fallback) => {
+		try {
+			const binary = atob(value);
+			const bytes = new Uint8Array(Array.from(binary, (char) => char.charCodeAt(0)));
+			return new TextDecoder().decode(bytes);
+		} catch {
+			return fallback !== void 0 ? fallback : "";
+		}
+	};
+
+//#endregion
+//#region packages/packages/libs/utils/src/hash.ts
+	function hash(obj) {
+		return JSON.stringify(obj, (_, value) => isPlainObject(value) ? Object.keys(value).sort().reduce((result, key) => {
+			result[key] = value[key];
+			return result;
+		}, {}) : value);
+	}
+	function isPlainObject(value) {
+		return !!value && typeof value === "object" && !Array.isArray(value);
+	}
+	function hashString(str, length) {
+		let hashBasis = 5381;
+		let i = str.length;
+		while (i) hashBasis = hashBasis * 33 ^ str.charCodeAt(--i);
+		const result = (hashBasis >>> 0).toString(36);
+		if (length === void 0) return result;
+		return result.slice(-length).padStart(length, "0");
+	}
+
+//#endregion
+//#region packages/packages/libs/utils/src/use-search-state.ts
+	function useSearchState({ localStorageKey }) {
+		const getInitialSearchValue = () => {
+			if (localStorageKey) {
+				const storedValue = localStorage.getItem(localStorageKey);
+				if (storedValue) {
+					localStorage.removeItem(localStorageKey);
+					return storedValue;
+				}
+			}
+			return "";
+		};
+		const { debouncedValue, inputValue, handleChange } = useDebounceState({
+			delay: 300,
+			initialValue: getInitialSearchValue()
+		});
+		return {
+			debouncedValue,
+			inputValue,
+			handleChange
+		};
+	}
+
+//#endregion
+//#region packages/packages/libs/utils/src/generate-unique-id.ts
+	function generateUniqueId(prefix = "") {
+		return `${prefix ? `${prefix}-` : ""}${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
+	}
+
+//#endregion
+//#region packages/packages/libs/utils/src/string-helpers.ts
+	var capitalize = (str) => {
+		return str.charAt(0).toUpperCase() + str.slice(1);
+	};
+
+//#endregion
+//#region packages/packages/libs/utils/src/version.ts
+	var compareVersions = (a, b) => {
+		const aParts = String(a || "0.0.0").split(".").map(Number);
+		const bParts = String(b || "0.0.0").split(".").map(Number);
+		for (let i = 0; i < Math.max(aParts.length, bParts.length); i++) {
+			const aVal = aParts[i] || 0;
+			const bVal = bParts[i] || 0;
+			if (aVal !== bVal) return aVal - bVal;
+		}
+		return 0;
+	};
+	var isVersionLessThan = (a, b) => {
+		return compareVersions(a, b) < 0;
+	};
+	var isVersionGreaterOrEqual = (a, b) => {
+		return compareVersions(a, b) >= 0;
+	};
+
+//#endregion
+//#region packages/packages/libs/utils/src/is-pro.ts
+	function hasProInstalled() {
+		return window.elementor?.helpers?.hasPro?.() ?? false;
+	}
+	function isProActive() {
+		if (!hasProInstalled()) return false;
+		return window.elementorPro?.config?.isActive ?? false;
+	}
+	function getProVersion() {
+		return window.elementorPro?.config?.version ?? "0.0";
+	}
+	function isProAtLeast(targetVersion) {
+		const version = getProVersion();
+		if (!version) return false;
+		const [major, minor] = version.split(".").map(Number);
+		const [targetMajor, targetMinor] = targetVersion.split(".").map(Number);
+		return major > targetMajor || major === targetMajor && minor >= targetMinor;
+	}
+
+//#endregion
+//#region packages/packages/libs/utils/src/translations.ts
+	function createTranslate({ configKey, defaultStrings = {} }) {
+		return (key, ...args) => {
+			const appConfig = window.elementorAppConfig;
+			const remoteStrings = Object.fromEntries(Object.entries(appConfig?.[configKey]?.translations ?? {}).filter(([, value]) => "string" === typeof value && "" !== value.trim()));
+			let template = {
+				...defaultStrings,
+				...remoteStrings
+			}[key];
+			if (!template) return key;
+			for (let i = 0; i < args.length; i++) {
+				template = template.replace(`%${i + 1}$s`, args[i]);
+				template = template.replace("%s", args[i]);
+			}
+			return template;
+		};
+	}
+
+//#endregion
+//#region packages/packages/libs/utils/src/index.ts
+	var src_exports = /* @__PURE__ */ __exportAll({
+		ElementorError: () => ElementorError,
+		capitalize: () => capitalize,
+		compareVersions: () => compareVersions,
+		createError: () => createError,
+		createTranslate: () => createTranslate,
+		debounce: () => debounce,
+		decodeString: () => decodeString,
+		encodeString: () => encodeString,
+		ensureError: () => ensureError,
+		generateUniqueId: () => generateUniqueId,
+		hasProInstalled: () => hasProInstalled,
+		hash: () => hash,
+		hashString: () => hashString,
+		isProActive: () => isProActive,
+		isProAtLeast: () => isProAtLeast,
+		isVersionGreaterOrEqual: () => isVersionGreaterOrEqual,
+		isVersionLessThan: () => isVersionLessThan,
+		throttle: () => throttle,
+		useDebounceState: () => useDebounceState,
+		useDebouncedCallback: () => useDebouncedCallback,
+		useSearchState: () => useSearchState
+	});
+
+//#endregion
+//#region \0elementor-package-library-entry
+	(window.elementorV2 = window.elementorV2 || {}).utils = src_exports;
+
+//#endregion
+})(React);
+window.elementorV2.utils?.init?.();
 //# sourceMappingURL=utils.js.map

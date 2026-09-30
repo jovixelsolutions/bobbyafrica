@@ -185,6 +185,15 @@ class Flows extends ApiBase {
 			'pagination' => array(),
 		);
 
+		// On free, compute revenue for the whole page in a single grouped query instead of one query per flow.
+		$is_free_revenue = ! _is_cartflows_pro() && ! is_wcf_pro_plan();
+		$revenue_map     = array();
+		$zero_revenue    = str_replace( '&nbsp;', '', wc_price( 0 ) );
+
+		if ( $is_free_revenue && ! empty( $result->posts ) ) {
+			$revenue_map = $this->get_flows_revenue( wp_list_pluck( $result->posts, 'ID' ) );
+		}
+
 		if ( $result->have_posts() ) {
 			while ( $result->have_posts() ) {
 				$result->the_post();
@@ -198,7 +207,7 @@ class Flows extends ApiBase {
 				$post_data['post_status']   = ucwords( $post_data['post_status'] );
 
 				$first_step_url              = \Cartflows_Flow_Post_Type::get_instance()->get_first_step_url( $post );
-				$view                        = $first_step_url ? $first_step_url : get_permalink( $post->ID );
+				$view                        = $first_step_url ? $first_step_url : '#';
 				$edit                        = admin_url( 'admin.php?page=cartflows&path=flows&action=wcf-edit-flow&flow_id=' . $post->ID );
 				$delete                      = '#';
 				$clone                       = '#';
@@ -247,8 +256,8 @@ class Flows extends ApiBase {
 				);
 
 				// Fetch the revenue only for free version for the PRO it will be fetched and added by the filter later in the code.
-				if ( ! _is_cartflows_pro() && ! is_wcf_pro_plan() ) {
-					$post_data['revenue'] = $this->get_per_flow_revenue( $post->ID );
+				if ( $is_free_revenue ) {
+					$post_data['revenue'] = isset( $revenue_map[ $post->ID ] ) ? $revenue_map[ $post->ID ] : $zero_revenue;
 				}
 
 				$data['items'][] = $post_data;
@@ -356,5 +365,112 @@ class Flows extends ApiBase {
 		}
 
 		return str_replace( '&nbsp;', '', wc_price( $gross_sale ) );
+	}
+
+	/**
+	 * Get gross revenue for many flows in a single grouped query.
+	 *
+	 * Replaces the per-flow N+1 lookup; sums completed/processing order totals
+	 * grouped by `_wcf_flow_id`, excluding orders placed by flow managers.
+	 *
+	 * @since 3.1.3
+	 *
+	 * @param int[] $flow_ids Flow IDs to fetch revenue for.
+	 * @return array<int,string> Map of flow ID => formatted revenue string.
+	 */
+	public function get_flows_revenue( $flow_ids ) {
+
+		$revenue = array();
+
+		// Return if WooCommerce is not active.
+		if ( ! function_exists( 'WC' ) ) {
+			return $revenue;
+		}
+
+		$flow_ids = array_filter( array_map( 'absint', (array) $flow_ids ) );
+		if ( empty( $flow_ids ) ) {
+			return $revenue;
+		}
+
+		global $wpdb;
+
+		// Exclude orders placed by users who can manage flows (e.g. internal test orders).
+		$excluded_user_ids = array_map(
+			'absint',
+			get_users(
+				array(
+					'capability' => 'cartflows_manage_flows_steps',
+					'fields'     => 'ID',
+				) 
+			) 
+		);
+
+		$decimals         = wc_get_price_decimals();
+		$flow_placeholder = implode( ',', array_fill( 0, count( $flow_ids ), '%d' ) );
+		$query_args       = $flow_ids;
+
+		$is_hpos = class_exists( '\Automattic\WooCommerce\Utilities\OrderUtil' ) && \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
+
+		if ( $is_hpos ) {
+			$order_table      = $wpdb->prefix . 'wc_orders';
+			$order_meta_table = $wpdb->prefix . 'wc_orders_meta';
+
+			$exclude_clause = '';
+			if ( ! empty( $excluded_user_ids ) ) {
+				$exclude_clause = ' AND o.customer_id NOT IN ( ' . implode( ',', array_fill( 0, count( $excluded_user_ids ), '%d' ) ) . ' )';
+				$query_args     = array_merge( $query_args, $excluded_user_ids );
+			}
+
+			//phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
+			$rows = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT om.meta_value AS flow_id, ROUND( SUM( o.total_amount ), $decimals ) AS revenue
+					FROM $order_table o
+					INNER JOIN $order_meta_table om ON o.id = om.order_id AND om.meta_key = '_wcf_flow_id'
+					WHERE o.type = 'shop_order'
+						AND o.status IN ( 'wc-completed', 'wc-processing' )
+						AND om.meta_value IN ( $flow_placeholder )
+						$exclude_clause
+					GROUP BY om.meta_value",
+					$query_args
+				)
+			);
+			//phpcs:enable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
+		} else {
+			$order_table      = $wpdb->prefix . 'posts';
+			$order_meta_table = $wpdb->prefix . 'postmeta';
+
+			$exclude_clause = '';
+			if ( ! empty( $excluded_user_ids ) ) {
+				$exclude_clause = ' AND ( cu.meta_value IS NULL OR cu.meta_value NOT IN ( ' . implode( ',', array_fill( 0, count( $excluded_user_ids ), '%d' ) ) . ' ) )';
+				$query_args     = array_merge( $query_args, $excluded_user_ids );
+			}
+
+			//phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
+			$rows = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT om.meta_value AS flow_id, ROUND( SUM( m.meta_value ), $decimals ) AS revenue
+					FROM $order_table o
+					INNER JOIN $order_meta_table m ON o.ID = m.post_id AND m.meta_key = '_order_total'
+					INNER JOIN $order_meta_table om ON o.ID = om.post_id AND om.meta_key = '_wcf_flow_id'
+					LEFT JOIN $order_meta_table cu ON o.ID = cu.post_id AND cu.meta_key = '_customer_user'
+					WHERE o.post_type = 'shop_order'
+						AND o.post_status IN ( 'wc-completed', 'wc-processing' )
+						AND om.meta_value IN ( $flow_placeholder )
+						$exclude_clause
+					GROUP BY om.meta_value",
+					$query_args
+				)
+			);
+			//phpcs:enable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
+		}
+
+		if ( ! empty( $rows ) && is_array( $rows ) ) {
+			foreach ( $rows as $row ) {
+				$revenue[ absint( $row->flow_id ) ] = str_replace( '&nbsp;', '', wc_price( (float) $row->revenue ) );
+			}
+		}
+
+		return $revenue;
 	}
 }

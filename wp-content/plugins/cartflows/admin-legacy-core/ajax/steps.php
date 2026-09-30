@@ -330,6 +330,10 @@ class Steps extends AjaxBase {
 			wp_send_json( $result );
 		}
 
+		// Handle redirect updates for source steps (offer steps pointing to the deleted step).
+		// This includes both control steps and A/B testing variations.
+		$flow_steps = $this->process_redirect_updates_on_step_deletion( $flow_steps, $flow_id );
+
 		$is_ab_test = get_post_meta( $step_id, 'wcf-ab-test', true );
 
 		if ( ! $is_ab_test ) {
@@ -452,8 +456,149 @@ class Steps extends AjaxBase {
 		);
 
 		wp_send_json( $result );
-
 	}
 
+	/**
+	 * Process redirect updates when a step is deleted.
+	 *
+	 * Handles updating redirects for source steps (offer steps pointing to the deleted step).
+	 * This includes both control steps and A/B testing variations.
+	 *
+	 * @since 3.1.0
+	 * @param array<int, array<string, mixed>> $flow_steps The current flow steps array.
+	 * @param int                              $flow_id    The flow post ID — used to enforce per-flow ownership on each ID in the payload.
+	 * @return array<int, array<string, mixed>> The updated flow steps array.
+	 */
+	private function process_redirect_updates_on_step_deletion( $flow_steps, $flow_id ) {
 
+		// Per-call IDOR guard — re-verify the current user can edit this flow.
+		if ( ! $this->user_can_edit_flow( $flow_id ) ) {
+			return $flow_steps;
+		}
+
+		$redirect_updates_json = isset( $_POST['redirect_updates'] ) ? sanitize_text_field( wp_unslash( $_POST['redirect_updates'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing
+
+		if ( empty( $redirect_updates_json ) ) {
+			return $flow_steps;
+		}
+
+		$redirect_updates = json_decode( $redirect_updates_json, true );
+
+		if ( ! is_array( $redirect_updates ) ) {
+			return $flow_steps;
+		}
+
+		foreach ( $redirect_updates as $source_step_id => $redirects ) {
+			$source_step_id = absint( $source_step_id );
+
+			// IDOR guard — source step must belong to this flow.
+			if ( ! $this->is_step_in_flow( $source_step_id, $flow_id ) ) {
+				continue;
+			}
+
+			// IDOR guard — accept/reject targets must belong to this flow if provided.
+			if ( ! empty( $redirects['accept'] ) && ! $this->is_step_in_flow( absint( $redirects['accept'] ), $flow_id ) ) {
+				unset( $redirects['accept'] );
+			}
+			if ( ! empty( $redirects['reject'] ) && ! $this->is_step_in_flow( absint( $redirects['reject'] ), $flow_id ) ) {
+				unset( $redirects['reject'] );
+			}
+
+			$flow_steps = $this->update_single_step_redirects( $flow_steps, $source_step_id, $redirects );
+		}
+
+		return $flow_steps;
+	}
+
+	/**
+	 * Update redirects for a single source step.
+	 *
+	 * Determines if the source is a control step or a variation and delegates
+	 * to the appropriate handler.
+	 *
+	 * @since 3.1.0
+	 * @param array $flow_steps     The current flow steps array.
+	 * @param int   $source_step_id The source step ID.
+	 * @param array $redirects      The redirect targets (accept/reject).
+	 * @return array The updated flow steps array.
+	 */
+	private function update_single_step_redirects( $flow_steps, $source_step_id, $redirects ) {
+		if ( $source_step_id <= 0 ) {
+			return $flow_steps;
+		}
+
+		$accept_target = isset( $redirects['accept'] ) && ! empty( $redirects['accept'] ) ? absint( $redirects['accept'] ) : 0;
+		$reject_target = isset( $redirects['reject'] ) && ! empty( $redirects['reject'] ) ? absint( $redirects['reject'] ) : 0;
+
+		// First, check if it's a control step.
+		$flow_steps = $this->update_control_step_redirects( $flow_steps, $source_step_id, $accept_target, $reject_target );
+
+		// If not found as control step, check if it's a variation.
+		$flow_steps = $this->update_variation_step_redirects( $flow_steps, $source_step_id, $accept_target, $reject_target );
+
+		return $flow_steps;
+	}
+
+	/**
+	 * Update redirects for a control step (direct match in flow_steps).
+	 *
+	 * @since 3.1.0
+	 * @param array $flow_steps     The current flow steps array.
+	 * @param int   $source_step_id The source step ID.
+	 * @param int   $accept_target  The accept redirect target step ID.
+	 * @param int   $reject_target  The reject redirect target step ID.
+	 * @return array The updated flow steps array.
+	 */
+	private function update_control_step_redirects( $flow_steps, $source_step_id, $accept_target, $reject_target ) {
+		foreach ( $flow_steps as $idx => $step_data ) {
+			if ( isset( $step_data['id'] ) && (int) $step_data['id'] === $source_step_id ) {
+				// Update post meta for the control step.
+				if ( $accept_target > 0 ) {
+					update_post_meta( $source_step_id, 'wcf-yes-next-step', $accept_target );
+					$flow_steps[ $idx ]['offer_yes_step_id'] = $accept_target;
+				}
+				if ( $reject_target > 0 ) {
+					update_post_meta( $source_step_id, 'wcf-no-next-step', $reject_target );
+					$flow_steps[ $idx ]['offer_no_step_id'] = $reject_target;
+				}
+				break;
+			}
+		}
+
+		return $flow_steps;
+	}
+
+	/**
+	 * Update redirects for an A/B test variation step.
+	 *
+	 * Variations don't have separate post meta, they're stored in the flow_steps array.
+	 *
+	 * @since 3.1.0
+	 * @param array $flow_steps     The current flow steps array.
+	 * @param int   $source_step_id The source step ID (variation ID).
+	 * @param int   $accept_target  The accept redirect target step ID.
+	 * @param int   $reject_target  The reject redirect target step ID.
+	 * @return array The updated flow steps array.
+	 */
+	private function update_variation_step_redirects( $flow_steps, $source_step_id, $accept_target, $reject_target ) {
+		foreach ( $flow_steps as $idx => $step_data ) {
+			// Check if this step has A/B test variations.
+			if ( isset( $step_data['ab-test-variations'] ) && is_array( $step_data['ab-test-variations'] ) ) {
+				foreach ( $step_data['ab-test-variations'] as $var_idx => $variation ) {
+					if ( isset( $variation['id'] ) && (int) $variation['id'] === $source_step_id ) {
+						// Update the variation's redirects in the flow_steps array.
+						if ( $accept_target > 0 ) {
+							$flow_steps[ $idx ]['ab-test-variations'][ $var_idx ]['offer_yes_step_id'] = $accept_target;
+						}
+						if ( $reject_target > 0 ) {
+							$flow_steps[ $idx ]['ab-test-variations'][ $var_idx ]['offer_no_step_id'] = $reject_target;
+						}
+						return $flow_steps; // Found and updated, exit early.
+					}
+				}
+			}
+		}
+
+		return $flow_steps;
+	}
 }

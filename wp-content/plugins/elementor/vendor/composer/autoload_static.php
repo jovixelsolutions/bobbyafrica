@@ -4,31 +4,64 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4c0e44c710c61512878dc3b45b4de108
+class ComposerStaticInitcaa4a5ea48fb26243757d5e89e99a04e
 {
     public static $files = array (
+        'a8fea8b4399cbd13660b53857806df1f' => __DIR__ . '/..' . '/elementor/elementor-mcp-composer/runner.php',
         '9db71c6726821ac61284818089584d23' => __DIR__ . '/..' . '/elementor/wp-one-package/runner.php',
     );
 
     public static $prefixLengthsPsr4 = array (
+        'W' =>
+        array (
+            'WP\\McpSchema\\' => 13,
+            'WP\\MCP\\' => 7,
+        ),
         'E' =>
         array (
             'Elementor\\WPNotificationsPackage\\' => 33,
         ),
+        'A' =>
+        array (
+            'Automattic\\Jetpack\\Autoloader\\' => 30,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'WP\\McpSchema\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/wordpress/php-mcp-schema/src',
+        ),
+        'WP\\MCP\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/wordpress/mcp-adapter/includes',
+        ),
         'Elementor\\WPNotificationsPackage\\' =>
         array (
             0 => __DIR__ . '/..' . '/elementor/wp-notifications-package/src',
         ),
+        'Automattic\\Jetpack\\Autoloader\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/automattic/jetpack-autoloader/src',
+        ),
     );
 
     public static $classMap = array (
+        'Automattic\\Jetpack\\Autoloader\\AutoloadGenerator' => __DIR__ . '/..' . '/automattic/jetpack-autoloader/src/AutoloadGenerator.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'ElementorDeps\\Attribute' => __DIR__ . '/../..' . '/vendor_prefixed/twig/symfony/polyfill-php80/Resources/stubs/Attribute.php',
+        'ElementorDeps\\Base_MixpanelBase' => __DIR__ . '/../..' . '/vendor_prefixed/mixpanel/lib/Base/MixpanelBase.php',
         'ElementorDeps\\CURLStringFile' => __DIR__ . '/../..' . '/vendor_prefixed/twig/symfony/polyfill-php81/Resources/stubs/CURLStringFile.php',
+        'ElementorDeps\\ConsumerStrategies_AbstractConsumer' => __DIR__ . '/../..' . '/vendor_prefixed/mixpanel/lib/ConsumerStrategies/AbstractConsumer.php',
+        'ElementorDeps\\ConsumerStrategies_CurlConsumer' => __DIR__ . '/../..' . '/vendor_prefixed/mixpanel/lib/ConsumerStrategies/CurlConsumer.php',
+        'ElementorDeps\\ConsumerStrategies_FileConsumer' => __DIR__ . '/../..' . '/vendor_prefixed/mixpanel/lib/ConsumerStrategies/FileConsumer.php',
+        'ElementorDeps\\ConsumerStrategies_SocketConsumer' => __DIR__ . '/../..' . '/vendor_prefixed/mixpanel/lib/ConsumerStrategies/SocketConsumer.php',
+        'ElementorDeps\\Mixpanel' => __DIR__ . '/../..' . '/vendor_prefixed/mixpanel/lib/Mixpanel.php',
         'ElementorDeps\\PhpToken' => __DIR__ . '/../..' . '/vendor_prefixed/twig/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
+        'ElementorDeps\\Producers_MixpanelBaseProducer' => __DIR__ . '/../..' . '/vendor_prefixed/mixpanel/lib/Producers/MixpanelBaseProducer.php',
+        'ElementorDeps\\Producers_MixpanelEvents' => __DIR__ . '/../..' . '/vendor_prefixed/mixpanel/lib/Producers/MixpanelEvents.php',
+        'ElementorDeps\\Producers_MixpanelGroups' => __DIR__ . '/../..' . '/vendor_prefixed/mixpanel/lib/Producers/MixpanelGroups.php',
+        'ElementorDeps\\Producers_MixpanelPeople' => __DIR__ . '/../..' . '/vendor_prefixed/mixpanel/lib/Producers/MixpanelPeople.php',
         'ElementorDeps\\ReturnTypeWillChange' => __DIR__ . '/../..' . '/vendor_prefixed/twig/symfony/polyfill-php81/Resources/stubs/ReturnTypeWillChange.php',
         'ElementorDeps\\Stringable' => __DIR__ . '/../..' . '/vendor_prefixed/twig/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'ElementorDeps\\Symfony\\Polyfill\\Ctype\\Ctype' => __DIR__ . '/../..' . '/vendor_prefixed/twig/symfony/polyfill-ctype/Ctype.php',
@@ -230,9 +263,9 @@ class ComposerStaticInit4c0e44c710c61512878dc3b45b4de108
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4c0e44c710c61512878dc3b45b4de108::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4c0e44c710c61512878dc3b45b4de108::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit4c0e44c710c61512878dc3b45b4de108::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitcaa4a5ea48fb26243757d5e89e99a04e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitcaa4a5ea48fb26243757d5e89e99a04e::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitcaa4a5ea48fb26243757d5e89e99a04e::$classMap;
 
         }, null, ClassLoader::class);
     }

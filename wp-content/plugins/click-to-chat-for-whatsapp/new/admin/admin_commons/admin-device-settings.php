@@ -149,7 +149,7 @@ if ( isset( $options['same_settings'] ) ) {
 	<p class="description" style="margin-bottom: 25px;">
 		<label>
 			<input name="<?php echo esc_attr( $dbrow ); ?>[same_settings]" type="checkbox" value="1" <?php checked( $options['same_settings'], 1 ); ?> class="same_settings ctc_no_demo" id="same_settings" />
-			<span><?php esc_html_e( 'Mobile and Desktop same setttings', 'click-to-chat-for-whatsapp' ); ?></span>
+			<span><?php esc_html_e( 'Mobile and Desktop same settings', 'click-to-chat-for-whatsapp' ); ?></span>
 		</label>
 	</p>
 	<?php
@@ -158,7 +158,7 @@ if ( isset( $options['same_settings'] ) ) {
 	<p class="description" style="margin-bottom: 25px;">
 		<label>
 			<input name="<?php echo esc_attr( $dbrow ); ?>[same_settings]" type="checkbox" value="1" class="same_settings ctc_no_demo" id="same_settings" />
-			<span><?php esc_html_e( 'Mobile and Desktop same setttings', 'click-to-chat-for-whatsapp' ); ?></span>
+			<span><?php esc_html_e( 'Mobile and Desktop same settings', 'click-to-chat-for-whatsapp' ); ?></span>
 		</label>
 	</p>
 	<?php

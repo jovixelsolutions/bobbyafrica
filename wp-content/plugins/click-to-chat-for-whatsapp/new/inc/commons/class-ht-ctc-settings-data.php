@@ -2,17 +2,12 @@
 /**
  * Settings data helpers.
  *
+ * Source of truth for the allowed option groups and per-group schema (allowed
+ * keys, key patterns, sanitization callbacks) consumed by the REST save/validate
+ * pipeline (HT_CTC_API_Validator, HT_CTC_Sanitizer, HT_CTC_Data_Processor).
+ *
  * @package Click_To_Chat
  * @subpackage commons
- *
- * todo
- *  security
- *  sanitize
- *  validation
- *  error handling
- *  logging
- *  caching
- *  have to test with pro version
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -30,308 +25,371 @@ if ( ! class_exists( 'HT_CTC_Settings_Data' ) ) {
 		// public function __construct() {
 		// }
 
+
 		/**
-		 * Build chat variables array used on the frontend.
+		 * Allowed settings groups.
 		 *
-		 * @param int|null $page_id Optional page ID for page-level overrides.
+		 * @usedby HT_CTC_Settings_Handler by $allowed_groups to validate settings groups while saving.
+		 * @usedby HT_CTC_Admin_Scripts by $initial_settings to get settings data and pass it to ht_ctc_admin_var.initialSettings
 		 * @return array
 		 */
-		public static function get_ht_ctc_chat_var( $page_id = null ) {
-
-			$ctc         = array();
-			$ht_ctc_chat = array();
-			$ht_ctc_os   = array();
-
-			$options            = get_option( 'ht_ctc_chat_options', array() );
-			$othersettings      = get_option( 'ht_ctc_othersettings', array() );
-			$greetings          = get_option( 'ht_ctc_greetings_options', array() );
-			$greetings_settings = get_option( 'ht_ctc_greetings_settings', array() );
-
-			// if any of the options are not array return an empty array
-			if ( ! is_array( $options ) || ! is_array( $othersettings ) || ! is_array( $greetings ) || ! is_array( $greetings_settings ) ) {
-				return $ctc;
-			}
-
-			// page level
-			// no page level settings if getting values using rest api
-			$ht_ctc_pagelevel = array();
-
-			// Add page-level overrides
-			if ( $page_id && get_post_status( $page_id ) ) {
-				$ht_ctc_pagelevel = get_post_meta( $page_id, 'ht_ctc_pagelevel', true );
-			}
-
-			// number
-			$ht_ctc_chat['number'] = ( isset( $options['number'] ) ) ? esc_attr( $options['number'] ) : '';
-
-			// safe side action .. if number not saved in new method
-			if ( '' === $ht_ctc_chat['number'] ) {
-				$cc  = ( isset( $options['cc'] ) ) ? esc_attr( $options['cc'] ) : '';
-				$num = ( isset( $options['num'] ) ) ? esc_attr( $options['num'] ) : '';
-				if ( '' !== $cc && '' !== $num ) {
-					$ht_ctc_chat['number'] = $cc . $num;
-				}
-			}
-
-			$ht_ctc_chat['pre_filled'] = isset( $options['pre_filled'] ) ? esc_attr( $options['pre_filled'] ) : '';
-
-			$ht_ctc_chat['url_target_d']    = ( isset( $options['url_target_d'] ) ) ? esc_attr( $options['url_target_d'] ) : '_blank';
-			$ht_ctc_chat['url_structure_d'] = ( isset( $options['url_structure_d'] ) ) ? esc_attr( $options['url_structure_d'] ) : '';
-			$ht_ctc_chat['url_structure_m'] = ( isset( $options['url_structure_m'] ) ) ? esc_attr( $options['url_structure_m'] ) : '';
-
-			$ht_ctc_chat['display_mobile']  = ( isset( $options['display_mobile'] ) ) ? esc_attr( $options['display_mobile'] ) : 'show';
-			$ht_ctc_chat['display_desktop'] = ( isset( $options['display_desktop'] ) ) ? esc_attr( $options['display_desktop'] ) : 'show';
-
-			$notification_time = ( isset( $othersettings['notification_time'] ) ) ? esc_attr( $othersettings['notification_time'] ) : '';
-
-			// z-index. have to be numeric value.
-			$zindex_raw = isset( $othersettings['zindex'] ) ? $othersettings['zindex'] : '';
-			$zindex     = ( is_scalar( $zindex_raw ) && is_numeric( trim( $zindex_raw ) ) ) ? trim( $zindex_raw ) : '99999999';
-			$zindex     = esc_attr( $zindex );
-
-			$analytics = ( isset( $othersettings['analytics'] ) ) ? esc_attr( $othersettings['analytics'] ) : 'all';
-
-			$ht_ctc_chat['css'] = "display: none; cursor: pointer; z-index: $zindex;";
-
-			$default_position = '';
-			$position         = '';
-			$position_mobile  = '';
-			include HT_CTC_PLUGIN_DIR . 'new/inc/commons/position-to-place.php';
-
-			// position: e.g. position: fixed; bottom: 15px; right: 15px;
-			$ht_ctc_chat['position']        = $position;
-			$ht_ctc_chat['position_mobile'] = $position_mobile;
-
-			// Greetings - init display ..
-			$g_init = isset( $greetings_settings['g_init'] ) ? esc_attr( $greetings_settings['g_init'] ) : 'default';
-
-			// webhook
-			$hook_url       = isset( $othersettings['hook_url'] ) ? esc_attr( $othersettings['hook_url'] ) : '';
-			$webhook_format = isset( $othersettings['webhook_format'] ) ? esc_attr( $othersettings['webhook_format'] ) : 'json';
-
-			$g_an_event_name = ( isset( $othersettings['g_an_event_name'] ) ) ? esc_attr( $othersettings['g_an_event_name'] ) : 'click to chat';
-
-			$pixel_event_type = ( isset( $othersettings['pixel_event_type'] ) ) ? esc_attr( $othersettings['pixel_event_type'] ) : 'trackCustom';
-			$pixel_event_name = 'Click to Chat by HoliThemes';
-			if ( 'trackCustom' === $pixel_event_type ) {
-				if ( isset( $othersettings['pixel_custom_event_name'] ) && '' !== $othersettings['pixel_custom_event_name'] ) {
-					$pixel_event_name = esc_attr( $othersettings['pixel_custom_event_name'] );
-				}
-			} elseif ( isset( $othersettings['pixel_standard_event_name'] ) && '' !== $othersettings['pixel_standard_event_name'] ) {
-					// lead, ..
-					$pixel_event_name = esc_attr( $othersettings['pixel_standard_event_name'] );
-			}
-
-			// multilingual support
-			if ( function_exists( 'wpml_translate_single_string' ) ) {
-				$ht_ctc_chat['number']     = apply_filters( 'wpml_translate_single_string', $ht_ctc_chat['number'], 'Click to Chat for WhatsApp', 'number' );
-				$ht_ctc_chat['pre_filled'] = apply_filters( 'wpml_translate_single_string', $ht_ctc_chat['pre_filled'], 'Click to Chat for WhatsApp', 'pre_filled' );
-			}
-
-			// page level settings (have to be after the multilingual)
-			if ( isset( $ht_ctc_pagelevel['number'] ) ) {
-				$ht_ctc_chat['number'] = esc_attr( $ht_ctc_pagelevel['number'] );
-			}
-			if ( isset( $ht_ctc_pagelevel['pre_filled'] ) ) {
-				$ht_ctc_chat['pre_filled'] = esc_attr( $ht_ctc_pagelevel['pre_filled'] );
-			}
-
-			// might overwrite at filter hooks
-
-			// analytics
-			$ht_ctc_os['is_ga_enable'] = 'yes';
-			$ht_ctc_os['is_fb_pixel']  = 'yes';
-			$ht_ctc_os['ga_ads']       = 'no';
-
-			// show effect
-			$ht_ctc_os['show_effect'] = '';
-			$ht_ctc_os['an_type']     = '';
-
-			$ht_ctc_chat['schedule'] = 'no';
-
-			// hooks
-			include_once HT_CTC_PLUGIN_DIR . 'new/inc/commons/class-ht-ctc-hooks.php';
-			$ht_ctc_chat = apply_filters( 'ht_ctc_fh_chat', $ht_ctc_chat );
-			$ht_ctc_os   = apply_filters( 'ht_ctc_fh_os', $ht_ctc_os );
-
-			// settings to return to include at ht_ctc_chat_var
-			$ctc = array(
-				'number'           => esc_attr( $ht_ctc_chat['number'] ),
-				'pre_filled'       => esc_attr( $ht_ctc_chat['pre_filled'] ),
-				'url_target_d'     => esc_attr( $ht_ctc_chat['url_target_d'] ),
-				'dis_d'            => esc_attr( $ht_ctc_chat['display_desktop'] ),
-				'dis_m'            => esc_attr( $ht_ctc_chat['display_mobile'] ),
-				'pos_d'            => esc_attr( $ht_ctc_chat['position'] ),
-				'pos_m'            => esc_attr( $ht_ctc_chat['position_mobile'] ),
-				'css'              => esc_attr( $ht_ctc_chat['css'] ),
-				'schedule'         => esc_attr( $ht_ctc_chat['schedule'] ),
-				'se'               => esc_attr( $ht_ctc_os['show_effect'] ),
-				'ani'              => esc_attr( $ht_ctc_os['an_type'] ),
-				'g_init'           => esc_attr( $g_init ),
-				'g_an_event_name'  => esc_attr( $g_an_event_name ),
-				'pixel_event_name' => esc_attr( $pixel_event_name ),
+		public static function get_settings_groups() {
+			$values = array(
+				'ht_ctc_chat_options',
+				'ht_ctc_othersettings',
+				'ht_ctc_code_blocks',
+				'ht_ctc_greetings_options',
+				'ht_ctc_greetings_1',
+				'ht_ctc_greetings_2',
+				'ht_ctc_greetings_settings',
+				'ht_ctc_admin_settings',
+				'ht_ctc_s1',
+				'ht_ctc_s2',
+				'ht_ctc_s3',
+				'ht_ctc_s3_1',
+				'ht_ctc_s4',
+				'ht_ctc_s5',
+				'ht_ctc_s6',
+				'ht_ctc_s7',
+				'ht_ctc_s7_1',
+				'ht_ctc_s8',
+				'ht_ctc_s99',
+				'ht_ctc_cs_options',
+				'ht_ctc_woo_options',
+				'ht_ctc_r_sqx',
+				'ht_ctc_group',
+				'ht_ctc_share',
 			);
 
-			// desktop url structure if web whatsapp
-			if ( 'web' === $ht_ctc_chat['url_structure_d'] ) {
-				$ctc['url_structure_d'] = 'web';
-			}
+			/**
+			 * Filter the allowed settings groups.
+			 *
+			 * Pro plugin uses this to register its own option groups,
+			 * e.g. 'ht_ctc_greetings_pro_1', 'ht_ctc_greetings_pro_2'.
+			 *
+			 * @param array $values Allowed settings groups.
+			 */
+			$values = apply_filters( 'ht_ctc_fh_settings_data_groups', $values );
 
-			// mobile url structure if whatsapp://..
-			if ( 'wa_colon' === $ht_ctc_chat['url_structure_m'] ) {
-				$ctc['url_structure_m'] = 'wa_colon';
-			}
+			return $values;
+		}
 
-			// notification time
-			if ( '' !== $notification_time ) {
-				$ctc['n_time'] = $notification_time;
-			}
 
-			// if no number content is added. i.e. if no number is set in the plugin settings.
-			if ( '' === $ht_ctc_chat['number'] ) {
-				$ctc['no_number'] = __( 'No WhatsApp Number Found!', 'click-to-chat-for-whatsapp' );
-			}
+		/**
+		 * Option groups saved by wholesale replace instead of deep merge.
+		 *
+		 * The client sends the COMPLETE group (its card carries .ctc-group-sync) and the
+		 * server overwrites, so a deleted row can never survive as a stale key. See
+		 * HT_CTC_Data_Processor::is_replace_entire_group() for why this beats merge+remove
+		 * for cohesive collections.
+		 *
+		 * Lives here rather than on the data processor because two very different stages
+		 * need the same answer: the processor (overwrite vs merge) and HT_CTC_Sanitizer
+		 * (whether to grandfather keys already in the DB). Two copies of this list would
+		 * drift, and the failure that follows is silent data loss.
+		 *
+		 * @return array Replace-strategy group keys.
+		 */
+		public static function get_replace_groups() {
 
-			// anlalytics count type
-			if ( 'session' === $analytics ) {
-				$ctc['analytics'] = $analytics;
-			}
+			$values = array();
 
-			// ga - is google analytics enabled
-			if ( 'yes' === $ht_ctc_os['is_ga_enable'] ) {
-				$ctc['ga'] = 'yes';
-			}
+			/**
+			 * Option groups saved by wholesale replace. Pro registers its collection groups
+			 * here, e.g. 'ht_ctc_greetings_pro_1', 'ht_ctc_greetings_pro_2'.
+			 *
+			 * @param array $values Replace-strategy group keys.
+			 */
+			$values = apply_filters( 'ht_ctc_fh_replace_groups', $values );
 
-			// ads - is google ads enabled
-			if ( 'yes' === $ht_ctc_os['ga_ads'] ) {
-				$ctc['ads'] = 'yes';
-			}
-
-			// fb pixel
-			if ( 'yes' === $ht_ctc_os['is_fb_pixel'] ) {
-				$ctc['fb'] = 'yes';
-			}
-
-			// Add custom URL fields for Main version
-			if ( isset( $options['custom_url_d'] ) && '' !== $options['custom_url_d'] ) {
-				$ctc['custom_url_d'] = esc_url_raw( $options['custom_url_d'] );
-			}
-			if ( isset( $options['custom_url_m'] ) && '' !== $options['custom_url_m'] ) {
-				$ctc['custom_url_m'] = esc_url_raw( $options['custom_url_m'] );
-			}
-
-			// webhook
-			if ( '' !== $hook_url ) {
-				// $ctc hook url
-				$ctc['hook_url'] = $hook_url;
-				$hook_v          = isset( $othersettings['hook_v'] ) ? $othersettings['hook_v'] : '';
-
-				if ( is_array( $hook_v ) ) {
-					$hook_v = array_filter( $hook_v );
-					$hook_v = array_values( $hook_v );
-					$hook_v = array_map( 'esc_attr', $hook_v );
-
-					if ( isset( $hook_v[0] ) ) {
-						// $ctc - hook values
-						$ctc['hook_v'] = $hook_v;
-					}
-				}
-			}
-
-			// webhook sharing data type. - json, stringify json
-			if ( 'json' === $webhook_format ) {
-				$ctc['webhook_format'] = 'json';
-			}
-
-			// notification time
-			if ( '' !== $notification_time ) {
-				$ctc['n_time'] = $notification_time;
-			}
-
-			// Greetings - display device based (if not all then add value)
-			$g_device = isset( $greetings_settings['g_device'] ) ? esc_attr( $greetings_settings['g_device'] ) : 'all';
-			if ( 'all' !== $g_device ) {
-				$ctc['g_device'] = $g_device;
-			}
-
-			// filter hooks - ctc - ht_ctc_chat_var
-			$ctc = apply_filters( 'ht_ctc_fh_ctc', $ctc );
-
-			return $ctc;
+			return is_array( $values ) ? $values : array();
 		}
 
 		/**
-		 * Retrieve HT CTC variables for front-end use.
+		 * Whether an option group is saved by the replace strategy.
+		 *
+		 * @param string $group Option group name.
+		 * @return bool
+		 */
+		public static function is_replace_group( $group ) {
+			return in_array( $group, self::get_replace_groups(), true );
+		}
+
+		/**
+		 * Full per-group settings schema (explicit build-all).
+		 *
+		 * Aggregator: builds the whole schema map by calling get_schema() for each
+		 * settings group. The per-group definitions live in HT_CTC_Settings_Schema
+		 * (one method per option group). Groups that declare no schema
+		 * are skipped here. NOTE: an absent schema does NOT mean
+		 * "accept any key" — HT_CTC_Sanitizer fails closed and drops every key of an
+		 * array payload for a schema-less group; only scalar group values pass
+		 * through the default sanitizer (see get_schema() docblock).
+		 *
+		 * Call this only when the entire map is genuinely needed. To read one group,
+		 * use get_schema( $group ) — it dispatches a single method and never builds all.
+		 *
+		 * Each group's slice describes:
+		 *   - allowed_keys           (string[]): allow-listed top-level keys for the group.
+		 *   - allowed_keys_patterns  (string[]): regex patterns for dynamic/repeating top-level keys.
+		 *   - sanitization_callbacks (array<string,string>): field key => sanitizer callback.
+		 *
+		 * @return array Schema keyed by option group.
+		 */
+		public static function get_settings_schema() {
+			$values = array();
+
+			foreach ( self::get_settings_groups() as $group ) {
+				$slice = self::get_schema( $group );
+
+				// Skip groups that declare no schema (pass-through, e.g. ht_ctc_r_sqx).
+				if ( empty( $slice['allowed_keys'] ) && empty( $slice['allowed_keys_patterns'] ) && empty( $slice['sanitization_callbacks'] ) ) {
+					continue;
+				}
+
+				$values[ $group ] = $slice;
+			}
+
+			/**
+			 * Filter the full per-group settings schema.
+			 *
+			 * Pro plugin / add-ons use this to register allowed keys, key patterns and
+			 * sanitization callbacks for their own option groups, or to extend existing ones.
+			 * For a single group, prefer the 'ht_ctc_fh_settings_schema_per_group' filter.
+			 *
+			 * @param array $values Per-group settings schema.
+			 */
+			$values = apply_filters( 'ht_ctc_fh_settings_schema', $values );
+
+			return $values;
+		}
+
+
+		/**
+		 * Easy accessor for a single option group's schema — the "get_option() for schema".
+		 *
+		 * Mirrors HT_CTC_Utils::get_option(): lazy-loads + instantiates HT_CTC_Settings_Schema
+		 * once, then dispatches ONLY the per-group method named after $group (e.g.
+		 * ht_ctc_chat_options()) and returns just that slice — it never builds the whole
+		 * schema. The result is cached per group for the rest of the request. Dispatch is
+		 * guarded to ht_ctc_*-prefixed methods.
+		 *
+		 * Consumers (save handler / validator / sanitizer) work one group at a time, so this
+		 * is the spot-call path: ask for the group you need, get just that slice. For the
+		 * rare case the full map is needed, call get_settings_schema() explicitly.
+		 *
+		 * @param string $group Option group name (e.g. 'ht_ctc_chat_options').
+		 * @return array The group's schema slice. Unknown groups return a well-formed empty
+		 *               slice so callers never need isset() guards. NOTE: HT_CTC_Sanitizer
+		 *               fails CLOSED on an empty slice — an array payload for a group with no
+		 *               allowed_keys/patterns has every key dropped (only a scalar group value
+		 *               passes through the default sanitizer). So a group registered via
+		 *               'ht_ctc_fh_settings_data_groups' (e.g. by PRO) must also register its
+		 *               schema (e.g. via 'ht_ctc_fh_settings_schema_per_group'), or its array
+		 *               settings will silently save as empty.
+		 */
+		public static function get_schema( $group ) {
+			static $cache = array();
+			if ( is_string( $group ) && isset( $cache[ $group ] ) ) {
+				return $cache[ $group ];
+			}
+
+			$slice = array(
+				'allowed_keys'           => array(),
+				'allowed_keys_patterns'  => array(),
+				'sanitization_callbacks' => array(),
+			);
+
+			// Dynamic dispatch to the per-group method on HT_CTC_Settings_Schema
+			// (e.g. ht_ctc_chat_options()), mirroring HT_CTC_Utils::get_option().
+			// Guard: only ht_ctc_*-prefixed methods are dispatchable.
+			$schema = self::schema_instance();
+			if ( $schema && is_string( $group ) && 0 === strpos( $group, 'ht_ctc_' ) && is_callable( array( $schema, $group ) ) ) {
+				$group_schema = $schema->$group();
+				if ( is_array( $group_schema ) ) {
+					if ( isset( $group_schema['allowed_keys'] ) && is_array( $group_schema['allowed_keys'] ) ) {
+						$slice['allowed_keys'] = $group_schema['allowed_keys'];
+					}
+					if ( isset( $group_schema['allowed_keys_patterns'] ) && is_array( $group_schema['allowed_keys_patterns'] ) ) {
+						$slice['allowed_keys_patterns'] = $group_schema['allowed_keys_patterns'];
+					}
+					if ( isset( $group_schema['sanitization_callbacks'] ) && is_array( $group_schema['sanitization_callbacks'] ) ) {
+						$slice['sanitization_callbacks'] = $group_schema['sanitization_callbacks'];
+					}
+				}
+			}
+
+			/**
+			 * Filter any single option group's schema slice (generic, fires for every group).
+			 *
+			 * Pro plugin / add-ons register schema for their own option groups here (incl.
+			 * groups that have no method), or extend an existing group's allowed keys /
+			 * patterns / sanitization callbacks. For a specific built-in group, the
+			 * per-group hook 'ht_ctc_fh_settings_schema_<group>' (declared in
+			 * HT_CTC_Settings_Schema) is also available.
+			 *
+			 * @param array  $slice Schema slice (allowed_keys, allowed_keys_patterns, sanitization_callbacks).
+			 * @param string $group Option group name.
+			 */
+			$slice = apply_filters( 'ht_ctc_fh_settings_schema_per_group', $slice, $group );
+
+			if ( is_string( $group ) ) {
+				$cache[ $group ] = $slice;
+			}
+
+			return $slice;
+		}
+
+		/**
+		 * Lazy-load and cache the HT_CTC_Settings_Schema instance.
+		 *
+		 * Mirrors how HT_CTC_Utils::get_option() loads and caches HT_CTC_Defaults:
+		 * loaded once, with a false sentinel to avoid repeated load attempts.
+		 *
+		 * @return HT_CTC_Settings_Schema|false Instance, or false if it cannot be loaded.
+		 */
+		private static function schema_instance() {
+			static $instance = null;
+
+			if ( null !== $instance ) {
+				return $instance;
+			}
+
+			if ( ! class_exists( 'HT_CTC_Settings_Schema' ) ) {
+				if ( class_exists( 'HT_CTC_Utils' ) ) {
+					HT_CTC_Utils::load_class( 'new/inc/commons/class-ht-ctc-settings-schema.php', 'HT_CTC_Settings_Schema' );
+				} elseif ( defined( 'HT_CTC_PLUGIN_DIR' ) && file_exists( HT_CTC_PLUGIN_DIR . 'new/inc/commons/class-ht-ctc-settings-schema.php' ) ) {
+					require_once HT_CTC_PLUGIN_DIR . 'new/inc/commons/class-ht-ctc-settings-schema.php';
+				}
+			}
+
+			$instance = class_exists( 'HT_CTC_Settings_Schema' ) ? new HT_CTC_Settings_Schema() : false;
+
+			return $instance;
+		}
+
+		/**
+		 * Allowed top-level keys for a single option group.
+		 *
+		 * @param string $group Option group name.
+		 * @return string[] Allowed keys, or empty array if the group declares none.
+		 */
+		public static function get_allowed_keys( $group ) {
+			$slice = self::get_schema( $group );
+			return isset( $slice['allowed_keys'] ) && is_array( $slice['allowed_keys'] ) ? $slice['allowed_keys'] : array();
+		}
+
+		/**
+		 * Allowed top-level key regex patterns for a single option group.
+		 *
+		 * @param string $group Option group name.
+		 * @return string[] Allowed key patterns, or empty array if the group declares none.
+		 */
+		public static function get_allowed_keys_patterns( $group ) {
+			$slice = self::get_schema( $group );
+			return isset( $slice['allowed_keys_patterns'] ) && is_array( $slice['allowed_keys_patterns'] ) ? $slice['allowed_keys_patterns'] : array();
+		}
+
+		/**
+		 * Field => sanitizer-callback map for a single option group.
+		 *
+		 * @param string $group Option group name.
+		 * @return array<string, string> Field key => sanitizer callback, or empty array.
+		 */
+		public static function get_sanitization_callbacks( $group ) {
+			$slice = self::get_schema( $group );
+			return isset( $slice['sanitization_callbacks'] ) && is_array( $slice['sanitization_callbacks'] ) ? $slice['sanitization_callbacks'] : array();
+		}
+
+
+		/**
+		 * Settings groups to load initially.
 		 *
 		 * @return array
 		 */
-		public static function get_ht_ctc_variables() {
-
-			$othersettings = get_option( 'ht_ctc_othersettings' );
-			$options       = get_option( 'ht_ctc_chat_options', array() );
-
-			$g_an_event_name = ( isset( $othersettings['g_an_event_name'] ) ) ? esc_attr( $othersettings['g_an_event_name'] ) : 'click to chat';
-
-			$pixel_event_type = ( isset( $othersettings['pixel_event_type'] ) ) ? esc_attr( $othersettings['pixel_event_type'] ) : 'trackCustom';
-			$pixel_event_name = 'Click to Chat by HoliThemes';
-			if ( 'trackCustom' === $pixel_event_type ) {
-				if ( isset( $othersettings['pixel_custom_event_name'] ) && '' !== $othersettings['pixel_custom_event_name'] ) {
-					$pixel_event_name = esc_attr( $othersettings['pixel_custom_event_name'] );
-				}
-			} elseif ( isset( $othersettings['pixel_standard_event_name'] ) && '' !== $othersettings['pixel_standard_event_name'] ) {
-					// lead, ..
-					$pixel_event_name = esc_attr( $othersettings['pixel_standard_event_name'] );
-			}
-
-			$g_an_params  = ( isset( $othersettings['g_an_params'] ) && is_array( $othersettings['g_an_params'] ) ) ? array_map( 'esc_attr', $othersettings['g_an_params'] ) : '';
-			$pixel_params = ( isset( $othersettings['pixel_params'] ) && is_array( $othersettings['pixel_params'] ) ) ? array_map( 'esc_attr', $othersettings['pixel_params'] ) : '';
-
-			$g_an_value = ( isset( $options['g_an'] ) ) ? esc_attr( $options['g_an'] ) : 'ga4';
-
+		public static function get_initial_settings_groups() {
 			$values = array(
-				'g_an_event_name'  => $g_an_event_name,
-				'pixel_event_type' => $pixel_event_type,
-				'pixel_event_name' => $pixel_event_name,
+				'ht_ctc_chat_options',
 			);
 
-			// google analytics params
-			if ( is_array( $g_an_params ) && isset( $g_an_params[0] ) ) {
+			return $values;
+		}
 
-				foreach ( $g_an_params as $param ) {
-					$param_options = ( isset( $othersettings[ $param ] ) ) ? $othersettings[ $param ] : array();
-					$key           = ( isset( $param_options['key'] ) ) ? esc_attr( $param_options['key'] ) : '';
-					$value         = ( isset( $param_options['value'] ) ) ? esc_attr( $param_options['value'] ) : '';
+		/**
+		 * Map of field => sanitizer callback hint.
+		 *
+		 * @deprecated This method is deprecated. now sanitizations added by option group name instead of key name.
+		 * @return array
+		 */
+		public static function get_sanitize_map() {
+			$values = array(
 
-					if ( ! empty( $key ) && ! empty( $value ) ) {
-						$values['g_an_params'][] = $param;
-						$values[ $param ]        = array(
-							'key'   => $key,
-							'value' => $value,
-						);
-					}
-				}
-			}
+				// general (ht_ctc_chat_options)
+				// In admin (2026 UI) we are formatting (wa_number) the number on save to DB also.
+				'number'                   => 'ctc_sanitize_whatsapp_number',
+				'r_nums'                   => 'ctc_sanitize_whatsapp_number',
+				// 'whatsapp_number'          => 'ctc_sanitize_whatsapp_number',
+				'call_to_action'           => 'ctc_sanitize_emoji_text',
+				'pre_filled'               => 'ctc_sanitize_emoji_textarea',
 
-			// pixel params
-			if ( is_array( $pixel_params ) && isset( $pixel_params[0] ) ) {
+				// general - position / layout (ht_ctc_chat_options)
+				'side_1_value'             => 'ctc_sanitize_normalize_css_suffix',
+				'side_2_value'             => 'ctc_sanitize_normalize_css_suffix',
+				'mobile_side_1_value'      => 'ctc_sanitize_normalize_css_suffix',
+				'mobile_side_2_value'      => 'ctc_sanitize_normalize_css_suffix',
 
-				foreach ( $pixel_params as $param ) {
-					$param_options = ( isset( $othersettings[ $param ] ) ) ? $othersettings[ $param ] : array();
-					$key           = ( isset( $param_options['key'] ) ) ? esc_attr( $param_options['key'] ) : '';
-					$value         = ( isset( $param_options['value'] ) ) ? esc_attr( $param_options['value'] ) : '';
+				// advanced (ht_ctc_othersettings / other-settings)
+				'custom_css'               => 'ctc_sanitize_custom_css',
 
-					if ( ! empty( $key ) && ! empty( $value ) ) {
-						$values['pixel_params'][] = $param;
-						$values[ $param ]         = array(
-							'key'   => $key,
-							'value' => $value,
-						);
-					}
-				}
-			}
+				// customize (ht_ctc_s1 - ht_ctc_s99)
+				// Defaults for some customize fields are handled in ctc_sanitize_normalize_css_suffix using the field key.
+				's1_icon_size'             => 'ctc_sanitize_normalize_css_suffix',
+				's2_img_size'              => 'ctc_sanitize_normalize_css_suffix',
+				's3_img_size'              => 'ctc_sanitize_normalize_css_suffix',
+				's3_padding'               => 'ctc_sanitize_normalize_css_suffix',
+				's4_img_size'              => 'ctc_sanitize_normalize_css_suffix',
+				's5_img_height'            => 'ctc_sanitize_normalize_css_suffix',
+				's5_img_width'             => 'ctc_sanitize_normalize_css_suffix',
+				's5_content_height'        => 'ctc_sanitize_normalize_css_suffix',
+				's5_content_width'         => 'ctc_sanitize_normalize_css_suffix',
+				's7_icon_size'             => 'ctc_sanitize_normalize_css_suffix',
+				's7_border_size'           => 'ctc_sanitize_normalize_css_suffix',
+				's7_border_radius'         => 'ctc_sanitize_normalize_css_suffix',
+				's8_text_size'             => 'ctc_sanitize_normalize_css_suffix',
+				's8_icon_size'             => 'ctc_sanitize_normalize_css_suffix',
+				's99_desktop_img_height'   => 'ctc_sanitize_normalize_css_suffix',
+				's99_desktop_img_width'    => 'ctc_sanitize_normalize_css_suffix',
+				's99_mobile_img_height'    => 'ctc_sanitize_normalize_css_suffix',
+				's99_mobile_img_width'     => 'ctc_sanitize_normalize_css_suffix',
+				// URL fields must use esc_url_raw to reject javascript:/data: URIs.
+				// Without this they would fall through to sanitize_text_field which
+				// silently accepts dangerous schemes (stored XSS on style-99 output).
+				's99_dekstop_img_url'      => 'ctc_sanitize_url',
+				's99_mobile_img_url'       => 'ctc_sanitize_url',
+				'cta_font_size'            => 'ctc_sanitize_normalize_css_suffix',
 
-			// filter hook - values - ht_ctc_variables
-			$values = apply_filters( 'ht_ctc_fh_variables', $values );
+				// greetings (ht_ctc_greetings_options, ht_ctc_greetings_1, ht_ctc_greetings_2, ht_ctc_greetings_settings)
+				'header_content'           => 'ctc_sanitize_text_editor',
+				'main_content'             => 'ctc_sanitize_text_editor',
+				'bottom_content'           => 'ctc_sanitize_text_editor',
+				'opt_in'                   => 'ctc_sanitize_text_editor',
+
+				// woocommerce (ht_ctc_woo_options)
+				'woo_call_to_action'       => 'sanitize_text_field',
+				'woo_shop_call_to_action'  => 'sanitize_text_field',
+				'woo_pre_filled'           => 'sanitize_textarea_field',
+				'woo_shop_pre_filled'      => 'sanitize_textarea_field',
+				'woo_single_margin_top'    => 'ctc_sanitize_normalize_css_suffix',
+				'woo_single_margin_bottom' => 'ctc_sanitize_normalize_css_suffix',
+				'woo_single_margin_left'   => 'ctc_sanitize_normalize_css_suffix',
+				'woo_single_margin_right'  => 'ctc_sanitize_normalize_css_suffix',
+				'woo_shop_margin_top'      => 'ctc_sanitize_normalize_css_suffix',
+				'woo_shop_margin_bottom'   => 'ctc_sanitize_normalize_css_suffix',
+				'woo_shop_margin_left'     => 'ctc_sanitize_normalize_css_suffix',
+				'woo_shop_margin_right'    => 'ctc_sanitize_normalize_css_suffix',
+			);
+
+			$values = apply_filters( 'ht_ctc_fh_settings_sanitize_map', $values );
 
 			return $values;
 		}

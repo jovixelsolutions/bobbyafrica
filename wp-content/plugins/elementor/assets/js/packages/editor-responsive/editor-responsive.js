@@ -1,3 +1,148 @@
-/*! For license information please see editor-responsive.js.LICENSE.txt */
-!function(){"use strict";var e={"./packages/packages/libs/editor-responsive/src/hooks/use-activate-breakpoint.ts":function(e,t,r){r.r(t),r.d(t,{useActivateBreakpoint:function(){return useActivateBreakpoint}});var s=r("react"),i=r("@elementor/editor-v1-adapters");function useActivateBreakpoint(){return(0,s.useCallback)(e=>(0,i.__privateRunCommand)("panel/change-device-mode",{device:e}),[])}},"./packages/packages/libs/editor-responsive/src/hooks/use-active-breakpoint.ts":function(e,t,r){r.r(t),r.d(t,{useActiveBreakpoint:function(){return useActiveBreakpoint}});var s=r("@elementor/editor-v1-adapters");function useActiveBreakpoint(){return(0,s.__privateUseListenTo)((0,s.windowEvent)("elementor/device-mode/change"),getActiveBreakpoint)}function getActiveBreakpoint(){const e=window;return e.elementor?.channels?.deviceMode?.request?.("currentMode")||null}},"./packages/packages/libs/editor-responsive/src/hooks/use-breakpoints-map.ts":function(e,t,r){r.r(t),r.d(t,{useBreakpointsMap:function(){return useBreakpointsMap}});var s=r("react"),i=r("./packages/packages/libs/editor-responsive/src/hooks/use-breakpoints.ts");function useBreakpointsMap(){const e=(0,i.useBreakpoints)();return(0,s.useMemo)(()=>{const t=e.map(e=>[e.id,e]);return Object.fromEntries(t)},[e])}},"./packages/packages/libs/editor-responsive/src/hooks/use-breakpoints.ts":function(e,t,r){r.r(t),r.d(t,{useBreakpoints:function(){return useBreakpoints}});var s=r("@elementor/editor-v1-adapters"),i=r("./packages/packages/libs/editor-responsive/src/sync/get-breakpoints.ts");function useBreakpoints(){return(0,s.__privateUseListenTo)((0,s.v1ReadyEvent)(),i.getBreakpoints)}},"./packages/packages/libs/editor-responsive/src/sync/get-breakpoints-tree.ts":function(e,t,r){r.r(t),r.d(t,{getBreakpointsTree:function(){return getBreakpointsTree}});var s=r("./packages/packages/libs/editor-responsive/src/sync/utils/get-breakpoints-by-widths.ts");function getBreakpointsTree(){const{minWidth:e,defaults:t,maxWidth:r}=(0,s.getBreakpointsByWidths)(),[i]=t,n={...i,children:[]},buildBranch=e=>{let t=n;e.forEach(e=>{const r={...e,children:[]};t.children.push(r),t=r})};return buildBranch(e),buildBranch(r),n}},"./packages/packages/libs/editor-responsive/src/sync/get-breakpoints.ts":function(e,t,r){r.r(t),r.d(t,{getBreakpoints:function(){return getBreakpoints}});var s=r("./packages/packages/libs/editor-responsive/src/sync/utils/get-breakpoints-by-widths.ts");function getBreakpoints(){const{minWidth:e,defaults:t,maxWidth:r}=(0,s.getBreakpointsByWidths)();return[...e,...t,...r]}},"./packages/packages/libs/editor-responsive/src/sync/utils/get-breakpoints-by-widths.ts":function(e,t,r){r.r(t),r.d(t,{getBreakpointsByWidths:function(){return getBreakpointsByWidths}});var s=r("@wordpress/i18n");function getBreakpointsByWidths(){const{breakpoints:e}=window.elementor?.config?.responsive||{};if(!e||0===Object.entries(e).length)return{minWidth:[],defaults:[],maxWidth:[]};const t=[],r=[],i=[{id:"desktop",label:(0,s.__)("Desktop","elementor")}];Object.entries(e).forEach(([e,s])=>{if(!s.is_enabled)return;const n={id:e,label:s.label,width:s.value,type:"min"===s.direction?"min-width":"max-width"};n.width?"min-width"===n.type?t.push(n):"max-width"===n.type&&r.push(n):i.push(n)});const byWidth=(e,t)=>e.width&&t.width?t.width-e.width:0;return{minWidth:t.sort(byWidth),defaults:i,maxWidth:r.sort(byWidth)}}},"@elementor/editor-v1-adapters":function(e){e.exports=window.elementorV2.editorV1Adapters},"@wordpress/i18n":function(e){e.exports=window.wp.i18n},react:function(e){e.exports=window.React}},t={};function __webpack_require__(r){var s=t[r];if(void 0!==s)return s.exports;var i=t[r]={exports:{}};return e[r](i,i.exports,__webpack_require__),i.exports}__webpack_require__.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return __webpack_require__.d(t,{a:t}),t},__webpack_require__.d=function(e,t){for(var r in t)__webpack_require__.o(t,r)&&!__webpack_require__.o(e,r)&&Object.defineProperty(e,r,{enumerable:!0,get:t[r]})},__webpack_require__.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},__webpack_require__.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})};var r={};!function(){__webpack_require__.r(r),__webpack_require__.d(r,{getBreakpoints:function(){return n.getBreakpoints},getBreakpointsTree:function(){return o.getBreakpointsTree},useActivateBreakpoint:function(){return e.useActivateBreakpoint},useActiveBreakpoint:function(){return t.useActiveBreakpoint},useBreakpoints:function(){return s.useBreakpoints},useBreakpointsMap:function(){return i.useBreakpointsMap}});var e=__webpack_require__("./packages/packages/libs/editor-responsive/src/hooks/use-activate-breakpoint.ts"),t=__webpack_require__("./packages/packages/libs/editor-responsive/src/hooks/use-active-breakpoint.ts"),s=__webpack_require__("./packages/packages/libs/editor-responsive/src/hooks/use-breakpoints.ts"),i=__webpack_require__("./packages/packages/libs/editor-responsive/src/hooks/use-breakpoints-map.ts"),n=__webpack_require__("./packages/packages/libs/editor-responsive/src/sync/get-breakpoints.ts"),o=__webpack_require__("./packages/packages/libs/editor-responsive/src/sync/get-breakpoints-tree.ts")}(),(window.elementorV2=window.elementorV2||{}).editorResponsive=r}(),window.elementorV2.editorResponsive?.init?.();
+(function(react, _elementor_editor_v1_adapters, _wordpress_i18n) {
+
+//#region \0rolldown/runtime.js
+	var __defProp = Object.defineProperty;
+	var __name = (target, value) => __defProp(target, "name", {
+		value,
+		configurable: true
+	});
+	var __exportAll = (all, no_symbols) => {
+		let target = {};
+		for (var name in all) {
+			__defProp(target, name, {
+				get: all[name],
+				enumerable: true
+			});
+		}
+		if (!no_symbols) {
+			__defProp(target, Symbol.toStringTag, { value: "Module" });
+		}
+		return target;
+	};
+
+//#endregion
+
+//#region packages/packages/libs/editor-responsive/src/hooks/use-activate-breakpoint.ts
+	function useActivateBreakpoint() {
+		return (0, react.useCallback)((breakpoint) => {
+			return (0, _elementor_editor_v1_adapters.__privateRunCommand)("panel/change-device-mode", { device: breakpoint });
+		}, []);
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-responsive/src/hooks/use-active-breakpoint.ts
+	function useActiveBreakpoint() {
+		return (0, _elementor_editor_v1_adapters.__privateUseListenTo)((0, _elementor_editor_v1_adapters.windowEvent)("elementor/device-mode/change"), getActiveBreakpoint);
+	}
+	function getActiveBreakpoint() {
+		return window.elementor?.channels?.deviceMode?.request?.("currentMode") || null;
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-responsive/src/sync/utils/get-breakpoints-by-widths.ts
+	function getBreakpointsByWidths() {
+		const { breakpoints } = window.elementor?.config?.responsive || {};
+		if (!breakpoints || Object.entries(breakpoints).length === 0) return {
+			minWidth: [],
+			defaults: [],
+			maxWidth: []
+		};
+		const minWidth = [];
+		const maxWidth = [];
+		const defaults = [{
+			id: "desktop",
+			label: (0, _wordpress_i18n.__)("Desktop", "elementor")
+		}];
+		Object.entries(breakpoints).forEach(([id, v1Breakpoint]) => {
+			if (!v1Breakpoint.is_enabled) return;
+			const breakpoint = {
+				id,
+				label: v1Breakpoint.label,
+				width: v1Breakpoint.value,
+				type: v1Breakpoint.direction === "min" ? "min-width" : "max-width"
+			};
+			if (!breakpoint.width) defaults.push(breakpoint);
+			else if (breakpoint.type === "min-width") minWidth.push(breakpoint);
+			else if (breakpoint.type === "max-width") maxWidth.push(breakpoint);
+		});
+		const byWidth = (a, b) => {
+			return a.width && b.width ? b.width - a.width : 0;
+		};
+		return {
+			minWidth: minWidth.sort(byWidth),
+			defaults,
+			maxWidth: maxWidth.sort(byWidth)
+		};
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-responsive/src/sync/get-breakpoints.ts
+	function getBreakpoints() {
+		const { minWidth, defaults, maxWidth } = getBreakpointsByWidths();
+		return [
+			...minWidth,
+			...defaults,
+			...maxWidth
+		];
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-responsive/src/hooks/use-breakpoints.ts
+	function useBreakpoints() {
+		return (0, _elementor_editor_v1_adapters.__privateUseListenTo)((0, _elementor_editor_v1_adapters.v1ReadyEvent)(), getBreakpoints);
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-responsive/src/hooks/use-breakpoints-map.ts
+	function useBreakpointsMap() {
+		const breakpoints = useBreakpoints();
+		return (0, react.useMemo)(() => {
+			const entries = breakpoints.map((breakpoint) => [breakpoint.id, breakpoint]);
+			return Object.fromEntries(entries);
+		}, [breakpoints]);
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-responsive/src/sync/get-breakpoints-tree.ts
+	function getBreakpointsTree() {
+		const { minWidth, defaults, maxWidth } = getBreakpointsByWidths();
+		const [rootBreakpoint] = defaults;
+		const rootNode = {
+			...rootBreakpoint,
+			children: []
+		};
+		const buildBranch = (breakpoints) => {
+			let last = rootNode;
+			breakpoints.forEach((breakpoint) => {
+				const newNode = {
+					...breakpoint,
+					children: []
+				};
+				last.children.push(newNode);
+				last = newNode;
+			});
+		};
+		buildBranch(minWidth);
+		buildBranch(maxWidth);
+		return rootNode;
+	}
+
+//#endregion
+//#region packages/packages/libs/editor-responsive/src/index.ts
+	var src_exports = /* @__PURE__ */ __exportAll({
+		getBreakpoints: () => getBreakpoints,
+		getBreakpointsTree: () => getBreakpointsTree,
+		useActivateBreakpoint: () => useActivateBreakpoint,
+		useActiveBreakpoint: () => useActiveBreakpoint,
+		useBreakpoints: () => useBreakpoints,
+		useBreakpointsMap: () => useBreakpointsMap
+	});
+
+//#endregion
+//#region \0elementor-package-library-entry
+	(window.elementorV2 = window.elementorV2 || {}).editorResponsive = src_exports;
+
+//#endregion
+})(React, elementorV2.editorV1Adapters, wp.i18n);
+window.elementorV2.editorResponsive?.init?.();
 //# sourceMappingURL=editor-responsive.js.map

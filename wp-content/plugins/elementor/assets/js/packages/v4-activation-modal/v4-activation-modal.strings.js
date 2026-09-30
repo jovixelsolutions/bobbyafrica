@@ -8,8 +8,8 @@ __( 'Get unparalleled performance', 'elementor' );
 __( 'Clean code and a light CSS footprint with single-div wrappers.', 'elementor' );
 __( 'You’re now using the Atomic editor', 'elementor' );
 __(
-						'Elementor’s new editing experience is now active. Your existing pages stay exactly the same - you can keep working as usual while exploring new Atomic Elements.',
-						'elementor'
-					);
+							'Elementor’s new editing experience is now active. Your existing pages stay exactly the same - you can keep working as usual while exploring new Atomic Elements.',
+							'elementor'
+						);
 __( 'Need help getting started?', 'elementor' );
 __( 'Learn more', 'elementor' );

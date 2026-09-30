@@ -124,7 +124,8 @@ class Cartflows_Instant_Checkout {
 		remove_action( 'woocommerce_before_checkout_form', 'woocommerce_output_all_notices', 10 );
 
 		// Change the structure of the checkout form.
-		add_action( 'woocommerce_checkout_before_customer_details', array( $this, 'instant_checkout_wrapper_start' ), 10, 1 );
+		// Bind to the CartFlows-owned action (fired before WC's own) so the wrapper opens before third-party output (e.g. Official Stripe Express Checkout) on woocommerce_checkout_before_customer_details.
+		add_action( 'cartflows_checkout_before_customer_details', array( $this, 'instant_checkout_wrapper_start' ), 10, 1 );
 		add_action( 'woocommerce_checkout_after_customer_details', array( $this, 'order_review_wrapper_start' ), 15, 1 );
 
 		// Rarrange the payment section.

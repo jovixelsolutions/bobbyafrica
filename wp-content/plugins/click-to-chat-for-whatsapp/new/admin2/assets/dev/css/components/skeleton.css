@@ -1,0 +1,35 @@
+/* ==========================================================================
+   SKELETON LOADER
+   ========================================================================== */
+
+@keyframes ctcPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.ctc-loading-skeleton {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px 0;
+}
+
+.ctc-skeleton-row {
+    height: 60px;
+    background-color: var(--card-bg, #ffffff);
+    border: 1px solid var(--border-color, #e2e8f0);
+    border-radius: 8px;
+    animation: ctcPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.ctc-skeleton-header {
+    height: 24px;
+    width: 150px;
+    background-color: var(--card-bg, #ffffff);
+    border: 1px solid var(--border-color, #e2e8f0);
+    border-radius: 4px;
+    margin-bottom: 20px;
+    animation: ctcPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

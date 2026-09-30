@@ -592,6 +592,20 @@
   background-color: rgb(198, 0, 84.8571428571);
   box-shadow: none;
 }
+#adminmenu #toplevel_page_elementor-home a[href*=elementor-one-upgrade] {
+  font-weight: 600;
+  background-color: #93003f;
+  color: #ffffff;
+  margin: 3px 10px 0;
+  display: block;
+  text-align: center;
+  border-radius: 3px;
+  transition: all 0.3s;
+}
+#adminmenu #toplevel_page_elementor-home a[href*=elementor-one-upgrade]:hover, #adminmenu #toplevel_page_elementor-home a[href*=elementor-one-upgrade]:focus {
+  background-color: rgb(198, 0, 84.8571428571);
+  box-shadow: none;
+}
 #adminmenu #menu-posts-elementor_library .wp-menu-image:before {
   content: "\e8ff";
   font-family: eicons;
@@ -2026,6 +2040,7 @@ fieldset:disabled a.e-button {
   padding: 5px;
   box-shadow: none;
   width: 92%;
+  flex-basis: 100%;
 }
 #elementor-deactivate-feedback-modal .dialog-buttons-wrapper {
   display: flex;
@@ -2070,6 +2085,7 @@ fieldset:disabled a.e-button {
   align-items: center;
   line-height: 2;
   overflow: hidden;
+  flex-wrap: wrap;
 }
 
 #elementor-hidden-area {
@@ -2331,46 +2347,6 @@ fieldset:disabled a.e-button {
   vertical-align: middle;
   line-height: 1.2;
   color: var(--wp-admin-theme-color);
-}
-
-#e-dashboard-ally .ui-sortable-handle {
-  justify-content: flex-start;
-  gap: 8px;
-}
-
-#dashboard-widgets .e-dashboard-ally {
-  padding: 28px 0;
-}
-#dashboard-widgets .e-dashboard-ally .e-dashboard-ally-img {
-  text-align: center;
-  margin-block-end: 16px;
-}
-#dashboard-widgets .e-dashboard-ally .e-dashboard-ally-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  margin-block-end: 20px;
-}
-#dashboard-widgets .e-dashboard-ally .e-dashboard-ally-title {
-  font-size: 20px;
-  line-height: 32px;
-  color: #0C0D0E;
-  margin-block-end: 0;
-}
-#dashboard-widgets .e-dashboard-ally .e-dashboard-ally-description {
-  max-width: 295px;
-  font-size: 14px;
-  line-height: 20px;
-  color: #3F444B;
-  margin: 0 0 16px;
-}
-
-label[for=e-dashboard-ally-hide] svg {
-  display: inline-block;
-  vertical-align: middle;
-  margin-inline-end: 4px;
-  margin-block-end: 2px;
 }
 
 .post-type-elementor_library #elementor-template-library-tabs-wrapper {

@@ -35,6 +35,13 @@ const EmailTemplatesDrawer = ( { open, setOpen, template, onSave } ) => {
 		auto_coupon: false,
 		free_shipping_coupon: false,
 		individual_use_only: false,
+		modify_product_table: false,
+		product_image_size: 'medium',
+		show_prices_with_tax: false,
+		visible_columns: [ 'image', 'name', 'quantity', 'price', 'subtotal' ],
+		admin_email_copy_status: false,
+		admin_email_copy_type: 'bcc',
+		admin_email_copy_address: '',
 		enable_email_rule_engine: false,
 		email_rule_engine: [],
 		exclude_product_ids: [],
@@ -47,8 +54,27 @@ const EmailTemplatesDrawer = ( { open, setOpen, template, onSave } ) => {
 	useEffect( () => {
 		setIsLoading( true );
 		if ( template ) {
+			const defaultColumns = [
+				'image',
+				'name',
+				'quantity',
+				'price',
+				'subtotal',
+			];
+			let visibleColumns = defaultColumns;
+			if ( Array.isArray( template.visible_columns ) ) {
+				visibleColumns = template.visible_columns.length
+					? template.visible_columns
+					: defaultColumns;
+			} else if ( typeof template.visible_columns === 'string' ) {
+				const parsed = template.visible_columns
+					.split( ',' )
+					.filter( Boolean );
+				visibleColumns = parsed.length ? parsed : defaultColumns;
+			}
 			setFormState( {
 				...template,
+				visible_columns: visibleColumns,
 			} );
 		} else {
 			// Reset form for new template with default values
@@ -75,6 +101,19 @@ const EmailTemplatesDrawer = ( { open, setOpen, template, onSave } ) => {
 				auto_coupon: false,
 				free_shipping_coupon: false,
 				individual_use_only: false,
+				modify_product_table: false,
+				product_image_size: 'medium',
+				show_prices_with_tax: false,
+				visible_columns: [
+					'image',
+					'name',
+					'quantity',
+					'price',
+					'subtotal',
+				],
+				admin_email_copy_status: false,
+				admin_email_copy_type: 'bcc',
+				admin_email_copy_address: '',
 				enable_email_rule_engine: false,
 				email_rule_engine: [],
 				exclude_product_ids: [],
@@ -232,6 +271,36 @@ const EmailTemplatesDrawer = ( { open, setOpen, template, onSave } ) => {
 		formData.append(
 			'wcf_individual_use_only',
 			formState.individual_use_only ? '1' : ''
+		);
+		formData.append(
+			'wcf_modify_product_table',
+			formState.modify_product_table ? '1' : ''
+		);
+		formData.append(
+			'wcf_product_image_size',
+			formState.product_image_size || 'medium'
+		);
+		formData.append(
+			'wcf_show_prices_with_tax',
+			formState.show_prices_with_tax ? '1' : ''
+		);
+		formData.append(
+			'wcf_visible_columns',
+			Array.isArray( formState.visible_columns )
+				? formState.visible_columns.join( ',' )
+				: formState.visible_columns || ''
+		);
+		formData.append(
+			'wcf_admin_email_copy_status',
+			formState.admin_email_copy_status ? '1' : ''
+		);
+		formData.append(
+			'wcf_admin_email_copy_type',
+			formState.admin_email_copy_type || 'bcc'
+		);
+		formData.append(
+			'wcf_admin_email_copy_address',
+			formState.admin_email_copy_address || ''
 		);
 
 		// Add rule engine fields

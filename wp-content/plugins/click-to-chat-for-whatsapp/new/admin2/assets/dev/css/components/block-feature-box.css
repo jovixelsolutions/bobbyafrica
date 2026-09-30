@@ -1,0 +1,162 @@
+/* ==========================================================================
+   BLOCK FEATURE BOX
+   ========================================================================== */
+
+/* Grid Layout for Features and Greetings Actions */
+.greetings_actions .ctc-card-content,
+.ctc-features-section .ctc-card-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 14px;
+}
+
+/* Reusable feature-box grid — e.g. feature boxes nested inside an accordion. */
+.ctc-feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+}
+
+/* Let the intro span the full width of the grid */
+.greetings_actions .ctc-actions-intro {
+    grid-column: 1 / -1;
+    margin: 0 !important;
+}
+
+/* Also let the other settings fields span the full width or layout nicely */
+.greetings_actions .form-group {
+    grid-column: 1 / -1;
+}
+
+.ctc-feature-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: var(--transition);
+    position: relative;
+    margin: 0 !important; /* override default margin */
+}
+
+.ctc-feature-box:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary);
+    box-shadow: 0 8px 24px -8px var(--primary-glow);
+}
+
+.ctc-feature-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.ctc-feature-title-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ctc-feature-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: hsla(var(--p-h), var(--p-s), 45%, 0.08);
+    color: var(--primary-readable);
+    transition: var(--transition);
+}
+
+.ctc-feature-icon .ctc-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.ctc-feature-box:hover .ctc-feature-icon {
+    background: var(--primary);
+    color: #fff;
+}
+
+.ctc-feature-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.ctc-feature-badge {
+    font-size: 9px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.ctc-feature-badge.interaction {
+    background: hsla(var(--p-h), var(--p-s), 45%, 0.1);
+    color: var(--primary-readable);
+}
+
+.ctc-feature-badge.pro {
+    background: linear-gradient(to right, rgba(245, 158, 11, 0.2), rgba(217, 119, 6, 0.2));
+    color: var(--pro-color);
+}
+
+/* Header link (e.g. "more info") — sits top-right, balancing the header like
+   the badge does. Nudge it to baseline-center with the title group. */
+.ctc-feature-link {
+    margin-left: auto;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.ctc-feature-desc {
+    font-size: 12px;
+    line-height: 1.45;
+    color: var(--text-secondary);
+}
+
+/* Short description sentence above the spec rows. */
+.ctc-feature-text {
+    margin: 0 0 12px;
+    font-size: 12px;
+    line-height: 1.45;
+    color: var(--text-secondary);
+}
+
+/* Spec rows: "key  [code chip]" pairs, one per line, evenly spaced. */
+.ctc-feature-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.ctc-feature-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+}
+
+.ctc-feature-meta-key {
+    color: var(--text-secondary);
+    min-width: 78px;
+    flex-shrink: 0;
+}
+
+.ctc-feature-code {
+    background: hsla(var(--p-h), var(--p-s), 45%, 0.08);
+    color: var(--primary-readable);
+    border: 1px solid hsla(var(--p-h), var(--p-s), 45%, 0.16);
+    padding: 2px 7px;
+    border-radius: 5px;
+    font-family: var(--font-mono, monospace);
+    font-size: 11px;
+    font-weight: 600;
+}

@@ -536,6 +536,30 @@ const WhatsappTemplates = () => {
 							) }
 						</Table.HeadCell>
 						<Table.HeadCell>
+							<div className="flex items-center justify-center gap-1.5">
+								{ __(
+									'Sent',
+									'woo-cart-abandonment-recovery'
+								) }
+							</div>
+						</Table.HeadCell>
+						<Table.HeadCell>
+							<div className="flex items-center justify-center gap-1.5">
+								{ __(
+									'Click Rate',
+									'woo-cart-abandonment-recovery'
+								) }
+							</div>
+						</Table.HeadCell>
+						<Table.HeadCell>
+							<div className="flex items-center justify-center gap-1.5">
+								{ __(
+									'Conversion Rate',
+									'woo-cart-abandonment-recovery'
+								) }
+							</div>
+						</Table.HeadCell>
+						<Table.HeadCell>
 							{ __( 'Status', 'woo-cart-abandonment-recovery' ) }
 						</Table.HeadCell>
 						<Table.HeadCell className="text-right">
@@ -586,6 +610,19 @@ const WhatsappTemplates = () => {
 											item.whatsapp_frequency,
 											item.whatsapp_frequency_unit
 										) }
+									</Table.Cell>
+									<Table.Cell className="text-center">
+										{ item?.sent || '-' }
+									</Table.Cell>
+									<Table.Cell className="text-center">
+										{ item?.click_rate
+											? `${ item.click_rate }%`
+											: '-' }
+									</Table.Cell>
+									<Table.Cell className="text-center">
+										{ item?.conversion_rate
+											? `${ item.conversion_rate }%`
+											: '-' }
 									</Table.Cell>
 									<Table.Cell>
 										<Switch

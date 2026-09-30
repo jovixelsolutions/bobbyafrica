@@ -1,67 +1,34 @@
 <?php
 /**
- * Template Name: Email Header
+ * Template Name: Email Header.
+ *
+ * Expected variables (passed from Cartflows_Admin_Report_Emails::get_email_content()):
+ * - $cf_logo       (string) Absolute URL of the CartFlows email logo image.
+ * - $total_revenue (string) Formatted weekly revenue (wc_price() HTML output).
  *
  * @package CartFlows
  */
 
-// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+// Defensive defaults so the template renders without notices if a variable is missing.
+$cf_logo       = isset( $cf_logo ) ? $cf_logo : '';
+$total_revenue = isset( $total_revenue ) ? $total_revenue : '';
 ?>
-<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f06434;" width="100%">
-	<tbody>
-		<tr>
-			<td>
-				<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 600px;" width="600">
-					<tbody>
-						<tr>
-							<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 5px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
-								<table border="0" cellpadding="10" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
-									<tr>
-										<td>
-											<div style="font-family: sans-serif">
-												<div style="font-size: 14px; mso-line-height-alt: 16.8px; color: #ffffff; line-height: 1.2; font-family: Arial, Helvetica Neue, Helvetica, sans-serif;">
-													<p style="margin: 0; font-size: 14px; text-align: center;">
-														<strong><?php echo esc_html__( 'Your weekly summary from CartFlows.', 'cartflows' ); ?></strong>
-													</p>
-												</div>
-											</div>
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</td>
-		</tr>
-	</tbody>
-</table>
-<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-2" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
-	<tbody>
-		<tr>
-			<td>
-				<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 600px;" width="600">
-					<tbody>
-						<tr>
-							<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
-								<table border="0" cellpadding="5" cellspacing="0" class="image_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
-									<tr>
-										<td>
-											<div align="center" style="line-height:10px"><img src="<?php echo esc_url( $cf_logo ); ?>" style="display: block; height: auto; border: 0; width: 190px; max-width: 100%;" width="190" /></div>
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</td>
-		</tr>
-	</tbody>
-</table>
-
-
-<?php
+<tr>
+	<td align="center" class="modern-sans" style="background-color:#f06434; padding:16px 24px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif; font-size:14px; font-weight:600; color:#ffffff; letter-spacing:0.2px; line-height:1.4;">
+		<?php
+		/* translators: %s: Total revenue earned in the last 7 days, formatted with currency. */
+		echo sprintf( esc_html__( 'Your weekly CartFlows report — %s earned', 'cartflows' ), wp_kses_post( $total_revenue ) );
+		?>
+	</td>
+</tr>
+<tr>
+	<td align="center" style="padding:32px 24px 8px 24px;">
+		<a href="<?php echo esc_url( 'https://cartflows.com/' ); ?>" target="_blank">
+			<img src="<?php echo esc_url( $cf_logo ); ?>" alt="<?php echo esc_attr__( 'CartFlows', 'cartflows' ); ?>" width="156" style="display:block; max-width:156px; height:auto; border:0;" />
+		</a>
+	</td>
+</tr>

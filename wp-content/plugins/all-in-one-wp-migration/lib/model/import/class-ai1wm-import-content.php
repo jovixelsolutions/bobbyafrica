@@ -217,8 +217,20 @@ class Ai1wm_Import_Content {
 			// Exclude Elementor files
 			$exclude_files = array_merge( $exclude_files, array( AI1WM_ELEMENTOR_CSS_NAME ) );
 
-			// Exclude CiviCRM files
-			$exclude_files = array_merge( $exclude_files, array( AI1WM_CIVICRM_UPLOADS_NAME ) );
+			// Exclude CiviCRM config, regenerable caches and temp files. These are
+			// environment specific and rebuilt on the destination, so restoring them
+			// would carry over the source paths, URLs and DB credentials. Real data
+			// under custom/, persist/ and ext/ is restored untouched.
+			$exclude_files = array_merge(
+				$exclude_files,
+				array(
+					AI1WM_CIVICRM_SETTINGS_NAME,
+					AI1WM_CIVICRM_TEMPLATES_C_NAME,
+					AI1WM_CIVICRM_CONFIG_AND_LOG_NAME,
+					AI1WM_CIVICRM_UPLOAD_NAME,
+					AI1WM_CIVICRM_DYNAMIC_NAME,
+				)
+			);
 
 			// Exclude content extensions
 			$exclude_extensions = array( AI1WM_LESS_CACHE_EXTENSION, AI1WM_SQLITE_DATABASE_EXTENSION );

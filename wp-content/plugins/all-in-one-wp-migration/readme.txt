@@ -2,9 +2,9 @@
 Contributors: yani.iliev, bangelov, pimjitsawang
 Tags: backup, clone, migrate, move-wordpress, export-import
 Requires at least: 3.3
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 5.3
-Stable tag: 7.105
+Stable tag: 7.111
 License: GPLv3 or later
 
 Trusted by 60M+ sites: The gold standard for WordPress migration and backup. Migrate, backup, and restore your WordPress site with one click.
@@ -164,6 +164,61 @@ All-in-One WP Migration is in full compliance with General Data Protection Regul
 See our [GDPR Compliant Privacy Policy here](https://www.iubenda.com/privacy-policy/946881).
 
 == Changelog ==
+= 7.111 =
+
+**Security**
+
+* Export and import now require the administrator capability. This closes a missing-authorization issue that allowed authenticated users without administrator privileges to run migrations. Credits to Charles Vosburgh for reporting it
+* Backup actions (list, delete, label, browse, and download) are now restricted to users who can export or import
+* HTTP authentication credentials are no longer captured for users who lack permission to run a migration. Credits to Jakub Herman for reporting it
+* Backup list, archive browser, and downloads now fail closed with a clear error when the session has expired, instead of failing silently
+
+**Fixed**
+
+* Export REST route no longer accepts malformed find-and-replace pairs (previously ignored silently)
+* SQLite export no longer removes the substring STRICT from column names that contain it
+
+= 7.110 =
+**Fixed**
+
+* Find and replace on values ending in a backslash. Special thanks to Jack Taylor for responsibly disclosing this issue
+* Wrong warning message when leaving the page during export
+
+= 7.109 =
+**Fixed**
+
+* File option in the Import From menu did not open the file picker, which prevented importing a backup from a local file
+
+= 7.108 =
+**Fixed**
+
+* Site import on multisite now requires network-level capabilities. Special thanks to Mohamed Bassia for responsibly disclosing this issue
+* CiviCRM attachments, contact images and extensions no longer dropped on import, only config and caches are excluded
+
+= 7.107 =
+**Added**
+
+* Bulk select and delete for backups
+
+**Fixed**
+
+* REST export and import now restricted to network super-admins on multisite
+* Site import now restricted to users with stronger capabilities
+
+= 7.106 =
+**Added**
+
+* REST API for AI-native WordPress migration
+
+**Fixed**
+
+* Unauthenticated path traversal in ai1wm_error_path. Special thanks to Jakub Herman for responsibly disclosing this issue
+* SQLite export producing invalid MySQL CREATE TABLE statements
+* Stale archive file size caused by a cached stat result in ai1wm_archive_bytes()
+* WP-CLI command now registered on cli_init instead of plugins_loaded
+* Duplicate import done status dispatch during clean up
+* Internationalization issues in export views and the decrypt modal
+
 = 7.105 =
 **Fixed**
 

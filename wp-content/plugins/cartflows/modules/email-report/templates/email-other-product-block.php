@@ -1,56 +1,41 @@
 <?php
 /**
- * Template Name: Other product block
+ * Template Name: Email Quick Links + Sign-off (Pro).
+ * Included for Pro users from email-body.php.
+ *
+ * Expected variables (passed from Cartflows_Admin_Report_Emails::get_email_content()):
+ * - $quick_links (array)  Map of link label => URL.
+ * - $sign_off    (string) Team sign-off name.
  *
  * @package CartFlows
  */
 
-// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+// Defensive defaults so the template renders without notices if a variable is missing.
+$quick_links = isset( $quick_links ) ? $quick_links : array();
+$sign_off    = isset( $sign_off ) ? $sign_off : '';
 ?>
-<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-6" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #fff3f0;" width="100%">
-	<tbody>
-		<tr>
-			<td>
-				<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 600px;" width="600">
-					<tbody>
-						<tr>
-							<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 50px; padding-bottom: 50px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
-								<table border="0" cellpadding="0" cellspacing="0" class="heading_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
-									<tr>
-										<td style="padding-bottom:10px;text-align:center;width:100%;">
-											<h1 style="margin: 0; color: #1f2937; direction: ltr; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; font-size: 28px; font-weight: 400; letter-spacing: normal; line-height: 120%; text-align: center; margin-top: 0; margin-bottom: 0;">
-												<?php
-												echo esc_html__(
-													'Would you like to try our other products that help WooCommerce stores sell more?',
-													'cartflows'
-												)
-												?>
-												 </h1>
-										</td>
-									</tr>
-								</table>
-								<table border="0" cellpadding="0" cellspacing="0" class="button_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
-									<tr>
-										<td style="padding-bottom:10px;padding-left:10px;padding-right:10px;padding-top:20px;text-align:center;">
-											<div align="center">
-												<!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" style="height:43px;width:273px;v-text-anchor:middle;" arcsize="10%" strokeweight="0.75pt" strokecolor="#F06434" fillcolor="#f06434"><w:anchorlock/><v:textbox inset="0px,0px,0px,0px"><center style="color:#ffffff; font-family:Arial, sans-serif; font-size:14px"><![endif]-->
-												<div style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#f06434;border-radius:4px;width:auto;border-top:1px solid #F06434;border-right:1px solid #F06434;border-bottom:1px solid #F06434;border-left:1px solid #F06434;padding-top:5px;padding-bottom:5px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;text-align:center;mso-border-alt:none;word-break:keep-all;">
-													<span style="padding-left:20px;padding-right:20px;font-size:14px;display:inline-block;letter-spacing:normal;"><span style="font-size: 16px; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;"><strong><span data-mce-style="font-size: 14px; line-height: 28px;" style="font-size: 14px; line-height: 28px;"><a href="https://cartflows.com/products-to-scale-growth/?utm_source=newsletter&utm_medium=email&utm_campaign=cartflows-bsf" , target="_blank" style="text-decoration: none; color:#FFFFFF"><?php echo esc_html__( 'TRY OUR OTHER PRODUCTS', 'cartflows' ); ?></a></span></strong></span></span>
-												</div>
-												<!--[if mso]></center></v:textbox></v:roundrect><![endif]-->
-											</div>
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</td>
-		</tr>
-	</tbody>
-</table>
-<?php
+<!-- Quick links -->
+<tr>
+	<td class="px-lg modern-sans" style="padding:32px 40px 0 40px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif;">
+		<p style="margin:0 0 14px 0; font-size:16px; font-weight:700; color:#0f172a; letter-spacing:-0.01em;">
+			<?php echo esc_html__( 'Quick links', 'cartflows' ); ?>
+		</p>
+		<div style="font-size:0; line-height:0;" class="chip-row">
+			<?php foreach ( $quick_links as $label => $url ) : ?>
+				<a href="<?php echo esc_url( $url ); ?>" target="_blank" style="display:inline-block; margin:0 8px 8px 0; padding:7px 13px; background-color:#fff4eb; border:1px solid #fde8d8; border-radius:999px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif; font-size:11px; font-weight:500; color:#c2410c; text-decoration:none; line-height:1; white-space:nowrap;"><?php echo esc_html( $label ); ?></a>
+			<?php endforeach; ?>
+		</div>
+	</td>
+</tr>
+
+<!-- Sign-off -->
+<tr>
+	<td class="px-lg modern-sans" style="padding:36px 40px 40px 40px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif; font-size:14px; color:#475569; line-height:1.6;">
+		<p style="margin:0;"><?php echo esc_html__( 'Thanks,', 'cartflows' ); ?></p>
+		<p style="margin:2px 0 0 0; color:#0f172a; font-weight:600;"><?php echo esc_html( $sign_off ); ?></p>
+	</td>
+</tr>

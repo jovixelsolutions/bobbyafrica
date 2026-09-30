@@ -70,6 +70,9 @@ class CommonSettings extends ApiBase {
 		$options['cartflows_stats_report_emails']    = get_option( 'cartflows_stats_report_emails', 'enable' );
 		$options['cf_usage_optin']                   = get_option( 'cf_usage_optin', 'no' );
 		$options['cartflows_stats_report_email_ids'] = get_option( 'cartflows_stats_report_email_ids', get_option( 'admin_email' ) );
+		// One-shot toggle: always renders as off (we never persist it). Explicit
+		// 'disable' so ToggleField's first click flips it straight to 'enable'.
+		$options['cartflows-switch-to-new-ui'] = 'disable';
 
 		return $options;
 	}

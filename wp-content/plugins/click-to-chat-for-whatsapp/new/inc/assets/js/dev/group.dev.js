@@ -115,7 +115,6 @@
 
 		// analytics
 		function group_analytics ( values ) {
-			console.log( 'group analytics' );
 
 			var id = values.getAttribute( 'data-group_id' );
 
@@ -126,28 +125,23 @@
 
 			// if ga_enabled
 			if ( 'yes' === values.getAttribute( 'data-is_ga_enable' ) ) {
-				console.log( 'google analytics' );
 				if ( typeof gtag !== 'undefined' ) {
-					console.log( 'gtag' );
 					gtag( 'event', ga_action, {
 						event_category: ga_category,
 						event_label: ga_label,
 					} );
 				} else if ( typeof ga !== 'undefined' && typeof ga.getAll !== 'undefined' ) {
-					console.log( 'ga' );
 					var tracker = ga.getAll();
 					tracker[ 0 ].send( 'event', ga_category, ga_action, ga_label );
 
 					// ga('send', 'event', ga_category, ga_action, ga_label);
 				} else if ( typeof __gaTracker !== 'undefined' ) {
-					console.log( '__gaTracker' );
 					__gaTracker( 'send', 'event', ga_category, ga_action, ga_label );
 				}
 			}
 
 			// dataLayer
 			if ( typeof dataLayer !== 'undefined' ) {
-				console.log( 'dataLayer' );
 				dataLayer.push( {
 					event: 'Click to Chat',
 					event_category: ga_category,
@@ -158,16 +152,13 @@
 
 			// google ads - call conversation code
 			if ( 'yes' === values.getAttribute( 'data-ga_ads' ) ) {
-				console.log( 'google ads enabled' );
 				if ( typeof gtag_report_conversion !== 'undefined' ) {
-					console.log( 'calling gtag_report_conversion' );
 					gtag_report_conversion();
 				}
 			}
 
 			// FB Pixel
 			if ( 'yes' === values.getAttribute( 'data-is_fb_pixel' ) ) {
-				console.log( 'fb pixel' );
 				if ( typeof fbq !== 'undefined' ) {
 					fbq( 'trackCustom', 'Click to Chat by HoliThemes', {
 						Category: 'Click to Chat for WhatsApp',

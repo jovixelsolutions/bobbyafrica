@@ -27,12 +27,150 @@ function bobbyafrica_marketplace_wrapper_end() {
 add_action( 'woocommerce_product_query', 'bobbyafrica_filter_sale_catalog' );
 
 function bobbyafrica_filter_sale_catalog( $query ) {
-	if ( is_admin() || ! isset( $_GET['market_sale'] ) || '1' !== sanitize_text_field( wp_unslash( $_GET['market_sale'] ) ) ) {
+	if ( is_admin() ) {
 		return;
 	}
 
-	$sale_product_ids = wc_get_product_ids_on_sale();
-	$query->set( 'post__in', $sale_product_ids ? $sale_product_ids : array( 0 ) );
+	$product_ids = array();
+	if ( isset( $_GET['market_sale'] ) && '1' === sanitize_text_field( wp_unslash( $_GET['market_sale'] ) ) ) {
+		$product_ids = wc_get_product_ids_on_sale();
+	}
+	if ( isset( $_GET['market_featured'] ) && '1' === sanitize_text_field( wp_unslash( $_GET['market_featured'] ) ) ) {
+		$featured_ids = wc_get_featured_product_ids();
+		$product_ids  = $product_ids ? array_values( array_intersect( $product_ids, $featured_ids ) ) : $featured_ids;
+	}
+	if ( isset( $_GET['market_sale'] ) || isset( $_GET['market_featured'] ) ) {
+		$existing_ids = $query->get( 'post__in' );
+		if ( $existing_ids ) {
+			$product_ids = array_values( array_intersect( $product_ids, $existing_ids ) );
+		}
+		$query->set( 'post__in', $product_ids ? $product_ids : array( 0 ) );
+	}
+	if ( isset( $_GET['market_new'] ) && '1' === sanitize_text_field( wp_unslash( $_GET['market_new'] ) ) ) {
+		$query->set( 'orderby', 'date' );
+		$query->set( 'order', 'DESC' );
+	}
+
+	$meta_query = (array) $query->get( 'meta_query' );
+	foreach ( array( 'min_price' => '>=', 'max_price' => '<=' ) as $parameter => $operator ) {
+		if ( isset( $_GET[ $parameter ] ) && '' !== $_GET[ $parameter ] ) {
+			$price = wc_format_decimal( wp_unslash( $_GET[ $parameter ] ) );
+			if ( '' !== $price ) {
+				$meta_query[] = array(
+					'key'     => '_price',
+					'value'   => $price,
+					'compare' => $operator,
+					'type'    => 'DECIMAL',
+				);
+			}
+		}
+	}
+	if ( isset( $_GET['rating_filter'] ) && '' !== $_GET['rating_filter'] ) {
+		$rating = min( 5, max( 1, absint( wp_unslash( $_GET['rating_filter'] ) ) ) );
+		$meta_query[] = array(
+			'key'     => '_wc_average_rating',
+			'value'   => $rating,
+			'compare' => '>=',
+			'type'    => 'DECIMAL',
+		);
+	}
+	if ( $meta_query ) {
+		$query->set( 'meta_query', $meta_query );
+	}
+
+	$tax_query = (array) $query->get( 'tax_query' );
+	foreach ( bobbyafrica_marketplace_filter_taxonomies() as $filter_key => $taxonomy ) {
+		$parameter = 'filter_' . $filter_key;
+		if ( empty( $_GET[ $parameter ] ) ) {
+			continue;
+		}
+		$term_slug = sanitize_title( wp_unslash( $_GET[ $parameter ] ) );
+		if ( $term_slug ) {
+			$tax_query[] = array(
+				'taxonomy' => $taxonomy,
+				'field'    => 'slug',
+				'terms'    => array( $term_slug ),
+			);
+		}
+	}
+	if ( $tax_query ) {
+		$query->set( 'tax_query', $tax_query );
+	}
+}
+
+function bobbyafrica_marketplace_filter_taxonomies() {
+	$taxonomies = array();
+	foreach ( wc_get_attribute_taxonomies() as $attribute ) {
+		$taxonomy = wc_attribute_taxonomy_name( $attribute->attribute_name );
+		if ( taxonomy_exists( $taxonomy ) ) {
+			$taxonomies[ $attribute->attribute_name ] = $taxonomy;
+		}
+	}
+	foreach ( array( 'product_brand' => 'brand', 'pa_brand' => 'brand', 'pa_warranty' => 'warranty', 'pa_gender' => 'gender', 'pa_size' => 'size' ) as $taxonomy => $filter_key ) {
+		if ( taxonomy_exists( $taxonomy ) && ! isset( $taxonomies[ $filter_key ] ) ) {
+			$taxonomies[ $filter_key ] = $taxonomy;
+		}
+	}
+	return $taxonomies;
+}
+
+function bobbyafrica_marketplace_catalog_filters() {
+	$shop_url         = wc_get_page_permalink( 'shop' );
+	$categories       = get_terms( array( 'taxonomy' => 'product_cat', 'hide_empty' => true, 'orderby' => 'name' ) );
+	$current_category = isset( $_GET['product_cat'] ) ? sanitize_title( wp_unslash( $_GET['product_cat'] ) ) : '';
+	if ( ! $current_category && is_product_category() ) {
+		$current_term    = get_queried_object();
+		$current_category = isset( $current_term->slug ) ? $current_term->slug : '';
+	}
+	$current_rating   = isset( $_GET['rating_filter'] ) ? absint( wp_unslash( $_GET['rating_filter'] ) ) : 0;
+	?>
+	<form class="marketplace-filter-form" method="get" action="<?php echo esc_url( $shop_url ); ?>">
+		<h2><?php esc_html_e( 'Filter products', 'bobbyafrica-marketplace-child' ); ?></h2>
+		<?php foreach ( array( 'market_sale', 'market_featured', 'market_new' ) as $parameter ) : ?>
+			<?php if ( isset( $_GET[ $parameter ] ) ) : ?>
+				<input type="hidden" name="<?php echo esc_attr( $parameter ); ?>" value="<?php echo esc_attr( sanitize_text_field( wp_unslash( $_GET[ $parameter ] ) ) ); ?>" />
+			<?php endif; ?>
+		<?php endforeach; ?>
+		<label for="marketplace-filter-category"><?php esc_html_e( 'Category', 'bobbyafrica-marketplace-child' ); ?></label>
+		<select id="marketplace-filter-category" name="product_cat">
+			<option value=""><?php esc_html_e( 'All categories', 'bobbyafrica-marketplace-child' ); ?></option>
+			<?php if ( ! is_wp_error( $categories ) ) : ?>
+				<?php foreach ( $categories as $category ) : ?>
+					<?php $depth = count( get_ancestors( $category->term_id, 'product_cat' ) ); ?>
+					<option value="<?php echo esc_attr( $category->slug ); ?>"<?php selected( $current_category, $category->slug ); ?>><?php echo esc_html( str_repeat( '- ', $depth ) . $category->name ); ?></option>
+				<?php endforeach; ?>
+			<?php endif; ?>
+		</select>
+		<fieldset>
+			<legend><?php esc_html_e( 'Price range', 'bobbyafrica-marketplace-child' ); ?></legend>
+			<div class="marketplace-price-fields">
+				<label><span><?php esc_html_e( 'Min', 'bobbyafrica-marketplace-child' ); ?></span><input type="number" name="min_price" min="0" step="any" value="<?php echo isset( $_GET['min_price'] ) ? esc_attr( wc_format_decimal( wp_unslash( $_GET['min_price'] ) ) ) : ''; ?>" /></label>
+				<label><span><?php esc_html_e( 'Max', 'bobbyafrica-marketplace-child' ); ?></span><input type="number" name="max_price" min="0" step="any" value="<?php echo isset( $_GET['max_price'] ) ? esc_attr( wc_format_decimal( wp_unslash( $_GET['max_price'] ) ) ) : ''; ?>" /></label>
+			</div>
+		</fieldset>
+		<label for="marketplace-filter-rating"><?php esc_html_e( 'Minimum rating', 'bobbyafrica-marketplace-child' ); ?></label>
+		<select id="marketplace-filter-rating" name="rating_filter">
+			<option value=""><?php esc_html_e( 'Any rating', 'bobbyafrica-marketplace-child' ); ?></option>
+			<?php for ( $rating = 5; $rating >= 1; $rating-- ) : ?>
+				<option value="<?php echo esc_attr( $rating ); ?>"<?php selected( $current_rating, $rating ); ?>><?php echo esc_html( sprintf( _n( '%s star and up', '%s stars and up', $rating, 'bobbyafrica-marketplace-child' ), number_format_i18n( $rating ) ) ); ?></option>
+			<?php endfor; ?>
+		</select>
+		<?php foreach ( bobbyafrica_marketplace_filter_taxonomies() as $filter_key => $taxonomy ) : ?>
+			<?php $terms = get_terms( array( 'taxonomy' => $taxonomy, 'hide_empty' => true, 'orderby' => 'name' ) ); ?>
+			<?php if ( ! is_wp_error( $terms ) && $terms ) : ?>
+				<label for="marketplace-filter-<?php echo esc_attr( $filter_key ); ?>"><?php echo esc_html( ucwords( str_replace( '_', ' ', $filter_key ) ) ); ?></label>
+				<select id="marketplace-filter-<?php echo esc_attr( $filter_key ); ?>" name="filter_<?php echo esc_attr( $filter_key ); ?>">
+					<option value=""><?php echo esc_html( sprintf( __( 'Any %s', 'bobbyafrica-marketplace-child' ), strtolower( ucwords( str_replace( '_', ' ', $filter_key ) ) ) ) ); ?></option>
+					<?php foreach ( $terms as $term ) : ?>
+						<option value="<?php echo esc_attr( $term->slug ); ?>"<?php selected( isset( $_GET[ 'filter_' . $filter_key ] ) ? sanitize_title( wp_unslash( $_GET[ 'filter_' . $filter_key ] ) ) : '', $term->slug ); ?>><?php echo esc_html( $term->name ); ?></option>
+					<?php endforeach; ?>
+				</select>
+			<?php endif; ?>
+		<?php endforeach; ?>
+		<button class="marketplace-button primary" type="submit"><?php esc_html_e( 'Apply filters', 'bobbyafrica-marketplace-child' ); ?></button>
+		<a class="marketplace-filter-reset" href="<?php echo esc_url( $shop_url ); ?>"><?php esc_html_e( 'Clear filters', 'bobbyafrica-marketplace-child' ); ?></a>
+	</form>
+	<?php
 }
 
 add_action( 'wp_ajax_bobbyafrica_category_products', 'bobbyafrica_category_products_ajax' );

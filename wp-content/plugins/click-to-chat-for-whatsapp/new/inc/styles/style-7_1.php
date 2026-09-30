@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // $s7_box_shadow_hover = "$s7_bs ";
 // }
 
-$s7_1_options = get_option( 'ht_ctc_s7_1' );
+$s7_1_options = HT_CTC_Utils::get_option( 'ht_ctc_s7_1' );
 $s7_1_options = apply_filters( 'ht_ctc_fh_s7_1_options', $s7_1_options );
 
 $is_ctc_admin = '';
@@ -48,7 +48,6 @@ $s7_cta_type        = isset( $s7_1_options['cta_type'] ) ? esc_attr( $s7_1_optio
 $s7_1_cta_font_size = isset( $s7_1_options['cta_font_size'] ) ? esc_attr( $s7_1_options['cta_font_size'] ) : '';
 $s7_1_cta_font_size = ( '' !== $s7_1_cta_font_size ) ? "font-size: $s7_1_cta_font_size; " : '';
 
-
 // Call to action - Order
 $s7_cta_order             = '1';
 $s7_hover_cta_padding_css = 'padding: 0px 21px 0px 0px;';
@@ -62,7 +61,6 @@ $s7_show_cta_padding_css  = '';
 if ( 'yes' !== $is_ctc_admin ) {
 	$s7_show_cta_padding_css = 'padding:5px 5px 5px 20px;';
 }
-
 
 if ( isset( $side_2 ) && 'right' === $side_2 ) {
 	// if side_2 is right then cta is left
@@ -116,7 +114,6 @@ if ( 'hover' === $s7_cta_type ) {
 	$s7_hover_styles = ".ht-ctc .ctc_s_7_1:hover{background-color:$s7_bgcolor_hover !important;}.ht-ctc .ctc_s_7_1:hover .ctc_s_7_1_cta{color:$s7_icon_color_hover !important;}.ht-ctc .ctc_s_7_1:hover svg g path{fill:$s7_icon_color_hover !important;}";
 }
 
-
 // svg values
 $ht_ctc_svg_css = "pointer-events:none; display:block; height:$s7_icon_size; width:$s7_icon_size;";
 $s7_svg_attrs   = array(
@@ -125,7 +122,6 @@ $s7_svg_attrs   = array(
 	'type'           => "$type",
 	'ht_ctc_svg_css' => "$ht_ctc_svg_css",
 );
-
 
 require_once HT_CTC_PLUGIN_DIR . 'new/inc/assets/img/ht-ctc-svg-images.php';
 

@@ -121,9 +121,14 @@ if ( ! class_exists( 'CartFlows_API' ) ) :
 		 * @return array License arguments.
 		 */
 		public static function get_flow( $site_id ) {
-			$request_params = array(
-				'licence_args' => self::get_licence_args(),
-				'_fields'      => 'id,slug,status,type,link,title,featured_media,template,cartflows_flow_page_builder,cartflows_flow_type,cartflows_flow_flow,featured_image_url,licence_status,flow_type,flow_type,page_builder,divi_content,post_meta,content,flow_gcp_meta',
+			$request_params = apply_filters(
+				'cartflows_get_flow_params',
+				array(
+					'licence_args' => self::get_licence_args(),
+					'_fields'      => 'id,slug,status,type,link,title,featured_media,template,cartflows_flow_page_builder,cartflows_flow_type,cartflows_flow_flow,featured_image_url,licence_status,flow_type,flow_type,page_builder,divi_content,post_meta,content,flow_gcp_meta',
+					'url'          => site_url(),
+					'version'      => CARTFLOWS_VER,
+				)
 			);
 
 			$url = add_query_arg( $request_params, self::get_flow_endpoint_url() . $site_id );
@@ -168,9 +173,14 @@ if ( ! class_exists( 'CartFlows_API' ) ) :
 		 * @return array            Template data.
 		 */
 		public static function get_template( $site_id ) {
-			$request_params = array(
-				'licence_args' => self::get_licence_args(),
-				'_fields'      => 'id,slug,status,type,link,title,featured_media,template,cartflows_step_page_builder,cartflows_step_type,cartflows_step_flow,featured_image_url,licence_status,flow_type,step_type,page_builder,divi_content,post_meta,content',
+			$request_params = apply_filters(
+				'cartflows_get_template_params',
+				array(
+					'licence_args' => self::get_licence_args(),
+					'_fields'      => 'id,slug,status,type,link,title,featured_media,template,cartflows_step_page_builder,cartflows_step_type,cartflows_step_flow,featured_image_url,licence_status,flow_type,step_type,page_builder,divi_content,post_meta,content',
+					'url'          => site_url(),
+					'version'      => CARTFLOWS_VER,
+				)
 			);
 
 			$url = add_query_arg( $request_params, self::get_step_endpoint_url() . $site_id );

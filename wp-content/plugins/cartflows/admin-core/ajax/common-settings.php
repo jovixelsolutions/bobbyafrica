@@ -330,7 +330,7 @@ class CommonSettings extends AjaxBase {
 		// Update the option to enable/disable the non sensitive data tracking.
 		if ( isset( $_POST['cf_usage_optin'] ) ) {
 			$enable_non_sensative_data_tracking = sanitize_text_field( $_POST['cf_usage_optin'] );
-			AdminHelper::update_admin_settings_option( 'cf_usage_optin', $enable_non_sensative_data_tracking, false );
+			AdminHelper::update_admin_settings_option( 'cf_usage_optin', $enable_non_sensative_data_tracking, true );
 		}
 
 		// Persist the legacy-admin toggle. When it transitions from any non-enabled

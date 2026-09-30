@@ -49,6 +49,25 @@
 }
 
 
+/*
+ * Safety cap for oversized widget icons.
+ *
+ * Image Size / dimension fields are free text, so a typo like `5000px` would
+ * otherwise render a screen-filling icon on the live site that's hard to
+ * recover from. max-width/max-height override the inline height/width the
+ * style templates set (different property — no !important needed) without
+ * changing the saved value. Max only, so normal small icons are untouched;
+ * the 90vw/90vh bound keeps the 500px cap from overflowing small screens.
+ * Targets every style root (.ctc_s_*) across chat / group / share; greetings
+ * imagery (.ctc_g_*) is intentionally excluded.
+ */
+/* [class*="ctc_s_"] svg,
+[class*="ctc_s_"] img {
+	max-width: min(90vw, 500px);
+	max-height: min(90vh, 500px);
+} */
+
+
 
 /* Animations */
 @keyframes ctcBounce {

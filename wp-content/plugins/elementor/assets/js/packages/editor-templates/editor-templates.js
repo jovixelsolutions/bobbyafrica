@@ -1,3 +1,165 @@
-/*! For license information please see editor-templates.js.LICENSE.txt */
-!function(){"use strict";var e={"./packages/packages/core/editor-templates/src/init.ts":function(e,t,r){r.r(t),r.d(t,{init:function(){return init}});var a=r("@elementor/editor"),s=r("@elementor/editor-styles-repository"),o=r("@elementor/editor-v1-adapters"),n=r("@elementor/store"),c=r("./packages/packages/core/editor-templates/src/load-templates.ts"),l=r("./packages/packages/core/editor-templates/src/render-template-styles.tsx"),i=r("./packages/packages/core/editor-templates/src/store.ts"),p=r("./packages/packages/core/editor-templates/src/templates-styles-provider.ts");function init(){(0,n.__registerSlice)(i.slice),s.stylesRepository.register(p.templatesStylesProvider),(0,o.registerDataHook)("after","editor/documents/attach-preview",async()=>{(0,c.unloadTemplates)(),(0,p.clearTemplatesStyles)(),await(0,c.loadTemplates)()}),(0,a.injectIntoLogic)({id:"templates-styles",component:l.RenderTemplateStyles})}},"./packages/packages/core/editor-templates/src/load-templates.ts":function(e,t,r){r.r(t),r.d(t,{loadTemplates:function(){return loadTemplates},unloadTemplates:function(){return unloadTemplates}});var a=r("@elementor/editor-documents"),s=r("@elementor/editor-v1-adapters"),o=r("@elementor/store"),n=r("./packages/packages/core/editor-templates/src/store.ts");const c='data-elementor-post-type="elementor_library"',l="data-elementor-id";async function loadTemplates(){const e=(0,s.getCanvasIframeDocument)();if(!e)return;const t=(0,a.getV1CurrentDocument)()?.id,r=function getTemplateIds(e,t){const r=[...e.body.querySelectorAll(`[${c}]`)],a=r.map(e=>Number(e.getAttribute(l))).filter(e=>!isNaN(e)&&e!==t);return[...new Set(a)]}(e,t);if(!r.length)return;const i=await async function fetchDocuments(e){return(await Promise.all(e.map(async e=>{try{return await s.ajax.load({data:{id:e},action:"get_document_config",unique_id:`template-${e}`})}catch{return null}}))).filter(e=>null!==e)}(r);(0,o.__dispatch)(n.slice.actions.setTemplates(i))}function unloadTemplates(){(0,o.__dispatch)(n.slice.actions.clearTemplates())}},"./packages/packages/core/editor-templates/src/render-template-styles.tsx":function(e,t,r){r.r(t),r.d(t,{RenderTemplateStyles:function(){return RenderTemplateStyles}});var a=r("react"),s=r("./packages/packages/core/editor-templates/src/templates-styles-provider.ts"),o=r("./packages/packages/core/editor-templates/src/use-loaded-templates.ts");const RenderTemplateStyles=()=>{const e=(0,o.useLoadedTemplates)();return(0,a.useEffect)(()=>{const t=e.flatMap(extractStylesFromDocument);(0,s.addTemplateStyles)(t)},[e]),null};function extractStylesFromDocument(e){return e.length?e.flatMap(extractStylesFromElement):[]}function extractStylesFromElement(e){return[...Object.values(e.styles??{}),...(e.elements??[]).flatMap(extractStylesFromElement)]}},"./packages/packages/core/editor-templates/src/store.ts":function(e,t,r){r.r(t),r.d(t,{selectTemplates:function(){return o},slice:function(){return s}});var a=r("@elementor/store");const s=(0,a.__createSlice)({name:"templates",initialState:{entities:{}},reducers:{setTemplates(e,t){t.payload.forEach(t=>{e.entities[t.id]=t.elements??[]})},clearTemplates(e){e.entities={}}}}),o=(0,a.__createSelector)([e=>e.templates.entities],e=>Object.values(e))},"./packages/packages/core/editor-templates/src/templates-styles-provider.ts":function(e,t,r){r.r(t),r.d(t,{addTemplateStyles:function(){return addTemplateStyles},clearTemplatesStyles:function(){return clearTemplatesStyles},templatesStylesProvider:function(){return n}});var a=r("@elementor/editor-styles-repository");let s=[];const o=new Set;function addTemplateStyles(e){s=[...s,...e],o.forEach(e=>e())}function clearTemplatesStyles(){s=[],o.forEach(e=>e())}const n=(0,a.createStylesProvider)({key:"templates-styles",priority:50,subscribe:e=>(o.add(e),()=>{o.delete(e)}),actions:{all:()=>s,get:e=>s.find(t=>t.id===e)??null}})},"./packages/packages/core/editor-templates/src/use-loaded-templates.ts":function(e,t,r){r.r(t),r.d(t,{useLoadedTemplates:function(){return useLoadedTemplates}});var a=r("@elementor/store"),s=r("./packages/packages/core/editor-templates/src/store.ts");function useLoadedTemplates(){return(0,a.__useSelector)(s.selectTemplates)}},"@elementor/editor":function(e){e.exports=window.elementorV2.editor},"@elementor/editor-documents":function(e){e.exports=window.elementorV2.editorDocuments},"@elementor/editor-styles-repository":function(e){e.exports=window.elementorV2.editorStylesRepository},"@elementor/editor-v1-adapters":function(e){e.exports=window.elementorV2.editorV1Adapters},"@elementor/store":function(e){e.exports=window.elementorV2.store},react:function(e){e.exports=window.React}},t={};function __webpack_require__(r){var a=t[r];if(void 0!==a)return a.exports;var s=t[r]={exports:{}};return e[r](s,s.exports,__webpack_require__),s.exports}__webpack_require__.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return __webpack_require__.d(t,{a:t}),t},__webpack_require__.d=function(e,t){for(var r in t)__webpack_require__.o(t,r)&&!__webpack_require__.o(e,r)&&Object.defineProperty(e,r,{enumerable:!0,get:t[r]})},__webpack_require__.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},__webpack_require__.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})};var r={};!function(){__webpack_require__.r(r),__webpack_require__.d(r,{init:function(){return e.init},useLoadedTemplates:function(){return t.useLoadedTemplates}});var e=__webpack_require__("./packages/packages/core/editor-templates/src/init.ts"),t=__webpack_require__("./packages/packages/core/editor-templates/src/use-loaded-templates.ts")}(),(window.elementorV2=window.elementorV2||{}).editorTemplates=r}(),window.elementorV2.editorTemplates?.init?.();
+(function(_elementor_editor, _elementor_editor_styles_repository, _elementor_editor_v1_adapters, _elementor_store, _elementor_editor_documents, react, _elementor_utils) {
+
+//#region \0rolldown/runtime.js
+	var __defProp = Object.defineProperty;
+	var __name = (target, value) => __defProp(target, "name", {
+		value,
+		configurable: true
+	});
+	var __exportAll = (all, no_symbols) => {
+		let target = {};
+		for (var name in all) {
+			__defProp(target, name, {
+				get: all[name],
+				enumerable: true
+			});
+		}
+		if (!no_symbols) {
+			__defProp(target, Symbol.toStringTag, { value: "Module" });
+		}
+		return target;
+	};
+
+//#endregion
+
+//#region packages/packages/core/editor-templates/src/store.ts
+	var initialState = { entities: {} };
+	var slice = (0, _elementor_store.__createSlice)({
+		name: "templates",
+		initialState,
+		reducers: {
+			setTemplates(state, action) {
+				action.payload.forEach((doc) => {
+					state.entities[doc.id] = doc.elements ?? [];
+				});
+			},
+			clearTemplates(state) {
+				state.entities = {};
+			}
+		}
+	});
+	var selectEntities = (state) => state.templates.entities;
+	var selectTemplates = (0, _elementor_store.__createSelector)([selectEntities], (entities) => Object.values(entities));
+
+//#endregion
+//#region packages/packages/core/editor-templates/src/load-templates.ts
+	var TEMPLATE_ATTRIBUTE = "data-elementor-post-type=\"elementor_library\"";
+	var DOCUMENT_WRAPPER_ATTR = "data-elementor-id";
+	async function loadTemplates() {
+		const iframeDocument = (0, _elementor_editor_v1_adapters.getCanvasIframeDocument)();
+		if (!iframeDocument) return;
+		const currentDocumentId = (0, _elementor_editor_documents.getV1CurrentDocument)()?.id;
+		const templateIds = getTemplateIds(iframeDocument, currentDocumentId);
+		if (!templateIds.length) return;
+		const documents = await fetchDocuments(templateIds);
+		(0, _elementor_store.__dispatch)(slice.actions.setTemplates(documents));
+	}
+	function unloadTemplates() {
+		(0, _elementor_store.__dispatch)(slice.actions.clearTemplates());
+	}
+	function getTemplateIds(iframeDocument, currentDocumentId) {
+		const ids = [...iframeDocument.body.querySelectorAll(`[${TEMPLATE_ATTRIBUTE}]`)].map((el) => Number(el.getAttribute(DOCUMENT_WRAPPER_ATTR))).filter((id) => !isNaN(id) && id !== currentDocumentId);
+		return [...new Set(ids)];
+	}
+	async function fetchDocuments(ids) {
+		return (await Promise.all(ids.map(async (id) => {
+			try {
+				return await _elementor_editor_v1_adapters.ajax.load({
+					data: { id },
+					action: "get_document_config",
+					unique_id: `template-${id}`
+				});
+			} catch {
+				return null;
+			}
+		}))).filter((doc) => doc !== null);
+	}
+
+//#endregion
+//#region packages/packages/core/editor-templates/src/templates-styles-provider.ts
+	var styles = [];
+	var listeners = /* @__PURE__ */ new Set();
+	function addTemplateStyles(newStyles) {
+		styles = [...styles, ...newStyles];
+		listeners.forEach((cb) => cb());
+	}
+	function clearTemplatesStyles() {
+		styles = [];
+		listeners.forEach((cb) => cb());
+	}
+	var templatesStylesProvider = (0, _elementor_editor_styles_repository.createStylesProvider)({
+		key: "templates-styles",
+		priority: 50,
+		subscribe: (cb) => {
+			listeners.add(cb);
+			return () => {
+				listeners.delete(cb);
+			};
+		},
+		actions: {
+			all: () => styles,
+			get: (id) => styles.find((style) => style.id === id) ?? null
+		}
+	});
+
+//#endregion
+//#region packages/packages/core/editor-templates/src/use-loaded-templates.ts
+	function useLoadedTemplates() {
+		return (0, _elementor_store.__useSelector)(selectTemplates);
+	}
+
+//#endregion
+//#region packages/packages/core/editor-templates/src/render-template-styles.tsx
+	var RenderTemplateStyles = () => {
+		const templates = useLoadedTemplates();
+		(0, react.useEffect)(() => {
+			addTemplateStyles(templates.flatMap(extractStylesFromDocument));
+		}, [templates]);
+		return null;
+	};
+	function extractStylesFromDocument(elements) {
+		if (!elements.length) return [];
+		return elements.flatMap(extractStylesFromElement);
+	}
+	function extractStylesFromElement(element) {
+		return [...Object.values(element.styles ?? {}), ...(element.elements ?? []).flatMap(extractStylesFromElement)];
+	}
+
+//#endregion
+//#region packages/packages/core/editor-templates/src/utils.ts
+	var MIN_PRO_VERSION_FOR_SELF_HANDLED_STYLES = "4.1";
+	var isHandlingTemplateStyles = () => (0, _elementor_utils.isProActive)() && !(0, _elementor_utils.isProAtLeast)(MIN_PRO_VERSION_FOR_SELF_HANDLED_STYLES);
+
+//#endregion
+//#region packages/packages/core/editor-templates/src/init.ts
+	function init() {
+		if (!isHandlingTemplateStyles()) return;
+		(0, _elementor_store.__registerSlice)(slice);
+		_elementor_editor_styles_repository.stylesRepository.register(templatesStylesProvider);
+		(0, _elementor_editor_v1_adapters.registerDataHook)("after", "editor/documents/attach-preview", async () => {
+			unloadTemplates();
+			clearTemplatesStyles();
+			await loadTemplates();
+		});
+		(0, _elementor_editor.injectIntoLogic)({
+			id: "templates-styles",
+			component: RenderTemplateStyles
+		});
+	}
+
+//#endregion
+//#region packages/packages/core/editor-templates/src/index.ts
+	var src_exports = /* @__PURE__ */ __exportAll({
+		init: () => init,
+		isHandlingTemplateStyles: () => isHandlingTemplateStyles,
+		useLoadedTemplates: () => useLoadedTemplates
+	});
+
+//#endregion
+//#region \0elementor-package-library-entry
+	(window.elementorV2 = window.elementorV2 || {}).editorTemplates = src_exports;
+
+//#endregion
+})(elementorV2.editor, elementorV2.editorStylesRepository, elementorV2.editorV1Adapters, elementorV2.store, elementorV2.editorDocuments, React, elementorV2.utils);
+window.elementorV2.editorTemplates?.init?.();
 //# sourceMappingURL=editor-templates.js.map

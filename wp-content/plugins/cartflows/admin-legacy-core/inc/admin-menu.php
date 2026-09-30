@@ -540,7 +540,7 @@ class AdminMenu {
 				'cartflows_current_version'         => CARTFLOWS_VER,
 				'cartflows_previous_versions'       => \Cartflows_Helper::get_rollback_versions_options(),
 				'rollback_url'                      => esc_url( add_query_arg( 'version', 'VERSION', wp_nonce_url( admin_url( 'admin-post.php?action=cartflows_rollback' ), 'cartflows_rollback' ) ) ),
-				'utm_param_pro_plans'               => 'utm_source=carflows-dashboard&utm_medium=free-cartflows&utm_campaign=go-pro',
+				'utm_defaults'                      => \Cartflows_Helper::get_utm_defaults(),
 				'switch_ui_notice'                  => array(
 					// is_new_ui_notice_visible() already enforces the
 					// cartflows_manage_settings capability + CARTFLOWS_LEGACY_ADMIN
@@ -881,6 +881,15 @@ class AdminMenu {
 			CARTFLOWS_VER
 		);
 
+		wp_register_style(
+			'wcf-canvas-base-style',
+			$build_url . 'style-editor-app.css',
+			array(),
+			CARTFLOWS_VER
+		);
+		// Enqueue the registered style.
+		wp_enqueue_style( 'wcf-canvas-base-style' );
+
 		wp_enqueue_script( $handle );
 
 		wp_set_script_translations( $handle, 'cartflows' );
@@ -980,7 +989,7 @@ class AdminMenu {
 			admin_url( '/admin.php' )
 		);
 
-		return '<span id="footer-thankyou"> Thank you for using <a href="https://cartflows.com/?utm_source=dashboard&utm_medium=free-cartflows&utm_campaign=footer-link">CartFlows</a></span> | <a href="' . $logs_page_url . '">Logs</a>';
+		return '<span id="footer-thankyou"> Thank you for using <a href="' . esc_url( \Cartflows_Helper::get_utm_url( 'https://cartflows.com/', array( 'utm_campaign' => 'footer-link' ) ) ) . '">CartFlows</a></span> | <a href="' . $logs_page_url . '">Logs</a>';
 	}
 
 	/**

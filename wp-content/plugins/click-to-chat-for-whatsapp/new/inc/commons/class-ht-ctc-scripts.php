@@ -44,8 +44,8 @@ if ( ! class_exists( 'HT_CTC_Scripts' ) ) {
 		 */
 		public function register_scripts() {
 
-			$os = get_option( 'ht_ctc_othersettings' );
-			$cb = get_option( 'ht_ctc_code_blocks' );
+			$os = HT_CTC_Utils::get_option( 'ht_ctc_othersettings' );
+			$cb = HT_CTC_Utils::get_option( 'ht_ctc_code_blocks' );
 
 			/**
 			 * If amp_is_request no need to add scripts.

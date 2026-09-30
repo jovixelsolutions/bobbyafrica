@@ -1,3 +1,21 @@
+v1.1.29 - 30-June-2026
+- Improvement: Added `spectra-blocks` slug to UTM analytics.
+
+v1.1.28 - 22-June-2026
+- Fix: Deactivation survey loaded a non-existent RTL stylesheet (`feedback.min-rtl.css`) producing a 404 in RTL locales. Registered the file suffix so the correct `feedback-rtl.min.css` is requested.
+
+v1.1.27 - 16-June-2026
+- Improvement: Added `SureDonation` slug to UTM analytics.
+
+v1.1.26 - 20-April-2026
+- Improvement: Switched from `Astra_Notices` to `BSF_Admin_Notices`.
+
+v1.1.25 - 13-April-2026
+- New: Added optional `$force` parameter (4th arg) to `track()` — when true, bypasses the post-send dedup and overwrites any pending entry with the latest value. Default behavior (skip on duplicate) is unchanged. Useful for recurring events like `plugin_updated`.
+
+v1.1.24 - 8-April-2026
+- Improvement: Updated admin notice copy — concise heading, description, and button labels.
+
 v1.1.23 - 7-April-2026
 - Improvement: Improved consent notice copy — leads with benefit, clearer CTAs.
 - Improvement: Standardized usage doc link with dynamic product-specific UTM parameters.

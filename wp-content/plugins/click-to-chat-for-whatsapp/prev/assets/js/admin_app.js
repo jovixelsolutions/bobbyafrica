@@ -1,5 +1,4 @@
 
-/* global M */
 // Click to Chat - prev
 jQuery( document )
 	.ready( function onDocReady ( $ ) {
@@ -8,13 +7,7 @@ jQuery( document )
 			.wpColorPicker();
 	} );
 
-// initialize materialize function ..
-document.addEventListener( 'DOMContentLoaded', function onDomContentLoaded () {
-	var elems = document.querySelectorAll( 'select' );
-	M.FormSelect.init( elems, {} );
-	var collapsibleElems = document.querySelectorAll( '.collapsible' );
-	M.Collapsible.init( collapsibleElems, {} );
-} );
+// materialize removed
 
 jQuery( document )
 	.ready( function onDocReadyAttr () {

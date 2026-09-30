@@ -1,0 +1,568 @@
+/* ==========================================================================
+   PRO FEATURES
+   ========================================================================== */
+.pro-feature-box {
+    margin-bottom: 1.5rem;
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, var(--bg-card) 0%, var(--pro-surface) 100%);
+    border: 1px solid var(--pro-border);
+    box-shadow: 0 4px 6px -1px rgba(245, 158, 11, 0.1), 0 2px 4px -1px rgba(245, 158, 11, 0.06);
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#ctc-pro-compare {
+    scroll-margin-top: var(--ctc-scroll-offset);
+}
+
+html[data-theme="dark"] .pro-feature-box {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+.pro-feature-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.15), 0 4px 6px -2px rgba(245, 158, 11, 0.1);
+}
+
+.pro-feature-inner {
+    display: flex;
+    padding: 1.25rem;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.pro-feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: var(--pro-gradient);
+    color: white;
+    border-radius: 0.75rem;
+    flex-shrink: 0;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 6px -1px rgba(245, 158, 11, 0.3);
+}
+
+.pro-feature-content {
+    flex: 1;
+}
+
+.pro-feature-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.pro-feature-header .pro-badge {
+    margin-inline-start: 0;
+}
+
+.pro-feature-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.pro-feature-desc {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+.pro-badge {
+    display: inline-flex;
+    align-items: center;
+    background: var(--pro-surface);
+    color: var(--pro-color);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    margin-inline-start: 0.5rem;
+}
+
+.pro-badge span {
+    margin-inline-end: 0.25rem;
+    font-size: 0.625rem;
+    color: var(--pro-color);
+    vertical-align: middle;
+    width: auto;
+    height: auto;
+}
+
+/* ==========================================================================
+   PRO FEATURES HUB
+   ========================================================================== */
+.ctc-pro {
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+/* ---- Hero ---- */
+.ctc-pro-hero {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    padding: 2.5rem 1.75rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--pro-border);
+    border-radius: var(--radius-md);
+    background:
+        radial-gradient(120% 140% at 50% -20%, var(--pro-surface) 0%, transparent 60%),
+        var(--bg-card);
+}
+
+.ctc-pro-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.85rem;
+    border-radius: var(--radius-pill);
+    background: var(--pro-surface);
+    border: 1px solid var(--pro-border);
+    color: var(--pro-color-strong);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.ctc-pro-eyebrow .dashicons {
+    font-size: 0.9rem;
+    width: auto;
+    height: auto;
+    color: var(--pro-color-strong);
+}
+
+.ctc-pro-hero-title {
+    margin: 1rem auto 0.5rem;
+    max-width: 34ch;
+    font-size: 1.75rem;
+    line-height: 1.2;
+    font-weight: 800;
+    color: var(--text);
+}
+
+.ctc-pro-hero-sub {
+    margin: 0 auto 1.5rem;
+    max-width: 60ch;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+.ctc-pro-trust {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1.5rem;
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ctc-pro-trust li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+}
+
+.ctc-pro-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.ctc-pro-trust .dashicons {
+    font-size: 1rem;
+    width: 1rem;
+    height: 1rem;
+    color: var(--pro-color);
+}
+
+/* ---- Buttons ---- */
+.ctc-pro-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.65rem 1.35rem;
+    border-radius: var(--radius-pill);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    line-height: 1.2;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+.ctc-pro-btn .dashicons {
+    font-size: 0.85rem;
+    width: auto;
+    height: auto;
+    line-height: 1;
+}
+
+.ctc-pro-btn-primary {
+    background: var(--pro-gradient);
+    color: #fff;
+    box-shadow: 0 6px 16px -4px rgba(217, 119, 6, 0.45);
+}
+
+.ctc-pro-btn-primary:hover {
+    color: #fff;
+    transform: translateY(-1px);
+    filter: brightness(1.05);
+    box-shadow: 0 10px 22px -6px rgba(217, 119, 6, 0.55);
+}
+
+.ctc-pro-btn-ghost {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border-color);
+}
+
+.ctc-pro-btn-ghost:hover {
+    color: var(--pro-color-strong);
+    border-color: var(--pro-border);
+    background: var(--pro-surface);
+}
+
+/* ---- Feature sections ---- */
+.ctc-pro-section {
+    margin-bottom: 2rem;
+}
+
+.ctc-pro-section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 0 1rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.ctc-pro-section-title .dashicons {
+    color: var(--pro-color);
+    font-size: 1.15rem;
+    width: auto;
+    height: auto;
+}
+
+.ctc-pro-section {
+    container-type: inline-size;
+}
+
+.ctc-pro-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.ctc-pro-card {
+    display: flex;
+    flex: 1 1 240px;
+    max-width: 280px;
+    flex-direction: column;
+    gap: 0.7rem;
+    padding: 1.15rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background: var(--bg-card);
+    text-decoration: none;
+    transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+@container (max-width: 560px) {
+    .ctc-pro-card {
+        max-width: none;
+    }
+}
+
+.ctc-pro-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--pro-border);
+    box-shadow: 0 12px 22px -12px rgba(217, 119, 6, 0.35);
+}
+
+.ctc-pro-card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.7rem;
+    background: var(--pro-gradient);
+    color: #fff;
+    box-shadow: 0 4px 10px -3px rgba(217, 119, 6, 0.4);
+}
+
+.ctc-pro-card-icon .dashicons {
+    font-size: 1.2rem;
+    width: auto;
+    height: auto;
+}
+
+.ctc-pro-card-body {
+    display: block;
+    min-width: 0;
+}
+
+.ctc-pro-card-title {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.35rem;
+}
+
+.ctc-pro-card-arrow {
+    font-size: 0.8rem;
+    width: auto;
+    height: auto;
+    color: var(--pro-color);
+    opacity: 0;
+    transform: translate(-2px, 2px);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.ctc-pro-card:hover .ctc-pro-card-arrow {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+.ctc-pro-card-desc {
+    display: block;
+    font-size: 0.83rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+}
+
+/* ---- Comparison table ---- */
+.ctc-pro-compare-wrap {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.ctc-pro-compare {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-card);
+}
+
+.ctc-pro-compare th,
+.ctc-pro-compare td {
+    padding: 0.8rem 1rem;
+    text-align: center;
+    font-size: 0.88rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.ctc-pro-compare thead th {
+    font-weight: 700;
+    color: var(--text);
+    background: var(--bg-secondary);
+}
+
+.ctc-pro-compare .ctc-pro-compare-feature {
+    text-align: start;
+    color: var(--text);
+    font-weight: 500;
+}
+
+.ctc-pro-compare tbody .ctc-pro-compare-feature {
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+.ctc-pro-compare .ctc-pro-compare-pro {
+    color: var(--pro-color-strong);
+}
+
+.ctc-pro-compare .ctc-pro-compare-pro .dashicons {
+    color: var(--pro-color-strong);
+    font-size: 0.95rem;
+    width: auto;
+    height: auto;
+}
+
+.ctc-pro-compare .ctc-pro-compare-group th {
+    text-align: start;
+    padding: 0.7rem 1rem 0.4rem;
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.ctc-pro-compare tbody:not(:first-of-type) .ctc-pro-compare-group th {
+    border-top: 1px solid var(--border-color);
+}
+
+.ctc-pro-compare .ctc-pro-compare-group:hover th {
+    background: var(--bg-secondary);
+}
+
+.ctc-pro-compare tbody:last-of-type tr:last-child td {
+    border-bottom: none;
+}
+
+.ctc-pro-compare tbody tr:hover td {
+    background: var(--pro-surface);
+}
+
+.ctc-pro-yes {
+    color: var(--success-strong);
+    font-weight: 700;
+}
+
+.ctc-pro-yes-gold {
+    color: var(--pro-color-strong);
+}
+
+.ctc-pro-no {
+    color: var(--text-secondary);
+    opacity: 0.4;
+}
+
+.ctc-pro-compare .ctc-pro-compare-pro-cell,
+.ctc-pro-compare thead .ctc-pro-compare-pro {
+    text-align: start;
+}
+
+.ctc-pro-compare .ctc-pro-compare-pro-cell {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+}
+
+.ctc-pro-compare-detail {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    line-height: 1.45;
+}
+
+.ctc-pro-compare-note {
+    display: inline-block;
+    padding: 0.1rem 0.5rem;
+    border-radius: var(--radius-pill);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 0.72rem;
+    font-weight: 500;
+}
+
+/* ---- Closing CTA band ---- */
+.ctc-pro-cta-band {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    margin-top: 2rem;
+    padding: 1.75rem 2rem;
+    border-radius: var(--radius-md);
+    background:
+        radial-gradient(120% 180% at 100% 0%, var(--pro-surface) 0%, transparent 55%),
+        var(--bg-card);
+    border: 1px solid var(--pro-border);
+}
+
+.ctc-pro-cta-copy h3 {
+    margin: 0 0 0.35rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.ctc-pro-cta-copy p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.ctc-pro-cta-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.ctc-pro-cta-link {
+    color: var(--pro-color-strong);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.ctc-pro-cta-link:hover {
+    text-decoration: underline;
+}
+
+/* Inline PRO teaser CTA */
+.ctc-pro-teaser-cta {
+    margin-top: 0.25rem;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 600px) {
+    .ctc-pro-hero {
+        padding: 2rem 1.25rem;
+    }
+
+    .ctc-pro-hero-title {
+        font-size: 1.4rem;
+    }
+
+    .ctc-pro-btn {
+        width: 100%;
+    }
+
+    .ctc-pro-card {
+        max-width: none;
+    }
+
+    .ctc-pro-cta-band {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+
+    .ctc-pro-cta-actions {
+        justify-content: center;
+    }
+
+    .ctc-pro-compare th,
+    .ctc-pro-compare td {
+        padding: 0.7rem 0.5rem;
+        font-size: 0.82rem;
+    }
+
+    .ctc-pro-compare .ctc-pro-compare-group th {
+        padding-inline: 0.5rem;
+    }
+}
+

@@ -388,13 +388,18 @@ class Cartflows_Ca_Helper {
 	/**
 	 * Function get the CartFlows upgrade to PRO link.
 	 *
-	 * @param string $page      The page name which needs to be displayed.
-	 * @param string $custom_url The Another URL if wish to send.
+	 * Single source of truth for the "Upgrade to Pro" URL — the default UTM
+	 * parameters used across the dashboard are appended here. Callers that need
+	 * a non-default campaign can override via $utm_campaign (e.g. `bfcm`).
+	 *
+	 * @param string $page         The page name which needs to be displayed.
+	 * @param string $custom_url   The Another URL if wish to send.
+	 * @param string $utm_campaign The utm_campaign value. Pass an empty string to skip UTM appending entirely.
 	 * @return string $url The modified URL.
 	 */
-	public static function get_upgrade_to_pro_url( $page = 'cart-abandonment', $custom_url = '' ) {
+	public static function get_upgrade_to_pro_url( $page = 'cart-abandonment', $custom_url = '', $utm_campaign = 'go-wcar-pro' ) {
 
-		$custom_page = $page ? $page . '/' : '';
+		$custom_page = $page ? trailingslashit( ltrim( $page, '/' ) ) : '';
 
 		$base_url = CARTFLOWS_CA_DOMAIN_URL . $custom_page;
 		$url      = empty( $custom_url ) ? $base_url : esc_url( $custom_url );
@@ -409,6 +414,17 @@ class Cartflows_Ca_Helper {
 		// Modify the utm_source parameter using the UTM ready link function to include tracking information.
 		if ( class_exists( '\BSF_UTM_Analytics' ) && is_callable( '\BSF_UTM_Analytics::get_utm_ready_link' ) ) {
 			$url = \BSF_UTM_Analytics::get_utm_ready_link( $url, 'woo-cart-abandonment-recovery' );
+		}
+
+		if ( ! empty( $utm_campaign ) ) {
+			$url = add_query_arg(
+				array(
+					'utm_source'   => 'wcar-dashboard',
+					'utm_medium'   => 'free-wcar',
+					'utm_campaign' => $utm_campaign,
+				),
+				$url
+			);
 		}
 
 		return esc_url( $url );

@@ -1,3 +1,130 @@
-/*! For license information please see session.js.LICENSE.txt */
-!function(){"use strict";var e={"./packages/packages/libs/session/src/session-storage-context.tsx":function(e,s,t){t.r(s),t.d(s,{Context:function(){return o},SessionStorageProvider:function(){return SessionStorageProvider}});var r=t("react");const o=(0,r.createContext)(null);function SessionStorageProvider({children:e,prefix:s}){const t=(0,r.useContext)(o)?.prefix??"",n=t?`${t}/${s}`:s;return r.createElement(o.Provider,{value:{prefix:n}},e)}},"./packages/packages/libs/session/src/session-storage.ts":function(e,s,t){t.r(s),t.d(s,{getSessionStorageItem:function(){return getSessionStorageItem},removeSessionStorageItem:function(){return removeSessionStorageItem},setSessionStorageItem:function(){return setSessionStorageItem}});const getSessionStorageItem=e=>JSON.parse(sessionStorage.getItem(e)||"{}")?.item,setSessionStorageItem=(e,s)=>{sessionStorage.setItem(e,JSON.stringify({item:s})),window.dispatchEvent(new StorageEvent("storage",{key:e,storageArea:sessionStorage}))},removeSessionStorageItem=e=>{sessionStorage.removeItem(e),window.dispatchEvent(new StorageEvent("storage",{key:e,storageArea:sessionStorage}))}},"./packages/packages/libs/session/src/use-session-storage.ts":function(e,s,t){t.r(s),t.d(s,{useSessionStorage:function(){return useSessionStorage}});var r=t("react"),o=t("./packages/packages/libs/session/src/session-storage.ts"),n=t("./packages/packages/libs/session/src/session-storage-context.tsx");const useSessionStorage=(e,s)=>{const t=(0,r.useContext)(n.Context)?.prefix??"",i=`${s||t}/${e}`,[a,c]=(0,r.useState)();(0,r.useEffect)(()=>subscribeToSessionStorage(i,e=>{c(e??null)}),[i]);return[a,e=>{(0,o.setSessionStorageItem)(i,e)},()=>{(0,o.removeSessionStorageItem)(i)}]},subscribeToSessionStorage=(e,s)=>{s((0,o.getSessionStorageItem)(e));const t=new AbortController;return window.addEventListener("storage",t=>{t.key===e&&t.storageArea===sessionStorage&&s((0,o.getSessionStorageItem)(e))},{signal:t.signal}),()=>{t.abort()}}},react:function(e){e.exports=window.React}},s={};function __webpack_require__(t){var r=s[t];if(void 0!==r)return r.exports;var o=s[t]={exports:{}};return e[t](o,o.exports,__webpack_require__),o.exports}__webpack_require__.n=function(e){var s=e&&e.__esModule?function(){return e.default}:function(){return e};return __webpack_require__.d(s,{a:s}),s},__webpack_require__.d=function(e,s){for(var t in s)__webpack_require__.o(s,t)&&!__webpack_require__.o(e,t)&&Object.defineProperty(e,t,{enumerable:!0,get:s[t]})},__webpack_require__.o=function(e,s){return Object.prototype.hasOwnProperty.call(e,s)},__webpack_require__.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})};var t={};!function(){__webpack_require__.r(t),__webpack_require__.d(t,{Context:function(){return r.Context},SessionStorageProvider:function(){return r.SessionStorageProvider},getSessionStorageItem:function(){return e.getSessionStorageItem},removeSessionStorageItem:function(){return e.removeSessionStorageItem},setSessionStorageItem:function(){return e.setSessionStorageItem},useSessionStorage:function(){return s.useSessionStorage}});var e=__webpack_require__("./packages/packages/libs/session/src/session-storage.ts"),s=__webpack_require__("./packages/packages/libs/session/src/use-session-storage.ts"),r=__webpack_require__("./packages/packages/libs/session/src/session-storage-context.tsx")}(),(window.elementorV2=window.elementorV2||{}).session=t}(),window.elementorV2.session?.init?.();
+(function(react) {
+
+//#region \0rolldown/runtime.js
+	var __create = Object.create;
+	var __defProp = Object.defineProperty;
+	var __name = (target, value) => __defProp(target, "name", {
+		value,
+		configurable: true
+	});
+	var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+	var __getOwnPropNames = Object.getOwnPropertyNames;
+	var __getProtoOf = Object.getPrototypeOf;
+	var __hasOwnProp = Object.prototype.hasOwnProperty;
+	var __exportAll = (all, no_symbols) => {
+		let target = {};
+		for (var name in all) {
+			__defProp(target, name, {
+				get: all[name],
+				enumerable: true
+			});
+		}
+		if (!no_symbols) {
+			__defProp(target, Symbol.toStringTag, { value: "Module" });
+		}
+		return target;
+	};
+	var __copyProps = (to, from, except, desc) => {
+		if (from && typeof from === "object" || typeof from === "function") {
+			for (var keys = __getOwnPropNames(from), i = 0, n = keys.length, key; i < n; i++) {
+				key = keys[i];
+				if (!__hasOwnProp.call(to, key) && key !== except) {
+					__defProp(to, key, {
+						get: ((k) => from[k]).bind(null, key),
+						enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable
+					});
+				}
+			}
+		}
+		return to;
+	};
+	var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", {
+		value: mod,
+		enumerable: true
+	}) : target, mod));
+
+//#endregion
+react = __toESM(react);
+
+//#region packages/packages/libs/session/src/session-storage.ts
+	var getSessionStorageItem = (key) => {
+		return JSON.parse(sessionStorage.getItem(key) || "{}")?.item;
+	};
+	var setSessionStorageItem = (key, item) => {
+		sessionStorage.setItem(key, JSON.stringify({ item }));
+		window.dispatchEvent(new StorageEvent("storage", {
+			key,
+			storageArea: sessionStorage
+		}));
+	};
+	var removeSessionStorageItem = (key) => {
+		sessionStorage.removeItem(key);
+		window.dispatchEvent(new StorageEvent("storage", {
+			key,
+			storageArea: sessionStorage
+		}));
+	};
+
+//#endregion
+//#region packages/packages/libs/session/src/session-storage-context.tsx
+	var Context = (0, react.createContext)(null);
+	function SessionStorageProvider({ children, prefix }) {
+		const contextPrefix = (0, react.useContext)(Context)?.prefix ?? "";
+		const chainedPrefix = contextPrefix ? `${contextPrefix}/${prefix}` : prefix;
+		return /* @__PURE__ */ react.createElement(Context.Provider, { value: { prefix: chainedPrefix } }, children);
+	}
+
+//#endregion
+//#region packages/packages/libs/session/src/use-session-storage.ts
+	var useSessionStorage = (key, customPrefix) => {
+		const contextPrefix = (0, react.useContext)(Context)?.prefix ?? "";
+		const prefixedKey = `${customPrefix ? customPrefix : contextPrefix}/${key}`;
+		const [value, setValue] = (0, react.useState)();
+		(0, react.useEffect)(() => {
+			return subscribeToSessionStorage(prefixedKey, (newValue) => {
+				setValue(newValue ?? null);
+			});
+		}, [prefixedKey]);
+		const saveValue = (newValue) => {
+			setSessionStorageItem(prefixedKey, newValue);
+		};
+		const removeValue = () => {
+			removeSessionStorageItem(prefixedKey);
+		};
+		return [
+			value,
+			saveValue,
+			removeValue
+		];
+	};
+	var subscribeToSessionStorage = (key, subscriber) => {
+		subscriber(getSessionStorageItem(key));
+		const abortController = new AbortController();
+		window.addEventListener("storage", (e) => {
+			if (e.key !== key || e.storageArea !== sessionStorage) return;
+			subscriber(getSessionStorageItem(key));
+		}, { signal: abortController.signal });
+		return () => {
+			abortController.abort();
+		};
+	};
+
+//#endregion
+//#region packages/packages/libs/session/src/index.ts
+	var src_exports = /* @__PURE__ */ __exportAll({
+		Context: () => Context,
+		SessionStorageProvider: () => SessionStorageProvider,
+		getSessionStorageItem: () => getSessionStorageItem,
+		removeSessionStorageItem: () => removeSessionStorageItem,
+		setSessionStorageItem: () => setSessionStorageItem,
+		useSessionStorage: () => useSessionStorage
+	});
+
+//#endregion
+//#region \0elementor-package-library-entry
+	(window.elementorV2 = window.elementorV2 || {}).session = src_exports;
+
+//#endregion
+})(React);
+window.elementorV2.session?.init?.();
 //# sourceMappingURL=session.js.map

@@ -33,6 +33,12 @@ class Ai1wm_Import_Confirm {
 
 	public static function execute( $params ) {
 
+		// Skip confirmation when auto-confirmed (REST API). Use !empty so a truthy
+		// value is required — isset() would also accept 0 / '' / false and bypass.
+		if ( ! empty( $params['ai1wm_confirmed'] ) ) {
+			return $params;
+		}
+
 		$messages = array();
 
 		// Read package.json file

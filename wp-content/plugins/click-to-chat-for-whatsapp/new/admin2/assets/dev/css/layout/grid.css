@@ -1,0 +1,493 @@
+/* ==========================================================================
+   GRID SYSTEM & ICONS
+   ========================================================================== */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+/*
+ * The tile is a container: border, selected state, and the box the Customize trigger
+ * docks into. It is NOT the click target — .grid-option-select is.
+ */
+.grid-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: var(--transition);
+    border: 2px solid transparent;
+    border-radius: var(--radius);
+    padding: 0.5rem;
+    position: relative;
+}
+
+/*
+ * The clickable region — everything except the Customize trigger, which is its sibling.
+ * Carries .ctc-sync-source-click, role="button" and the pointer cursor, so the trigger is
+ * outside the area that selects the tile.
+ */
+.grid-option-select {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    /*
+     * Absorb the slack. Grid rows stretch every tile to the tallest one, and the selected
+     * tile is taller because of its Customize bar — so without this the neighbors end up
+     * with a dead strip of tile below their click region, exactly level with that bar.
+     * Clicking it used to highlight a tile whose value was never synced.
+     */
+    flex: 1 1 auto;
+    cursor: pointer;
+}
+
+.grid-option:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.grid-option.selected {
+    border-color: var(--primary);
+    background-color: var(--primary-light);
+}
+
+/*
+ * Hue-independent selected indicator (a11y SC 1.4.1).
+ * Adds a check chip in the top-inline-end corner so users with color-vision
+ * deficiency get a non-color signal in addition to the colored border/background.
+ */
+.grid-option.selected::after {
+    content: "\f147"; /* dashicons-yes */
+    font-family: dashicons;
+    position: absolute;
+    top: 4px;
+    inset-inline-end: 4px;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    font-size: 12px;
+    /* Must be > .grid-widget-preview's z-index (10), since .grid-preview is
+       position:relative without z-index and so doesn't form a stacking context. */
+    z-index: 20;
+    pointer-events: none;
+}
+
+.grid-preview {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+    position: relative;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.02);
+    border-radius: var(--radius);
+}
+
+.grid-image-preview {
+    position: absolute;
+    top: 0;
+    inset-inline-start: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.3s ease;
+}
+
+.grid-image-preview.loaded {
+    opacity: 0.8;
+}
+
+.grid-option:hover .grid-image-preview.loaded {
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+.grid-widget-preview {
+    position: absolute;
+    top: 0;
+    inset-inline-start: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.grid-widget-preview .ht_ctc_chat_style {
+    transform: scale(0.6);
+    transform-origin: center;
+    pointer-events: none;
+}
+
+/* Live template preview swapped in (replaces the CSS placeholder). Center it
+   and clip anything wider than the cell so long-CTA buttons stay tidy. */
+.grid-widget-preview.has-live-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.grid-image-preview.lazy {
+    filter: blur(5px);
+}
+
+.grid-name {
+    font-size: 0.75rem;
+    text-align: center;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.4;
+    padding: 2px 0;
+}
+
+.grid-name-title {
+    font-weight: 600;
+    display: block;
+}
+
+.grid-name-desc {
+    display: block;
+    font-size: 0.7rem;
+    opacity: 0.7;
+    font-weight: normal;
+}
+
+/* Pro Options — locked, premium "crown lock" treatment */
+.pro-option {
+    position: relative;
+    background-color: rgba(245, 158, 11, 0.04);
+    /* border-color: rgba(245, 158, 11, 0.4); */
+}
+
+.pro-option:hover {
+    background-color: rgba(245, 158, 11, 0.07);
+    border-color: rgba(245, 158, 11, 0.6);
+}
+
+/* Dim the template preview/icon so the crown reads as the focal point. */
+.pro-option .grid-widget-preview {
+    filter: grayscale(100%);
+    opacity: 0.3;
+    transition: var(--transition);
+}
+
+.pro-option:hover .grid-widget-preview {
+    opacity: 0.45;
+}
+
+/* Centered crown lock over the dimmed preview. */
+.pro-lock {
+    position: absolute;
+    top: 50%;
+    inset-inline-start: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 8px rgba(180, 83, 9, 0.25);
+    /* Above .grid-widget-preview (z-index: 10). */
+    z-index: 15;
+    transition: var(--transition);
+}
+
+.pro-option:hover .pro-lock {
+    transform: translate(-50%, -50%) scale(1.08);
+}
+
+.pro-lock .ctc-icon {
+    width: 16px;
+    height: 16px;
+    color: var(--pro-color);
+}
+
+html[data-theme="dark"] .pro-lock {
+    background: rgba(30, 41, 59, 0.92);
+}
+
+/* Grid Icons */
+.grid-icon {
+    position: absolute;
+    bottom: 10px;
+    inset-inline-end: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: var(--shadow);
+    background-color: var(--primary);
+}
+
+.grid-icon.style-1 {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+}
+
+.grid-icon.style-2 {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    background-color: #25d366;
+}
+
+.grid-icon.style-3 {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #25d366;
+}
+
+.grid-icon.style-4 {
+    border-radius: 50px;
+    background-color: #25d366;
+    height: 36px;
+    padding: 0 15px;
+}
+
+.grid-icon.style-4 span {
+    margin-inline-start: 5px;
+    font-size: 12px;
+}
+
+.grid-icon.style-6 {
+    background-color: transparent;
+    color: #25d366;
+    box-shadow: none;
+    font-size: 12px;
+}
+
+.grid-icon.style-8 {
+    border-radius: 6px;
+    background-color: #25d366;
+    height: 30px;
+    padding: 0 12px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.grid-icon.style-99 {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: #f1f5f9;
+    color: var(--text-secondary);
+}
+
+/* Grid Icons Dark Mode */
+html[data-theme="dark"] .grid-icon.style-99 {
+    background-color: #334155;
+}
+
+.grid-icon {
+    z-index: 2;
+    /* ICON above image */
+}
+
+.grid-icon img.icon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* ==========================================================================
+   STYLE PREVIEW POLISH (placeholder)
+   Temporary mini-previews for the "Select Style" grid until the live widget
+   templates (modules/preview/templates/) render here. Goal: a clean, on-brand
+   stand-in per option instead of a generic glyph / clipped label.
+   ========================================================================== */
+
+/* WhatsApp mark as a mask so it inherits the icon's (white) color. */
+/* .grid-icon {
+    --ctc-wa-logo: url("data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%20509%20512%27%3E%3Cpath%20d=%27M259.253137,0.00180389396%20C121.502859,0.00180389396%209.83730687,111.662896%209.83730687,249.413175%20C9.83730687,296.530232%2022.9142299,340.597122%2045.6254897,378.191325%20L0.613226597,512.001804%20L138.700183,467.787757%20C174.430395,487.549184%20215.522926,498.811168%20259.253137,498.811168%20C396.994498,498.811168%20508.660049,387.154535%20508.660049,249.415405%20C508.662279,111.662896%20396.996727,0.00180389396%20259.253137,0.00180389396%20L259.253137,0.00180389396%20Z%20M259.253137,459.089875%20C216.65782,459.089875%20176.998957,446.313956%20143.886359,424.41206%20L63.3044195,450.21808%20L89.4939401,372.345171%20C64.3924908,337.776609%2049.5608297,295.299463%2049.5608297,249.406486%20C49.5608297,133.783298%20143.627719,39.7186378%20259.253137,39.7186378%20C374.871867,39.7186378%20468.940986,133.783298%20468.940986,249.406486%20C468.940986,365.025215%20374.874096,459.089875%20259.253137,459.089875%20Z%20M200.755924,146.247066%20C196.715791,136.510165%20193.62103,136.180176%20187.380228,135.883632%20C185.239759,135.781068%20182.918689,135.682963%20180.379113,135.682963%20C172.338979,135.682963%20164.002301,138.050856%20158.97889,143.19021%20C152.865178,149.44439%20137.578667,164.09322%20137.578667,194.171258%20C137.578667,224.253755%20159.487251,253.321759%20162.539648,257.402027%20C165.600963,261.477835%20205.268745,324.111057%20266.985579,349.682963%20C315.157262,369.636141%20329.460495,367.859106%20340.450462,365.455539%20C356.441543,361.9639%20376.521811,350.186865%20381.616571,335.917077%20C386.711331,321.63837%20386.711331,309.399797%20385.184018,306.857991%20C383.654475,304.305037%20379.578667,302.782183%20373.464955,299.716408%20C367.351242,296.659552%20337.288812,281.870254%20331.68569,279.83458%20C326.080339,277.796676%20320.898622,278.418749%20316.5887,284.378615%20C310.639982,292.612729%20304.918689,301.074268%20300.180674,306.09099%20C296.46161,310.02856%20290.477218,310.577055%20285.331175,308.389764%20C278.564174,305.506821%20259.516237,298.869139%20236.160607,278.048627%20C217.988923,261.847958%20205.716906,241.83458%20202.149458,235.711949%20C198.582011,229.598236%20201.835077,225.948292%20204.584241,222.621648%20C207.719135,218.824546%20210.610997,216.097679%20213.667853,212.532462%20C216.724709,208.960555%20218.432625,207.05866%20220.470529,202.973933%20C222.508433,198.898125%20221.137195,194.690767%20219.607652,191.629452%20C218.07588,188.568136%20205.835077,158.494558%20200.755924,146.247066%20Z%27/%3E%3C/svg%3E");
+} */
+
+/* Swap the generic dashicon glyph for the WhatsApp mark on icon styles.
+   style-99 (Custom Image) keeps its own image-placeholder dashicon. */
+/* .grid-icon:not(.style-99) .dashicons {
+    width: 22px;
+    height: 22px;
+    font-size: 22px;
+    line-height: 22px;
+} */
+
+/* .grid-icon:not(.style-99) .dashicons::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: currentColor;
+    -webkit-mask: var(--ctc-wa-logo) center / contain no-repeat;
+    mask: var(--ctc-wa-logo) center / contain no-repeat;
+} */
+
+/* Image Slider (style 5): show the collapsed round icon, drop the label. */
+/* .grid-icon.style-5 {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #25d366;
+} */
+
+/* .grid-icon.style-5 span {
+    display: none;
+} */
+
+/* Labelled button styles (7 / 7 Extend / 8) — span the preview and center the
+   label so the full text fits on one line without clipping at either edge. */
+/* .grid-icon.style-7,
+.grid-icon.style-7-1,
+.grid-icon.style-8 {
+    inset-inline: 8px;
+    width: auto;
+    height: 28px;
+    padding: 0 8px;
+    background-color: #25d366;
+    color: #fff;
+    font-size: 9.5px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+} */
+
+/* .grid-icon.style-7,
+.grid-icon.style-7-1 {
+    border-radius: 50px;
+} */
+
+/* ==========================================================================
+   GREETINGS TEMPLATE GRID — schematic thumbnails
+   Greetings options are large dialog boxes that don't shrink into a legible
+   live preview, so each cell shows an abstract mini-layout (card + header +
+   message + send button) drawn in CSS. Recognisable, content-independent, and
+   needs no assets or live render. Scoped via class_pr "ctc-greetings-grid".
+   The cell's existing `.grid-icon` node is repurposed as the send button.
+   ========================================================================== */
+
+/* Card — applied only to the known free templates so PRO upsell cells keep
+   their meaningful dashicon + crown lock. */
+.ctc-greetings-grid .grid-widget-preview[data-style-id="no"],
+.ctc-greetings-grid .grid-widget-preview[data-style-id="greetings-1"],
+.ctc-greetings-grid .grid-widget-preview[data-style-id="greetings-2"] {
+    inset: 7px 12px;
+    width: auto;
+    height: auto;
+    display: block;
+    background: #fff;
+    border: 1px solid #e4e7eb;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme="dark"] .ctc-greetings-grid .grid-widget-preview[data-style-id="no"],
+html[data-theme="dark"] .ctc-greetings-grid .grid-widget-preview[data-style-id="greetings-1"],
+html[data-theme="dark"] .ctc-greetings-grid .grid-widget-preview[data-style-id="greetings-2"] {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+/* Drop the dashicon glyph on the schematic cells (the shapes replace it). */
+.ctc-greetings-grid .grid-widget-preview[data-style-id="no"] .dashicons,
+.ctc-greetings-grid .grid-widget-preview[data-style-id="greetings-1"] .dashicons,
+.ctc-greetings-grid .grid-widget-preview[data-style-id="greetings-2"] .dashicons {
+    display: none;
+}
+
+.ctc-greetings-grid .grid-widget-preview[data-style-id="no"]::before,
+.ctc-greetings-grid .grid-widget-preview[data-style-id="no"]::after,
+.ctc-greetings-grid .grid-widget-preview[data-style-id="greetings-1"]::before,
+.ctc-greetings-grid .grid-widget-preview[data-style-id="greetings-1"]::after,
+.ctc-greetings-grid .grid-widget-preview[data-style-id="greetings-2"]::before,
+.ctc-greetings-grid .grid-widget-preview[data-style-id="greetings-2"]::after {
+    content: "";
+    position: absolute;
+    border-radius: 3px;
+}
+
+/* Send button — the repurposed .grid-icon, a green bar near the bottom. */
+.ctc-greetings-grid .grid-widget-preview[data-style-id="greetings-1"] .grid-icon,
+.ctc-greetings-grid .grid-widget-preview[data-style-id="greetings-2"] .grid-icon {
+    top: auto;
+    bottom: 14%;
+    inset-inline: 16%;
+    width: auto;
+    height: 16%;
+    background: #25d366;
+    border-radius: 4px;
+    box-shadow: none;
+}
+
+/* greetings-1 — WhatsApp-style: green header + message bubble + send. */
+.ctc-greetings-grid .grid-widget-preview[data-style-id="greetings-1"]::before {
+    top: 0;
+    inset-inline: 0;
+    height: 34%;
+    border-radius: 0;
+    background: #25d366;
+}
+
+.ctc-greetings-grid .grid-widget-preview[data-style-id="greetings-1"]::after {
+    top: 46%;
+    inset-inline-start: 16%;
+    width: 46%;
+    height: 15%;
+    background: #e9edf0;
+}
+
+html[data-theme="dark"] .ctc-greetings-grid .grid-widget-preview[data-style-id="greetings-1"]::after {
+    background: #334155;
+}
+
+/* greetings-2 — minimal content dialog: two text lines + send (no header). */
+.ctc-greetings-grid .grid-widget-preview[data-style-id="greetings-2"]::before {
+    top: 24%;
+    inset-inline: 16% 32%;
+    height: 11%;
+    background: #e9edf0;
+}
+
+.ctc-greetings-grid .grid-widget-preview[data-style-id="greetings-2"]::after {
+    top: 42%;
+    inset-inline: 16% 22%;
+    height: 11%;
+    background: #e9edf0;
+}
+
+html[data-theme="dark"] .ctc-greetings-grid .grid-widget-preview[data-style-id="greetings-2"]::before,
+html[data-theme="dark"] .ctc-greetings-grid .grid-widget-preview[data-style-id="greetings-2"]::after {
+    background: #334155;
+}
+
+/* no / Disable — dimmed card, a single muted dash, no send button. */
+.ctc-greetings-grid .grid-widget-preview[data-style-id="no"] {
+    opacity: 0.55;
+}
+
+.ctc-greetings-grid .grid-widget-preview[data-style-id="no"]::before {
+    top: 46%;
+    inset-inline: 32%;
+    height: 8%;
+    background: #c2c8d0;
+}
+
+.ctc-greetings-grid .grid-widget-preview[data-style-id="no"] .grid-icon {
+    display: none;
+}

@@ -1,10 +1,11 @@
-.elementor-lightbox {
+:where(.elementor-lightbox) {
   --lightbox-ui-color: rgba(238, 238, 238, 0.9);
   --lightbox-ui-color-hover: #fff;
   --lightbox-text-color: var(--lightbox-ui-color);
   --lightbox-header-icons-size: 20px;
   --lightbox-navigation-icons-size: 25px;
 }
+
 .elementor-lightbox:not(.elementor-popup-modal) .dialog-header,
 .elementor-lightbox:not(.elementor-popup-modal) .dialog-message {
   text-align: center;
@@ -161,7 +162,7 @@
 }
 .elementor-lightbox .swiper .swiper-pagination-fraction {
   width: max-content;
-  color: #ffffff;
+  color: currentColor;
 }
 .elementor-lightbox .elementor-swiper-button:focus {
   outline-width: 1px;
@@ -386,8 +387,8 @@
 .elementor-slideshow--share-mode .elementor-slideshow__share-links, .elementor-slideshow--share-mode .elementor-slideshow__share-links a {
   opacity: 1;
 }
-.elementor-slideshow--share-mode .elementor-slideshow__share-links .eicon-twitter {
-  color: #1DA1F2;
+.elementor-slideshow--share-mode .elementor-slideshow__share-links .eicon-x-twitter {
+  color: #000000;
 }
 .elementor-slideshow--share-mode .elementor-slideshow__share-links .eicon-facebook {
   color: #3b5998;
@@ -398,8 +399,8 @@
 .elementor-slideshow--share-mode .elementor-slideshow__share-links .eicon-download-bold {
   color: #9DA5AE;
 }
-.elementor-slideshow--share-mode .elementor-slideshow__share-links .e-eicon-twitter {
-  fill: #1DA1F2;
+.elementor-slideshow--share-mode .elementor-slideshow__share-links .e-eicon-x-twitter {
+  fill: #000000;
 }
 .elementor-slideshow--share-mode .elementor-slideshow__share-links .e-eicon-facebook {
   fill: #3b5998;

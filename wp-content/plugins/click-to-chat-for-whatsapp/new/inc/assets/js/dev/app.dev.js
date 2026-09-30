@@ -3,16 +3,14 @@
 const htCtcJq = ( typeof window !== 'undefined' && typeof window.jQuery === 'function' ) ?
 	window.jQuery :
 	null;
-console.log( 'app js jQuery:', htCtcJq );
 
 ( function htCtcAppModule ( window, document, ctcJq ) {
-	console.log( 'app.dev.js loaded' );
 
-	// todo: for testing. remove this. line..
+	// (for testing) forces the no-jQuery path. Keep it commented - if you uncomment
+	// the line below, add a 'todo(release):' so it cannot ship enabled.
 	// ctcJq = false;
 
 	function nojQueryCompatibility () {
-		console.log( 'nojQueryCompatibility' );
 
 		/**
 		 * backword compatibility when no jQuery is used.
@@ -48,7 +46,6 @@ console.log( 'app js jQuery:', htCtcJq );
 
 	// ready
 	function initClickToChat () {
-		console.log( 'initClickToChat' );
 
 		// variables
 
@@ -81,7 +78,7 @@ console.log( 'app js jQuery:', htCtcJq );
 
 				// maxTouch = navigator.maxTouchPoints || 0;
 			} catch ( error ) {
-				console.log( error );
+				console.error( error );
 			}
 
 			const mobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
@@ -133,7 +130,7 @@ console.log( 'app js jQuery:', htCtcJq );
 			if ( ! obj || typeof obj !== 'object' || ! isSafeObjectKey( key ) ) {
 				return fallback;
 			}
-			// eslint-disable-next-line security/detect-object-injection
+			// eslint-disable-next-line security/detect-object-injection -- Key is validated by isSafeObjectKey above to prevent prototype pollution
 			return Object.prototype.hasOwnProperty.call( obj, key ) ? obj[ key ] : fallback;
 		}
 
@@ -148,7 +145,7 @@ console.log( 'app js jQuery:', htCtcJq );
 		 */
 		function setSafeProperty ( obj, key, value ) {
 			if ( obj && typeof obj === 'object' && isSafeObjectKey( key ) ) {
-				// eslint-disable-next-line security/detect-object-injection
+				// eslint-disable-next-line security/detect-object-injection -- Key is validated by isSafeObjectKey above to prevent prototype pollution
 				obj[ key ] = value;
 				return true;
 			}
@@ -157,16 +154,13 @@ console.log( 'app js jQuery:', htCtcJq );
 
 		// Retrieve and parse plugin-related data from localStorage and assign it to ht_ctc_storage.
 		function getStorageData () {
-			console.log( 'app.js - getStorageData' );
 
 			// Check if the 'ht_ctc_storage' key exists in localStorage
 			if ( localStorage.getItem( 'ht_ctc_storage' ) ) {
 				try {
 					const ht_ctc_storage_raw = JSON.parse( localStorage.getItem( 'ht_ctc_storage' ) );
 					ht_ctc_storage = new Map( Object.entries( ht_ctc_storage_raw || {} ) );
-					console.log( ht_ctc_storage );
-				} catch ( error ) {
-					console.log( error );
+				} catch {
 					ht_ctc_storage = new Map();
 				}
 			} else {
@@ -177,7 +171,6 @@ console.log( 'app js jQuery:', htCtcJq );
 
 		// Retrieve a specific item from the ht_ctc_storage object
 		function ctc_getItem ( item ) {
-			console.log( 'app.js - ctc_getItem: ' + item );
 
 			if ( isSafeObjectKey( item ) && ht_ctc_storage.has( item ) ) {
 				return ht_ctc_storage.get( item );
@@ -187,18 +180,15 @@ console.log( 'app js jQuery:', htCtcJq );
 
 		// Store or update a key-value pair in ht_ctc_storage and persist it to localStorage
 		function ctc_setItem ( name, value ) {
-			console.log( 'app.js - ctc_setItem: name: ' + name + ' value: ' + value );
 
 			// Refresh local copy of storage data from localStorage
 			getStorageData();
-			console.log( 'Storage after getStorageData():', ht_ctc_storage );
 
 			// Update or add the item to the ht_ctc_storage object
 			if ( ! isSafeObjectKey( name ) ) {
 				return;
 			}
 			ht_ctc_storage.set( name, value );
-			console.log( 'Updated ht_ctc_storage:', ht_ctc_storage );
 
 			// Convert updated storage object to a JSON string
 			const newValues = JSON.stringify( Object.fromEntries( ht_ctc_storage ) );
@@ -229,7 +219,6 @@ console.log( 'app js jQuery:', htCtcJq );
 		}
 
 		function playAnimation ( el, classNames ) {
-			console.log( 'playAnimation', el, classNames );
 
 			if ( ! el || ! classNames ) {
 				console.warn( 'playAnimation: missing element or classNames' );
@@ -286,7 +275,6 @@ console.log( 'app js jQuery:', htCtcJq );
 			 *
 			 */
 			show ( target, duration = '', animation = '', classToAdd = '', classToRemove = '' ) {
-				console.log( 'ui.show', target, duration, animation );
 
 				const els = resolveEls( target );
 
@@ -310,13 +298,10 @@ console.log( 'app js jQuery:', htCtcJq );
 
 				els.forEach( el => {
 
-					console.log( 'Showing element:', el );
-
 					if ( classToAdd ) {
 						// el.classList.add(classToAdd);
 						classToAdd.split( /\s+/ )
 							.forEach( cls => {
-								console.log( 'Adding class:', cls );
 								if ( cls.trim() ) { el.classList.add( cls.trim() ); }
 							} );
 					}
@@ -324,7 +309,6 @@ console.log( 'app js jQuery:', htCtcJq );
 						// el.classList.remove(classToRemove);
 						classToRemove.split( /\s+/ )
 							.forEach( cls => {
-								console.log( 'Removing class:', cls );
 								if ( cls.trim() ) { el.classList.remove( cls.trim() ); }
 							} );
 					}
@@ -333,7 +317,6 @@ console.log( 'app js jQuery:', htCtcJq );
 
 					// Apply duration only if passed
 					if ( duration ) {
-						console.log( 'Setting duration:', duration );
 
 						// inline variables added using js variables wont inherit. this can work.
 						el.style.setProperty( '--ht-ctc-el-duration', `${duration}ms` );
@@ -343,7 +326,6 @@ console.log( 'app js jQuery:', htCtcJq );
 
 					// Apply animation only if passed
 					if ( animation ) {
-						console.log( 'Applying animation:', animation );
 						playAnimation( el, animation );
 					}
 
@@ -367,7 +349,6 @@ console.log( 'app js jQuery:', htCtcJq );
 			 * 3.uiHide( '.ctc_opt_in', 100, '' ); // Hides optin in Mutli-Agent
 			 */
 			hide ( target, duration = '', animation = '', classToAdd = '', classToRemove = '' ) {
-				console.log( 'ui.hide', target, duration, animation );
 
 				const els = resolveEls( target );
 
@@ -379,7 +360,6 @@ console.log( 'app js jQuery:', htCtcJq );
 
 				els.forEach( el => {
 
-					console.log( 'Hiding element:', el );
 					if ( classToAdd ) {
 						el.classList.add( classToAdd );
 					}
@@ -412,12 +392,10 @@ console.log( 'app js jQuery:', htCtcJq );
 		// Step 1: Load config from global variables if already defined (preferred and most common)
 		if ( typeof ht_ctc_chat_var !== 'undefined' ) {
 			ctc = ht_ctc_chat_var;
-			console.log( '✅ ht_ctc_chat_var found in global scope' );
 		}
 
 		if ( typeof ht_ctc_variables !== 'undefined' ) {
 			ctc_values = ht_ctc_variables;
-			console.log( '✅ ht_ctc_variables found in global scope' );
 		}
 
 		// Step 2: If not available globally, fallback to fetching via REST API
@@ -439,8 +417,6 @@ console.log( 'app js jQuery:', htCtcJq );
 		 */
 		function getValues () {
 
-			console.log( 'fallback getValues' );
-
 			const chatData = document.querySelector( '.ht_ctc_chat_data' );
 			if (
 				Object.keys( ctc ).length === 0 &&
@@ -452,7 +428,7 @@ console.log( 'app js jQuery:', htCtcJq );
 					ctc = JSON.parse( settings );
 					window.ht_ctc_chat_var = ctc;
 				} catch ( error ) {
-					console.log( 'Failed to parse ht_ctc_chat_data', error );
+					console.error( 'Failed to parse ht_ctc_chat_data', error );
 				}
 			}
 
@@ -462,20 +438,17 @@ console.log( 'app js jQuery:', htCtcJq );
 					'g_an_event_name': 'click to chat',
 					'pixel_event_name': 'Click to Chat by HoliThemes',
 					'pixel_event_type': 'trackCustom',
-					'g_an_params': [ 'g_an_param_1', 'g_an_param_2', 'g_an_param_3' ],
-					'g_an_param_1': { 'key': 'number', 'value': '{number}' },
-					'g_an_param_2': { 'key': 'title', 'value': '{title}' },
-					'g_an_param_3': { 'key': 'url', 'value': '{url}' },
-					'pixel_params': [
-						'pixel_param_1',
-						'pixel_param_2',
-						'pixel_param_3',
-						'pixel_param_4',
+					'g_an_params': [
+						{ 'key': 'number', 'value': '{number}' },
+						{ 'key': 'title', 'value': '{title}' },
+						{ 'key': 'url', 'value': '{url}' },
 					],
-					'pixel_param_1': { 'key': 'Category', 'value': 'Click to Chat for WhatsApp' },
-					'pixel_param_2': { 'key': 'return_type', 'value': 'chat' },
-					'pixel_param_3': { 'key': 'ID', 'value': '{number}' },
-					'pixel_param_4': { 'key': 'Title', 'value': '{title}' },
+					'pixel_params': [
+						{ 'key': 'Category', 'value': 'Click to Chat for WhatsApp' },
+						{ 'key': 'return_type', 'value': 'chat' },
+						{ 'key': 'ID', 'value': '{number}' },
+						{ 'key': 'Title', 'value': '{title}' },
+					],
 				};
 
 				window.ht_ctc_variables = ctc_values;
@@ -704,15 +677,10 @@ console.log( 'app js jQuery:', htCtcJq );
 
 		// Initialize the plugin after settings are loaded
 		function start () {
-			console.log( 'start' );
-			console.log( ctc );
 
 			// 🔹 New: Configure event to allow users to override settings
 			// Dispatched before any other processing to ensure overrides are applied
 			document.dispatchEvent( new CustomEvent( 'ht_ctc_event_configure', { detail: { ctc, ctc_values } } ) );
-
-			console.log( ctc );
-			console.log( ctc_values );
 
 			// remove ht_ctc_chat_data - Clean up the element after extracting settings
 			var el = document.querySelector( '.ht_ctc_chat_data' );
@@ -722,8 +690,6 @@ console.log( 'app js jQuery:', htCtcJq );
 
 			// 🔹 New: global init event with config + api + shortcuts
 			const initDetail = buildHtCtcInitDetail();
-			console.log( 'ht_ctc_event_init detail:', initDetail );
-			console.log( initDetail );
 			document.dispatchEvent( new CustomEvent( 'ht_ctc_event_init', { detail: initDetail } ) );
 
 			// 🔹 Keep old event for backward compatibility
@@ -755,7 +721,6 @@ console.log( 'app js jQuery:', htCtcJq );
 
 		// fixed position
 		function ht_ctc () {
-			console.log( 'ht_ctc' );
 			if ( ht_ctc_chat ) {
 				document.dispatchEvent( new CustomEvent( 'ht_ctc_event_chat' ) );
 
@@ -768,7 +733,6 @@ console.log( 'app js jQuery:', htCtcJq );
 
 					// if greetings dialog is not exists, directly navigates to chat
 					if ( ! document.querySelector( '.ht_ctc_chat_greetings_box' ) ) {
-						console.log( 'no greetings dialog' );
 
 						// link
 						ht_ctc_link( ht_ctc_chat );
@@ -791,8 +755,6 @@ console.log( 'app js jQuery:', htCtcJq );
 							// Prevent the default link behavior (like navigating away)
 							event.preventDefault();
 
-							console.log( 'ht_ctc_chat_greetings_box_link' );
-
 							// Get the opt-in checkbox (if it exists in DOM)
 							const optCheckbox = document.querySelector( '#ctc_opt' );
 
@@ -800,7 +762,6 @@ console.log( 'app js jQuery:', htCtcJq );
 								// Proceed only if the checkbox is checked
 								// OR user has previously opted in (via localStorage or cookie)
 								if ( optCheckbox.checked || ctc_getItem( 'g_optin' ) ) {
-									console.log( 'optin' );
 
 									// Open the chat link
 									ht_ctc_link( ht_ctc_chat );
@@ -809,7 +770,6 @@ console.log( 'app js jQuery:', htCtcJq );
 									greetings_close_500();
 								} else {
 									// User hasn't opted in — show the opt-in prompt
-									console.log( 'animate option checkbox' );
 
 									// Blink the opt-in checkbox to draw attention
 									ui.show( '.ctc_opt_in', '', 'ht-ctc-fade-in', '', '' );
@@ -874,20 +834,14 @@ console.log( 'app js jQuery:', htCtcJq );
 					ht_ctc_chat.addEventListener( 'click', function handleEvent ( event ) {
 						// Check if the clicked element (or its parent)
 						// has `.ht_ctc_chat_style` class. to undestand that the click is on chat style button or greeting style button
-						console.log( 'event target clicked:', event.target );
 						const chatStyle = event.target.closest( '.ht_ctc_chat_style' );
-						console.log( 'chatStyle:' );
-						console.log( chatStyle );
 
 						if ( chatStyle ) {
-							console.log( 'Greetings trigger clicked' );
 
 							// Toggle the greetings box open/close
 							if ( greetingsBox.classList.contains( 'ctc_greetings_opened' ) ) {
-								console.log( 'Closing greetings box' );
 								greetings_close( 'user_closed' );
 							} else {
-								console.log( 'Opening greetings box' );
 								greetings_open( 'user_opened' );
 							}
 						}
@@ -897,7 +851,6 @@ console.log( 'app js jQuery:', htCtcJq );
 				// Listen for click on greetings close button
 				ht_ctc_chat.addEventListener( 'click', function handleEvent ( event ) {
 					if ( event.target.closest( '.ctc_greetings_close_btn' ) ) {
-						console.log( 'Greetings close button clicked' );
 						greetings_close( 'user_closed' );
 					}
 				} );
@@ -905,16 +858,13 @@ console.log( 'app js jQuery:', htCtcJq );
 		}
 
 		function greetings_display () {
-			console.log( 'greetings_display' );
 
 			const greetingsBox = document.querySelector( '.ht_ctc_chat_greetings_box' );
 
 			if ( greetingsBox ) {
-				console.log( 'greetings_display - greetings box exists' );
 
 				// Device-specific display logic
 				if ( ctc.g_device ) {
-					console.log( 'greetings device based: ' + ctc.g_device );
 					if ( 'yes' !== is_mobile && 'mobile' === ctc.g_device ) {
 						// If device is desktop but greeting is mobile-only, remove it
 						greetingsBox.remove();
@@ -936,7 +886,6 @@ console.log( 'app js jQuery:', htCtcJq );
 
 				// Auto open logic based on `g_init` config
 				if ( ctc.g_init && ctc_getItem( 'g_user_action' ) !== 'user_closed' ) {
-					console.log( 'g_init' );
 					if ( ctc.g_init === 'default' ) {
 						if ( is_mobile !== 'yes' ) {
 							greetings_open( 'init' );
@@ -980,15 +929,12 @@ console.log( 'app js jQuery:', htCtcJq );
 					' [href="#ctc_greetings"]' );
 
 				if ( greetingsTriggers.length > 0 ) {
-					console.log( 'greetings open triggers found: ' + greetingsTriggers.length );
 
 					// Attach individual click listeners to each trigger
 					greetingsTriggers.forEach( function handleElement ( el ) {
 						el.addEventListener( 'click', function handleEvent ( event ) {
 							// Prevent link behavior if it's an anchor
 							event.preventDefault();
-
-							console.log( 'greetings open triggered' );
 
 							// Close existing greetings box (if open)
 							greetings_close( 'element' );
@@ -1015,7 +961,6 @@ console.log( 'app js jQuery:', htCtcJq );
 		 *
 		 */
 		function greetings_open ( message = 'open' ) {
-			console.log( 'Greetings open: ' + message );
 
 			// Stop notification badge if it's currently displayed
 			stop_notification_badge();
@@ -1027,10 +972,7 @@ console.log( 'app js jQuery:', htCtcJq );
 			// to avoid overlapping actions.
 			const el = document.querySelector( '.ht-ctc-chat .ctc_cta_stick' );
 			if ( el ) {
-				console.log( 'Removing sticky CTA button' );
 				el.remove();
-			} else {
-				console.log( 'No sticky CTA button to remove' );
 			}
 
 			// Get the greetings box element
@@ -1053,12 +995,10 @@ console.log( 'app js jQuery:', htCtcJq );
 
 			// Save user action to localStorage (via wrapper)
 			ctc_setItem( 'g_action', message );
-			console.log( 'g_action: ' + message );
 
 			// If user manually opened it, also save separate user intent
 			if ( 'user_opened' === message ) {
 				ctc_setItem( 'g_user_action', message );
-				console.log( 'g_user_action: ' + message );
 			}
 
 			// Create a modal backdrop behind the greeting box for better UX
@@ -1083,7 +1023,6 @@ console.log( 'app js jQuery:', htCtcJq );
 		 */
 		// Close the greetings box with different behaviors based on the message type
 		function greetings_close ( message = 'close' ) {
-			console.log( 'Greetings close: ' + message );
 
 			// Remove the modal backdrop (overlay) from the screen
 			closeModalBackdrop();
@@ -1107,12 +1046,10 @@ console.log( 'app js jQuery:', htCtcJq );
 
 			// Store the action in localStorage
 			ctc_setItem( 'g_action', message );
-			console.log( 'g_action: ' + message );
 
 			// If user manually closed the greetings, store additional flag
 			if ( 'user_closed' === message ) {
 				ctc_setItem( 'g_user_action', message );
-				console.log( 'g_user_action: ' + message );
 			}
 		}
 
@@ -1125,15 +1062,11 @@ console.log( 'app js jQuery:', htCtcJq );
 			// Check if the modal element with .ctc_greetings_modal exists
 			const modal = document.querySelector( '.ctc_greetings_modal' );
 			if ( ! modal ) {
-				console.log( 'No .ctc_greetings_modal found: skipping createModalBackdrop' );
 				return;
 			}
 
-			console.log( 'ctc_greetings_modal exists: createModalBackdrop' );
-
 			// Only create the backdrop if it doesn't already exist
 			if ( ! document.querySelector( '.ht_ctc_modal_backdrop' ) ) {
-				console.log( 'ht_ctc_modal_backdrop not found; creating .ht_ctc_modal_backdrop element' );
 
 				const backdrop = document.createElement( 'div' );
 				backdrop.className = 'ht_ctc_modal_backdrop';
@@ -1143,15 +1076,12 @@ console.log( 'app js jQuery:', htCtcJq );
 
 				// Add click listener to close greetings on backdrop click
 				backdrop.addEventListener( 'click', function handleCallback () {
-					console.log( 'Backdrop clicked' );
 					greetings_close( 'user_closed' );
 				} );
 
 				// Add Escape key listener with a named handler for IE-compatible removal
 				function handleEscapeKey ( event ) {
-					console.log( `keydown event: ${event.key}` );
 					if ( event.key === 'Escape' ) {
-						console.log( 'Escape key pressed' );
 						greetings_close( 'user_closed' );
 						document.removeEventListener( 'keydown', handleEscapeKey );
 					}
@@ -1172,7 +1102,6 @@ console.log( 'app js jQuery:', htCtcJq );
 			// Check if the modal backdrop exists in the DOM
 			const modalBackdrop = document.querySelector( '.ht_ctc_modal_backdrop' );
 			if ( modalBackdrop ) {
-				console.log( 'ht_ctc_modal_backdrop exists: closeModalBackdrop' );
 
 				// Remove the backdrop element from the DOM
 				modalBackdrop.remove();
@@ -1187,7 +1116,6 @@ console.log( 'app js jQuery:', htCtcJq );
 		function display_settings ( ht_ctc_chat ) {
 			// If scheduling is enabled via plugin settings
 			if ( ctc.schedule && 'yes' === ctc.schedule ) {
-				console.log( 'scheduled' );
 
 				// Dispatch an event so external scripts or handlers can control when/how to display
 				document.dispatchEvent( new CustomEvent( 'ht_ctc_event_display', {
@@ -1200,7 +1128,6 @@ console.log( 'app js jQuery:', htCtcJq );
 				} ) );
 			} else {
 				// If no schedule is applied, display the button immediately
-				console.log( 'display directly' );
 				display_chat( ht_ctc_chat ); // Show the button
 				online_content(); // Mark badge/agent as online if needed
 			}
@@ -1252,12 +1179,9 @@ console.log( 'app js jQuery:', htCtcJq );
 		function display ( chatElement ) {
 
 			/**
-			 * cts.se can be if setting is from corner then '150' or if center then 'from center' etc..
+			 * cts.se can be if setting is corner then '150' or if center then 'center' etc..
 			 * se : show_effect
 			 */
-
-			console.log( '----------- display chat element -----------' );
-			console.log( 'ctc.se:', ctc.se );
 
 			var showEffect = ctc.se || '';
 
@@ -1265,17 +1189,13 @@ console.log( 'app js jQuery:', htCtcJq );
 			// NaN this can works perfect with jQuery show function to display css animations
 			showEffect = parseInt( ctc.se );
 
-			console.log( 'Parsed showEffect:', showEffect );
-
 			if ( ! isNaN( showEffect ) ) {
-				console.log( 'Using numeric show effect time:', showEffect );
 
 				// Numeric → corner animation → use ui.show with effect time
 				ui.show( chatElement, showEffect, '', 'ht-ctc-display-unset', '' );
 			} else {
-				console.log( 'Using string show effect:', ctc.se );
 
-				// no duration → allow CSS animation to run. like 'from center'
+				// no duration → allow CSS animation to run. like 'center'
 				ui.show( chatElement, '', '', 'ht-ctc-display-unset', '' );
 			}
 
@@ -1301,7 +1221,6 @@ console.log( 'app js jQuery:', htCtcJq );
 		 */
 		// This function marks the greetings header image badge as online
 		function online_content () {
-			console.log( 'online_content' );
 
 			// Check if any element with class `.for_greetings_header_image_badge` exists
 			if ( document.querySelector( '.for_greetings_header_image_badge' ) ) {
@@ -1316,19 +1235,15 @@ console.log( 'app js jQuery:', htCtcJq );
 
 		// Display notifications - shows the notification badge if it exists and is not stopped
 		function display_notifications () {
-			console.log( 'display_notifications' );
 
 			// Check if the notification element exists and the notification badge is not stopped
 			const notificationEl = document.querySelector( '.ht_ctc_notification' );
-
-			console.log( 'n_badge:', ctc_getItem( 'n_badge' ) );
 
 			if ( notificationEl && ctc_getItem( 'n_badge' ) !== 'stop' ) {
 				// If badge positioning element exists (for top/right override)
 				const badgeEl = document.querySelector( '.ctc_nb' );
 
 				if ( badgeEl ) {
-					console.log( 'overwrite top, right' );
 
 					// Find the closest parent with class .ht_ctc_style
 					const main = badgeEl.closest( '.ht_ctc_style' );
@@ -1354,7 +1269,6 @@ console.log( 'app js jQuery:', htCtcJq );
 
 				// Show the notification after the timeout with jQuery animation
 				setTimeout( () => {
-					console.log( 'display_notifications: show' );
 
 					// ui.show('.ht_ctc_notification', 400, '', 'ht-ctc-display-unset', '');
 					notificationEl.style.display = ''; // Remove display:none
@@ -1364,13 +1278,11 @@ console.log( 'app js jQuery:', htCtcJq );
 
 		// Called after the user clicks to chat or opens the greetings box
 		function stop_notification_badge () {
-			console.log( 'stop _notification _badge' );
 
 			// Check if the notification element exists
 			const notificationEl = document.querySelector( '.ht_ctc_notification' );
 
 			if ( notificationEl ) {
-				console.log( 'stop _notification _badge in if' );
 
 				// Save stop flag to storage
 				ctc_setItem( 'n_badge', 'stop' );
@@ -1382,7 +1294,6 @@ console.log( 'app js jQuery:', htCtcJq );
 
 		// Animation and CTA hover effect
 		function ht_ctc_things ( chatElement ) {
-			console.log( 'animations ' + ctc.ani );
 
 			// Entry animation delay based on class for width animation i.e. after display
 			var an_time = chatElement.classList.contains( 'ht_ctc_entry_animation' ) ? 1200 : 120;
@@ -1411,8 +1322,6 @@ console.log( 'app js jQuery:', htCtcJq );
 
 		function ht_ctc_chat_analytics ( values ) {
 			// Log the values passed for debugging
-			console.log( 'analytics' );
-			console.log( values );
 
 			// Check if analytics is enabled
 			if ( ctc.analytics ) {
@@ -1420,16 +1329,12 @@ console.log( 'app js jQuery:', htCtcJq );
 				if ( 'session' === ctc.analytics ) {
 					// If already tracked in this session, skip tracking
 					if ( sessionStorage.getItem( 'ht_ctc_analytics' ) ) {
-						console.log( sessionStorage.getItem( 'ht_ctc_analytics' ) );
-						console.log( 'no analytics' );
 						return;
 					} else {
 						// This is a unique session
 						// Set a flag in sessionStorage so analytics will not be triggered again
 						// until the browser is closed
-						console.log( 'no sessionStorage' );
 						sessionStorage.setItem( 'ht_ctc_analytics', 'done' );
-						console.log( 'added new sessionStorage' );
 					}
 				}
 			}
@@ -1437,15 +1342,12 @@ console.log( 'app js jQuery:', htCtcJq );
 			// Function to apply dynamic values to a string containing placeholders
 			// like {number}, {title}, {url}
 			function apply_variables ( templateString ) {
-				console.log( 'apply_variables' );
 
 				// Use chat_number if available, fallback to default number
 				var number =
 					ctc.chat_number && '' !== ctc.chat_number ? ctc.chat_number : ctc.number;
-				console.log( number );
 
 				try {
-					console.log( templateString );
 
 					// Trigger a custom event so other scripts
 					// (e.g., addon plugin, custom scripts)
@@ -1455,16 +1357,12 @@ console.log( 'app js jQuery:', htCtcJq );
 						{ detail: { templateString } },
 					) );
 
-					console.log( 'window.apply_variables_value: ' + window.apply_variables_value );
-
 					// Check if the custom event handler has modified the value
 					// and saved it to window
 					templateString =
 						typeof window.apply_variables_value !== 'undefined' ?
 							window.apply_variables_value :
 							templateString;
-
-					console.log( templateString );
 
 					// Replace template placeholders in the string with actual dynamic values:
 					// {number} → WhatsApp number,
@@ -1478,13 +1376,11 @@ console.log( 'app js jQuery:', htCtcJq );
 					console.error( 'Error processing measurement IDs', error );
 				}
 
-				console.log( templateString );
 				return templateString;
 			}
 
 			// some unique id for the meta pixel event to avoid duplicate events
 			var pixel_event_id = 'event_' + Math.floor( 10000 + Math.random() * 90000 );
-			console.log( 'pixel_event_id: ' + pixel_event_id );
 
 			// Store the unique event ID in the global variable for later use
 			ctc.ctc_pixel_event_id = pixel_event_id;
@@ -1494,8 +1390,6 @@ console.log( 'app js jQuery:', htCtcJq );
 
 			// Get the chat number from settings or fallback
 			var id = ctc.chat_number && '' !== ctc.chat_number ? ctc.chat_number : ctc.number;
-
-			console.log( id );
 
 			// Google Analytics setup
 			/**
@@ -1520,41 +1414,47 @@ console.log( 'app js jQuery:', htCtcJq );
 
 			// If GA is enabled
 			if ( ctc.ga ) {
-				console.log( 'google analytics' );
 
 				// Use custom event name or default
 				var g_event_name =
 					ctc.g_an_event_name && '' !== ctc.g_an_event_name ?
 						ctc.g_an_event_name :
 						'click to chat';
-				console.log( 'Event Name: ' + g_event_name );
 				g_event_name = apply_variables( g_event_name );
 
 				// Log ctc_values for debugging
-				console.log( ctc_values );
 
 				// Build event parameters if available
-				if ( Array.isArray( ctc_values.g_an_params ) ) {
-					console.log( 'g_an_params' );
-					console.log( ctc_values.g_an_params );
-					ctc_values.g_an_params.forEach( ( paramKey ) => {
-						console.log( paramKey );
-						if (
-							typeof paramKey !== 'string' ||
-							! isSafeObjectKey( paramKey )
-						) {
+				const gAnParams = ctc_values.g_an_params_v4 || ctc_values.g_an_params;
+				if ( Array.isArray( gAnParams ) ) {
+					gAnParams.forEach( ( param ) => {
+						if ( ! param ) {
 							return;
 						}
+						var parameterKey, parameterValue;
 
-						// var descriptor = Object.getOwnPropertyDescriptor( ctc_values, paramKey );
-						// var parameterDefinition = descriptor.value;
-						const parameterDefinition = getSafeProperty( ctc_values, paramKey );
-						if ( ! parameterDefinition || typeof parameterDefinition !== 'object' ) {
-							return;
+						// new method.. (with comment the code)
+						/*
+						if ( typeof param === 'object' ) {
+							parameterKey = param.key;
+							parameterValue = param.value;
+						}
+						*/
+
+						// backward compatibility method..
+						if ( typeof param === 'object' ) {
+							parameterKey = param.key;
+							parameterValue = param.value;
+						} else if ( typeof param === 'string' && isSafeObjectKey( param ) ) {
+							// const parameterDefinition = ctc_values[ param ];
+							const parameterDefinition = getSafeProperty( ctc_values, param );
+							if ( parameterDefinition && typeof parameterDefinition === 'object' ) {
+								parameterKey = parameterDefinition.key;
+								parameterValue = parameterDefinition.value;
+							}
 						}
 
-						var parameterKey = parameterDefinition.key;
-						var parameterValue = parameterDefinition.value;
+						// common logic..
 						if ( typeof parameterKey !== 'string' ) {
 							return;
 						}
@@ -1563,13 +1463,9 @@ console.log( 'app js jQuery:', htCtcJq );
 						if ( ! isSafeObjectKey( parameterKey ) ) {
 							return;
 						}
-						console.log( parameterKey );
-						console.log( parameterValue );
 						ga_params.set( parameterKey, parameterValue );
 					} );
 				}
-				console.log( 'ga_params' );
-				console.log( getGaParamsObject() );
 
 				var gtag_count = 0;
 
@@ -1579,12 +1475,10 @@ console.log( 'app js jQuery:', htCtcJq );
 
 				// If Google Tag Manager's dataLayer is present
 				if ( typeof dataLayer !== 'undefined' ) {
-					console.log( 'event with gtag id..' );
 
 					try {
 						// Define gtag function if it's not available
 						if ( typeof gtag === 'undefined' ) {
-							console.log( 'gtag not defined' );
 
 							// prefer-rest-params
 							window.gtag = function handleCallback ( ...args ) {
@@ -1598,26 +1492,16 @@ console.log( 'app js jQuery:', htCtcJq );
 						// Helper function to trigger gtag event
 						function call_gtag ( tag_id ) {
 							tag_id = tag_id.toUpperCase();
-							console.log( 'fn: call_gtag(): ' + tag_id );
-
-							console.log( tags_list );
 
 							if ( tags_list.includes( tag_id ) ) {
-								console.log( 'tag_id already included' );
 								return;
 							}
 
 							tags_list.push( tag_id );
-							console.log( tags_list );
 
 							// Only allow certain tag ID formats
 							if ( tag_id.startsWith( 'G-' ) || tag_id.startsWith( 'GT-' ) ) {
 								ga_params.set( 'send_to', tag_id );
-
-								console.log( 'gtag event - send_to: ' + tag_id );
-								console.log( 'g_event_name: ' + g_event_name );
-								console.log( 'ga_params: ' );
-								console.log( getGaParamsObject() );
 
 								gtag( 'event', g_event_name, getGaParamsObject() );
 
@@ -1631,7 +1515,6 @@ console.log( 'app js jQuery:', htCtcJq );
 						function addMeasurementId ( id, source ) {
 							if ( id && typeof id === 'string' && id.trim() !== '' ) {
 								if ( ! measurement_ids.includes( id ) ) {
-									console.log( `✔️ Added ${id} (from ${source})` );
 									measurement_ids.push( id );
 								}
 							}
@@ -1643,10 +1526,6 @@ console.log( 'app js jQuery:', htCtcJq );
 						try {
 							const tidr = window.google_tag_data?.tidr;
 							if ( tidr?.destination && typeof tidr.destination === 'object' ) {
-								console.log(
-									'google_tag_data.tidr.destination:',
-									tidr.destination,
-								);
 								Object.keys( tidr.destination )
 									.forEach( tag_id => {
 										addMeasurementId( tag_id, 'google_tag_data.destination' );
@@ -1708,36 +1587,24 @@ console.log( 'app js jQuery:', htCtcJq );
 							console.warn( 'Error scanning dataLayer', err );
 						}
 
-						console.log( 'Final unique measurement_ids:: ' );
-						console.log( measurement_ids );
-
 						// Call gtag for each unique measurement ID
 						measurement_ids.forEach( function handleMeasurementId ( id ) {
 							call_gtag( id );
 						} );
 
 					} catch ( error ) {
-						console.log( 'apply_variables placeholder replacement failed', error );
+						console.error( 'apply_variables placeholder replacement failed', error );
 					}
 				}
 
 				// Fallback: if no gtag events were sent and gtag exists, send the default event
 				if ( 0 === gtag_count && 'no' === is_ctc_add_gtag ) {
-					console.log( 'gtag_count is 0 and gtag is not created by plugin. - ' +
-						'sending default event' );
 					if ( typeof gtag !== 'undefined' ) {
-						console.log( 'calling gtag - default (no specifc send to parm. ' +
-							'g_event_name: ' +
-							g_event_name );
-						console.log( 'ga_params: ' );
-						console.log( getGaParamsObject() );
 						gtag( 'event', g_event_name, getGaParamsObject() );
 					} else if ( typeof ga !== 'undefined' && typeof ga.getAll !== 'undefined' ) {
-						console.log( 'ga' );
 						var tracker = ga.getAll();
 						tracker[ 0 ].send( 'event', ga_category, ga_action, ga_label );
 					} else if ( typeof __gaTracker !== 'undefined' ) {
-						console.log( '__gaTracker' );
 						__gaTracker( 'send', 'event', ga_category, ga_action, ga_label );
 					}
 				}
@@ -1745,7 +1612,6 @@ console.log( 'app js jQuery:', htCtcJq );
 
 			// Push analytics event to GTM dataLayer
 			if ( typeof dataLayer !== 'undefined' ) {
-				console.log( 'dataLayer' );
 
 				// if gtm is enabled. i.e. based on the GTM dataLayer object settings.
 
@@ -1758,16 +1624,37 @@ console.log( 'app js jQuery:', htCtcJq );
 
 					gtm_params_obj.event = gtm_event_name;
 
-					if ( Array.isArray( ctc_values.gtm_params ) ) {
-						ctc_values.gtm_params.forEach( ( gtmParamKey ) => {
-							if ( typeof gtmParamKey !== 'string' || ! isSafeObjectKey( gtmParamKey ) ) { return; }
+					const gtmParams = ctc_values.gtm_params_v4 || ctc_values.gtm_params;
+					if ( Array.isArray( gtmParams ) ) {
+						gtmParams.forEach( ( param ) => {
+							if ( ! param ) { return; }
+							let defKey, defValue;
 
-							// const def = ctc_values[ gtmParamKey ];
-							const def = getSafeProperty( ctc_values, gtmParamKey );
-							if ( ! def || typeof def !== 'object' ) { return; }
+							// new method.. (with comment the code)
+							/*
+							if ( typeof param === 'object' ) {
+								defKey = param.key;
+								defValue = param.value;
+							}
+							*/
 
-							const key = apply_variables( def.key );
-							const value = apply_variables( def.value );
+							// backward compatibility method..
+							if ( typeof param === 'object' ) {
+								defKey = param.key;
+								defValue = param.value;
+							} else if ( typeof param === 'string' && isSafeObjectKey( param ) ) {
+								// const def = ctc_values[ param ];
+								const def = getSafeProperty( ctc_values, param );
+								if ( def && typeof def === 'object' ) {
+									defKey = def.key;
+									defValue = def.value;
+								}
+							}
+
+							// common logic..
+							if ( typeof defKey !== 'string' ) { return; }
+							const key = apply_variables( defKey );
+							const value = apply_variables( defValue );
 
 							if ( ! isSafeObjectKey( key ) ) { return; }
 
@@ -1776,39 +1663,20 @@ console.log( 'app js jQuery:', htCtcJq );
 						} );
 					}
 
-					console.log( 'gtm_params_obj:' );
-					console.log( gtm_params_obj );
-
 					dataLayer.push( gtm_params_obj );
-				}
-
-				// if g_an_gtm is enabled i.e. google analytics values from admin to be used.
-				if ( ctc.g_an_gtm ) {
-
-					// new since 3.30. using admin settings.
-					const pushParams = {
-						...getGaParamsObject(),
-						event: g_event_name ?? 'chat_click',
-						ref: 'dataLayer push ga admin values',
-					};
-					dataLayer.push( pushParams );
-					console.debug( 'dataLayer event pushed:', pushParams );
 				}
 
 			}
 
 			// Google Ads Conversion Tracking
 			if ( ctc.ads ) {
-				console.log( 'google ads enabled' );
 				if ( typeof gtag_report_conversion !== 'undefined' ) {
-					console.log( 'calling gtag_report_conversion' );
 					gtag_report_conversion();
 				}
 			}
 
 			// Facebook Pixel Tracking
 			if ( ctc.fb ) {
-				console.log( 'fb pixel' );
 
 				if ( typeof fbq !== 'undefined' ) {
 					// Get event name for FB Pixel or use default
@@ -1816,46 +1684,52 @@ console.log( 'app js jQuery:', htCtcJq );
 						ctc.pixel_event_name && '' !== ctc.pixel_event_name ?
 							ctc.pixel_event_name :
 							'Click to Chat by HoliThemes';
-					console.log( 'Event Name: ' + pixelEventName );
 
 					// Get pixel track type: track or trackCustom
 					var pixelTrack =
 						ctc_values.pixel_event_type && '' !== ctc_values.pixel_event_type ?
 							ctc_values.pixel_event_type :
 							'trackCustom';
-					console.log( 'Track: ' + pixelTrack );
 
 					var pixelParams = new Map();
-					console.log( typeof pixelParams );
 
 					// Prepare pixel parameters
-					if ( Array.isArray( ctc_values.pixel_params ) ) {
-						console.log( ctc_values.pixel_params );
-						console.log( 'pixel_params' );
-						ctc_values.pixel_params.forEach( ( pixelParamKey ) => {
-							console.log( pixelParamKey );
-							if (
-								typeof pixelParamKey !== 'string' ||
-								! isSafeObjectKey( pixelParamKey )
-							) {
+					const pixelParamsArray = ctc_values.pixel_params_v4 || ctc_values.pixel_params;
+					if ( Array.isArray( pixelParamsArray ) ) {
+						pixelParamsArray.forEach( ( param ) => {
+							if ( ! param ) {
 								return;
 							}
+							let pixelParameterKey, pixelParameterValue;
 
-							// var descriptor = Object.getOwnPropertyDescriptor( ctc_values, pixelParamKey, );
-							// var pixelParameterDefinition = descriptor.value;
-							const pixelParameterDefinition = getSafeProperty(
-								ctc_values,
-								pixelParamKey,
-							);
-							if (
-								! pixelParameterDefinition ||
-								typeof pixelParameterDefinition !== 'object'
-							) {
-								return;
+							// new method.. (with comment the code)
+							/*
+							if ( typeof param === 'object' ) {
+								pixelParameterKey = param.key;
+								pixelParameterValue = param.value;
+							}
+							*/
+
+							// backward compatibility method..
+							if ( typeof param === 'object' ) {
+								pixelParameterKey = param.key;
+								pixelParameterValue = param.value;
+							} else if ( typeof param === 'string' && isSafeObjectKey( param ) ) {
+								// const pixelParameterDefinition = ctc_values[ param ];
+								const pixelParameterDefinition = getSafeProperty(
+									ctc_values,
+									param,
+								);
+								if (
+									pixelParameterDefinition &&
+									typeof pixelParameterDefinition === 'object'
+								) {
+									pixelParameterKey = pixelParameterDefinition.key;
+									pixelParameterValue = pixelParameterDefinition.value;
+								}
 							}
 
-							var pixelParameterKey = pixelParameterDefinition.key;
-							var pixelParameterValue = pixelParameterDefinition.value;
+							// common logic..
 							if ( typeof pixelParameterKey !== 'string' ) {
 								return;
 							}
@@ -1864,12 +1738,9 @@ console.log( 'app js jQuery:', htCtcJq );
 							if ( ! isSafeObjectKey( pixelParameterKey ) ) {
 								return;
 							}
-							console.log( pixelParameterKey );
-							console.log( pixelParameterValue );
 							pixelParams.set( pixelParameterKey, pixelParameterValue );
 						} );
 					}
-					console.log( Object.fromEntries( pixelParams ) );
 
 					ctc.ctc_pixel_event_id = ''; // Reset the global pixel event ID
 
@@ -1900,14 +1771,9 @@ console.log( 'app js jQuery:', htCtcJq );
 
 		// Function to handle the click event for the chat link
 		function ht_ctc_link ( values ) {
-			console.log( 'ht_ctc_link' );
-			console.log( values );
-
-			console.log( ctc.number );
 
 			// dispatch event for ctc.number
 			document.dispatchEvent( new CustomEvent( 'ht_ctc_event_number', { detail: { ctc } } ) );
-			console.log( ctc.number );
 
 			var number = ctc.number;
 			var pre_filled = ctc.pre_filled;
@@ -1917,16 +1783,13 @@ console.log( 'app js jQuery:', htCtcJq );
 				values.hasAttribute( 'data-number' ) &&
 				'' !== values.getAttribute( 'data-number' )
 			) {
-				console.log( 'data-number is added' );
 				number = values.getAttribute( 'data-number' );
-				console.log( 'data-number: ' + number );
 			}
 
 			// Check if the clicked element has a data-pre_filled attribute
 			if ( values.hasAttribute( 'data-pre_filled' ) ) {
 
 				const dataPreFilled = values.getAttribute( 'data-pre_filled' ) || '';
-				console.log( 'has pre_filled attribute:', dataPreFilled );
 
 				// prefix for pre_filled text might be added.
 				// const prefix = ctc.prefix_pre_filled || '';
@@ -1935,7 +1798,6 @@ console.log( 'app js jQuery:', htCtcJq );
 				// pre_filled = prefix ? `${prefix}${dataPreFilled}` : dataPreFilled;
 				pre_filled = prefix + dataPreFilled;
 
-				console.log( 'pre_filled:', pre_filled );
 			}
 
 			/**
@@ -1950,7 +1812,7 @@ console.log( 'app js jQuery:', htCtcJq );
 				// pre_filled = encodeURIComponent(pre_filled);
 				pre_filled = encodeURIComponent( decodeURI( pre_filled ) );
 			} catch ( error ) {
-				console.log( 'prefilled message encoding failed', error );
+				console.error( 'prefilled message encoding failed', error );
 			}
 
 			// if number is not defined or empty, display no number message.
@@ -1959,7 +1821,6 @@ console.log( 'app js jQuery:', htCtcJq );
 				( ! ctc.custom_url_m || ctc.custom_url_m === '' ) &&
 				( ! ctc.custom_url_d || ctc.custom_url_d === '' )
 			) {
-				console.log( 'No number and no custom URL available' );
 				if ( ctc.no_number ) {
 					const noNumberEl = document.querySelector( '.ctc-no-number-message' );
 					if ( noNumberEl ) {
@@ -1973,15 +1834,16 @@ console.log( 'app js jQuery:', htCtcJq );
 			// 1.base_url
 			var base_url = 'https://wa.me/' + number + '?text=' + pre_filled;
 
+			// emoji works well with direct link as wa.me redirect its not working as expected.
+			// var base_url = 'https://api.whatsapp.com/send?phone=' + number + '&text=' + pre_filled;
+
 			// 2.url_target - _blank, _self or if popup type just add a name - here popup only
 			var url_target = ctc.url_target_d ? ctc.url_target_d : '_blank';
 
 			if ( is_mobile === 'yes' ) {
-				console.log( '-- mobile --' );
 
 				// mobile
 				if ( ctc.url_structure_m && 'wa_colon' === ctc.url_structure_m ) {
-					console.log( '-- url struture: whatsapp:// --' );
 
 					// whatsapp://.. is selected.
 					base_url = 'whatsapp://send?phone=' + number + '&text=' + pre_filled;
@@ -1992,14 +1854,11 @@ console.log( 'app js jQuery:', htCtcJq );
 
 				// mobile: own url
 				if ( ctc.custom_url_m && '' !== ctc.custom_url_m ) {
-					console.log( 'custom link' );
 					base_url = ctc.custom_url_m;
 				}
 			} else {
 				// desktop
-				console.log( '-- desktop --' );
 				if ( ctc.url_structure_d && 'web' === ctc.url_structure_d ) {
-					console.log( '-- url struture: web whatsapp --' );
 
 					// web whatsapp is enabled/selected.
 					base_url =
@@ -2012,7 +1871,6 @@ console.log( 'app js jQuery:', htCtcJq );
 
 				// desktop: own url
 				if ( ctc.custom_url_d && '' !== ctc.custom_url_d ) {
-					console.log( 'custom link' );
 					base_url = ctc.custom_url_d;
 				}
 			}
@@ -2022,13 +1880,11 @@ console.log( 'app js jQuery:', htCtcJq );
 				'scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,' +
 				'width=788,height=514,left=100,top=100';
 			var specs = 'popup' === url_target ? pop_window_features : 'noopener';
-			console.log( '-- specs: ' + specs + ' --' );
 
 			window.open( base_url, url_target, specs );
 
 			// Set the chat number based on the clicked element —
 			// this is the number the user is about to chat with or was navigated to
-			console.log( 'chat number..: ' + number );
 			ctc.chat_number = number;
 
 			// analytics
@@ -2045,7 +1901,6 @@ console.log( 'app js jQuery:', htCtcJq );
 			document.addEventListener( 'click', function onShortcodeClick ( event ) {
 				const target = event.target.closest( '.ht-ctc-sc-chat' );
 				if ( target ) {
-					console.log( 'shortcode click' );
 					ht_ctc_link( target ); // call your existing function
 				}
 			} );
@@ -2061,14 +1916,12 @@ console.log( 'app js jQuery:', htCtcJq );
 		 * If the clicked element has the class `ctc_woo_place`, the default action is prevented.
 		 */
 		function custom_link () {
-			console.log( 'custom link' );
 
 			// Event Delegation: handles clicks on elements that may exist now or be added later
 			document.addEventListener( 'click', function handleEvent ( event ) {
 				// Check if the clicked element (or its parent) matches `.ctc_chat` or `#ctc_chat`
 				const el1 = event.target.closest( '.ctc_chat, #ctc_chat' );
 				if ( el1 ) {
-					console.log( 'class/Id: ctc_chat' );
 
 					// Trigger WhatsApp action
 					ht_ctc_link( el1 );
@@ -2085,8 +1938,6 @@ console.log( 'app js jQuery:', htCtcJq );
 					// Prevent browser jumping to #ctc_chat
 					event.preventDefault();
 
-					console.log( 'href="#ctc_chat" clicked' );
-
 					// Trigger WhatsApp action
 					ht_ctc_link( el2 );
 				}
@@ -2099,13 +1950,10 @@ console.log( 'app js jQuery:', htCtcJq );
 
 		// webhooks
 		function hook ( number ) {
-			console.log( 'hook' );
-			console.log( 'g_hook_v, typeof:', g_hook_v, typeof g_hook_v );
 
 			var h_url = ctc && ctc.hook_url;
 
 			if ( ! h_url ) {
-				console.log( 'No hook URL defined, skipping webhook.' );
 				return;
 			}
 
@@ -2138,17 +1986,14 @@ console.log( 'app js jQuery:', htCtcJq );
 				h_url = ctc.hook_url;
 			}
 
-			console.log( 'Webhook URL:', h_url );
-			console.log( 'Webhook Values:', hook_values );
-
 			// Format data for webhook
 			let data;
 			const contentType = 'application/x-www-form-urlencoded;charset=UTF-8';
 
 			// To solve CORS error: Use form-urlencoded even for 'json' format
 			// This makes it a "simple request" and avoids the preflight check.
+			// json, else block produces same output will remove else. and if json checking.
 			if ( 'json' === ctc.webhook_format ) {
-				console.log( 'main hook: json (sending as form-urlencoded to match jQuery/avoid preflight)' );
 
 				// Convert to search params
 				var params = new URLSearchParams();
@@ -2162,20 +2007,15 @@ console.log( 'app js jQuery:', htCtcJq );
 						params.append( key, ( typeof hookVal === 'object' ) ? JSON.stringify( hookVal ) : hookVal );
 					} );
 
-				// todo: test well..
 				// data = params;
 				data = params.toString();
 			} else {
 				// Default fallback
-				console.log( 'main hook: string' );
 
 				// data = JSON.stringify(hook_values);
 				data = new URLSearchParams( hook_values )
 					.toString();
 			}
-
-			console.log( data );
-			console.log( typeof data );
 
 			// ---- Replacing jQuery AJAX with fetch() ----
 			fetch( h_url, {
@@ -2187,9 +2027,6 @@ console.log( 'app js jQuery:', htCtcJq );
 				},
 				body: data,
 			} )
-				.then( response => {
-					console.log( response );
-				} )
 				.catch( error => {
 					console.error( 'Error:', error );
 				} );

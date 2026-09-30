@@ -14,6 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 use CartflowsAdmin\Wizard\Ajax\AjaxBase;
 use CartflowsAdmin\AdminCore\Ajax\Importer;
+use CartflowsAdmin\AdminCore\Inc\AdminHelper;
 use CartflowsAdmin\Wizard\Inc\WizardCore;
 
 /**
@@ -198,7 +199,7 @@ class Wizard extends AjaxBase {
 
 		$email          = isset( $_POST['user_email'] ) ? sanitize_email( wp_unslash( $_POST['user_email'] ) ) : '';
 		$user_name      = isset( $_POST['user_fname'] ) ? sanitize_text_field( wp_unslash( $_POST['user_fname'] ) ) : '';
-		$usage_tracking = isset( $_POST['usage_tracking'] ) ? sanitize_text_field( wp_unslash( $_POST['usage_tracking'] ) ) : '';
+		$usage_tracking = isset( $_POST['usage_tracking'] ) ? sanitize_text_field( wp_unslash( $_POST['usage_tracking'] ) ) : 'no';
 
 		if ( empty( $email ) ) {
 			wp_send_json_error(
@@ -210,7 +211,7 @@ class Wizard extends AjaxBase {
 		}
 
 		// Enable the usage tracking for BSF Analytics.
-		update_option( 'cf_usage_optin', $usage_tracking );
+		AdminHelper::update_admin_settings_option( 'cf_usage_optin', $usage_tracking, true );
 
 		$api_args = array(
 			'timeout' => 90, //phpcs:ignore WordPressVIPMinimum.Performance.RemoteRequestTimeout.timeout_timeout
@@ -513,7 +514,7 @@ class Wizard extends AjaxBase {
 			if ( is_wp_error( $response['data'] ) ) {
 
 				/* translators: %1$s: html tag, %2$s: link html start %3$s: link html end */
-				$btn = sprintf( __( 'Request timeout error. Please check if the firewall or any security plugin is blocking the outgoing HTTP/HTTPS requests to templates.cartflows.com or not. %1$sTo resolve this issue, please check this %2$sarticle%3$s.', 'cartflows' ), '<br><br>', '<a target="_blank" href="https://cartflows.com/docs/request-timeout-error-while-importing-the-flow-step-templates/?utm_source=dashboard&utm_medium=free-cartflows&utm_campaign=docs">', '</a>' );
+				$btn = sprintf( __( 'Request timeout error. Please check if the firewall or any security plugin is blocking the outgoing HTTP/HTTPS requests to templates.cartflows.com or not. %1$sTo resolve this issue, please check this %2$sarticle%3$s.', 'cartflows' ), '<br><br>', '<a target="_blank" href="' . esc_url( \Cartflows_Helper::get_kb_doc_link( 'https://cartflows.com/docs/request-timeout-error-while-importing-the-flow-step-templates/' ) ) . '">', '</a>' );
 
 				wp_send_json_error(
 					array(
@@ -536,7 +537,7 @@ class Wizard extends AjaxBase {
 				$msg   = '';
 				if ( 'not-installed' === $cf_pro_status ) {
 					/* translators: %1$s: link html start, %2$s: link html end*/
-					$msg   = sprintf( __( 'To import this template, CartFlows Pro Required! %1$sUpgrade to CartFlows Pro%2$s', 'cartflows' ), '<a target="_blank" href="https://cartflows.com/?utm_source=dashboard&utm_medium=free-cartflows&utm_campaign=go-pro">', '</a>' );
+					$msg   = sprintf( __( 'To import this template, CartFlows Pro Required! %1$sUpgrade to CartFlows Pro%2$s', 'cartflows' ), '<a target="_blank" href="' . esc_url( \Cartflows_Helper::get_upgrade_to_pro_link( '', 'https://cartflows.com/' ) ) . '">', '</a>' );
 					$title = __( 'CartFlows Pro Required', 'cartflows' );
 				} elseif ( 'inactive' === $cf_pro_status ) {
 					$title = __( 'CartFlows Pro Required', 'cartflows' );

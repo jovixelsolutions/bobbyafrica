@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$s8_options = get_option( 'ht_ctc_s8' );
+$s8_options = HT_CTC_Utils::get_option( 'ht_ctc_s8' );
 
 $s8_icon_color          = esc_attr( $s8_options['s8_icon_color'] );
 $s8_icon_color_on_hover = esc_attr( $s8_options['s8_icon_color_on_hover'] );

@@ -1,3 +1,254 @@
-/*! For license information please see wp-media.js.LICENSE.txt */
-!function(){"use strict";var e={"./packages/packages/libs/wp-media/src/errors.ts":function(e,t,a){a.r(t),a.d(t,{WpMediaNotAvailableError:function(){return r},WpPluploadSettingsNotAvailableError:function(){return i}});var n=a("@elementor/utils");const r=(0,n.createError)({code:"wp_media_not_available",message:"`wp.media` is not available, make sure the `media-models` handle is set in the dependencies array"}),i=(0,n.createError)({code:"wp_plupload_settings_not_available",message:"`_wpPluploadSettings` is not available, make sure a wp media uploader is open"})},"./packages/packages/libs/wp-media/src/get-media-attachment.ts":function(e,t,a){a.r(t),a.d(t,{getMediaAttachment:function(){return getMediaAttachment}});var n=a("./packages/packages/libs/wp-media/src/media.ts"),r=a("./packages/packages/libs/wp-media/src/normalize.ts");async function getMediaAttachment({id:e}){if(!e)return null;const t=(0,n.default)().attachment(e),a=t.toJSON();if("url"in a)return(0,r.default)(a);try{return(0,r.default)(await t.fetch())}catch{return null}}},"./packages/packages/libs/wp-media/src/hooks/use-wp-media-attachment.ts":function(e,t,a){a.r(t),a.d(t,{default:function(){return useWpMediaAttachment}});var n=a("@elementor/query"),r=a("./packages/packages/libs/wp-media/src/get-media-attachment.ts");function useWpMediaAttachment(e){return(0,n.useQuery)({queryKey:["wp-attachment",e],queryFn:()=>(0,r.getMediaAttachment)({id:e}),enabled:!!e})}},"./packages/packages/libs/wp-media/src/hooks/use-wp-media-frame.ts":function(e,t,a){a.r(t),a.d(t,{default:function(){return useWpMediaFrame}});var n=a("react"),r=a("./packages/packages/libs/wp-media/src/media.ts"),i=a("./packages/packages/libs/wp-media/src/normalize.ts"),s=a("./packages/packages/libs/wp-media/src/wp-plupload-settings.ts");function useWpMediaFrame(e){const t=(0,n.useRef)();return(0,n.useEffect)(()=>()=>{cleanupFrame(t.current)},[]),{open:(a={})=>{cleanupFrame(t.current),t.current=function createFrame({onSelect:e,multiple:t,mediaTypes:a,selected:n,title:o,mode:c="browse"}){const p=(0,r.default)()({title:o,multiple:t,library:{type:getMimeTypes(a)}}).on("open",()=>{!function setTypeCaller(e){e.uploader.uploader.param("uploadTypeCaller","elementor-wp-media-upload")}(p),function applyMode(e,t="browse"){e.content.mode(t)}(p,c),function applySelection(e,t){const a=("number"==typeof t?[t]:t)?.filter(e=>!!e).map(e=>(0,r.default)().attachment(e));e.state().get("selection").set(a||[])}(p,n)}).on("close",()=>cleanupFrame(p)).on("insert select",()=>function select(e,t,a){const n=e.state().get("selection").toJSON().map(i.default),r=a;r(t?n:n[0])}(p,t,e));return function handleExtensions(e,t){const a=(0,s.default)().defaults.filters.mime_types?.[0]?.extensions;e.on("ready",()=>{(0,s.default)().defaults.filters.mime_types=[{extensions:getExtensions(t)}]}),e.on("close",()=>{(0,s.default)().defaults.filters.mime_types=a?[{extensions:a}]:[]})}(p,a),p}({...e,...a}),t.current?.open()}}}function cleanupFrame(e){e?.detach(),e?.remove()}const o=["avif","bmp","gif","ico","jpe","jpeg","jpg","png","webp"],c=["mp4","webm","ogg","mov","m4v","avi","wmv","mpg","mpeg","3gp","3g2"];function getMimeTypes(e){const t={image:o.map(e=>`image/${e}`),svg:["image/svg+xml"],video:["video/mp4","video/webm","video/ogg","video/quicktime","video/x-m4v","video/avi","video/x-ms-wmv","video/mpeg","video/3gpp","video/3gpp2"]};return e.reduce((e,a)=>e.concat(t[a]),[])}function getExtensions(e){const t={image:o,svg:["svg"],video:c};return e.reduce((e,a)=>e.concat(t[a]),[]).join(",")}},"./packages/packages/libs/wp-media/src/media.ts":function(e,t,a){a.r(t);var n=a("./packages/packages/libs/wp-media/src/errors.ts");const r=window;t.default=()=>{if(!r.wp?.media)throw new n.WpMediaNotAvailableError;return r.wp.media}},"./packages/packages/libs/wp-media/src/normalize.ts":function(e,t,a){function normalize(e){const{filesizeInBytes:t,filesizeHumanReadable:a,author:n,authorName:r,...i}=e;return{...i,filesize:{inBytes:t,humanReadable:a},author:{id:parseInt(n),name:r}}}a.r(t),a.d(t,{default:function(){return normalize}})},"./packages/packages/libs/wp-media/src/wp-plupload-settings.ts":function(e,t,a){a.r(t);var n=a("./packages/packages/libs/wp-media/src/errors.ts");const r=window;t.default=()=>{if(!r._wpPluploadSettings)throw new n.WpPluploadSettingsNotAvailableError;return r._wpPluploadSettings}},"@elementor/query":function(e){e.exports=window.elementorV2.query},"@elementor/utils":function(e){e.exports=window.elementorV2.utils},react:function(e){e.exports=window.React}},t={};function __webpack_require__(a){var n=t[a];if(void 0!==n)return n.exports;var r=t[a]={exports:{}};return e[a](r,r.exports,__webpack_require__),r.exports}__webpack_require__.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return __webpack_require__.d(t,{a:t}),t},__webpack_require__.d=function(e,t){for(var a in t)__webpack_require__.o(t,a)&&!__webpack_require__.o(e,a)&&Object.defineProperty(e,a,{enumerable:!0,get:t[a]})},__webpack_require__.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},__webpack_require__.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})};var a={};!function(){__webpack_require__.r(a),__webpack_require__.d(a,{getMediaAttachment:function(){return n.getMediaAttachment},useWpMediaAttachment:function(){return e.default},useWpMediaFrame:function(){return t.default}});var e=__webpack_require__("./packages/packages/libs/wp-media/src/hooks/use-wp-media-attachment.ts"),t=__webpack_require__("./packages/packages/libs/wp-media/src/hooks/use-wp-media-frame.ts"),n=__webpack_require__("./packages/packages/libs/wp-media/src/get-media-attachment.ts")}(),(window.elementorV2=window.elementorV2||{}).wpMedia=a}(),window.elementorV2.wpMedia?.init?.();
+(function(_elementor_query, _elementor_utils, react) {
+
+//#region \0rolldown/runtime.js
+	var __defProp = Object.defineProperty;
+	var __name = (target, value) => __defProp(target, "name", {
+		value,
+		configurable: true
+	});
+	var __exportAll = (all, no_symbols) => {
+		let target = {};
+		for (var name in all) {
+			__defProp(target, name, {
+				get: all[name],
+				enumerable: true
+			});
+		}
+		if (!no_symbols) {
+			__defProp(target, Symbol.toStringTag, { value: "Module" });
+		}
+		return target;
+	};
+
+//#endregion
+
+//#region packages/packages/libs/wp-media/src/errors.ts
+	var WpMediaNotAvailableError = (0, _elementor_utils.createError)({
+		code: "wp_media_not_available",
+		message: "`wp.media` is not available, make sure the `media-models` handle is set in the dependencies array"
+	});
+	var WpPluploadSettingsNotAvailableError = (0, _elementor_utils.createError)({
+		code: "wp_plupload_settings_not_available",
+		message: "`_wpPluploadSettings` is not available, make sure a wp media uploader is open"
+	});
+
+//#endregion
+//#region packages/packages/libs/wp-media/src/media.ts
+	var wpMediaWindow = window;
+	var media_default = /* @__PURE__ */ __name(() => {
+		if (!wpMediaWindow.wp?.media) throw new WpMediaNotAvailableError();
+		return wpMediaWindow.wp.media;
+	}, "default");
+
+//#endregion
+//#region packages/packages/libs/wp-media/src/normalize.ts
+	function normalize(attachment) {
+		const { filesizeInBytes, filesizeHumanReadable, author, authorName, ...rest } = attachment;
+		return {
+			...rest,
+			filesize: {
+				inBytes: filesizeInBytes,
+				humanReadable: filesizeHumanReadable
+			},
+			author: {
+				id: parseInt(author),
+				name: authorName
+			}
+		};
+	}
+
+//#endregion
+//#region packages/packages/libs/wp-media/src/get-media-attachment.ts
+	async function fetchAttachmentFromWP(id) {
+		const model = media_default().attachment(id);
+		const wpAttachment = model.toJSON();
+		if ("url" in wpAttachment) return normalize(wpAttachment);
+		try {
+			return normalize(await model.fetch());
+		} catch {
+			return null;
+		}
+	}
+	async function getMediaAttachment({ id }) {
+		if (!id) return null;
+		return (0, _elementor_query.getQueryClient)().ensureQueryData({
+			queryKey: ["wp-attachment", id],
+			queryFn: () => fetchAttachmentFromWP(id)
+		});
+	}
+
+//#endregion
+//#region packages/packages/libs/wp-media/src/hooks/use-wp-media-attachment.ts
+	function useWpMediaAttachment(id) {
+		return (0, _elementor_query.useQuery)({
+			queryKey: ["wp-attachment", id],
+			queryFn: () => fetchAttachmentFromWP(id),
+			enabled: !!id
+		});
+	}
+
+//#endregion
+//#region packages/packages/libs/wp-media/src/wp-plupload-settings.ts
+	var wpPluploadSettingsWindow = window;
+	var wp_plupload_settings_default = /* @__PURE__ */ __name(() => {
+		if (!wpPluploadSettingsWindow._wpPluploadSettings) throw new WpPluploadSettingsNotAvailableError();
+		return wpPluploadSettingsWindow._wpPluploadSettings;
+	}, "default");
+
+//#endregion
+//#region packages/packages/libs/wp-media/src/hooks/use-wp-media-frame.ts
+	function useWpMediaFrame(options) {
+		const frame = (0, react.useRef)();
+		const open = (openOptions = {}) => {
+			cleanupFrame(frame.current);
+			frame.current = createFrame({
+				...options,
+				...openOptions
+			});
+			frame.current?.open();
+		};
+		(0, react.useEffect)(() => {
+			return () => {
+				cleanupFrame(frame.current);
+			};
+		}, []);
+		return { open };
+	}
+	function createFrame({ onSelect, onSelectUrl, allowUrlImport, multiple, mediaTypes, selected, title, mode = "browse", currentUrl, currentAlt }) {
+		const frame = media_default()({
+			title,
+			multiple,
+			library: { type: getMimeTypes(mediaTypes) },
+			...allowUrlImport ? { frame: "post" } : {}
+		}).on("open", () => {
+			setTypeCaller(frame);
+			applyMode(frame, mode, currentUrl, currentAlt);
+			if (mode !== "url") applySelection(frame, selected);
+		}).on("insert select", () => select(frame, multiple, onSelect, onSelectUrl));
+		if (allowUrlImport) frame.on("ready open", () => restrictFrameMenu(frame));
+		handleExtensions(frame, mediaTypes);
+		return frame;
+	}
+	function cleanupFrame(frame) {
+		frame?.detach();
+		frame?.remove();
+	}
+	function applyMode(frame, mode = "browse", currentUrl, currentAlt) {
+		if (mode === "url") {
+			frame.setState("embed");
+			if (currentUrl || currentAlt) setTimeout(() => {
+				if (currentUrl) frame.state()?.props?.set("url", currentUrl);
+				if (currentAlt) frame.state()?.props?.set("alt", currentAlt);
+			}, 0);
+		} else frame.content.mode(mode);
+	}
+	function applySelection(frame, selected) {
+		const selectedAttachments = (typeof selected === "number" ? [selected] : selected)?.filter((id) => !!id).map((id) => media_default().attachment(id));
+		frame.state().get("selection").set(selectedAttachments || []);
+	}
+	function select(frame, multiple, onSelect, onSelectUrl) {
+		const state = frame.state();
+		if (state.get("id") === "embed") {
+			if (onSelectUrl) {
+				const url = state.props?.get("url");
+				const alt = state.props?.get("alt");
+				if (url) onSelectUrl(url, alt);
+			}
+			return;
+		}
+		const attachments = state.get("selection").toJSON().map(normalize);
+		onSelect(multiple ? attachments : attachments[0]);
+	}
+	var FRAME_MENU_ITEMS_TO_REMOVE = [
+		"#menu-item-gallery",
+		"#menu-item-featured-image",
+		"#menu-item-playlist",
+		"#menu-item-video-playlist"
+	].join(",");
+	function restrictFrameMenu(frame) {
+		frame.$el?.find(FRAME_MENU_ITEMS_TO_REMOVE)?.remove();
+	}
+	function setTypeCaller(frame) {
+		frame.uploader.uploader.param("uploadTypeCaller", "elementor-wp-media-upload");
+	}
+	function handleExtensions(frame, mediaTypes) {
+		const defaultExtensions = wp_plupload_settings_default().defaults.filters.mime_types?.[0]?.extensions;
+		frame.on("ready", () => {
+			wp_plupload_settings_default().defaults.filters.mime_types = [{ extensions: getExtensions(mediaTypes) }];
+		});
+		frame.on("close", () => {
+			wp_plupload_settings_default().defaults.filters.mime_types = defaultExtensions ? [{ extensions: defaultExtensions }] : [];
+		});
+	}
+	var imageExtensions = [
+		"avif",
+		"bmp",
+		"gif",
+		"ico",
+		"jpe",
+		"jpeg",
+		"jpg",
+		"png",
+		"webp"
+	];
+	var videoExtensions = [
+		"mp4",
+		"webm",
+		"ogg",
+		"mov",
+		"m4v",
+		"avi",
+		"wmv",
+		"mpg",
+		"mpeg",
+		"3gp",
+		"3g2"
+	];
+	function getMimeTypes(mediaTypes) {
+		const mimeTypesPerType = {
+			image: imageExtensions.map((extension) => `image/${extension}`),
+			svg: ["image/svg+xml"],
+			video: [
+				"video/mp4",
+				"video/webm",
+				"video/ogg",
+				"video/quicktime",
+				"video/x-m4v",
+				"video/avi",
+				"video/x-ms-wmv",
+				"video/mpeg",
+				"video/3gpp",
+				"video/3gpp2"
+			]
+		};
+		return mediaTypes.reduce((prev, currentType) => {
+			return prev.concat(mimeTypesPerType[currentType]);
+		}, []);
+	}
+	function getExtensions(mediaTypes) {
+		const extensionsPerType = {
+			image: imageExtensions,
+			svg: ["svg"],
+			video: videoExtensions
+		};
+		return mediaTypes.reduce((prev, currentType) => {
+			return prev.concat(extensionsPerType[currentType]);
+		}, []).join(",");
+	}
+
+//#endregion
+//#region packages/packages/libs/wp-media/src/index.ts
+	var src_exports = /* @__PURE__ */ __exportAll({
+		getMediaAttachment: () => getMediaAttachment,
+		useWpMediaAttachment: () => useWpMediaAttachment,
+		useWpMediaFrame: () => useWpMediaFrame
+	});
+
+//#endregion
+//#region \0elementor-package-library-entry
+	(window.elementorV2 = window.elementorV2 || {}).wpMedia = src_exports;
+
+//#endregion
+})(elementorV2.query, elementorV2.utils, React);
+window.elementorV2.wpMedia?.init?.();
 //# sourceMappingURL=wp-media.js.map

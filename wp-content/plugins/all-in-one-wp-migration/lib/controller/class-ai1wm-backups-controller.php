@@ -42,6 +42,19 @@ class Ai1wm_Backups_Controller {
 		);
 	}
 
+	/**
+	 * Render the bulk delete button below the backups list
+	 *
+	 * Hooked to ai1wm_backups_left_end, which is fired by both the Backups page of the
+	 * plugin and the Reset page of the paid extensions, so that the button follows the
+	 * backups list wherever the list is rendered.
+	 *
+	 * @return void
+	 */
+	public static function bulk_delete_button() {
+		Ai1wm_Template::render( 'backups/backups-bulk-delete' );
+	}
+
 	public static function clean( $params = array() ) {
 		ai1wm_setup_environment();
 
@@ -82,28 +95,52 @@ class Ai1wm_Backups_Controller {
 			$secret_key = trim( $params['secret_key'] );
 		}
 
-		// Set archive
-		$archive = null;
-		if ( isset( $params['archive'] ) ) {
-			$archive = trim( $params['archive'] );
+		// Set archives
+		$archives = array();
+		if ( isset( $params['archives'] ) && is_array( $params['archives'] ) ) {
+			$archives = array_map( 'trim', $params['archives'] );
+		} elseif ( isset( $params['archive'] ) ) {
+			$archives = array( trim( $params['archive'] ) );
 		}
 
 		try {
-			// Ensure that unauthorized people cannot access delete action
 			ai1wm_verify_secret_key( $secret_key );
 		} catch ( Ai1wm_Not_Valid_Secret_Key_Exception $e ) {
 			exit;
 		}
 
+		$deleted = array();
+		$failed  = array();
+
 		try {
-			Ai1wm_Backups::delete_file( $archive );
-			Ai1wm_Backups::delete_label( $archive );
+			foreach ( $archives as $archive ) {
+				if ( Ai1wm_Backups::delete_file( $archive ) ) {
+					$deleted[] = $archive;
+				} else {
+					$failed[] = $archive;
+				}
+			}
+
+			Ai1wm_Backups::delete_labels( $deleted );
 		} catch ( Ai1wm_Backups_Exception $e ) {
-			ai1wm_json_response( array( 'errors' => array( $e->getMessage() ) ) );
+			ai1wm_json_response( array( 'deleted' => $deleted, 'errors' => array( $e->getMessage() ) ) );
 			exit;
 		}
 
-		ai1wm_json_response( array( 'errors' => array() ) );
+		$errors = array();
+		if ( $failed ) {
+			$errors[] = sprintf(
+				_n(
+					'%d backup could not be deleted. Please verify the file permissions of your backups folder.',
+					'%d backups could not be deleted. Please verify the file permissions of your backups folder.',
+					count( $failed ),
+					'all-in-one-wp-migration'
+				),
+				count( $failed )
+			);
+		}
+
+		ai1wm_json_response( array( 'deleted' => $deleted, 'errors' => $errors ) );
 		exit;
 	}
 

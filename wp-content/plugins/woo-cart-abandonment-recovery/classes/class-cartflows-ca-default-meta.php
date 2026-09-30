@@ -74,15 +74,22 @@ class Cartflows_Ca_Default_Meta {
 		}
 
 		$defaults = [
-			'override_global_coupon' => false,
-			'discount_type'          => 'percent',
-			'coupon_amount'          => 10,
-			'coupon_expiry_date'     => '',
-			'coupon_expiry_unit'     => 'hours',
-			'use_woo_email_style'    => false,
-			'auto_coupon'            => false,
-			'free_shipping_coupon'   => false,
-			'individual_use_only'    => false,
+			'override_global_coupon'   => false,
+			'discount_type'            => 'percent',
+			'coupon_amount'            => 10,
+			'coupon_expiry_date'       => '',
+			'coupon_expiry_unit'       => 'hours',
+			'use_woo_email_style'      => false,
+			'auto_coupon'              => false,
+			'free_shipping_coupon'     => false,
+			'individual_use_only'      => false,
+			'modify_product_table'     => false,
+			'product_image_size'       => 'medium',
+			'show_prices_with_tax'     => false,
+			'visible_columns'          => 'image,name,quantity,price,subtotal',
+			'admin_email_copy_status'  => false,
+			'admin_email_copy_type'    => 'bcc',
+			'admin_email_copy_address' => '',
 		];
 
 		/**
@@ -293,6 +300,10 @@ class Cartflows_Ca_Default_Meta {
 				'default'  => 'off',
 				'sanitize' => 'FILTER_SANITIZE_STRING',
 			],
+			'wcf_ca_banner_status'                        => [
+				'default'  => 'off',
+				'sanitize' => 'FILTER_SANITIZE_STRING',
+			],
 			'wcar_usage_optin'                            => [
 				'default'  => 'off',
 				'sanitize' => 'FILTER_SANITIZE_STRING',
@@ -441,67 +452,95 @@ class Cartflows_Ca_Default_Meta {
 	 */
 	public function get_email_template_fields() {
 		$fields = [
-			'wcf_email_subject'           => [
+			'wcf_email_subject'            => [
 				'default'  => '',
 				'sanitize' => 'FILTER_SANITIZE_STRING',
 			],
-			'wcf_email_body'              => [
+			'wcf_email_body'               => [
 				'default'  => '',
 				'sanitize' => 'FILTER_SANITIZE_FULL_SPECIAL_CHARS',
 			],
-			'wcf_template_name'           => [
+			'wcf_template_name'            => [
 				'default'  => '',
 				'sanitize' => 'FILTER_SANITIZE_STRING',
 			],
-			'wcf_email_frequency'         => [
+			'wcf_email_frequency'          => [
 				'default'  => 30,
 				'sanitize' => 'FILTER_SANITIZE_NUMBER_INT',
 			],
-			'wcf_email_frequency_unit'    => [
+			'wcf_email_frequency_unit'     => [
 				'default'  => 'MINUTE',
 				'sanitize' => 'FILTER_SANITIZE_STRING',
 			],
-			'wcf_activate_email_template' => [
+			'wcf_activate_email_template'  => [
 				'default'  => 0,
 				'sanitize' => 'FILTER_SANITIZE_NUMBER_INT',
 			],
-			'wcf_discount_type'           => [
+			'wcf_discount_type'            => [
 				'default'  => 'percent',
 				'sanitize' => 'FILTER_SANITIZE_STRING',
 			],
-			'wcf_coupon_amount'           => [
+			'wcf_coupon_amount'            => [
 				'default'  => 10,
 				'sanitize' => 'FILTER_SANITIZE_NUMBER_INT',
 			],
-			'wcf_coupon_expiry_date'      => [
+			'wcf_coupon_expiry_date'       => [
 				'default'  => '',
 				'sanitize' => 'FILTER_SANITIZE_STRING',
 			],
-			'wcf_coupon_expiry_unit'      => [
+			'wcf_coupon_expiry_unit'       => [
 				'default'  => 'hours',
 				'sanitize' => 'FILTER_SANITIZE_STRING',
 			],
-			'wcf_override_global_coupon'  => [
+			'wcf_override_global_coupon'   => [
 				'default'  => '',
 				'sanitize' => 'FILTER_SANITIZE_STRING',
 			],
-			'wcf_auto_coupon'             => [
+			'wcf_auto_coupon'              => [
 				'default'  => '',
 				'sanitize' => 'FILTER_SANITIZE_STRING',
 			],
-			'wcf_free_shipping_coupon'    => [
+			'wcf_free_shipping_coupon'     => [
 				'default'  => '',
 				'sanitize' => 'FILTER_SANITIZE_STRING',
 			],
-			'wcf_individual_use_only'     => [
+			'wcf_individual_use_only'      => [
 				'default'  => '',
 				'sanitize' => 'FILTER_SANITIZE_STRING',
 			],
-			'wcf_use_woo_email_style'     => [
+			'wcf_use_woo_email_style'      => [
 				'default'  => '',
 				'sanitize' => 'FILTER_SANITIZE_STRING',
 			],
-			'id'                          => [
+			'wcf_modify_product_table'     => [
+				'default'  => '',
+				'sanitize' => 'FILTER_SANITIZE_STRING',
+			],
+			'wcf_product_image_size'       => [
+				'default'  => 'medium',
+				'sanitize' => 'FILTER_SANITIZE_STRING',
+			],
+			'wcf_show_prices_with_tax'     => [
+				'default'  => '',
+				'sanitize' => 'FILTER_SANITIZE_STRING',
+			],
+			'wcf_visible_columns'          => [
+				'default'  => 'image,name,quantity,price,subtotal',
+				'sanitize' => 'FILTER_SANITIZE_STRING',
+			],
+			'wcf_admin_email_copy_status'  => [
+				'default'  => '',
+				'sanitize' => 'FILTER_SANITIZE_STRING',
+			],
+			'wcf_admin_email_copy_type'    => [
+				'default'  => 'bcc',
+				'sanitize' => 'FILTER_SANITIZE_STRING',
+			],
+			'wcf_admin_email_copy_address' => [
+				'default'  => '',
+				'sanitize' => 'FILTER_SANITIZE_STRING',
+			],
+			'id'                           => [
 				'default'  => null,
 				'sanitize' => 'FILTER_SANITIZE_NUMBER_INT',
 			],

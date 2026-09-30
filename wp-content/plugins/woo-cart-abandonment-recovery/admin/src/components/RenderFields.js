@@ -12,9 +12,8 @@ import ProductSearchField from '@Components/fields/ProductSearchField';
 import RichTextField from '@Components/fields/RichTextField';
 import TestEmail from '@Components/fields/TestEmail';
 import SubjectField from '@Components/fields/SubjectField';
-import RulesRepeater from '@Components/RuleEngine/RulesRepeater';
+import ConditionalRulesField from '@Components/RuleEngine/ConditionalRulesField';
 import EmailField from '@Components/fields/EmailField';
-import UiSwitch from '@Components/fields/UiSwitch';
 import TestMessage from '@Components/fields/TestMessage';
 import TextareaDropdownField from '@Components/fields/TextareaDropdownField';
 import PasswordField from '@Components/fields/PasswordField';
@@ -96,6 +95,7 @@ const RenderFields = ( {
 					description={ data.desc }
 					name={ data.name }
 					value={ value }
+					placeholder={ data?.placeholder || '' }
 					isPro={ data?.is_pro }
 					proUpgradeMessage={ data?.pro_upgrade_message }
 					{ ...( handleChange && { handleChange } ) }
@@ -254,11 +254,10 @@ const RenderFields = ( {
 			);
 		case 'rule_engine':
 			return (
-				<RulesRepeater
+				<ConditionalRulesField
+					data={ data }
 					value={ value }
-					onChange={ ( rules ) =>
-						handleChange && handleChange( data.name, rules )
-					}
+					handleChange={ handleChange }
 					isPro={ data?.is_pro }
 					proUpgradeMessage={ data?.pro_upgrade_message }
 				/>
@@ -290,14 +289,6 @@ const RenderFields = ( {
 					} ) }
 					{ ...( autoSave !== undefined && { autoSave } ) }
 					{ ...( disableStyle !== undefined && { disableStyle } ) }
-				/>
-			);
-		case 'ui_switch':
-			return (
-				<UiSwitch
-					title={ data.label }
-					description={ data.desc }
-					name={ data.name }
 				/>
 			);
 		case 'test_message':

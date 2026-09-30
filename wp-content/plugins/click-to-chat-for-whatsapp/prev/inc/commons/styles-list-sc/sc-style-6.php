@@ -21,8 +21,9 @@ $s6_circle_height = $s6_circle_height;
 $s6_circle_width = $s6_circle_width;
 $s6_line_height = $s6_line_height;
 
-$input_onhover = "this.style.backgroundColor= '$s6_circle_background_hover_color', this.style.color= '$s6_hover_color'; ";
-$input_onhover_out = "this.style.backgroundColor= '$s6_circle_background_color', this.style.color= '$s6_color'; ";
+// JS-context: esc_js() so values cannot break out of the JS string literal.
+$input_onhover     = "this.style.backgroundColor= '" . esc_js( $s6_circle_background_hover_color ) . "', this.style.color= '" . esc_js( $s6_hover_color ) . "'; ";
+$input_onhover_out = "this.style.backgroundColor= '" . esc_js( $s6_circle_background_color ) . "', this.style.color= '" . esc_js( $s6_color ) . "'; ";
 
 $o .= '<div class="ccw_plugin '.$inline_issue.' ">';
 $o .= '<div style=" background-color: '.$s6_circle_background_color.'; color: '.$s6_color.'; height: '.$s6_circle_height.'; width: '.$s6_circle_width.'; line-height: '.$s6_line_height.';  '.$css.' "  class="btn_only_style_div_circle_sc inline-block pointer ccw-analytics"  onclick="'.$img_click_link.'"    onmouseover= " '.$input_onhover.' "  onmouseout= " '.$input_onhover_out.' " >';

@@ -57,6 +57,10 @@ class Cartflows_Ca_Admin_Notices {
 	 */
 	public function show_admin_notices(): void {
 
+		if ( ! $this->allowed_screen_for_notices() ) {
+			return;
+		}
+
 		$image_path = esc_url( CARTFLOWS_CA_URL . 'admin/assets/images/wcar-icon.png' );
 		$review_url = esc_url( apply_filters( 'woo_ca_plugin_review_url', 'https://wordpress.org/support/plugin/woo-cart-abandonment-recovery/reviews/?filter=5#new-post' ) );
 
@@ -258,7 +262,7 @@ class Cartflows_Ca_Admin_Notices {
                         </div>',
 					$image_path,
 					__( 'Legacy UI Deprecation', 'woo-cart-abandonment-recovery' ),
-					__( 'We’re retiring the Legacy UI of Cart Abandonment Recovery to improve performance, ensure better WooCommerce compatibility, and support upcoming features. Please switch to the new UI to maintain uninterrupted cart recovery.', 'woo-cart-abandonment-recovery' ),
+					__( 'The Legacy UI will no longer be available in a future release of Cart Abandonment Recovery. To ensure uninterrupted cart recovery and access to upcoming features, please switch to the new UI.', 'woo-cart-abandonment-recovery' ),
 					$ajax_nonce,
 					__( 'Switch to New UI', 'woo-cart-abandonment-recovery' )
 				),

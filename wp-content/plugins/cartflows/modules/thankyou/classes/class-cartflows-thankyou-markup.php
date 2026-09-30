@@ -166,8 +166,10 @@ class Cartflows_Thankyou_Markup {
 			return;
 		}
 
-		$is_admin = is_user_logged_in() && current_user_can( 'cartflows_manage_flows_steps' );
-		if ( _is_wcf_thankyou_type() && ! $is_admin && ! apply_filters( 'cartflows_thankyou_direct_access', false, $thank_you_id ) ) {
+		$flow_id      = wcf()->utils->get_flow_id();
+		$is_test_mode = wcf()->flow->is_flow_testmode( $flow_id );
+		$is_admin     = is_user_logged_in() && current_user_can( 'cartflows_manage_flows_steps' );
+		if ( _is_wcf_thankyou_type() && ! $is_admin && ! $is_test_mode && ! apply_filters( 'cartflows_thankyou_direct_access', false, $thank_you_id ) ) {
 			//phpcs:disable WordPress.Security.NonceVerification.Recommended
 			if ( isset( $_GET['wcf-key'] ) && isset( $_GET['wcf-order'] ) ) {
 

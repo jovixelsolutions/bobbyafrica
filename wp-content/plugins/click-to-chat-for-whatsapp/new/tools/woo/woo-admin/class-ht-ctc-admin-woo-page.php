@@ -137,11 +137,15 @@ if ( ! class_exists( 'HT_CTC_Admin_Woo_Page' ) ) {
 			/**
 			 * Single product page..
 			 */
+
 			// pre filled
-			$woo_pre_filled = ( isset( $woo_options['woo_pre_filled'] ) ) ? esc_attr( $woo_options['woo_pre_filled'] ) : '';
+			$woo_pre_filled = ( isset( $woo_options['woo_pre_filled'] ) ) ? $woo_options['woo_pre_filled'] : '';
+			$woo_pre_filled = html_entity_decode( (string) $woo_pre_filled, ENT_QUOTES, 'UTF-8' );
+			// $woo_pre_filled = html_entity_decode( $woo_pre_filled, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+
 			$pf_placeholder = "Hello {site} \nLike to buy {product}, {url}";
 			// call to action
-			$woo_call_to_action     = ( isset( $woo_options['woo_call_to_action'] ) ) ? esc_attr( $woo_options['woo_call_to_action'] ) : '';
+			$woo_call_to_action     = ( isset( $woo_options['woo_call_to_action'] ) ) ? $woo_options['woo_call_to_action'] : '';
 			$ctc_placeholder        = 'Buy {product}';
 			$single_ctc_placeholder = 'WhatsApp Order';
 
@@ -177,9 +181,13 @@ if ( ! class_exists( 'HT_CTC_Admin_Woo_Page' ) ) {
 			/**
 			 * Woo - shop page
 			 */
-			$woo_shop_style           = ( isset( $woo_options['woo_shop_style'] ) ) ? esc_attr( $woo_options['woo_shop_style'] ) : '1';
-			$woo_shop_pre_filled      = ( isset( $woo_options['woo_shop_pre_filled'] ) ) ? esc_attr( $woo_options['woo_shop_pre_filled'] ) : '';
-			$woo_shop_call_to_action  = ( isset( $woo_options['woo_shop_call_to_action'] ) ) ? esc_attr( $woo_options['woo_shop_call_to_action'] ) : '';
+			$woo_shop_style = ( isset( $woo_options['woo_shop_style'] ) ) ? esc_attr( $woo_options['woo_shop_style'] ) : '1';
+
+			$woo_shop_pre_filled = ( isset( $woo_options['woo_shop_pre_filled'] ) ) ? $woo_options['woo_shop_pre_filled'] : '';
+			$woo_shop_pre_filled = html_entity_decode( (string) $woo_shop_pre_filled, ENT_QUOTES, 'UTF-8' );
+			// $woo_shop_pre_filled      = html_entity_decode( $woo_shop_pre_filled, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+
+			$woo_shop_call_to_action  = ( isset( $woo_options['woo_shop_call_to_action'] ) ) ? $woo_options['woo_shop_call_to_action'] : '';
 			$woo_shop_layout_cart_btn = ( isset( $woo_options['woo_shop_layout_cart_btn'] ) ) ? esc_attr( $woo_options['woo_shop_layout_cart_btn'] ) : '';
 			$woo_shop_add_whatsapp    = ( isset( $woo_options['woo_shop_add_whatsapp'] ) ) ? esc_attr( $woo_options['woo_shop_add_whatsapp'] ) : '';
 
@@ -320,7 +328,6 @@ if ( ! class_exists( 'HT_CTC_Admin_Woo_Page' ) ) {
 							<p><?php esc_html_e( 'Select Style', 'click-to-chat-for-whatsapp' ); ?></p>
 						</div>
 						<div class="input-field col s6">
-							<!-- Todo: test might be string.. where using ===. -->
 							<select name="<?php echo esc_attr( $dbrow ); ?>[woo_style]" class="woo_single_style_select">
 									<option value="1" <?php echo ( '1' === $woo_style ) ? 'SELECTED' : ''; ?> ><?php esc_html_e( 'Style-1', 'click-to-chat-for-whatsapp' ); ?></option>
 									<option value="2" <?php echo ( '2' === $woo_style ) ? 'SELECTED' : ''; ?> ><?php esc_html_e( 'Style-2', 'click-to-chat-for-whatsapp' ); ?></option>

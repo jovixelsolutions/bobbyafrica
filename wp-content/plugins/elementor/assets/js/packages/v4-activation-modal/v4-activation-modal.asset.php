@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 return [
 	'handle' => 'elementor-v2-v4-activation-modal',
 	'deps' => [
-		'elementor-v2-icons',
+		'elementor-v2-editor-modal-shell',
 		'elementor-v2-ui',
 		'react',
 		'react-dom',

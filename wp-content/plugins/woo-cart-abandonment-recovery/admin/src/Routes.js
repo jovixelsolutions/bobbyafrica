@@ -13,7 +13,6 @@ import FollowUpTemplates from '@Admin/pages/FollowUpTemplates';
 import Integrations from '@Admin/pages/Integrations';
 import OnboardingLayout from '@Components/onboarding/OnboardingLayout';
 import ProUpgradeHeaderBanner from '@Components/pro/ProUpgradeHeaderBanner';
-import LegacyUiNotice from '@Components/common/LegacyUiNotice';
 // import Ottokit from '@Admin/components/integrations/Ottokit';
 
 const Routes = () => {
@@ -70,7 +69,6 @@ const Routes = () => {
 		>
 			{ currentPath !== 'onboarding' && (
 				<>
-					<LegacyUiNotice />
 					<ProUpgradeHeaderBanner />
 					<Header />
 				</>
@@ -89,4 +87,3 @@ const Routes = () => {
 };
 
 export default Routes;
-

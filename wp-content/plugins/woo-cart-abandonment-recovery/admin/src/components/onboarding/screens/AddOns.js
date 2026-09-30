@@ -1,40 +1,61 @@
-import { Container, Checkbox, Label } from '@bsf/force-ui';
+import { Container, Checkbox, Label, Badge } from '@bsf/force-ui';
 import { __ } from '@wordpress/i18n';
 
 import { useOnboardingContext } from '../OnboardingContext';
 import Heading from '@Components/onboarding/Heading';
 import NavigationButtons from '@Components/onboarding/NavigationButtons';
 
-const PluginCard = ( { plugin } ) => (
-	<div className="p-2 gap-1 items-center bg-background-primary rounded-md shadow-soft-shadow-inner">
-		<Container
-			align="start"
-			className="gap-1 p-1"
-			containerType="flex"
-			justify="between"
-		>
-			<Container.Item className="flex items-start gap-[12px]">
-				<img width={ 24 } src={ plugin?.logo } alt={ plugin?.title } />
+const PluginCard = ( { plugin } ) => {
+	const isActive = 'active' === plugin?.status;
 
-				<div className="flex flex-col gap-[2px]">
-					<Label className="text-sm font-semibold">
-						{ plugin?.title }
-					</Label>
-					<Label className="text-sm" variant="help">
-						{ plugin?.desc }
-					</Label>
-				</div>
-			</Container.Item>
-			<Container.Item className="flex">
-				<Checkbox
-					size="sm"
-					checked={ plugin?.checked }
-					onChange={ plugin?.onChange }
-				/>
-			</Container.Item>
-		</Container>
-	</div>
-);
+	return (
+		<div className="p-2 gap-1 items-center bg-background-primary rounded-md shadow-soft-shadow-inner">
+			<Container
+				align="start"
+				className="gap-1 p-1"
+				containerType="flex"
+				justify="between"
+			>
+				<Container.Item className="flex items-start gap-[12px]">
+					<img
+						width={ 24 }
+						src={ plugin?.logo }
+						alt={ plugin?.title }
+					/>
+
+					<div className="flex flex-col gap-[2px]">
+						<Label className="text-sm font-semibold">
+							{ plugin?.title }
+						</Label>
+						<Label className="text-sm" variant="help">
+							{ plugin?.desc }
+						</Label>
+					</div>
+				</Container.Item>
+				<Container.Item className="flex items-center">
+					{ isActive ? (
+						<Badge
+							label={ __(
+								'Installed',
+								'woo-cart-abandonment-recovery'
+							) }
+							size="xs"
+							type="rounded"
+							variant="green"
+							disableHover
+						/>
+					) : (
+						<Checkbox
+							size="sm"
+							checked={ plugin?.checked }
+							onChange={ plugin?.onChange }
+						/>
+					) }
+				</Container.Item>
+			</Container>
+		</div>
+	);
+};
 
 const AddOns = () => {
 	const addonsPlugins = cart_abandonment_admin.extend_plugins;

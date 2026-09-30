@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$s_99_options = get_option( 'ht_ctc_s99' );
+$s_99_options = HT_CTC_Utils::get_option( 'ht_ctc_s99' );
 $s_99_options = apply_filters( 'ht_ctc_fh_s99_options', $s_99_options );
 
 // Ensure options are set or use fallback values

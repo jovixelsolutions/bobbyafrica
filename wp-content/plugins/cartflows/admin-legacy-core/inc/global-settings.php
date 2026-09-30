@@ -70,7 +70,7 @@ class GlobalSettings {
 						'name'    => '_cartflows_common[default_page_builder]',
 						'label'   => __( 'Show Ready Templates for', 'cartflows' ),
 						/* translators: %1$1s: link html start, %2$12: link html end*/
-						'desc'    => sprintf( __( 'Please choose your preferred page builder from the list so you will only see templates that are made using that page builder. %1$sLearn More >>%2$s', 'cartflows' ), '<a href="https://cartflows.com/docs/import-cartflows-templates-for-flows-steps/?utm_source=dashboard&utm_medium=free-cartflows&utm_campaign=docs" target="_blank">', '</a>' ),
+						'desc'    => sprintf( __( 'Please choose your preferred page builder from the list so you will only see templates that are made using that page builder. %1$sLearn More >>%2$s', 'cartflows' ), '<a href="' . esc_url( \Cartflows_Helper::get_kb_doc_link( 'https://cartflows.com/docs/import-cartflows-templates-for-flows-steps/' ) ) . '" target="_blank">', '</a>' ),
 						'options' => array(
 							array(
 								'value' => 'gutenberg',
@@ -109,7 +109,7 @@ class GlobalSettings {
 						'name'     => '_cartflows_common[override_global_checkout]',
 						'label'    => __( 'Override Store Checkout', 'cartflows' ),
 						/* translators: %1$1s: link html start, %2$12: link html end*/
-						'desc'     => sprintf( __( 'For more information about the Store Checkout settings please %1$sclick here%2$s.', 'cartflows' ), '<a href="https://cartflows.com/docs/store-checkout/?utm_source=dashboard&utm_medium=free-cartflows&utm_campaign=docs" target="_blank">', '</a>' ),
+						'desc'     => sprintf( __( 'For more information about the Store Checkout settings please %1$sclick here%2$s.', 'cartflows' ), '<a href="' . esc_url( \Cartflows_Helper::get_kb_doc_link( 'https://cartflows.com/docs/store-checkout/' ) ) . '" target="_blank">', '</a>' ),
 					),
 					'override_store_order_pay'  => array(
 						'type'       => 'toggle',
@@ -371,7 +371,7 @@ class GlobalSettings {
 						'label'      => '',
 						'name'       => 'pixel-not-work-doc',
 						/* translators: %1$1s: link html start, %2$12: link html end*/
-						'content'    => sprintf( __( 'Facebook Pixel not working correctly? %1$1s Click here %2$2s to know more.', 'cartflows' ), '<a href="https://cartflows.com/docs/facebook-pixel-support/?utm_source=dashboard&utm_medium=free-cartflows&utm_campaign=docs" target="_blank">', '</a>' ),
+						'content'    => sprintf( __( 'Facebook Pixel not working correctly? %1$1s Click here %2$2s to know more.', 'cartflows' ), '<a href="' . esc_url( \Cartflows_Helper::get_kb_doc_link( 'https://cartflows.com/docs/facebook-pixel-support/' ) ) . '" target="_blank">', '</a>' ),
 						'conditions' => array(
 							'fields' => array(
 								array(
@@ -561,7 +561,7 @@ class GlobalSettings {
 						'label'      => '',
 						'name'       => 'ga-not-work-doc',
 						/* translators: %1$1s: link html start, %2$12: link html end*/
-						'content'    => sprintf( __( 'Google Analytics not working correctly? %1$1s Click here %2$2s to know more.', 'cartflows' ), '<a href="https://cartflows.com/docs/troubleshooting-google-analytics-tracking-issues/?utm_source=dashboard&utm_medium=free-cartflows&utm_campaign=docs" target="_blank">', '</a>' ),
+						'content'    => sprintf( __( 'Google Analytics not working correctly? %1$1s Click here %2$2s to know more.', 'cartflows' ), '<a href="' . esc_url( \Cartflows_Helper::get_kb_doc_link( 'https://cartflows.com/docs/troubleshooting-google-analytics-tracking-issues/' ) ) . '" target="_blank">', '</a>' ),
 						'conditions' => array(
 							'fields' => array(
 								array(
@@ -586,7 +586,7 @@ class GlobalSettings {
 						'afterIcon' => 'dashicons dashicons-hidden',
 						'iconclick' => 'show_field_value',
 						/* translators: %1$1s: link html start, %2$12: link html end*/
-						'desc'      => sprintf( __( 'Check this %1$1s article %2$2s to setup and find an API key.', 'cartflows' ), '<a href="https://cartflows.com/docs/enabling-google-address-autocompletes/?utm_source=dashboard&utm_medium=free-cartflows&utm_campaign=docs" target="_blank">', '</a>' ),
+						'desc'      => sprintf( __( 'Check this %1$1s article %2$2s to setup and find an API key.', 'cartflows' ), '<a href="' . esc_url( \Cartflows_Helper::get_kb_doc_link( 'https://cartflows.com/docs/enabling-google-address-autocompletes/' ) ) . '" target="_blank">', '</a>' ),
 					),
 				),
 			),
@@ -1430,7 +1430,21 @@ class GlobalSettings {
 						'name'  => 'cf_usage_optin',
 						'label' => __( 'Help Us Improve Your Experience', 'cartflows' ),
 						/* translators: %1$1s: link html start, %2$12: link html end*/
-						'desc'  => sprintf( __( 'Collect non-sensitive information from your website, such as the PHP version and features used, to help us fix bugs faster, make smarter decisions, and build features that actually matter to you. %1$1s Learn More%2$2s.', 'cartflows' ), '<a href="https://my.cartflows.com/usage-tracking/?utm_source=dashboard&utm_medium=free-cartflows&utm_campaign=docs" target="_blank">', '</a>' ),
+						'desc'  => sprintf( __( 'Collect non-sensitive information from your website, such as the PHP version and features used, to help us fix bugs faster, make smarter decisions, and build features that actually matter to you. %1$1s Learn More%2$2s.', 'cartflows' ), '<a href="' . esc_url( \Cartflows_Helper::get_kb_doc_link( 'https://my.cartflows.com/usage-tracking/' ) ) . '" target="_blank">', '</a>' ),
+					),
+					'switch-to-new-ui-separator'   => array(
+						'type' => 'separator',
+					),
+					'switch-to-new-ui'             => array(
+						'type'     => 'toggle',
+						'name'     => 'cartflows-switch-to-new-ui',
+						'label'    => __( 'Switch to New UI', 'cartflows' ),
+						'backComp' => true,
+						'notice'   => array(
+							'type'    => 'confirm',
+							'message' => __( 'Switch to the new CartFlows admin? The page will reload into the new dashboard. You can return to the legacy UI anytime from the new UI’s Advanced settings.', 'cartflows' ),
+						),
+						'desc'     => __( 'Try the redesigned CartFlows admin — faster, cleaner, and easier to navigate. Save settings to apply — the dashboard will reload in the new UI.', 'cartflows' ),
 					),
 					'delete-data-separator'        => array(
 						'type' => 'separator',
@@ -1446,7 +1460,7 @@ class GlobalSettings {
 							'message' => __( 'Are you sure? Do you want to delete plugin data while deleting the plugin? Type "DELETE" to confirm!', 'cartflows' ),
 						),
 						/* translators: %1$1s: link html start, %2$12: link html end*/
-						'desc'     => sprintf( __( 'This option will delete all the CartFlows options data on plugin deletion. If you enable this and deletes the plugin, you can\'t restore your saved data. To learn more, %1$1s Click here %2$2s.', 'cartflows' ), '<a href="https://cartflows.com/docs/delete-plugin-data-while-uninstalling-plugin/?utm_source=dashboard&utm_medium=free-cartflows&utm_campaign=docs" target="_blank">', '</a>' ),
+						'desc'     => sprintf( __( 'This option will delete all the CartFlows options data on plugin deletion. If you enable this and deletes the plugin, you can\'t restore your saved data. To learn more, %1$1s Click here %2$2s.', 'cartflows' ), '<a href="' . esc_url( \Cartflows_Helper::get_kb_doc_link( 'https://cartflows.com/docs/delete-plugin-data-while-uninstalling-plugin/' ) ) . '" target="_blank">', '</a>' ),
 					),
 				),
 			),

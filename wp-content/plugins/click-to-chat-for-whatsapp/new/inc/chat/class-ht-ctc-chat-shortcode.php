@@ -39,8 +39,8 @@ if ( ! class_exists( 'HT_CTC_Chat_Shortcode' ) ) {
 		 */
 		public function shortcode( $atts = array(), $content = null, $shortcode = '' ) {
 
-			$options     = get_option( 'ht_ctc_chat_options' );
-			$woo_options = get_option( 'ht_ctc_woo_options' );
+			$options     = HT_CTC_Utils::get_option( 'ht_ctc_chat_options' );
+			$woo_options = HT_CTC_Utils::get_option( 'ht_ctc_woo_options' );
 			$ht_ctc_os   = array();
 
 			$call_to_action = esc_attr( $options['call_to_action'] );
@@ -101,6 +101,8 @@ if ( ! class_exists( 'HT_CTC_Chat_Shortcode' ) ) {
 
 			$a = shortcode_atts(
 				array(
+					// If the shortcode doesn't explicitly define a number, the frontend JS app.dev.js
+					// will automatically fall back to the global number (ctc.number) defined in settings.
 					'number'           => '',
 					'call_to_action'   => $call_to_action,
 					'pre_filled'       => $pre_filled,
@@ -247,7 +249,7 @@ if ( ! class_exists( 'HT_CTC_Chat_Shortcode' ) ) {
 			$sc_path = plugin_dir_path( HT_CTC_PLUGIN_FILE ) . 'new/inc/styles-shortcode/sc-style-' . $style . '.php';
 
 			if ( is_file( $sc_path ) ) {
-				$o .= '<div ' . $data_number . ' data-pre_filled="' . $pre_filled . '" data-style="' . $style . '" style="display: inline; cursor: pointer; z-index: 99999999; ' . $css . '" class="' . $class_names . ' ht-ctc-inline">';
+				$o .= '<div ' . $data_number . ' data-pre_filled="' . esc_attr( $pre_filled ) . '" data-style="' . $style . '" style="display: inline; cursor: pointer; z-index: 99999999; ' . $css . '" class="' . $class_names . ' ht-ctc-inline">';
 				include $sc_path;
 				$o .= '</div>';
 			}

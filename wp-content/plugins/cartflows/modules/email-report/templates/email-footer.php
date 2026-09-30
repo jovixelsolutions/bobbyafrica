@@ -1,84 +1,76 @@
 <?php
 /**
- * Template Name: Email Footer
+ * Template Name: Email Footer — social icons + auto-generated note + unsubscribe.
+ * Rendered outside the white card.
+ *
+ * Expected variables (passed from Cartflows_Admin_Report_Emails::get_email_content()):
+ * - $facebook_icon    (string) Absolute URL of the Facebook icon image.
+ * - $twitter_icon     (string) Absolute URL of the Twitter icon image.
+ * - $youtube_icon     (string) Absolute URL of the YouTube icon image.
+ * - $store_name       (string) Store name pulled from get_bloginfo( 'name' ).
+ * - $unsubscribe_link (string) Unsubscribe URL with HMAC token.
  *
  * @package CartFlows
  */
 
-// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-?>
 
-<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-7" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
-	<tbody>
-		<tr>
-			<td>
-				<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 600px;" width="600">
-					<tbody>
-						<tr>
-							<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 5px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
-								<table border="0" cellpadding="20" cellspacing="0" class="social_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
-									<tr>
-										<td>
-											<table align="center" border="0" cellpadding="0" cellspacing="0" class="social-table" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="138px">
-												<tr>
-													<td style="padding:0 7px 0 7px;"><a href="https://www.facebook.com/groups/cartflows/" target="_blank"><img alt="Facebook" height="32" src="<?php echo esc_url( $facebook_icon ); ?>" style="display: block; height: auto; border: 0;" title="facebook" width="32" /></a>
-													</td>
-													<td style="padding:0 7px 0 7px;"><a href="https://twitter.com/cartflows" target="_blank"><img alt="Twitter" height="32" src="<?php echo esc_url( $twitter_icon ); ?>" style="display: block; height: auto; border: 0;" title="twitter" width="32" /></a>
-													</td>
-													<td style="padding:0 7px 0 7px;"><a href="https://www.youtube.com/channel/UCEdXT5pEI_Vbd5te5v7sOpQ" target="_blank"><img alt="YouTube" height="32" src="<?php echo esc_url( $youtube_icon ); ?>" style="display: block; height: auto; border: 0;" title="YouTube" width="32" /></a>
-													</td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</td>
-		</tr>
-	</tbody>
+// Defensive defaults so the template renders without notices if a variable is missing.
+$facebook_icon    = isset( $facebook_icon ) ? $facebook_icon : '';
+$twitter_icon     = isset( $twitter_icon ) ? $twitter_icon : '';
+$youtube_icon     = isset( $youtube_icon ) ? $youtube_icon : '';
+$store_name       = isset( $store_name ) ? $store_name : '';
+$unsubscribe_link = isset( $unsubscribe_link ) ? $unsubscribe_link : '';
+?>
+<table role="presentation" class="container" align="center" border="0" cellpadding="0" cellspacing="0" width="640" style="max-width:640px;">
+
+	<!-- Social icons -->
+	<tr>
+		<td align="center" style="padding:24px 24px 0 24px;">
+			<table role="presentation" border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td style="padding:0 8px;">
+						<a href="<?php echo esc_url( 'https://www.facebook.com/groups/cartflows/' ); ?>" target="_blank">
+							<img alt="<?php echo esc_attr__( 'Facebook', 'cartflows' ); ?>" src="<?php echo esc_url( $facebook_icon ); ?>" width="22" height="22" style="display:block; border:0;" />
+						</a>
+					</td>
+					<td style="padding:0 8px;">
+						<a href="<?php echo esc_url( 'https://twitter.com/cartflows' ); ?>" target="_blank">
+							<img alt="<?php echo esc_attr__( 'Twitter', 'cartflows' ); ?>" src="<?php echo esc_url( $twitter_icon ); ?>" width="22" height="22" style="display:block; border:0;" />
+						</a>
+					</td>
+					<td style="padding:0 8px;">
+						<a href="<?php echo esc_url( 'https://www.youtube.com/channel/UCEdXT5pEI_Vbd5te5v7sOpQ' ); ?>" target="_blank">
+							<img alt="<?php echo esc_attr__( 'YouTube', 'cartflows' ); ?>" src="<?php echo esc_url( $youtube_icon ); ?>" width="22" height="22" style="display:block; border:0;" />
+						</a>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+
+	<!-- Footer auto-generated text -->
+	<tr>
+		<td align="center" class="modern-sans" style="padding:18px 24px 8px 24px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif; font-size:12px; color:#94a3b8; line-height:1.7;">
+			<?php
+			echo sprintf(
+				/* translators: %s: store name with link to home URL. */
+				wp_kses_post( __( 'This email was auto-generated and sent from %s.', 'cartflows' ) ),
+				'<a href="' . esc_url( home_url() ) . '" target="_blank" style="color:#94a3b8; text-decoration:underline;">' . esc_html( $store_name ) . '</a>'
+			);
+			?>
+		</td>
+	</tr>
+
+	<!-- Unsubscribe -->
+	<tr>
+		<td align="center" class="modern-sans" style="padding:0 24px 24px 24px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif; font-size:12px; color:#94a3b8; line-height:1.7;">
+			<a href="<?php echo esc_url( $unsubscribe_link ); ?>" target="_blank" rel="noopener" style="color:#94a3b8; text-decoration:underline;">
+				<?php echo esc_html__( 'Unsubscribe', 'cartflows' ); ?>
+			</a>
+		</td>
+	</tr>
+
 </table>
-<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-8" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
-	<tbody>
-		<tr>
-			<td>
-				<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 600px;" width="600">
-					<tbody>
-						<tr>
-							<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 5px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
-								<table border="0" cellpadding="10" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
-									<tr>
-										<td>
-											<div style="font-family: sans-serif">
-												<div style="font-size: 14px; mso-line-height-alt: 16.8px; color: #393d47; line-height: 1.2; font-family: Arial, Helvetica Neue, Helvetica, sans-serif;">
-													<p style="margin: 0; text-align: center;">
-													<?php
-														echo wp_kses_post(
-															sprintf( /* translators: %1$s - link to a site; */
-																__( 'This email was auto-generated and sent from %1$s.', 'cartflows' ),
-																'<a href="' . esc_url( home_url() ) . '" style="text-decoration:none;" >' . esc_html( wp_specialchars_decode( get_bloginfo( 'name' ) ) ) . '</a>'
-															)
-														);
-														?>
-													</p>
-													<p style="margin: 0; text-align: center; mso-line-height-alt: 16.8px;">&nbsp;</p>
-													<p style="margin: 0; text-align: center;"><a href="<?php echo esc_url( $unsubscribe_link ); ?>" rel="noopener" style="color: #8a3b8f;" target="_blank"><?php echo esc_html__( 'Unsubscribe', 'cartflows' ); ?></a></p>
-												</div>
-											</div>
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</td>
-		</tr>
-	</tbody>
-</table>
-<?php

@@ -1,0 +1,186 @@
+/* ==========================================================================
+   REPEATER FIELDS
+   ========================================================================== */
+.repeater-field {
+    /* border: 1px solid var(--border);
+    padding: 15px;
+    border-radius: var(--radius-md);
+    margin: 10px 0;
+    background-color: var(--surface); */
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    border-radius: var(--radius);
+    margin: 10px 0;
+    background-color: var(--bg-card);
+}
+
+.repeater-field label {
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.repeater-field .help-text {
+    margin-top: 10px;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.repeater-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background: var(--bg);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+}
+
+.repeater-item .form-group {
+    margin: 0;
+    flex: 1;
+}
+
+.repeater-template {
+    display: none;
+}
+
+/* Add Item Button */
+.add-item {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.add-item:hover {
+    background: var(--primary-hover);
+}
+
+.add-item:focus,
+.add-item:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.add-item:before {
+    content: "+";
+    font-weight: bold;
+}
+
+/* Remove Item Button */
+.remove-item {
+    background: var(--error);
+    color: white;
+    border: none;
+    padding: 5px 8px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    transition: var(--transition);
+    min-width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.remove-item:hover {
+    background: #dc2626;
+}
+
+.remove-item:focus,
+.remove-item:focus-visible {
+    outline: 2px solid var(--error);
+    outline-offset: 2px;
+}
+
+.ctc-remove-button {
+    color: #d63638;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    /* Ensure a 24x24 minimum tap target (WCAG 2.5.8) while keeping the icon
+       visually centered at its original size. */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    min-height: 24px;
+}
+
+.ctc-remove-button:hover {
+    transform: scale(1.1);
+}
+
+/* CTC Repeater Add Button */
+.ctc-repeater-add-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    background-color: transparent;
+    border: 2px dashed var(--border-color, #ccc);
+    color: var(--text-secondary);
+    border-radius: var(--radius, 8px);
+    padding: 1rem 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    width: 100%;
+    opacity: 0.8;
+}
+
+.ctc-repeater-add-btn:hover {
+    background-color: hsla(var(--p-h), var(--p-s), var(--p-l), 0.06);
+    border-color: var(--primary);
+    border-style: solid;
+    color: var(--primary-readable);
+    opacity: 1;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.05);
+}
+
+.ctc-repeater-add-btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.ctc-repeater-add-btn:focus,
+.ctc-repeater-add-btn:focus-visible {
+    background-color: hsla(var(--p-h), var(--p-s), var(--p-l), 0.06);
+    border-color: var(--primary);
+    border-style: solid;
+    color: var(--primary-readable);
+    opacity: 1;
+    outline: none;
+    box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+.ctc-repeater-add-btn .dashicons {
+    font-size: 1.25rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: currentColor;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ctc-repeater-add-btn:hover .dashicons,
+.ctc-repeater-add-btn:focus .dashicons {
+    transform: scale(1.1);
+}

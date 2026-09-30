@@ -132,7 +132,15 @@ $billing_email = $order->get_billing_email();
 				</div>
 			</div>
 
-			<?php do_action( 'woocommerce_receipt_' . $order->get_payment_method(), $order->get_id() ); ?>
+			<?php
+				// Only fire the receipt action if the order still requires payment.
+				// Gateways like Razorpay hook woocommerce_receipt_{method} to open
+				// their payment popup; firing this on an already-paid thank-you page
+				// causes "Something went wrong" because the order is no longer payable.
+			if ( $order->needs_payment() ) {
+				do_action( 'woocommerce_receipt_' . $order->get_payment_method(), $order->get_id() );
+			}
+			?>
 		</div>
 
 		<?php if ( $show_downloads ) : ?>

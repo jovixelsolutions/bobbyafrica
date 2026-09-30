@@ -90,9 +90,9 @@ if ( ! class_exists( 'HT_CTC_Admin_Customize_Styles' ) ) {
 		 */
 		public function settings() {
 
-			$ht_ctc_othersettings = get_option( 'ht_ctc_othersettings' );
-			$ht_ctc_chat          = get_option( 'ht_ctc_chat_options' );
-			$ht_ctc_cs            = get_option( 'ht_ctc_cs_options' );
+			$ht_ctc_othersettings = HT_CTC_Utils::get_option( 'ht_ctc_othersettings' );
+			$ht_ctc_chat          = HT_CTC_Utils::get_option( 'ht_ctc_chat_options' );
+			$ht_ctc_cs            = HT_CTC_Utils::get_option( 'ht_ctc_cs_options' );
 
 			// @uses for register_setting, add_settings_field
 			$styles_list = array(
@@ -223,7 +223,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Customize_Styles' ) ) {
 		 */
 		public function ht_ctc_cs_cb() {
 
-			$options = get_option( 'ht_ctc_cs_options' );
+			$options = HT_CTC_Utils::get_option( 'ht_ctc_cs_options' );
 			$dbrow   = 'ht_ctc_cs_options';
 
 			// increase count to update row each time when save changes, to use at clear cache..
@@ -260,7 +260,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Customize_Styles' ) ) {
 		 */
 		public function ht_ctc_s1_cb() {
 
-			$options = get_option( 'ht_ctc_s1' );
+			$options = HT_CTC_Utils::get_option( 'ht_ctc_s1' );
 			$dbrow   = 'ht_ctc_s1';
 
 			$s1_text_color = ( isset( $options['s1_text_color'] ) ) ? esc_attr( $options['s1_text_color'] ) : '';
@@ -376,7 +376,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Customize_Styles' ) ) {
 		 */
 		public function ht_ctc_s2_cb() {
 
-			$options     = get_option( 'ht_ctc_s2' );
+			$options     = HT_CTC_Utils::get_option( 'ht_ctc_s2' );
 			$dbrow       = 'ht_ctc_s2';
 			$style       = 's2';
 			$s2_img_size = ( isset( $options['s2_img_size'] ) ) ? esc_attr( $options['s2_img_size'] ) : '';
@@ -480,7 +480,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Customize_Styles' ) ) {
 		 */
 		public function ht_ctc_s3_cb() {
 
-			$options = get_option( 'ht_ctc_s3' );
+			$options = HT_CTC_Utils::get_option( 'ht_ctc_s3' );
 			$dbrow   = 'ht_ctc_s3';
 			$style   = 's3';
 
@@ -586,7 +586,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Customize_Styles' ) ) {
 		 */
 		public function ht_ctc_s3_1_cb() {
 
-			$options        = get_option( 'ht_ctc_s3_1' );
+			$options        = HT_CTC_Utils::get_option( 'ht_ctc_s3_1' );
 			$dbrow          = 'ht_ctc_s3_1';
 			$style          = 's3';
 			$select_s3_type = ( isset( $options['s3_type'] ) ) ? esc_attr( $options['s3_type'] ) : '1';
@@ -786,7 +786,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Customize_Styles' ) ) {
 		 */
 		public function ht_ctc_s4_cb() {
 
-			$options                = get_option( 'ht_ctc_s4' );
+			$options                = HT_CTC_Utils::get_option( 'ht_ctc_s4' );
 			$s4_text_color          = ( isset( $options['s4_text_color'] ) ) ? esc_attr( $options['s4_text_color'] ) : '';
 			$s4_bg_color            = ( isset( $options['s4_bg_color'] ) ) ? esc_attr( $options['s4_bg_color'] ) : '';
 			$s4_img_url             = ( isset( $options['s4_img_url'] ) ) ? esc_attr( $options['s4_img_url'] ) : '';
@@ -872,7 +872,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Customize_Styles' ) ) {
 		 */
 		public function ht_ctc_s5_cb() {
 
-			$options                = get_option( 'ht_ctc_s5' );
+			$options                = HT_CTC_Utils::get_option( 'ht_ctc_s5' );
 			$s5_line_1              = ( isset( $options['s5_line_1'] ) ) ? esc_attr( $options['s5_line_1'] ) : '';
 			$s5_line_2              = ( isset( $options['s5_line_2'] ) ) ? esc_attr( $options['s5_line_2'] ) : '';
 			$s5_line_1_color        = ( isset( $options['s5_line_1_color'] ) ) ? esc_attr( $options['s5_line_1_color'] ) : '';
@@ -1045,7 +1045,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Customize_Styles' ) ) {
 		 */
 		public function ht_ctc_s6_cb() {
 
-			$options                     = get_option( 'ht_ctc_s6' );
+			$options                     = HT_CTC_Utils::get_option( 'ht_ctc_s6' );
 			$s6_txt_color                = ( isset( $options['s6_txt_color'] ) ) ? esc_attr( $options['s6_txt_color'] ) : '';
 			$s6_txt_color_on_hover       = ( isset( $options['s6_txt_color_on_hover'] ) ) ? esc_attr( $options['s6_txt_color_on_hover'] ) : '';
 			$text_decoration_value       = ( isset( $options['s6_txt_decoration'] ) ) ? esc_attr( $options['s6_txt_decoration'] ) : '';
@@ -1125,7 +1125,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Customize_Styles' ) ) {
 		 */
 		public function ht_ctc_s7_cb() {
 
-			$options = get_option( 'ht_ctc_s7' );
+			$options = HT_CTC_Utils::get_option( 'ht_ctc_s7' );
 			$dbrow   = 'ht_ctc_s7';
 			$style   = 's7';
 
@@ -1294,7 +1294,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Customize_Styles' ) ) {
 		 */
 		public function ht_ctc_s7_1_cb() {
 
-			$options = get_option( 'ht_ctc_s7_1' );
+			$options = HT_CTC_Utils::get_option( 'ht_ctc_s7_1' );
 			$dbrow   = 'ht_ctc_s7_1';
 			$style   = 's7';
 
@@ -1421,7 +1421,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Customize_Styles' ) ) {
 		 */
 		public function ht_ctc_s8_cb() {
 
-			$options = get_option( 'ht_ctc_s8' );
+			$options = HT_CTC_Utils::get_option( 'ht_ctc_s8' );
 			$dbrow   = 'ht_ctc_s8';
 
 			$s8_txt_color            = ( isset( $options['s8_txt_color'] ) ) ? esc_attr( $options['s8_txt_color'] ) : '';
@@ -1596,7 +1596,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Customize_Styles' ) ) {
 		 */
 		public function ht_ctc_s99_cb() {
 
-			$options                 = get_option( 'ht_ctc_s99' );
+			$options                 = HT_CTC_Utils::get_option( 'ht_ctc_s99' );
 			$s_99_dekstop_img_url    = ( isset( $options['s99_dekstop_img_url'] ) ) ? esc_attr( $options['s99_dekstop_img_url'] ) : '';
 			$s_99_mobile_img_url     = ( isset( $options['s99_mobile_img_url'] ) ) ? esc_attr( $options['s99_mobile_img_url'] ) : '';
 			$s_99_desktop_img_height = ( isset( $options['s99_desktop_img_height'] ) ) ? esc_attr( $options['s99_desktop_img_height'] ) : '';

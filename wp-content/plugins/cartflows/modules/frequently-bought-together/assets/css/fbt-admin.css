@@ -1,0 +1,1000 @@
+/**
+ * Frequently Bought Together — Admin panel styling.
+ *
+ * Scoped to #cartflows_fbt_data so no rule leaks into the surrounding WC UI.
+ * Colours derived from the Force UI token file (force-ui/src/theme/default-config.js).
+ */
+
+/* Tab icon — dashicons-cart replaces WC's default wrench fallback. */
+#woocommerce-product-data ul.wc-tabs li.cartflows_fbt_options a::before {
+	content: "\f174";
+	font-family: Dashicons;
+	/* Isolate the PUA glyph — RTL otherwise merges it into the Latin label's LTR run. */
+	unicode-bidi: isolate;
+}
+
+#cartflows_fbt_data.wcf-fbt-panel {
+	padding: 0;
+}
+
+#cartflows_fbt_data.wcf-fbt-panel:not( .is-widget-enabled ) .wcf-fbt-body {
+	display: none;
+}
+
+#cartflows_fbt_data .wcf-fbt-header {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 12px 24px;
+	padding: 18px 20px;
+	border-bottom: 1px solid #e5e7eb;
+}
+
+#cartflows_fbt_data .wcf-fbt-header-title {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin: 0;
+}
+
+#cartflows_fbt_data .wcf-fbt-header-title h3 {
+	margin: 0;
+	font-size: 15px;
+	font-weight: 600;
+	color: #111827;
+}
+
+#cartflows_fbt_data .wcf-fbt-header-desc {
+	flex-basis: 100%;
+	margin: 0;
+	font-size: 12.5px;
+	color: #6b7280;
+	line-height: 1.5;
+	padding: 0;
+}
+
+#cartflows_fbt_data .wcf-fbt-toggle-label {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 13px;
+	color: #111827;
+	cursor: pointer;
+	white-space: nowrap;
+}
+
+#cartflows_fbt_data .wcf-fbt-toggle-switch {
+	position: relative;
+	display: inline-block;
+	width: 36px;
+	height: 20px;
+	min-height: 0;
+	padding: 0;
+	border: none;
+	box-shadow: none;
+	border-radius: 999px;
+	transition: background 0.15s ease;
+}
+
+#cartflows_fbt_data .wcf-fbt-toggle-input:not( :checked ) + .wcf-fbt-toggle-switch {
+	background: #e5e7eb;
+}
+
+#cartflows_fbt_data .wcf-fbt-toggle-switch::after {
+	content: "";
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: 16px;
+	height: 16px;
+	background: #fff;
+	border-radius: 50%;
+	box-shadow: 0 1px 2px rgba( 16, 24, 40, 0.05 );
+	transition: transform 0.15s ease;
+}
+
+#cartflows_fbt_data .wcf-fbt-toggle-input {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+}
+
+#cartflows_fbt_data .wcf-fbt-toggle-input:checked + .wcf-fbt-toggle-switch::after {
+	transform: translateX( 16px );
+}
+
+#cartflows_fbt_data .wcf-fbt-body {
+	padding: 18px 20px;
+}
+
+#cartflows_fbt_data .wcf-fbt-sub-tabs {
+	display: inline-flex;
+	background: #f3f4f6;
+	border: 1px solid #e5e7eb;
+	border-radius: 8px;
+	padding: 3px;
+	gap: 2px;
+	margin-bottom: 16px;
+}
+
+#cartflows_fbt_data .wcf-fbt-sub-tab {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 6px 12px;
+	border-radius: 6px;
+	font-size: 13px;
+	font-weight: 500;
+	color: #4b5563;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	line-height: 1.25;
+}
+
+#cartflows_fbt_data .wcf-fbt-sub-tab:hover {
+	color: #111827;
+}
+
+#cartflows_fbt_data .wcf-fbt-sub-tab.is-active {
+	background: #fff;
+	color: #111827;
+	box-shadow: 0 1px 2px rgba( 16, 24, 40, 0.05 );
+}
+
+#cartflows_fbt_data .wcf-fbt-pane {
+	display: none;
+}
+
+#cartflows_fbt_data .wcf-fbt-pane.is-active {
+	display: block;
+}
+
+#cartflows_fbt_data .wcf-fbt-source-input {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+}
+
+/* Products picker — Variant A: unified table-style list. */
+#cartflows_fbt_data .wcf-fbt-picker-shell {
+	background: #fff;
+	border: 1px solid #e5e7eb;
+	border-radius: 10px;
+	overflow: hidden;
+	box-shadow: 0 1px 2px rgba( 16, 24, 40, 0.05 );
+}
+
+#cartflows_fbt_data .wcf-fbt-picker-topbar {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 12px 14px;
+	background: #fafbfc;
+	border-bottom: 1px solid #e5e7eb;
+}
+
+/* Search chooser wrapper — flex layout only. Select2 keeps WooCommerce's default look. */
+#cartflows_fbt_data .wcf-fbt-picker-search {
+	flex: 1;
+	min-width: 0;
+}
+
+/* Nudge the search input off the left edge so the placeholder isn't flush. */
+#cartflows_fbt_data .wcf-fbt-picker-search .select2-search__field {
+	padding-left: 8px;
+}
+
+#cartflows_fbt_data .wcf-fbt-picker-count {
+	font-size: 12px;
+	color: #6b7280;
+	white-space: nowrap;
+	background: #f3f4f6;
+	padding: 4px 10px;
+	border-radius: 999px;
+	border: 1px solid #e5e7eb;
+}
+
+#cartflows_fbt_data .wcf-fbt-picker-count strong {
+	font-weight: 400;
+}
+
+#cartflows_fbt_data .wcf-fbt-picker-header-row {
+	display: grid;
+	grid-template-columns: 24px 44px 1fr 90px 100px 0 32px;
+	gap: 14px;
+	padding: 8px 14px;
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: #6b7280;
+	background: #fafbfc;
+	border-bottom: 1px solid #e5e7eb;
+}
+
+#cartflows_fbt_data .wcf-fbt-picker-header-row .h-price {
+	text-align: right;
+}
+
+#cartflows_fbt_data .wcf-fbt-picker-header-row .h-stock,
+#cartflows_fbt_data .wcf-fbt-picker-header-row .h-actions {
+	text-align: center;
+}
+
+#cartflows_fbt_data .wcf-fbt-picker-rows {
+	background: #fff;
+}
+
+#cartflows_fbt_data .wcf-fbt-picker-row {
+	display: grid;
+	grid-template-columns: 24px 44px 1fr 90px 100px 0 32px;
+	gap: 14px;
+	padding: 10px 14px;
+	align-items: center;
+	border-bottom: 1px solid #f0f0f1;
+	background: #fff;
+}
+
+#cartflows_fbt_data .wcf-fbt-picker-row:last-child {
+	border-bottom: none;
+}
+
+#cartflows_fbt_data .wcf-fbt-picker-row:hover {
+	background: #fcfcfd;
+}
+
+#cartflows_fbt_data .wcf-fbt-picker-row.is-sortable-placeholder {
+	border-style: dashed;
+	background: #f9fafb;
+}
+
+#cartflows_fbt_data .wcf-fbt-picker-drag {
+	color: #7b8087;
+	cursor: grab;
+	display: inline-flex;
+	justify-content: center;
+}
+
+#cartflows_fbt_data .wcf-fbt-picker-thumb {
+	width: 44px;
+	height: 44px;
+	border-radius: 6px;
+	background: #f3f4f6;
+	border: 1px solid #f3f4f6;
+	object-fit: cover;
+	flex-shrink: 0;
+	display: block;
+}
+
+#cartflows_fbt_data .wcf-fbt-picker-info {
+	min-width: 0;
+}
+
+#cartflows_fbt_data .wcf-fbt-picker-name {
+	font-size: 13.5px;
+	font-weight: 500;
+	color: #111827;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin: 0;
+	padding: 0;
+}
+
+#cartflows_fbt_data .wcf-fbt-picker-price {
+	font-size: 13px;
+	color: #111827;
+	text-align: right;
+	font-variant-numeric: tabular-nums;
+}
+
+/* Kill only the underline on <ins> (sale price); keep <del>'s strikethrough. */
+#cartflows_fbt_data .wcf-fbt-picker-price ins,
+#cartflows_fbt_data .wcf-fbt-badge ins,
+.wcf-fbt-drawer-body .wcf-fbt-badge ins {
+	text-decoration: none;
+	background: transparent;
+}
+
+#cartflows_fbt_data .wcf-fbt-picker-stock {
+	text-align: center;
+}
+
+#cartflows_fbt_data .wcf-fbt-picker-remove {
+	width: 28px;
+	height: 28px;
+	background: transparent;
+	border: none;
+	color: #6b7280;
+	cursor: pointer;
+	border-radius: 6px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+}
+
+#cartflows_fbt_data .wcf-fbt-picker-remove:hover {
+	background: #fef2f2;
+	color: #dc2626;
+}
+
+#cartflows_fbt_data .wcf-fbt-picker-empty {
+	padding: 32px 20px;
+	text-align: center;
+	color: #6b7280;
+	font-size: 13px;
+	background: #fff;
+}
+
+#cartflows_fbt_data .wcf-fbt-picker-empty .icon {
+	width: 44px;
+	height: 44px;
+	background: #f3f4f6;
+	border-radius: 12px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto 10px;
+}
+
+#cartflows_fbt_data .wcf-fbt-picker-footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 14px;
+	background: #fafbfc;
+	border-top: 1px solid #e5e7eb;
+	font-size: 12px;
+	color: #6b7280;
+}
+
+#cartflows_fbt_data .wcf-fbt-picker-footer strong {
+	color: #111827;
+	font-weight: 600;
+}
+
+#cartflows_fbt_data .wcf-fbt-badge {
+	display: inline-flex;
+	align-items: center;
+	/* Flex drops the space WC puts between a sale price's <del> and <ins>; no-op for single-child badges. */
+	gap: 4px;
+	padding: 1px 8px;
+	font-size: 11px;
+	font-weight: 500;
+	line-height: 1.6;
+	border: 1px solid transparent;
+	border-radius: 999px;
+}
+
+#cartflows_fbt_data .wcf-fbt-badge-brand {
+	background: #eff6ff;
+	color: #1d4ed8;
+	border-color: #bfdbfe;
+}
+
+#cartflows_fbt_data .wcf-fbt-badge-green {
+	background: #f0fdf4;
+	color: #15803d;
+	border-color: #bbf7d0;
+}
+
+#cartflows_fbt_data .wcf-fbt-badge-yellow {
+	background: #fefce8;
+	color: #a16207;
+	border-color: #fef08a;
+}
+
+#cartflows_fbt_data .wcf-fbt-badge-red {
+	background: #fef2f2;
+	color: #b91c1c;
+	border-color: #fecaca;
+}
+
+#cartflows_fbt_data .wcf-fbt-badge-gray {
+	background: #f9fafb;
+	color: #1f2937;
+	border-color: #e5e7eb;
+}
+
+#cartflows_fbt_data .wcf-fbt-ai-hero,
+.wcf-fbt-drawer-body .wcf-fbt-ai-hero {
+	border: 1px solid #c3c4c7;
+	border-radius: 10px;
+	padding: 24px;
+	text-align: center;
+}
+
+#cartflows_fbt_data .wcf-fbt-ai-hero-icon,
+.wcf-fbt-drawer-body .wcf-fbt-ai-hero-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 48px;
+	height: 48px;
+	border-radius: 12px;
+	background: #fff;
+	box-shadow: 0 4px 12px rgba( 37, 99, 235, 0.15 );
+	margin-bottom: 12px;
+	font-size: 22px;
+}
+
+#cartflows_fbt_data .wcf-fbt-ai-hero h4,
+.wcf-fbt-drawer-body .wcf-fbt-ai-hero h4 {
+	margin: 0 0 4px;
+	font-size: 14px;
+	font-weight: 600;
+}
+
+#cartflows_fbt_data .wcf-fbt-ai-hero p,
+.wcf-fbt-drawer-body .wcf-fbt-ai-hero p {
+	margin: 0 auto 14px;
+	max-width: 420px;
+	font-size: 12.5px;
+	line-height: 1.5em;
+}
+
+#cartflows_fbt_data .wcf-fbt-btn {
+	display: inline-flex;
+	height: auto;
+	min-height: 0;
+	align-items: center;
+	gap: 6px;
+	padding: 8px 14px;
+	font-size: 13px;
+	font-weight: 500;
+	border-radius: 6px;
+	cursor: pointer;
+	line-height: 1.25;
+	text-decoration: none;
+}
+
+#cartflows_fbt_data .wcf-fbt-generate,
+#cartflows_fbt_data .wcf-fbt-upgrade-cta,
+.wcf-fbt-drawer-body .wcf-fbt-upgrade-cta {
+	padding: 8px 14px;
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 1.25;
+	border-radius: 6px;
+	height: auto;
+	min-height: 0;
+}
+
+#cartflows_fbt_data .wcf-fbt-ai-reject {
+	font-size: 12px;
+	text-decoration: none;
+	align-self: center;
+	padding: 5px 10px;
+}
+
+#cartflows_fbt_data .wcf-fbt-btn-sm {
+	padding: 5px 10px;
+	font-size: 12px;
+}
+
+#cartflows_fbt_data .wcf-fbt-btn-icon {
+	padding: 5px;
+	width: 28px;
+	height: 28px;
+	justify-content: center;
+}
+
+#cartflows_fbt_data .wcf-fbt-ai-toolbar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	margin-bottom: 12px;
+	font-size: 12.5px;
+	color: #6b7280;
+}
+
+#cartflows_fbt_data .wcf-fbt-ai-list {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+#cartflows_fbt_data .wcf-fbt-ai-item {
+	display: flex;
+	gap: 12px;
+	align-items: center;
+	padding: 12px 14px;
+	background: #fff;
+	border: 1px solid #bfdbfe;
+	border-radius: 10px;
+}
+
+#cartflows_fbt_data .wcf-fbt-ai-content {
+	flex: 1;
+	min-width: 0;
+}
+
+#cartflows_fbt_data .wcf-fbt-ai-row1 {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-bottom: 2px;
+}
+
+#cartflows_fbt_data .wcf-fbt-ai-name {
+	margin: 0;
+	font-size: 13px;
+	font-weight: 600;
+	color: #111827;
+}
+
+/* Reason text stays in DOM but is hidden until it moves into a Tooltip on the confidence badge. */
+#cartflows_fbt_data .wcf-fbt-ai-reason {
+	display: none;
+}
+
+#cartflows_fbt_data .wcf-fbt-ai-actions {
+	display: flex;
+	gap: 6px;
+	flex-shrink: 0;
+}
+
+#cartflows_fbt_data .wcf-fbt-skeleton-row {
+	height: 68px;
+	border-radius: 10px;
+	background: linear-gradient( 90deg, #f3f4f6, #e5e7eb, #f3f4f6 );
+	background-size: 200% 100%;
+	animation: wcf-fbt-shine 1.4s infinite;
+}
+
+#cartflows_fbt_data .wcf-fbt-skeleton-list {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	margin-top: 12px;
+}
+
+@keyframes wcf-fbt-shine {
+	0% {
+		background-position: 200% 0;
+	}
+	100% {
+		background-position: -200% 0;
+	}
+}
+
+/* Rotate the regenerate icon while its request is in flight. */
+@keyframes wcf-fbt-spin {
+	to {
+		transform: rotate( 360deg );
+	}
+}
+
+.wcf-fbt-is-regenerating svg {
+	animation: wcf-fbt-spin 0.8s linear infinite;
+	transform-origin: 50% 50%;
+}
+
+#cartflows_fbt_data .wcf-fbt-status {
+	margin: 0 0 12px;
+	padding: 8px 12px;
+	font-size: 12px;
+	color: #4b5563;
+	background: #f9fafb;
+	border-left: 3px solid #9ca3af;
+	border-radius: 3px;
+}
+
+#cartflows_fbt_data .wcf-fbt-status.is-error {
+	color: #b91c1c;
+	background: #fef2f2;
+	border-left-color: #b91c1c;
+}
+
+/* Linked Products tab — "Auto Suggest" button next to each WC field.
+ * PHP renders both buttons together in .wcf-fbt-linked-buttons; JS lifts each
+ * one into its matching .form-field row on init. This wrapper is only visible
+ * for the ~50ms before JS runs (usually flicker-free).
+ */
+.wcf-fbt-linked-buttons {
+	display: none;
+}
+
+/* Layout-only rules — colour, border, hover and focus come from WordPress core .button.button-primary so the button follows the admin colour scheme. */
+#linked_product_data .form-field .wcf-fbt-suggest-ai {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	min-height: 27px;
+	margin: 10px 0 0 12px;
+	vertical-align: middle;
+}
+
+/* Sparkle SVG has ~2px of empty space inside its viewBox on the left; pull it back so the visible glyph aligns with the button's 8px padding. */
+#linked_product_data .form-field .wcf-fbt-suggest-ai svg {
+	margin-left: -2px;
+	margin-top: 2px;
+}
+
+/* Drawer scaffold — rendered once in the admin footer, sits above WC panels. */
+.wcf-fbt-drawer-root {
+	position: fixed;
+	inset: 0;
+	z-index: 100000;
+}
+
+.wcf-fbt-drawer-backdrop {
+	position: absolute;
+	inset: 0;
+	background: rgba( 17, 24, 39, 0.35 );
+	opacity: 0;
+	transition: opacity 0.2s ease;
+}
+
+.wcf-fbt-drawer-root.is-open .wcf-fbt-drawer-backdrop {
+	opacity: 1;
+}
+
+.wcf-fbt-drawer {
+	position: absolute;
+	top: 32px;
+	right: 0;
+	bottom: 0;
+	width: 440px;
+	max-width: 100%;
+	background: #fff;
+	border-left: 1px solid #e5e7eb;
+	box-shadow: -12px 0 32px -12px rgba( 149, 160, 178, 0.32 );
+	display: flex;
+	flex-direction: column;
+	transform: translateX( 100% );
+	transition: transform 0.25s ease;
+}
+
+.wcf-fbt-drawer-root.is-open .wcf-fbt-drawer {
+	transform: translateX( 0 );
+}
+
+.wcf-fbt-drawer-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 16px 20px;
+	border-bottom: 1px solid #e5e7eb;
+}
+
+.wcf-fbt-drawer-title {
+	margin: 0;
+	font-size: 15px;
+	font-weight: 600;
+	color: #111827;
+}
+
+.wcf-fbt-drawer-meta {
+	margin: 2px 0 0;
+	font-size: 12px;
+	color: #6b7280;
+}
+
+.wcf-fbt-drawer-close {
+	width: 30px;
+	height: 30px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background: transparent;
+	border: 1px solid #e5e7eb;
+	border-radius: 6px;
+	color: #4b5563;
+	cursor: pointer;
+}
+
+.wcf-fbt-drawer-close:hover {
+	background: #f3f4f6;
+}
+
+.wcf-fbt-drawer-body {
+	padding: 16px 20px;
+	overflow-y: auto;
+	flex: 1;
+}
+
+.wcf-fbt-drawer-footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 12px 20px;
+	border-top: 1px solid #e5e7eb;
+	background: #fff;
+}
+
+.wcf-fbt-drawer-root.is-empty .wcf-fbt-drawer-footer,
+.wcf-fbt-drawer-root.is-empty .wcf-fbt-drawer-body,
+.wcf-fbt-drawer-root.is-disconnected .wcf-fbt-drawer-footer {
+	display: none;
+}
+
+.wcf-fbt-drawer-empty {
+	display: none;
+	flex: 1;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	gap: 12px;
+	padding: 24px 28px;
+}
+
+.wcf-fbt-drawer-root.is-empty .wcf-fbt-drawer-empty {
+	display: flex;
+}
+
+.wcf-fbt-drawer-empty-icon {
+	width: 64px;
+	height: 64px;
+	border-radius: 999px;
+	background: linear-gradient( 135deg, #d1fae5, #a7f3d0 );
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	color: #059669;
+	box-shadow: 0 6px 16px -6px rgba( 16, 185, 129, 0.35 );
+}
+
+.wcf-fbt-drawer-empty-icon svg {
+	width: 30px;
+	height: 30px;
+}
+
+.wcf-fbt-drawer-empty-title {
+	margin: 8px 0 0;
+	font-size: 17px;
+	font-weight: 600;
+	color: #111827;
+}
+
+.wcf-fbt-drawer-empty-desc {
+	margin: 0;
+	max-width: 320px;
+	font-size: 13px;
+	line-height: 1.55;
+	color: #4b5563;
+}
+
+.wcf-fbt-drawer-empty-actions {
+	display: flex;
+	gap: 8px;
+	justify-content: center;
+	margin-top: 20px;
+}
+
+/* Reuse FBT panel result-row styles inside the drawer. */
+.wcf-fbt-drawer-body .wcf-fbt-ai-list {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.wcf-fbt-drawer-body .wcf-fbt-ai-item {
+	display: flex;
+	gap: 12px;
+	align-items: center;
+	padding: 12px 14px;
+	background: #fff;
+	border: 1px solid #bfdbfe;
+	border-radius: 10px;
+}
+
+.wcf-fbt-drawer-body .wcf-fbt-ai-content {
+	flex: 1;
+	min-width: 0;
+}
+
+.wcf-fbt-drawer-body .wcf-fbt-ai-row1 {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-bottom: 2px;
+}
+
+.wcf-fbt-drawer-body .wcf-fbt-ai-name {
+	margin: 0;
+	font-size: 13px;
+	font-weight: 600;
+	color: #111827;
+}
+
+.wcf-fbt-drawer-body .wcf-fbt-ai-reason {
+	display: none;
+}
+
+.wcf-fbt-drawer-body .wcf-fbt-ai-actions {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	flex-shrink: 0;
+}
+
+.wcf-fbt-drawer-body .wcf-fbt-badge {
+	display: inline-flex;
+	align-items: center;
+	/* Same sale-price gap as the panel badge — the drawer renders the identical AI rows. */
+	gap: 4px;
+	padding: 1px 8px;
+	font-size: 11px;
+	font-weight: 500;
+	line-height: 1.6;
+	border: 1px solid transparent;
+	border-radius: 999px;
+}
+
+.wcf-fbt-drawer-body .wcf-fbt-badge-brand {
+	background: #eff6ff;
+	color: #1d4ed8;
+	border-color: #bfdbfe;
+}
+
+.wcf-fbt-drawer-body .wcf-fbt-badge-green {
+	background: #f0fdf4;
+	color: #15803d;
+	border-color: #bbf7d0;
+}
+
+.wcf-fbt-drawer-body .wcf-fbt-badge-yellow {
+	background: #fefce8;
+	color: #a16207;
+	border-color: #fef08a;
+}
+
+.wcf-fbt-drawer-body .wcf-fbt-badge-gray {
+	background: #f9fafb;
+	color: #1f2937;
+	border-color: #e5e7eb;
+}
+
+.wcf-fbt-card-thumb {
+	width: 44px;
+	height: 44px;
+	border-radius: 6px;
+	background: #f3f4f6;
+	border: 1px solid #f3f4f6;
+	object-fit: cover;
+	flex-shrink: 0;
+	display: block;
+}
+
+.wcf-fbt-drawer-root .wcf-fbt-btn {
+	display: inline-flex;
+	height: auto;
+	min-height: 0;
+	align-items: center;
+	gap: 6px;
+	padding: 6px 10px;
+	font-size: 13px;
+	font-weight: 500;
+	border-radius: 6px;
+	cursor: pointer;
+	line-height: 1.25;
+	text-decoration: none;
+}
+
+.wcf-fbt-drawer-root .wcf-fbt-ai-reject {
+	font-size: 12px;
+	text-decoration: none;
+	align-self: center;
+	padding: 5px 10px;
+}
+
+.wcf-fbt-drawer-root .wcf-fbt-btn-icon {
+	padding: 5px;
+	width: 26px;
+	height: 26px;
+	justify-content: center;
+}
+
+.wcf-fbt-drawer-body .wcf-fbt-skeleton-row {
+	height: 68px;
+	border-radius: 10px;
+	background: linear-gradient( 90deg, #f3f4f6, #e5e7eb, #f3f4f6 );
+	background-size: 200% 100%;
+	animation: wcf-fbt-shine 1.4s infinite;
+}
+
+.wcf-fbt-drawer-body .wcf-fbt-skeleton-list {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	margin-top: 12px;
+}
+
+.wcf-fbt-drawer-body .wcf-fbt-status {
+	margin: 0 0 12px;
+	padding: 8px 12px;
+	font-size: 12px;
+	color: #4b5563;
+	background: #f9fafb;
+	border-left: 3px solid #9ca3af;
+	border-radius: 3px;
+}
+
+.wcf-fbt-drawer-body .wcf-fbt-status.is-error {
+	color: #b91c1c;
+	background: #fef2f2;
+	border-left-color: #b91c1c;
+}
+
+/* Custom-qty column — reveal 80px slot when picker-shell has the .has-qty class. */
+
+#cartflows_fbt_data .wcf-fbt-picker-shell.has-qty .wcf-fbt-picker-header-row,
+#cartflows_fbt_data .wcf-fbt-picker-shell.has-qty .wcf-fbt-picker-row {
+	grid-template-columns: 24px 44px 1fr 90px 100px 80px 32px;
+}
+
+#cartflows_fbt_data .wcf-fbt-picker-header-row .h-qty {
+	text-align: center;
+}
+
+#cartflows_fbt_data .wcf-fbt-picker-qty {
+	overflow: hidden;
+	text-align: center;
+}
+
+#cartflows_fbt_data .wcf-fbt-picker-shell:not( .has-qty ) .wcf-fbt-picker-qty,
+#cartflows_fbt_data .wcf-fbt-picker-shell:not( .has-qty ) .h-qty {
+	display: none;
+}
+
+#cartflows_fbt_data .wcf-fbt-picker-qty-input {
+	width: 64px;
+	height: 30px;
+	min-height: 0;
+	padding: 4px 6px;
+	margin: 0;
+	font-size: 12.5px;
+	line-height: 1.25;
+	text-align: center;
+	border: 1px solid #d1d5db;
+	border-radius: 4px;
+	background: #fff;
+	box-shadow: none;
+}
+
+/* Locked to 1 (sold individually) — greyed so it doesn't read as editable. */
+#cartflows_fbt_data .wcf-fbt-picker-qty-input[readonly] {
+	background: #f3f4f6;
+	color: #6b7280;
+	cursor: not-allowed;
+}
+
+/* Settings block — divider above; rows themselves use WC's native .form-field styling. */
+#cartflows_fbt_data .wcf-fbt-settings {
+	margin-top: 18px;
+	padding-top: 18px;
+	border-top: 1px solid #e5e7eb;
+}
+
+/* WC caps .form-field label width at 150px; our labels are longer, so give them
+   room and add a gap before the control so the two never touch. */
+#cartflows_fbt_data .wcf-fbt-settings .form-field > label,
+#cartflows_fbt_data .wcf-fbt-settings .form-field > legend {
+	width: auto;
+	min-width: 160px;
+	padding-right: 12px;
+}
+
+/* Reusable inline-radios helper — add .wcf-fbt-radios-inline to any .wc-radios
+   list to lay options side-by-side and vertically center each radio with its label.
+   Chain includes .wcf-fbt-settings so specificity beats WC's own
+   #woocommerce-product-data .woocommerce_options_panel .wc-radios rule. */
+#cartflows_fbt_data .wcf-fbt-settings .wcf-fbt-radios-inline {
+	display: flex;
+	float: none;
+	gap: 12px;
+}
+
+#cartflows_fbt_data .wcf-fbt-settings .wcf-fbt-radios-inline li label {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}

@@ -35,7 +35,7 @@
 	color: #f56e28;
 }
 
-.toplevel_page_cartflows .wp-submenu a[href*="pricing"] {
+#adminmenu li.toplevel_page_cartflows .wp-submenu a[href*="pricing"] {
 	background-color: #00a32a !important;
 	color: #fff !important;
 	font-weight: 600;

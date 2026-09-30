@@ -111,8 +111,9 @@ class MetaOps {
 
 				case 'FILTER_CARTFLOWS_CHECKOUT_PRODUCTS':
 					if ( isset( $_POST[ $key ] ) && is_array( $_POST[ $key ] ) ) {
-						$i = 0;
-						$q = 0;
+						$i                 = 0;
+						$q                 = 0;
+						$checkout_products = array();
 
 						$post_data = wc_clean( $_POST[ $key ] );
 
@@ -124,16 +125,21 @@ class MetaOps {
 
 								if ( is_array( $i_value ) ) {
 									foreach ( $i_value as $q_key => $q_value ) {
-										$meta_value[ $i ][ $i_key ][ $q ] = array_map( 'sanitize_text_field', $q_value );
+										$checkout_products[ $i ][ $i_key ][ $q ] = array_map( 'sanitize_text_field', $q_value );
 
 										$q++;
 									}
 								} else {
-									$meta_value[ $i ][ $i_key ] = sanitize_text_field( $i_value );
+									$checkout_products[ $i ][ $i_key ] = sanitize_text_field( $i_value );
 								}
 							}
 
 							$i++;
+						}
+
+						// Preserve original delete-on-empty semantics (line ~270): only override $meta_value when products were collected.
+						if ( ! empty( $checkout_products ) ) {
+							$meta_value = $checkout_products;
 						}
 					}
 					break;

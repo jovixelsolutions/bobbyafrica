@@ -145,8 +145,20 @@ class Ai1wm_Backups {
 	 * @return boolean
 	 */
 	public static function delete_label( $file ) {
+		return Ai1wm_Backups::delete_labels( array( $file ) );
+	}
+
+	/**
+	 * Delete backup labels of multiple files at once
+	 *
+	 * @param  string[] $files File names
+	 * @return boolean
+	 */
+	public static function delete_labels( $files ) {
 		if ( ( $labels = get_option( AI1WM_BACKUPS_LABELS, array() ) ) !== false ) {
-			unset( $labels[ $file ] );
+			foreach ( $files as $file ) {
+				unset( $labels[ $file ] );
+			}
 		}
 
 		return update_option( AI1WM_BACKUPS_LABELS, $labels );

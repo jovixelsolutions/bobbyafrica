@@ -19,20 +19,42 @@ $hero_products = array_values(
 $hero_products = array_slice( $hero_products, 0, 3 );
 $featured_products = wc_get_products(
 	array(
-		'limit'    => 4,
+		'limit'    => 8,
 		'status'   => 'publish',
 		'featured' => true,
 	)
 );
 $deals = wc_get_products(
 	array(
-		'limit'    => 4,
+		'limit'    => 8,
 		'status'   => 'publish',
 		'on_sale'  => true,
-		'orderby'  => 'date',
+		'orderby'  => 'popularity',
 		'order'    => 'DESC',
 	)
 );
+$new_arrivals = wc_get_products(
+	array(
+		'limit'   => 8,
+		'status'  => 'publish',
+		'orderby' => 'date',
+		'order'   => 'DESC',
+	)
+);
+$flash_sales = wc_get_products(
+	array(
+		'limit'   => 8,
+		'status'  => 'publish',
+		'on_sale' => true,
+		'orderby' => 'date',
+		'order'   => 'DESC',
+	)
+);
+$recently_viewed_ids = array();
+if ( ! empty( $_COOKIE['woocommerce_recently_viewed'] ) ) {
+	$recently_viewed_ids = array_slice( array_reverse( array_filter( array_map( 'absint', explode( '|', sanitize_text_field( wp_unslash( $_COOKIE['woocommerce_recently_viewed'] ) ) ) ) ) ), 0, 8 );
+}
+$recently_viewed = $recently_viewed_ids ? wc_get_products( array( 'include' => $recently_viewed_ids, 'limit' => 8, 'status' => 'publish', 'orderby' => 'include' ) ) : array();
 $categories = bobbyafrica_get_product_categories();
 ?>
 <main>
@@ -106,33 +128,11 @@ $categories = bobbyafrica_get_product_categories();
 		</div>
 	</section>
 
-	<section class="marketplace-section marketplace-section-featured">
-		<div class="container">
-			<div class="marketplace-section-header">
-				<h2><?php esc_html_e( 'Featured products', 'bobbyafrica-marketplace-child' ); ?></h2>
-				<a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>"><?php esc_html_e( 'Explore all', 'bobbyafrica-marketplace-child' ); ?></a>
-			</div>
-			<div class="product-grid">
-				<?php foreach ( $featured_products as $product ) : ?>
-					<?php echo bobbyafrica_render_product_card( $product ); ?>
-				<?php endforeach; ?>
-			</div>
-		</div>
-	</section>
-
-	<section class="marketplace-section marketplace-section-deals">
-		<div class="container">
-			<div class="marketplace-section-header">
-				<h2><?php esc_html_e( 'Hot deals', 'bobbyafrica-marketplace-child' ); ?></h2>
-				<a href="<?php echo esc_url( home_url( '/shop/?sale=1' ) ); ?>"><?php esc_html_e( 'See more deals', 'bobbyafrica-marketplace-child' ); ?></a>
-			</div>
-			<div class="product-grid">
-				<?php foreach ( $deals as $product ) : ?>
-					<?php echo bobbyafrica_render_product_card( $product ); ?>
-				<?php endforeach; ?>
-			</div>
-		</div>
-	</section>
+	<?php bobbyafrica_render_product_carousel( 'marketplace-featured-products', __( 'Featured products', 'bobbyafrica-marketplace-child' ), $featured_products, add_query_arg( 'market_featured', '1', wc_get_page_permalink( 'shop' ) ), __( 'Explore all', 'bobbyafrica-marketplace-child' ) ); ?>
+	<?php bobbyafrica_render_product_carousel( 'marketplace-hot-deals', __( 'Hot deals', 'bobbyafrica-marketplace-child' ), $deals, add_query_arg( array( 'market_sale' => '1', 'orderby' => 'popularity' ), wc_get_page_permalink( 'shop' ) ), __( 'See more deals', 'bobbyafrica-marketplace-child' ) ); ?>
+	<?php bobbyafrica_render_product_carousel( 'marketplace-new-arrivals', __( 'New arrivals', 'bobbyafrica-marketplace-child' ), $new_arrivals, add_query_arg( 'market_new', '1', wc_get_page_permalink( 'shop' ) ), __( 'Shop new arrivals', 'bobbyafrica-marketplace-child' ) ); ?>
+	<?php bobbyafrica_render_product_carousel( 'marketplace-flash-sales', __( 'Flash sales', 'bobbyafrica-marketplace-child' ), $flash_sales, add_query_arg( array( 'market_sale' => '1', 'orderby' => 'date' ), wc_get_page_permalink( 'shop' ) ), __( 'Shop flash sales', 'bobbyafrica-marketplace-child' ) ); ?>
+	<?php bobbyafrica_render_product_carousel( 'marketplace-recently-viewed', __( 'Recently viewed', 'bobbyafrica-marketplace-child' ), $recently_viewed, wc_get_page_permalink( 'shop' ), __( 'Browse the shop', 'bobbyafrica-marketplace-child' ) ); ?>
 
 	<section class="marketplace-section marketplace-section-trust">
 		<div class="container">

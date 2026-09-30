@@ -572,15 +572,15 @@ function wcf_get_page_builder_notice() {
 	$page_builder_data = array(
 		'elementor'      => array(
 			'name' => 'Elementor',
-			'doc'  => 'https://cartflows.com/docs/elementor-widgets-of-cartflows/?utm_source=dashboard&utm_medium=free-cartflows&utm_campaign=docs',
+			'doc'  => Cartflows_Helper::get_kb_doc_link( 'https://cartflows.com/docs/elementor-widgets-of-cartflows/' ),
 		),
 		'beaver-builder' => array(
 			'name' => 'Beaver Builder',
-			'doc'  => 'https://cartflows.com/docs/beaver-builder-modules-of-cartflows/?utm_source=dashboard&utm_medium=free-cartflows&utm_campaign=docs',
+			'doc'  => Cartflows_Helper::get_kb_doc_link( 'https://cartflows.com/docs/beaver-builder-modules-of-cartflows/' ),
 		),
 		'gutenberg'      => array(
 			'name' => 'Gutenebrg',
-			'doc'  => 'https://cartflows.com/docs/cartflows-gutenberg-blocks/?utm_source=dashboard&utm_medium=free-cartflows&utm_campaign=docs',
+			'doc'  => Cartflows_Helper::get_kb_doc_link( 'https://cartflows.com/docs/cartflows-gutenberg-blocks/' ),
 		),
 	);
 

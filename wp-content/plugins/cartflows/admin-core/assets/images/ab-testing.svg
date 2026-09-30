@@ -1,0 +1,27 @@
+<svg viewBox="0 0 560 190" width="560" height="190" xmlns="http://www.w3.org/2000/svg">
+  <rect width="560" height="190" rx="12" fill="#FEF0E9"/>
+  <circle cx="280" cy="13" r="4" fill="#F16334" opacity="0.55"/>
+  <line x1="280" y1="13" x2="280" y2="40" stroke="#F16334" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+  <line x1="280" y1="40" x2="182" y2="51" stroke="#F16334" stroke-width="1.8" stroke-linecap="round" opacity="0.45"/>
+  <line x1="280" y1="40" x2="378" y2="51" stroke="#F16334" stroke-width="1.8" stroke-linecap="round" opacity="0.45"/>
+  <circle cx="182" cy="51" r="11" fill="#FEF0E9" stroke="#F16334" stroke-width="1.8" opacity="0.6"/>
+  <text x="182" y="55.5" text-anchor="middle" font-size="11" font-weight="700" fill="#F16334" font-family="'Helvetica Neue',Arial,sans-serif" opacity="0.6">A</text>
+  <circle cx="378" cy="51" r="11" fill="#FEF0E9" stroke="#F16334" stroke-width="1.8"/>
+  <text x="378" y="55.5" text-anchor="middle" font-size="11" font-weight="700" fill="#F16334" font-family="'Helvetica Neue',Arial,sans-serif">B</text>
+  <rect x="132" y="66" width="100" height="114" rx="7" fill="rgba(255,255,255,0.4)" stroke="#F16334" stroke-width="1.8" opacity="0.5"/>
+  <rect x="132" y="66" width="100" height="18" rx="7" fill="#F16334" opacity="0.12"/>
+  <rect x="132" y="76" width="100" height="8" fill="#F16334" opacity="0.12"/>
+  <rect x="140" y="98" width="66" height="6" rx="3" fill="#F16334" opacity="0.14"/>
+  <rect x="140" y="110" width="76" height="6" rx="3" fill="#F16334" opacity="0.14"/>
+  <rect x="140" y="122" width="50" height="6" rx="3" fill="#F16334" opacity="0.14"/>
+  <rect x="147" y="162" width="68" height="12" rx="6" fill="#F16334" opacity="0.16"/>
+  <rect x="328" y="66" width="100" height="114" rx="7" fill="#FEF0E9" stroke="#F16334" stroke-width="2.2"/>
+  <rect x="328" y="66" width="100" height="18" rx="7" fill="#F16334" opacity="0.2"/>
+  <rect x="328" y="76" width="100" height="8" fill="#F16334" opacity="0.2"/>
+  <rect x="336" y="98" width="50" height="6" rx="3" fill="#F16334" opacity="0.25"/>
+  <rect x="336" y="110" width="76" height="6" rx="3" fill="#F16334" opacity="0.25"/>
+  <rect x="336" y="122" width="66" height="6" rx="3" fill="#F16334" opacity="0.25"/>
+  <rect x="343" y="162" width="68" height="12" rx="6" fill="#F16334" opacity="0.32"/>
+  <circle cx="428" cy="66" r="13" fill="#F16334"/>
+  <path d="M423,66 L426,70 L433,60" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

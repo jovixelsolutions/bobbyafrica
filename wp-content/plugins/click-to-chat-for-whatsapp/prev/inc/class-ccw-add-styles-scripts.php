@@ -27,10 +27,7 @@ class CCW_Add_Styles_Scripts {
         wp_register_style('ccw_main_css', plugins_url( 'prev/assets/css/mainstyles.css', HT_CTC_PLUGIN_FILE ), '', HT_CTC_VERSION );
         wp_enqueue_style('ccw_main_css');
         
-        
-        wp_register_style('ccw_mdstyle8_css', plugins_url( 'new/inc/assets/css/mdstyle8.css', HT_CTC_PLUGIN_FILE ), '', HT_CTC_VERSION );
-        // needs - s8
-        // wp_enqueue_style('ccw_mdstyle8_css');
+        wp_register_style('ccw_mdstyle8_css', plugins_url( 'prev/assets/css/mdstyle8.css', HT_CTC_PLUGIN_FILE ), '', HT_CTC_VERSION );
         
         wp_enqueue_script( 'ccw_app', plugins_url( 'prev/assets/js/app.js', HT_CTC_PLUGIN_FILE ), array ( 'jquery' ), HT_CTC_VERSION, true );
 

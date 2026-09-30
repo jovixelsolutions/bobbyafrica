@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$s6_options = get_option( 'ht_ctc_s6' );
+$s6_options = HT_CTC_Utils::get_option( 'ht_ctc_s6' );
 $s6_options = apply_filters( 'ht_ctc_fh_s6_options', $s6_options );
 
 $s6_txt_color               = isset( $s6_options['s6_txt_color'] ) ? esc_attr( $s6_options['s6_txt_color'] ) : '';
@@ -22,10 +22,10 @@ $s6_txt_decoration_on_hover = isset( $s6_options['s6_txt_decoration_on_hover'] )
 $s6_styles = '';
 
 if ( '' !== $s6_txt_color ) {
-	$s6_styles .= 'color: ' . $s6_txt_color . '; ';
+	$s6_styles .= "color: $s6_txt_color; ";
 }
 if ( '' !== $s6_txt_decoration ) {
-	$s6_styles .= 'text-decoration: ' . $s6_txt_decoration . '; ';
+	$s6_styles .= "text-decoration: $s6_txt_decoration; ";
 }
 
 ?>

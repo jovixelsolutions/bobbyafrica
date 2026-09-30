@@ -67,26 +67,26 @@ if ( ! class_exists( 'HT_CTC_DB2' ) ) {
 				$this->ot = $ht_ctc_one_time;
 			}
 
-			$this->ht_ctc_group();
-			$this->ht_ctc_share();
-
+			// $this->ht_ctc_group();
+			// $this->ht_ctc_share();
+			//
 			// woocommerce
-			$this->ht_ctc_woo_options();
-
-			$this->ht_ctc_s1();
-
+			// $this->ht_ctc_woo_options();
+			//
+			// $this->ht_ctc_s1();
+			//
 			// s2 at ht-ctc-db.php
 			// $this->ht_ctc_s2();
-
-			$this->ht_ctc_s3();
-			$this->ht_ctc_s3_1();
-			$this->ht_ctc_s4();
-			$this->ht_ctc_s5();
-			$this->ht_ctc_s6();
-			$this->ht_ctc_s7();
-			$this->ht_ctc_s7_1();
-			$this->ht_ctc_s8();
-			$this->ht_ctc_s99();
+			//
+			// $this->ht_ctc_s3();
+			// $this->ht_ctc_s3_1();
+			// $this->ht_ctc_s4();
+			// $this->ht_ctc_s5();
+			// $this->ht_ctc_s6();
+			// $this->ht_ctc_s7();
+			// $this->ht_ctc_s7_1();
+			// $this->ht_ctc_s8();
+			// $this->ht_ctc_s99();
 
 			$this->ht_ctc_one_time();
 		}

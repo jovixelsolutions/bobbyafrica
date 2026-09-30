@@ -266,9 +266,6 @@ const WhatsappPreview = () => {
 						),
 						__( 'And More…', 'woo-cart-abandonment-recovery' ),
 					] }
-					actionBtnUrlArgs={
-						'utm_source=wcar-dashboard&utm_medium=free-wcar&utm_campaign=go-wcar-pro'
-					}
 					footerMessage={ '' }
 					backgroundBlur={ true }
 				/>

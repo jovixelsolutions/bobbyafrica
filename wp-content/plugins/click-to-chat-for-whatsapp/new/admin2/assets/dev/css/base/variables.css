@@ -1,0 +1,269 @@
+/* ==========================================================================
+   LUMINOUS PRISM - Design Tokens
+   A hyper-premium design system with refractive light and spectral depth.
+   ========================================================================== */
+
+:root {
+    /* Prism Palette - Electric Core */
+    --p-h: 190;
+    /* Electric Cyan */
+    --p-s: 100%;
+    --p-l: 50%;
+
+    --a-h: 275;
+    /* Royal Purple */
+    --a-s: 85%;
+    --a-l: 60%;
+
+    /* Base Neutrals (Midnight) */
+    --midnight: 230;
+
+    /* Light Theme (Prism Crystal) */
+    --light-bg: hsl(var(--midnight), 40%, 98%);
+    --light-surface: rgba(255, 255, 255, 0.7);
+    --light-text: hsl(var(--midnight), 60%, 15%);
+    --light-text-soft: hsl(var(--midnight), 20%, 45%);
+    --light-border: rgba(0, 0, 0, 0.08);
+    --light-refractive: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1));
+
+    /* Dark Theme (Prism Obsidian) */
+    --dark-bg: hsl(var(--midnight), 50%, 3%);
+    --dark-surface: rgba(10, 12, 20, 0.7);
+    --dark-text: hsl(var(--midnight), 40%, 98%);
+    --dark-text-soft: hsl(var(--midnight), 20%, 70%);
+    --dark-border: rgba(255, 255, 255, 0.08);
+    --dark-refractive: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+
+    /* Functional Tokens */
+    --primary: hsl(var(--p-h), var(--p-s), var(--p-l));
+    /* Light theme: dark enough cyan to clear WCAG AA 4.5:1 on light surfaces (≈5.2:1). */
+    --primary-readable: hsl(var(--p-h), 90%, 29%);
+    --primary-readable-hover: hsl(var(--p-h), 92%, 24%);
+    /* Filled-control background (checked checkbox/radio): dark enough that the
+       white glyph clears WCAG AA in both themes — do NOT swap to the bright
+       dark-theme --primary-readable. */
+    --control-checked-bg: hsl(var(--p-h), 90%, 29%);
+    --control-checked-bg-hover: hsl(var(--p-h), 92%, 24%);
+    --primary-glow: hsla(var(--p-h), var(--p-s), var(--p-l), 0.3);
+    --primary-light: hsla(var(--p-h), var(--p-s), var(--p-l), 0.1);
+    --accent: hsl(var(--a-h), var(--a-s), var(--a-l));
+    --bg-glass: var(--surface);
+
+    /* Typography - system stacks only. Naming a family we do not ship (e.g.
+       "Inter") makes the browser fetch some other plugin's @font-face for that
+       name; WooCommerce registers Inter, which cost 319 KB per admin load. */
+    --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell,
+        "Helvetica Neue", sans-serif;
+    --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+
+    /* Geometry */
+    --radius-sm: 12px;
+    --radius-md: 20px;
+    --radius-lg: 32px;
+    --radius-pill: 100px;
+    --radius: var(--radius-sm);
+
+    /* Depth */
+    --highlight-inset: rgba(255, 255, 255, 0.5);
+    --shadow-prism: 0 20px 50px -12px rgba(0, 0, 0, 0.2);
+    --shadow-bloom: 0 0 30px -5px var(--primary-glow);
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+    /* Animation */
+    --ease-prism: cubic-bezier(0.16, 1, 0.3, 1);
+    --transition: all 0.3s var(--ease-prism);
+    --transition-fast: all 0.2s var(--ease-prism);
+
+    --prism-blur: 40px;
+    /* WP admin bar height; defaults to 0 for logged-out or non-admin-bar contexts. */
+    --ctc-wp-adminbar-height: 0px;
+    /* Sticky admin header height; shared by header, side panels, and anchor offsets. */
+    --ctc-header-height: 4.5rem;
+
+    /**
+     * CSS calc()function is evaluated by the browser dynamically.
+     * Re-calculated whenever necessary such as on page resize or when dependent CSS variables change rather than just once at load.
+     * It acts as a live, runtime formula used to determine property values like width, height, or positioning.
+     */
+
+    /* Viewport offset for sticky sidebar/right panel: WP admin bar + CTC header. */
+    --ctc-sticky-top: calc(var(--ctc-wp-adminbar-height) + var(--ctc-header-height));
+    /* Anchor scroll offset so focused sections are not hidden below sticky UI. */
+    --ctc-scroll-offset: calc(var(--ctc-sticky-top) + 1.5rem);
+}
+
+/* WordPress adds admin-bar to body in wp-admin; mirror the value for descendants and :root consumers. */
+.admin-bar,
+:root:has(body.admin-bar) {
+    --ctc-wp-adminbar-height: 32px;
+}
+
+@media (max-width: 782px) {
+    /* WP admin bar is taller below the core mobile breakpoint. */
+    .admin-bar,
+    :root:has(body.admin-bar) {
+        --ctc-wp-adminbar-height: 46px;
+    }
+    :root {
+        /* Compact header height used by mobile responsive header rules. */
+        --ctc-header-height: 3.5rem;
+    }
+}
+
+/* Base Mapping */
+:root {
+    --bg: var(--light-bg);
+    --surface: var(--light-surface);
+    --text: var(--light-text);
+    --text-secondary: var(--light-text-soft);
+    --border: var(--light-border);
+    --refractive: var(--light-refractive);
+
+
+    /*
+     * Aliases — many components reference these names (--bg-card,
+     * --border-color, --bg-secondary). They were never defined, so every
+     * declaration using them silently fell back to transparent/currentColor.
+     * Mapped to the theme palette so they follow light/dark automatically.
+     */
+    /* card bg */
+    --bg-card: var(--surface);
+    --bg-secondary: var(--surface);
+    --border-color: var(--border);
+    /* card bg end */
+
+
+    /*
+     * Success (confirmation) — one family for every "it worked" surface: the
+     * save button's "Saved" flash and the success toast above all, since those
+     * two appear at the same moment for the same save. They used to pick their
+     * own greens independently (a teal #00d1b2 in the toast, a stock emerald
+     * #10b981 on the button), so one action confirmed itself in two colours.
+     *
+     * Two greens, deliberately:
+     *   --success        fills — a luminous green in the same lightness band as
+     *                    --primary, so a filled success surface carries the same
+     *                    weight as the rest of the UI instead of going dark and
+     *                    heavy the moment it appears.
+     *   --success-strong text and icons on light surfaces, where that luminous
+     *                    green would be unreadable.
+     */
+    --success: hsl(152, 85%, 45%);
+    --success-strong: hsl(160, 90%, 26%);
+    --success-surface: hsla(152, 85%, 45%, 0.08);
+    --success-border: hsla(152, 85%, 45%, 0.28);
+    --success-glow: hsla(152, 85%, 45%, 0.4);
+
+    --error: #ff3860;
+    --warning: #ffdd57;
+
+    /*
+     * PRO accent (amber). Referenced by pro-features, pro-upgrade, info-boxes,
+     * grid and block-feature-box — but never defined, so every `var(--pro-color)`
+     * silently fell back to inherited/currentColor. Defined here so the whole
+     * PRO surface (badges, cards, CTAs) shares one token that follows the theme.
+     */
+    --pro-color: #d97706;
+    --pro-color-strong: #b45309;
+    --pro-surface: rgba(245, 158, 11, 0.08);
+    --pro-border: rgba(245, 158, 11, 0.28);
+    --pro-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+html[data-theme="dark"] {
+    --bg: var(--dark-bg);
+    --surface: var(--dark-surface);
+    --text: var(--dark-text);
+    --text-secondary: var(--dark-text-soft);
+    --border: var(--dark-border);
+    --refractive: var(--dark-refractive);
+
+    /* Dark theme: the light-mode readable cyan is too dark here — use a bright accent (≈10:1 on dark). */
+    --primary-readable: hsl(var(--p-h), 100%, 50%);
+    --primary-readable-hover: hsl(var(--p-h), 95%, 62%);
+    --shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+
+    --highlight-inset: rgba(255, 255, 255, 0.05);
+
+    /* Success: the fill green is already bright enough for dark surfaces; it is
+       the text/icon green that has to invert — dark-on-light becomes light-on-dark. */
+    --success-strong: hsl(155, 80%, 58%);
+    --success-surface: hsla(152, 85%, 45%, 0.12);
+    --success-border: hsla(152, 85%, 45%, 0.35);
+    --success-glow: hsla(152, 85%, 50%, 0.45);
+
+    /* PRO accent: brighter amber for legible contrast on dark surfaces. */
+    --pro-color: #fbbf24;
+    --pro-color-strong: #f59e0b;
+    --pro-surface: rgba(245, 158, 11, 0.12);
+    --pro-border: rgba(245, 158, 11, 0.35);
+}
+
+/* Background Prism Blobs */
+.ctc-admin-dashboard::before,
+.ctc-admin-dashboard::after {
+    content: '';
+    position: fixed;
+    width: 60vw;
+    height: 60vw;
+    border-radius: 50%;
+    filter: blur(120px);
+    z-index: -1;
+    opacity: 0.15;
+    pointer-events: none;
+    animation: prismFloat 20s infinite alternate var(--ease-prism);
+}
+
+.ctc-admin-dashboard::before {
+    background: radial-gradient(circle, var(--primary), transparent);
+    top: -20vh;
+    inset-inline-start: -10vw;
+}
+
+.ctc-admin-dashboard::after {
+    background: radial-gradient(circle, var(--accent), transparent);
+    bottom: -20vh;
+    inset-inline-end: -10vw;
+    animation-delay: -5s;
+}
+
+@keyframes prismFloat {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    100% {
+        transform: translate(10vw, 5vh) scale(1.1);
+    }
+}
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+
+    .ctc-admin-dashboard::before,
+    .ctc-admin-dashboard::after {
+        animation: none;
+    }
+
+    * {
+        --transition: none !important;
+        --transition-fast: none !important;
+    }
+}
+
+/* Dashboard Atmosphere Presets */
+/* html[data-atmosphere="royal-velvet"] {
+    --p-h: 275; --a-h: 40;
+}
+html[data-atmosphere="midnight-rose"] {
+    --p-h: 320; --a-h: 240;
+}
+html[data-atmosphere="ocean-deep"] {
+    --p-h: 210; --a-h: 170;
+}
+html[data-atmosphere="sunset-glow"] {
+    --p-h: 15; --a-h: 330;
+}
+html[data-atmosphere="emerald-prism"] {
+    --p-h: 150; --a-h: 200;
+} */

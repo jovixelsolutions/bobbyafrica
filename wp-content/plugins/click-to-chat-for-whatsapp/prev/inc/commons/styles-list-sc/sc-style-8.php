@@ -14,16 +14,10 @@ $s8_icon_float = esc_attr($a['s8_icon_float']);
 $s8_1_width = esc_attr($a['s8_1_width']);
 
 
-$s8_text_color = $s8_text_color;
-$s8_background_color = $s8_background_color;
-$s8_icon_color = $s8_icon_color;
-$s8_text_color_onhover = $s8_text_color_onhover;
-$s8_background_color_onhover = $s8_background_color_onhover;
-$s8_icon_color_onhover = $s8_icon_color_onhover;
-$s8_icon_float = $s8_icon_float;
 
-$input_onhover = "this.style.backgroundColor= '$s8_background_color_onhover', this.childNodes[1].style.color= '$s8_icon_color_onhover', this.childNodes[2].style.color= '$s8_text_color_onhover' ; ";
-$input_onhover_out = "this.style.backgroundColor= '$s8_background_color', this.childNodes[1].style.color= '$s8_icon_color', this.childNodes[2].style.color= '$s8_text_color' ; ";
+// JS-context: esc_js() so values cannot break out of the JS string literal.
+$input_onhover     = "this.style.backgroundColor= '" . esc_js( $s8_background_color_onhover ) . "', this.childNodes[1].style.color= '" . esc_js( $s8_icon_color_onhover ) . "', this.childNodes[2].style.color= '" . esc_js( $s8_text_color_onhover ) . "' ; ";
+$input_onhover_out = "this.style.backgroundColor= '" . esc_js( $s8_background_color ) . "', this.childNodes[1].style.color= '" . esc_js( $s8_icon_color ) . "', this.childNodes[2].style.color= '" . esc_js( $s8_text_color ) . "' ; ";
 
 $o .= '<div class="ccw_plugin mdstyle8 sc_item '.$inline_issue.' " style=" '.$css.' " >';
 $o .= '<a style="background-color: '.$s8_background_color.';" target="_blank" rel="noreferrer" href="'.$redirect_a.'" class="btn ccw-analytics" data-ccw="style-8-sc"  onmouseover= " '.$input_onhover.' "  onmouseout= " '.$input_onhover_out.' "  >   ';

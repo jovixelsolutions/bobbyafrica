@@ -88,6 +88,15 @@ if ( ! class_exists( 'HT_CTC_Update_DB' ) ) {
 				if ( ! isset( $ht_ctc_plugin_details['v4_36'] ) ) {
 					$this->v4_36_update();
 				}
+
+				/**
+				 * V4.41:
+				 * store analytics parameters as nested rows.
+				 * rename entry effect values to 'center' / 'corner'.
+				 */
+				if ( ! isset( $ht_ctc_plugin_details['v4_41'] ) ) {
+					$this->v4_41_update();
+				}
 			}
 		}
 
@@ -96,6 +105,106 @@ if ( ! class_exists( 'HT_CTC_Update_DB' ) ) {
 		 * Database updates..
 		 */
 
+
+
+
+		/**
+		 * Updating to v4.41 or above
+		 * 4.41 changes.
+		 * Convert analytics parameter trackers to nested rows for v4.41.
+		 *
+		 * DB Structure Migration:
+		 * OLD State (Flat sibling keys):
+		 *  'g_an_params'      => ['g_an_param_1', 'g_an_param_2']
+		 *  'g_an_param_1'     => ['key' => 'number', 'value' => '123']
+		 *  'g_an_param_2'     => ['key' => 'Title', 'value' => 'abc']
+		 *  'g_an_param_order' => 2
+		 *
+		 * NEW State (Nested array structure with stored index keys):
+		 *  'g_an_params' => [
+		 *      0 => ['key' => 'number', 'value' => '123'],
+		 *      1 => ['key' => 'Title', 'value' => 'abc']
+		 *  ]
+		 *  (Obsolete keys like 'g_an_param_1' and 'g_an_param_order' are removed)
+		 *
+		 * The array key is the row index and is persisted in the db. Migrated rows are
+		 * re-keyed as 0, 1, 2 .. in order. Rows added later by the user use a time-based
+		 * index so each row keeps a stable identifier.
+		 *
+		 * Empty arrays and already nested rows are preserved. If any row cannot be
+		 * converted safely, the option is left unchanged and migration can retry.
+		 *
+		 * Also renames the entry effect (show_effect) values:
+		 *  OLD: 'From Center' / 'From Corner'
+		 *  NEW: 'center' / 'corner'
+		 * 'center' / 'corner' were already the internal names used for the css class names
+		 * (ht_ctc_an_entry_center) and the animation callbacks, so the stored value now
+		 * matches them directly. 'no-show-effects' is unchanged.
+		 *
+		 * @return void
+		 */
+		public function v4_41_update() {
+
+			$os = get_option( 'ht_ctc_othersettings', array() );
+
+			if ( ! is_array( $os ) ) {
+				$os = array();
+			}
+
+			$updated           = false;
+			$params_keys_array = array( 'g_an_params', 'pixel_params', 'gtm_params' );
+
+			foreach ( $params_keys_array as $params_key ) {
+				if ( isset( $os[ $params_key ] ) && is_array( $os[ $params_key ] ) ) {
+					// Check only if it's the old format (array of strings representing flat sibling keys)
+					if ( isset( $os[ $params_key ][0] ) && is_string( $os[ $params_key ][0] ) ) {
+						$new_nested_array = array();
+						$index            = 0;
+						foreach ( $os[ $params_key ] as $sibling_key ) {
+							if ( isset( $os[ $sibling_key ] ) && is_array( $os[ $sibling_key ] ) ) {
+								// Store rows as 0, 1, 2 .. in order. Key is persisted as the row index.
+								$new_nested_array[ $index ] = array(
+									'key'   => isset( $os[ $sibling_key ]['key'] ) ? $os[ $sibling_key ]['key'] : '',
+									'value' => isset( $os[ $sibling_key ]['value'] ) ? $os[ $sibling_key ]['value'] : '',
+								);
+								unset( $os[ $sibling_key ] );
+								++$index;
+							}
+						}
+						$os[ $params_key ] = $new_nested_array;
+						$updated           = true;
+					}
+				}
+
+				// Clean up the obsolete *_param_order keys
+				$order_keys = array(
+					'g_an_param_order',
+					'pixel_param_order',
+					'gtm_param_order',
+				);
+				foreach ( $order_keys as $order_key ) {
+					if ( isset( $os[ $order_key ] ) ) {
+						unset( $os[ $order_key ] );
+						$updated = true;
+					}
+				}
+			}
+
+			// Entry effect (show_effect) - rename the stored values.
+			$renamed_show_effect = array(
+				'From Center' => 'center',
+				'From Corner' => 'corner',
+			);
+
+			if ( isset( $os['show_effect'] ) && is_string( $os['show_effect'] ) && isset( $renamed_show_effect[ $os['show_effect'] ] ) ) {
+				$os['show_effect'] = $renamed_show_effect[ $os['show_effect'] ];
+				$updated           = true;
+			}
+
+			if ( $updated ) {
+				update_option( 'ht_ctc_othersettings', $os );
+			}
+		}
 
 
 		/**

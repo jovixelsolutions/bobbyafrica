@@ -54,6 +54,12 @@ class Ai1wm_Import_Check_Encryption {
 				WP_CLI::error( __( 'Importing an encrypted backup is not supported on this server. The process cannot continue. Technical details: https://help.servmask.com/knowledgebase/unable-to-encrypt-and-decrypt-backups/', 'all-in-one-wp-migration' ) );
 			} else {
 				Ai1wm_Status::server_cannot_decrypt( __( 'Importing an encrypted backup is not supported on this server. The process cannot continue. <a href="https://help.servmask.com/knowledgebase/unable-to-encrypt-and-decrypt-backups/" target="_blank">Technical details</a>', 'all-in-one-wp-migration' ) );
+
+				// REST API: throw to halt the pipeline; controller preserves the status option
+				if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+					throw new Ai1wm_Not_Decryptable_Exception( 'server_cannot_decrypt' );
+				}
+
 				exit;
 			}
 		}
@@ -79,11 +85,23 @@ class Ai1wm_Import_Check_Encryption {
 				WP_CLI::error( $decryption_password_error );
 			} else {
 				Ai1wm_Status::backup_is_encrypted( $decryption_password_error );
+
+				// REST API: throw to halt the pipeline; controller preserves the status option
+				if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+					throw new Ai1wm_Not_Decryptable_Exception( 'invalid_password' );
+				}
+
 				exit;
 			}
 		}
 
 		Ai1wm_Status::backup_is_encrypted( null );
+
+		// REST API: throw to halt the pipeline; controller preserves the status option
+		if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+			throw new Ai1wm_Not_Decryptable_Exception( 'awaiting_password' );
+		}
+
 		exit;
 	}
 }

@@ -226,7 +226,7 @@ class Cartflows_Optin_Meta_Data extends Cartflows_Step_Meta_Base {
 						'optin-doc' => array(
 							'type'    => 'doc',
 							/* translators: %1$1s: link html start, %2$12: link html end*/
-							'content' => sprintf( __( 'For more information about the CartFlows Optin step please %1$sClick here.%2$s', 'cartflows' ), '<a href="https://cartflows.com/docs/introducing-cartflows-optin-feature/?utm_source=dashboard&utm_medium=free-cartflows&utm_campaign=docs" target="_blank">', '</a>' ),
+							'content' => sprintf( __( 'For more information about the CartFlows Optin step please %1$sClick here.%2$s', 'cartflows' ), '<a href="' . esc_url( \Cartflows_Helper::get_kb_doc_link( 'https://cartflows.com/docs/introducing-cartflows-optin-feature/' ) ) . '" target="_blank">', '</a>' ),
 						),
 					),
 
@@ -646,7 +646,7 @@ class Cartflows_Optin_Meta_Data extends Cartflows_Step_Meta_Base {
 							'help'          => __( 'Enter comma seprated field name. E.g. first_name, last_name', 'cartflows' ),
 							'placeholder'   => __( 'Fields to pass, separated by commas', 'cartflows' ),
 							/* translators: %s: link */
-							'desc'          => sprintf( __( 'You can pass field value as a URL parameter to the next step. %1$sLearn More >>%2$s', 'cartflows' ), '<a href="https://cartflows.com/docs/pass-variable-as-query-parameters-to-url/?utm_source=dashboard&utm_medium=free-cartflows&utm_campaign=docs" target="_blank">', '</a>' ),
+							'desc'          => sprintf( __( 'You can pass field value as a URL parameter to the next step. %1$sLearn More >>%2$s', 'cartflows' ), '<a href="' . esc_url( \Cartflows_Helper::get_kb_doc_link( 'https://cartflows.com/docs/pass-variable-as-query-parameters-to-url/' ) ) . '" target="_blank">', '</a>' ),
 							'display_align' => 'vertical',
 							'conditions'    => array(
 								'fields' => array(

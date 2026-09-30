@@ -50,6 +50,11 @@ class Ai1wm_Import_Controller {
 
 		$ai1wm_params = $params;
 
+		// Set job ID for per-job status tracking
+		if ( isset( $params['storage'] ) ) {
+			Ai1wm_Status::$job_id = $params['storage'];
+		}
+
 		// Set secret key
 		$secret_key = null;
 		if ( isset( $params['secret_key'] ) ) {
@@ -57,7 +62,6 @@ class Ai1wm_Import_Controller {
 		}
 
 		ai1wm_setup_environment();
-		ai1wm_setup_errors();
 
 		try {
 			// Ensure that unauthorized people cannot access import action
@@ -65,6 +69,9 @@ class Ai1wm_Import_Controller {
 		} catch ( Ai1wm_Not_Valid_Secret_Key_Exception $e ) {
 			exit;
 		}
+
+		// Error handling is set up for the authorised request, after the secret-key check.
+		ai1wm_setup_errors();
 
 		// Loop over filters
 		if ( ( $filters = ai1wm_get_filters( 'ai1wm_import' ) ) ) {
@@ -84,6 +91,12 @@ class Ai1wm_Import_Controller {
 								WP_CLI::error( sprintf( __( 'Import failed. Code: %1$s. %2$s', 'all-in-one-wp-migration' ), $e->getCode(), $e->getMessage() ) );
 							}
 
+							// REST API: write job-scoped error so poll clients see the terminal state, then re-throw
+							if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+								Ai1wm_Status::error( __( 'Import failed', 'all-in-one-wp-migration' ), $e->getMessage() );
+								throw $e;
+							}
+
 							status_header( $e->getCode() );
 							ai1wm_json_response( array( 'errors' => array( array( 'code' => $e->getCode(), 'message' => $e->getMessage() ) ) ) );
 							exit;
@@ -95,8 +108,21 @@ class Ai1wm_Import_Controller {
 								WP_CLI::error( sprintf( __( 'Import failed (database error). Code: %1$s. %2$s', 'all-in-one-wp-migration' ), $e->getCode(), $e->getMessage() ) );
 							}
 
+							// REST API: write job-scoped error so poll clients see the terminal state, then re-throw
+							if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+								Ai1wm_Status::error( __( 'Import failed', 'all-in-one-wp-migration' ), $e->getMessage() );
+								throw $e;
+							}
+
 							status_header( $e->getCode() );
 							ai1wm_json_response( array( 'errors' => array( array( 'code' => $e->getCode(), 'message' => $e->getMessage() ) ) ) );
+							exit;
+						} catch ( Ai1wm_Not_Decryptable_Exception $e ) {
+							// Check_Encryption signals pipeline halt; storage/status preserved for retry via /confirm
+							if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+								throw $e;
+							}
+
 							exit;
 						} catch ( Exception $e ) {
 							do_action( 'ai1wm_status_import_error', $params, $e );
@@ -106,10 +132,16 @@ class Ai1wm_Import_Controller {
 								WP_CLI::error( sprintf( __( 'Import failed: %s', 'all-in-one-wp-migration' ), $e->getMessage() ) );
 							}
 
+							// Write job-scoped error first so REST poll clients see the terminal state
 							if ( $e instanceof Ai1wm_CRC_Exception ) {
 								Ai1wm_Status::left_error( __( 'Import failed', 'all-in-one-wp-migration' ), $e->getMessage() );
 							} else {
 								Ai1wm_Status::error( __( 'Import failed', 'all-in-one-wp-migration' ), $e->getMessage() );
+							}
+
+							// REST API: re-throw so the handler can return a WP_Error
+							if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+								throw $e;
 							}
 
 							Ai1wm_Notification::error( __( 'Import failed', 'all-in-one-wp-migration' ), $e->getMessage() );
@@ -147,6 +179,12 @@ class Ai1wm_Import_Controller {
 								'body'      => apply_filters( 'ai1wm_http_import_body', $params ),
 							)
 						);
+
+						// REST API: return params instead of exit so the handler can build a response
+						if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+							return $params;
+						}
+
 						exit;
 					}
 				}

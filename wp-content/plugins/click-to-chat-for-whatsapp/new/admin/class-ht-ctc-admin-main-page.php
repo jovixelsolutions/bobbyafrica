@@ -135,8 +135,8 @@ if ( ! class_exists( 'HT_CTC_Admin_Main_Page' ) ) {
 		 * @return void
 		 */
 		public function number_cb() {
-			$options = get_option( 'ht_ctc_chat_options' );
-			$os      = get_option( 'ht_ctc_othersettings' );
+			$options = HT_CTC_Utils::get_option( 'ht_ctc_chat_options' );
+			$os      = HT_CTC_Utils::get_option( 'ht_ctc_othersettings' );
 			$cc      = ( isset( $options['cc'] ) ) ? esc_attr( $options['cc'] ) : '';
 			$num     = ( isset( $options['num'] ) ) ? esc_attr( $options['num'] ) : '';
 			$number  = ( isset( $options['number'] ) ) ? esc_attr( $options['number'] ) : '';
@@ -215,7 +215,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Main_Page' ) ) {
 				<?php
 				// display plain input number filed link.. if number filed is null/blank.
 				// - ..
-				$ht_ctc_admin_pages = get_option( 'ht_ctc_admin_pages' );
+				$ht_ctc_admin_pages = HT_CTC_Utils::get_option( 'ht_ctc_admin_pages' );
 				$save_count         = ( isset( $ht_ctc_admin_pages['count'] ) ) ? $ht_ctc_admin_pages['count'] : 0;
 
 				// if number is empty OR the 'number' option is not set.
@@ -301,8 +301,13 @@ if ( ! class_exists( 'HT_CTC_Admin_Main_Page' ) ) {
 			 * @return void
 			 */
 		public function prefilled_cb() {
-			$options     = get_option( 'ht_ctc_chat_options' );
-			$value       = ( isset( $options['pre_filled'] ) ) ? esc_attr( $options['pre_filled'] ) : '';
+			$options = HT_CTC_Utils::get_option( 'ht_ctc_chat_options' );
+
+			$value = ( isset( $options['pre_filled'] ) ) ? $options['pre_filled'] : '';
+			// for emoji's to display we have to html_decode this field as esc_textarea esacapes & -> &amp;.
+			$value = html_entity_decode( (string) $value, ENT_QUOTES, 'UTF-8' );
+			// $value = html_entity_decode( $value, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+
 			$blogname    = HT_CTC_BLOG_NAME;
 			$placeholder = "Hello {site} \nLike to know more information about {title}, {url}";
 			?>
@@ -322,8 +327,8 @@ if ( ! class_exists( 'HT_CTC_Admin_Main_Page' ) ) {
 			 * @return void
 			 */
 		public function cta_cb() {
-			$options = get_option( 'ht_ctc_chat_options' );
-			$value   = ( isset( $options['call_to_action'] ) ) ? esc_attr( $options['call_to_action'] ) : '';
+			$options = HT_CTC_Utils::get_option( 'ht_ctc_chat_options' );
+			$value   = ( isset( $options['call_to_action'] ) ) ? $options['call_to_action'] : '';
 			?>
 		<div class="row" id="row_call_to_action">
 			<div class="input-field col s12">
@@ -351,7 +356,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Main_Page' ) ) {
 			 * @return void
 			 */
 		public function ctc_device_cb() {
-			$options = get_option( 'ht_ctc_chat_options' );
+			$options = HT_CTC_Utils::get_option( 'ht_ctc_chat_options' );
 			$dbrow   = 'ht_ctc_chat_options';
 			$type    = 'chat';
 
@@ -366,7 +371,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Main_Page' ) ) {
 			 * @return void
 			 */
 		public function ctc_url_strucutre_cb() {
-			$options = get_option( 'ht_ctc_chat_options' );
+			$options = HT_CTC_Utils::get_option( 'ht_ctc_chat_options' );
 			$dbrow   = 'ht_ctc_chat_options';
 			$type    = 'chat';
 
@@ -435,7 +440,6 @@ if ( ! class_exists( 'HT_CTC_Admin_Main_Page' ) ) {
 				<p class="description" style="font-size: 11px;">
 					<span style="font-weight: 500;">Wa.me</span>: To open WhatsApp Desktop app <br>
 					<span style="font-weight: 500;">Web WhatsApp</span>: Opens web.whatsapp.com<br>
-					<!-- todo: admin demo - custom url. -->
 					<span style="font-weight: 500;">Custom URL</span>: Add any URL (e.g., WhatsApp channel URL).
 				</p>
 				<div class="custom_url_desktop ctc_init_display_none" style="margin-top:10px;">
@@ -489,7 +493,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Main_Page' ) ) {
 			 * @return void
 			 */
 		public function ctc_show_hide_cb() {
-			$options = get_option( 'ht_ctc_chat_options' );
+			$options = HT_CTC_Utils::get_option( 'ht_ctc_chat_options' );
 			$dbrow   = 'ht_ctc_chat_options';
 			$type    = 'chat';
 
@@ -537,7 +541,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Main_Page' ) ) {
 			if ( ! defined( 'HT_CTC_PRO_VERSION' ) ) {
 				?>
 				<!-- <p class="description">PRO:  -->
-				<!-- <a target="_blank" href="https://holithemes.com/plugins/click-to-chat/pro/">Click to Chat PRO</a>  -->
+				<!-- <a target="_blank" href="https://holithemes.com/plugins/click-to-chat/pricing/">Click to Chat PRO</a>  -->
 				<!-- - <a target="_blank" href="https://holithemes.com/plugins/click-to-chat/pro-features/">Features</a> |  -->
 				<!-- <a target="_blank" href="https://holithemes.com/plugins/click-to-chat/pricing/">Pricing</a></p> -->
 				<!-- <br> -->

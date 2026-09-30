@@ -1,0 +1,381 @@
+/* ==========================================================================
+   INFO & ALERT BOXES
+   ========================================================================== */
+.info-box,
+.infobox-alert {
+    position: relative;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    border-inline-start: 4px solid;
+    background-color: var(--surface);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    transition: var(--transition-fast);
+}
+
+.info-box:hover,
+.infobox-alert:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+}
+
+.info-box-inner {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.info-box-icon {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+html[data-theme="dark"] .info-box-icon {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Dark Mode Variants */
+html[data-theme="dark"] .info-box,
+html[data-theme="dark"] .infobox-alert {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+html[data-theme="dark"] .info-box:hover,
+html[data-theme="dark"] .infobox-alert:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+html[data-theme="dark"] .info-box.info,
+html[data-theme="dark"] .infobox-alert.info,
+html[data-theme="dark"] .info-box:not([class*=" "]) {
+    background-color: rgba(59, 130, 246, 0.12);
+    border-inline-start-color: #60a5fa;
+}
+
+html[data-theme="dark"] .info-box.info .info-box-icon,
+html[data-theme="dark"] .infobox-alert.info .info-box-icon {
+    color: #60a5fa;
+    background-color: rgba(59, 130, 246, 0.2);
+}
+
+html[data-theme="dark"] .info-box.success,
+html[data-theme="dark"] .infobox-alert.success {
+    background-color: rgba(16, 185, 129, 0.12);
+    border-inline-start-color: #34d399;
+}
+
+html[data-theme="dark"] .info-box.success .info-box-icon,
+html[data-theme="dark"] .infobox-alert.success .info-box-icon {
+    color: #34d399;
+    background-color: rgba(16, 185, 129, 0.2);
+}
+
+html[data-theme="dark"] .info-box.warning,
+html[data-theme="dark"] .infobox-alert.warning {
+    background-color: rgba(245, 158, 11, 0.12);
+    border-inline-start-color: #fbbf24;
+}
+
+html[data-theme="dark"] .info-box.warning .info-box-icon,
+html[data-theme="dark"] .infobox-alert.warning .info-box-icon {
+    color: #fbbf24;
+    background-color: rgba(245, 158, 11, 0.2);
+}
+
+html[data-theme="dark"] .info-box.error,
+html[data-theme="dark"] .infobox-alert.error {
+    background-color: rgba(239, 68, 68, 0.12);
+    border-inline-start-color: #f87171;
+}
+
+html[data-theme="dark"] .info-box.error .info-box-icon,
+html[data-theme="dark"] .infobox-alert.error .info-box-icon {
+    color: #f87171;
+    background-color: rgba(239, 68, 68, 0.2);
+}
+
+.info-box-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.info-box-title {
+    margin: 0 0 0.25rem 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.info-box-text {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.info-box-text p:last-child {
+    margin-bottom: 0;
+}
+
+/* Variants */
+/* Info (Default) */
+.info-box.info,
+.infobox-alert.info,
+.info-box:not([class*=" "]) {
+    background-color: rgba(59, 130, 246, 0.05);
+    /* Blue tint */
+    border-inline-start-color: #3b82f6;
+}
+
+.info-box.info .info-box-icon,
+.infobox-alert.info .info-box-icon {
+    color: #3b82f6;
+    background-color: rgba(59, 130, 246, 0.1);
+}
+
+/* Success */
+.info-box.success,
+.infobox-alert.success {
+    background-color: rgba(16, 185, 129, 0.05);
+    /* Green tint */
+    border-inline-start-color: #10b981;
+}
+
+.info-box.success .info-box-icon,
+.infobox-alert.success .info-box-icon {
+    color: #10b981;
+    background-color: rgba(16, 185, 129, 0.1);
+}
+
+/* Warning */
+.info-box.warning,
+.infobox-alert.warning {
+    background-color: rgba(245, 158, 11, 0.05);
+    /* Amber tint */
+    border-inline-start-color: #f59e0b;
+}
+
+.info-box.warning .info-box-icon,
+.infobox-alert.warning .info-box-icon {
+    color: #f59e0b;
+    background-color: rgba(245, 158, 11, 0.1);
+}
+
+/* Error */
+.info-box.error,
+.infobox-alert.error {
+    background-color: rgba(239, 68, 68, 0.05);
+    /* Red tint */
+    border-inline-start-color: #ef4444;
+}
+
+.info-box.error .info-box-icon,
+.infobox-alert.error .info-box-icon {
+    color: #ef4444;
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* Reference Box */
+.reference-box {
+    background-color: var(--surface);
+    border: 1px dashed var(--border);
+    padding: 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.reference-box h4 {
+    font-size: 0.925rem;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+}
+
+.reference-box p {
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+}
+
+.reference-box ul {
+    margin-bottom: 0.75rem;
+    padding-inline-start: 1.25rem;
+    color: var(--text-secondary);
+}
+
+.reference-box li {
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+}
+
+/* Variables reference (block_variables) — click-to-copy tile grid,
+   matching the feature-box tile design language. */
+.variables-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.variables-title {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.variables-badge {
+    font-size: 9px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    background: linear-gradient(to right, rgba(245, 158, 11, 0.2), rgba(217, 119, 6, 0.2));
+    color: var(--pro-color);
+}
+
+.variables-note {
+    margin: 8px 0 0;
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
+.variables-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+    gap: 8px;
+}
+
+.variable-tile {
+    position: relative;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 6px 26px 6px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    text-align: left;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.variable-tile:hover {
+    transform: translateY(-1px);
+    border-color: var(--primary);
+    box-shadow: 0 6px 16px -8px var(--primary-glow);
+}
+
+.variable-tile code {
+    background: hsla(var(--p-h), var(--p-s), 45%, 0.08);
+    color: var(--primary-readable);
+    border: 1px solid hsla(var(--p-h), var(--p-s), 45%, 0.16);
+    padding: 2px 7px;
+    border-radius: 5px;
+    font-family: var(--font-mono, monospace);
+    font-size: 11px;
+    font-weight: 600;
+}
+
+/* Copied: intensify the tint + solid border and keep the theme-readable text
+   color. Avoid white-on-primary — a light brand color makes it unreadable. */
+.variable-tile.copied code {
+    background: hsla(var(--p-h), var(--p-s), 45%, 0.16);
+    border-color: var(--primary);
+    color: var(--primary-readable);
+}
+
+.variable-tile .variable-desc {
+    font-size: 11px;
+    line-height: 1.4;
+    color: var(--text-secondary);
+}
+
+/* Corner copy cue: muted by default, primary on hover, check while copied */
+.variable-tile-cue {
+    position: absolute;
+    top: 7px;
+    right: 8px;
+    display: inline-flex;
+    color: var(--text-secondary);
+    opacity: 0.55;
+    transition: var(--transition);
+}
+
+.variable-tile-cue .ctc-icon {
+    width: 12px;
+    height: 12px;
+}
+
+.variable-tile:hover .variable-tile-cue {
+    color: var(--primary-readable);
+    opacity: 1;
+}
+
+.variable-tile-cue .variable-check-icon {
+    display: none;
+}
+
+.variable-tile.copied .variable-tile-cue {
+    color: var(--primary-readable);
+    opacity: 1;
+}
+
+.variable-tile.copied .variable-tile-cue .variable-copy-icon {
+    display: none;
+}
+
+.variable-tile.copied .variable-tile-cue .variable-check-icon {
+    display: inline;
+}
+
+/* PRO tiles: copyable like the rest, marked by an amber accent + crown badge.
+   The crown labels the token as a PRO feature; it does not lock the copy. */
+.variable-tile.is-pro:hover {
+    border-color: var(--pro-color);
+    box-shadow: 0 6px 16px -8px rgba(245, 158, 11, 0.5);
+}
+
+.variable-tile.is-pro code {
+    background: rgba(245, 158, 11, 0.1);
+    border-color: rgba(245, 158, 11, 0.28);
+    color: var(--pro-color);
+}
+
+.variable-tile.is-pro .variable-tile-cue {
+    color: var(--pro-color);
+    opacity: 0.9;
+}
+
+/* Cue slot on PRO tiles: crown by default → copy on hover → check when copied.
+   (Base rules already handle copy→check for the copied state.) */
+.variable-tile.is-pro .variable-copy-icon {
+    display: none;
+}
+
+.variable-tile.is-pro:hover:not(.copied) .variable-pro-icon {
+    display: none;
+}
+
+.variable-tile.is-pro:hover:not(.copied) .variable-copy-icon {
+    display: inline;
+}
+
+.variable-tile.is-pro:hover .variable-tile-cue {
+    /* color: var(--primary-readable); */
+    opacity: 1;
+}
+
+.variable-tile.is-pro.copied .variable-pro-icon {
+    display: none;
+}
+

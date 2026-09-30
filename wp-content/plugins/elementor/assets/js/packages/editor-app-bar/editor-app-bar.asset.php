@@ -9,7 +9,9 @@ return [
 	'handle' => 'elementor-v2-editor-app-bar',
 	'deps' => [
 		'elementor-v2-editor',
+		'elementor-v2-editor-current-user',
 		'elementor-v2-editor-documents',
+		'elementor-v2-editor-mcp',
 		'elementor-v2-editor-responsive',
 		'elementor-v2-editor-ui',
 		'elementor-v2-editor-v1-adapters',

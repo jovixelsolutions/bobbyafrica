@@ -1,0 +1,177 @@
+/* ==========================================================================
+   PRISM COMMAND BAR (HEADER)
+   ========================================================================== */
+.admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--ctc-header-height);
+    padding: 0 2rem;
+    background-color: var(--surface);
+    background-image: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    background-size: 50% 100%;
+    background-repeat: no-repeat;
+    backdrop-filter: blur(var(--prism-blur));
+    -webkit-backdrop-filter: blur(var(--prism-blur));
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border);
+    position: sticky;
+    top: calc(var(--ctc-wp-adminbar-height) + 8px);
+    margin: 0 4rem;
+    z-index: 1000;
+    box-shadow: var(--shadow-prism);
+    transition: var(--transition);
+
+    /* One-time entrance sweep.
+       This used to loop forever (8s), which put permanent motion in the sticky
+       chrome of a screen people read and type on — the light band crossing the
+       header in peripheral vision every few seconds, indefinitely. It was also
+       the most expensive thing on the page: animating background-position can't
+       be composited, so it repainted a 40px backdrop-filter surface every frame
+       for the whole session. A single pass on load keeps the flourish. */
+    animation: prismSweepBG 1.6s var(--ease-prism) 0.15s both;
+}
+
+@keyframes prismSweepBG {
+    from {
+        background-position: -100% 0;
+    }
+
+    to {
+        background-position: 300% 0;
+    }
+}
+
+/* `both` parks the gradient off the right edge after the sweep; reduced-motion
+   users skip straight to that resting state. */
+@media (prefers-reduced-motion: reduce) {
+    .admin-header {
+        animation: none;
+        background-position: 300% 0;
+    }
+}
+
+.header-left,
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.header-left {
+    min-width: 0;
+    flex: 1;
+}
+
+.menu-toggle {
+    background: hsla(var(--s-h), 20%, 50%, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--radius-sm);
+    transition: var(--transition-fast);
+}
+
+.menu-toggle:hover {
+    color: var(--text);
+    background-color: var(--bg-secondary);
+    border-color: var(--text-secondary);
+    transform: scale(1.05);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    min-width: 0;
+}
+
+.logo:hover {
+    transform: scale(1.02);
+}
+
+.logo-icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: var(--shadow-bloom);
+}
+
+.admin-header .logo-text {
+    font-family: var(--font-main);
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--text);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.switch-interface {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.5rem 1.25rem;
+    border-radius: var(--radius-pill);
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid var(--border);
+    transition: var(--transition-fast);
+}
+
+html[data-theme="dark"] .switch-interface {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.switch-interface:hover {
+    color: var(--primary-readable);
+    background: var(--primary-glow);
+    border-color: var(--primary);
+}
+
+@media (max-width: 768px) {
+    .admin-header {
+        inset-inline-start: 10px;
+        inset-inline-end: 10px;
+        border-radius: var(--radius-md);
+        margin: 0;
+    }
+
+    .switch-text {
+        display: none;
+    }
+}
+
+
+/* Mobile: current section label next to hamburger */
+.mobile-section-label {
+    display: none;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
+}
+
+@media (max-width: 767px) {
+    .mobile-section-label {
+        display: inline-block;
+    }
+}

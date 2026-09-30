@@ -182,13 +182,17 @@ abstract class Ai1wm_Archiver {
 		}
 
 		// Use pre-calculated CRC if provided, otherwise calculate (fallback)
-		if ( empty( $archive_crc_value ) ) {
+		if ( is_null( $archive_crc_value ) ) {
 			$archive_crc_value = Ai1wm_Crc::calculate_file_crc32( $this->file_name );
 		}
 
+		$archive_crc_size = '';
+
 		// Get archive size (before EOF block)
-		if ( ( $archive_crc_size = @ftell( $this->file_handle ) ) === false ) {
-			throw new Ai1wm_Not_Tellable_Exception( sprintf( __( 'Could not tell offset of file. File: %s', 'all-in-one-wp-migration' ), $this->file_name ) );
+		if ( ! empty( $archive_crc_value ) ) {
+			if ( ( $archive_crc_size = @ftell( $this->file_handle ) ) === false ) {
+				throw new Ai1wm_Not_Tellable_Exception( sprintf( __( 'Could not tell offset of file. File: %s', 'all-in-one-wp-migration' ), $this->file_name ) );
+			}
 		}
 
 		// Write end of file block
@@ -338,7 +342,7 @@ abstract class Ai1wm_Archiver {
 	 * @return bool
 	 */
 	protected function is_v1_eof( $block ) {
-		return $this->get_eof_block() === $block;
+		return $this->get_eof_block( '', '' ) === $block;
 	}
 
 	/**

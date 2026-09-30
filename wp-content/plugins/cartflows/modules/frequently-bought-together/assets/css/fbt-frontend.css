@@ -1,0 +1,278 @@
+/**
+ * Frequently Bought Together — Frontend widget (Config B list layout).
+ */
+
+/* Widget owns its box model — block themes ship no global border-box reset. */
+.wcf-fbt-widget,
+.wcf-fbt-widget *,
+.wcf-fbt-widget *::before,
+.wcf-fbt-widget *::after {
+	box-sizing: border-box;
+}
+
+.wcf-fbt-widget {
+	border: 1px solid #e5e7eb;
+	border-radius: 4px;
+	padding: 20px;
+	background: #fff;
+	margin: 20px 0;
+	clear: both;
+	display: inline-block;
+	width: 100%;
+}
+
+/* Blockified ATC form is a grid — keep the widget out of its tracks so it can't inflate the quantity column. */
+.wp-block-woocommerce-add-to-cart-form form.cart .wcf-fbt-widget {
+	grid-column: 1 / -1;
+	min-width: 0;
+	contain: inline-size;
+}
+
+.wcf-fbt-widget-title {
+	font-size: 15px;
+	font-weight: 600;
+	margin: 0 0 16px;
+}
+
+.wcf-fbt-widget-list {
+	display: flex;
+	flex-direction: column;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.wcf-fbt-widget-row {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 10px 2px;
+	margin: 0;
+	cursor: pointer;
+}
+
+/* Separators live on the list's direct children — rows and variable row-groups alike. */
+.wcf-fbt-widget-list > * + * {
+	border-top: 1px solid #f0f0f0;
+}
+
+.wcf-fbt-widget-row input[type="checkbox"] {
+	width: 15px;
+	height: 15px;
+	margin: 0;
+	flex-shrink: 0;
+}
+
+.wcf-fbt-widget-thumb {
+	width: 40px;
+	height: 40px;
+	overflow: hidden;
+	border-radius: 3px;
+	background: #f0f0f0;
+	flex-shrink: 0;
+}
+
+.wcf-fbt-widget-thumb img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.wcf-fbt-widget-name {
+	flex: 1;
+	min-width: 0;
+	font-size: 13px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.wcf-fbt-widget-name em {
+	color: #999;
+	font-size: 12px;
+	font-style: normal;
+	margin-left: 4px;
+}
+
+.wcf-fbt-widget input.wcf-fbt-widget-qty[type="number"] {
+	width: 56px;
+	padding: 4px 6px;
+	font-size: 13px;
+	text-align: center;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	flex-shrink: 0;
+	margin: 0;
+}
+
+.wcf-fbt-widget-price {
+	font-size: 13px;
+	font-weight: 600;
+	flex-shrink: 0;
+	min-width: 70px;
+	text-align: right;
+}
+
+.wcf-fbt-widget-row.is-main .wcf-fbt-widget-name,
+.wcf-fbt-widget-row.is-main .wcf-fbt-widget-price {
+	color: #aaa;
+}
+
+.wcf-fbt-widget-row.is-unavailable {
+	opacity: 0.55;
+	cursor: not-allowed;
+}
+
+/* Rows that must be configured on their own page get a link, so the row itself isn't clickable. */
+.wcf-fbt-widget-row.requires-options {
+	cursor: default;
+}
+
+/* Keeps the name column aligned with rows that do have a checkbox. */
+.wcf-fbt-widget-box-spacer {
+	width: 15px;
+	flex-shrink: 0;
+}
+
+.wcf-fbt-widget-options-link {
+	font-size: 13px;
+	flex-shrink: 0;
+	text-decoration: underline;
+}
+
+.wcf-fbt-widget-stock-badge {
+	font-size: 11px;
+	font-weight: 600;
+	color: #b91c1c;
+	background: #fef2f2;
+	padding: 2px 8px;
+	border-radius: 3px;
+	flex-shrink: 0;
+	white-space: nowrap;
+}
+
+.wcf-fbt-widget.is-collapsed .wcf-fbt-widget-row.is-extra,
+.wcf-fbt-widget.is-collapsed .wcf-fbt-widget-row-group.is-extra {
+	display: none;
+}
+
+/* Variable rows — a variation select appears under the name column when checked. */
+.wcf-fbt-widget-variation {
+	display: none;
+	margin: -2px 0 10px 80px;
+	max-width: 320px;
+}
+
+.wcf-fbt-widget-row-group.is-open .wcf-fbt-widget-variation {
+	display: block;
+}
+
+.wcf-fbt-widget select.wcf-fbt-widget-variation-select {
+	width: 100%;
+	height: 36px;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 0 10px;
+	font-size: 13px;
+	color: inherit;
+	background: #fff;
+}
+
+.wcf-fbt-widget-variation.needs-choice select.wcf-fbt-widget-variation-select {
+	border-color: #2563eb;
+}
+
+.wcf-fbt-widget-variation-hint {
+	display: none;
+	font-size: 11px;
+	color: #2563eb;
+	margin-top: 4px;
+}
+
+.wcf-fbt-widget-variation.needs-choice .wcf-fbt-widget-variation-hint {
+	display: block;
+}
+
+.wcf-fbt-widget-price.is-from {
+	color: #767676;
+	font-weight: 500;
+}
+
+.wcf-fbt-widget .wcf-fbt-widget-toggle,
+.wcf-fbt-widget .wcf-fbt-widget-toggle:hover,
+.wcf-fbt-widget .wcf-fbt-widget-toggle:focus {
+	background: none;
+	border: none;
+	box-shadow: none;
+	color: #2563eb;
+	font-size: 13px;
+	font-weight: 600;
+	cursor: pointer;
+	padding: 8px 2px 12px;
+	text-align: left;
+	text-decoration: none;
+	transition: color 0.2s ease, background 0.2s ease;
+}
+
+.wcf-fbt-widget-footer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	padding-top: 16px;
+	margin-top: 6px;
+	border-top: 1px solid #eee;
+}
+
+.wcf-fbt-widget-total-label {
+	font-size: 11px;
+	color: #666;
+}
+
+.wcf-fbt-widget-total {
+	font-size: 19px;
+	font-weight: 700;
+}
+
+.wcf-fbt-widget .wcf-fbt-widget-footer button.wcf-fbt-widget-add {
+	padding: 10px 20px;
+	font-size: 15px;
+	margin: 0 !important;
+	/* Clamp theme width: 100% rules (customizer full-width buttons) without a specificity war. */
+	max-width: fit-content;
+}
+
+.wcf-fbt-widget .wcf-fbt-widget-footer button.wcf-fbt-widget-add:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+/* Sydney theme: its add-to-cart flex row must wrap so the widget drops below on its own full-width line. */
+.product-gallery-summary .sydney-single-addtocart-wrapper {
+	flex-wrap: wrap;
+}
+
+.product-gallery-summary .sydney-single-addtocart-wrapper .wcf-fbt-widget {
+	flex-basis: 100%;
+}
+
+/* Compact density on narrow screens — one-line rows, recovered width goes to the product name. */
+@media ( max-width: 480px ) {
+	.wcf-fbt-widget-row {
+		gap: 8px;
+	}
+
+	.wcf-fbt-widget input.wcf-fbt-widget-qty[type="number"] {
+		width: 48px;
+		padding: 4px 2px;
+	}
+
+	.wcf-fbt-widget-price {
+		min-width: 0;
+	}
+
+	.wcf-fbt-widget-variation {
+		margin-left: 71px;
+	}
+}

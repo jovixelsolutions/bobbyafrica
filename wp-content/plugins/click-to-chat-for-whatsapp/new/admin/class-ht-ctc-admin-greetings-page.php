@@ -343,11 +343,11 @@ if ( ! class_exists( 'HT_CTC_Admin_Greetings_Page' ) ) {
 							'db'           => 'g_position',
 							'template'     => 'select',
 							'list'         => array(
-								'next'  => 'Next to the Chat Button',
+								'next'  => 'Next to the Chat Widget',
 								'modal' => 'Modal Dialog (Centered)',
 							),
 							'parent_class' => 'pr_g_position ctc_no_demo',
-							'description'  => "<strong>Next to the Chat Button</strong>: Default - positions the greetings near the chat icon<br><strong>Modal Dialog</strong>: Displays at the center of the screen with a dimmed background.<br><em>Note:</em> Modal option is in beta. <a target='_blank' href='https://holithemes.com/plugins/click-to-chat/greetings-position'>Learn more</a>",
+							'description'  => "<strong>Next to the Chat Widget</strong>: Default - positions the greetings near the chat icon<br><strong>Modal Dialog</strong>: Displays at the center of the screen with a dimmed background.<br><em>Note:</em> Modal option is in beta. <a target='_blank' href='https://holithemes.com/plugins/click-to-chat/greetings-position'>Learn more</a>",
 						),
 						array(
 							'title'        => __( 'Greetings dialog Size', 'click-to-chat-for-whatsapp' ),
@@ -364,7 +364,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Greetings_Page' ) ) {
 							'title'        => __( 'Initial stage', 'click-to-chat-for-whatsapp' ),
 							'db'           => 'g_init',
 							'template'     => 'select',
-							'description'  => "Preset: On first visit, opens automatically on desktop and stays closed on mobile — further behavior is based on user interaction. <br>Open: Initially visible. If the user closes the dialog, it stays closed until the user reopens it or triggers greeting actions <br> Close: hidden until the user initiates chat or triggers greeting actions - <a target='_blank' href='https://holithemes.com/plugins/click-to-chat/greetings-initial-stage'>more info</a>",
+							'description'  => "<strong>Preset:</strong> Recommended - On first visit, opens automatically on desktop and stays closed on mobile — further behavior is based on user interaction. <br> <strong>Open:</strong> Displays the greetings dialog on page load or when triggered by actions. If the user closes the dialog, it remains closed and will not reopen automatically unless triggered again. <br> <strong>Close:</strong> hidden until the user initiates chat or triggers greeting actions - <a target='_blank' href='https://holithemes.com/plugins/click-to-chat/greetings-initial-stage'>more info</a>",
 							'list'         => array(
 								'default' => 'Preset',
 								'open'    => 'Open',
@@ -398,7 +398,7 @@ if ( ! class_exists( 'HT_CTC_Admin_Greetings_Page' ) ) {
 				$fallback_values = $s['fallback_values'];
 			}
 
-			$options = get_option( $dbrow, $fallback_values );
+			$options = HT_CTC_Utils::get_option( $dbrow );
 
 			if ( isset( $options['fallback_values'] ) ) {
 				$options = $fallback_values;

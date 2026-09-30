@@ -14,6 +14,7 @@
   --e-a-color-warning:	#F59E0B;
   --e-a-color-accent:	#93003f;
   --e-a-color-accent-promotion:	#D6107C;
+  --e-a-color-accent-promotion-disabled: rgba(214, 16, 124, 0.38);
   --e-a-color-global:	#1DDDBF;
   --e-a-bg-default:	#1f2124;
   --e-a-bg-invert:	#ffffff;

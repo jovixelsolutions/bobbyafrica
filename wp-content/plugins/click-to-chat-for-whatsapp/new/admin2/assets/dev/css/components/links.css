@@ -1,0 +1,111 @@
+/* ==========================================================================
+   EXTERNAL LINKS
+   ========================================================================== */
+/* Inline external link used within sentences and help text. */
+.external-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3em;
+    color: var(--primary-readable);
+    font-size: inherit;
+    text-decoration: none;
+    transition: var(--transition-fast);
+    font-weight: 500;
+    vertical-align: baseline;
+}
+
+.external-link:hover {
+    color: var(--primary-readable-hover);
+}
+
+.external-link .dashicons {
+    font-size: 1em;
+    width: 1em;
+    height: 1em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.2s var(--ease-prism);
+}
+
+/* Diagonal hover lift for external link icon. */
+.external-link:hover .dashicons {
+    transform: translate(2px, -2px);
+}
+
+/* Standalone documentation link chip (block_external_link) rendered under a field. */
+.external-link--block {
+    margin-top: 0.5rem;
+    margin-bottom: 1.25rem;
+    padding: 0.35rem 0.7rem;
+    gap: 0.4rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    width: fit-content;
+    max-width: 100%;
+}
+
+/* Reduce margin when following a field to visually group the link chip with it. */
+.form-group + .external-link--block,
+.form-group-row + .external-link--block {
+    margin-top: -0.75rem;
+}
+
+.external-link--block:hover {
+    text-decoration: none;
+    color: var(--primary-readable-hover);
+    border-color: var(--primary-readable);
+    box-shadow: 0 2px 8px var(--primary-glow);
+}
+
+/* Keep icon size proportional to the link label using em units. */
+.external-link--block .dashicons {
+    font-size: 1em;
+    width: 1em;
+    height: 1em;
+    color: var(--primary-readable);
+}
+
+/**
+ * Shortcut/Internal Links
+ */
+.ctc-shortcut-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--primary-readable);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition-fast);
+}
+
+.ctc-shortcut-link:hover {
+    color: var(--primary-readable-hover);
+}
+
+.ctc-shortcut-link .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s var(--ease-prism);
+}
+
+.ctc-shortcut-link:hover .dashicons {
+    transform: translateX(3px);
+}
+
+/**
+ * Doc link groups — multiple external links in a row
+ */
+.ctc-help-links-group {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 4px 14px;
+    align-items: center;
+}
+

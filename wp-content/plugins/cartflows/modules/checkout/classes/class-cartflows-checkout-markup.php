@@ -40,6 +40,12 @@ class Cartflows_Checkout_Markup {
 	 */
 	public function __construct() {
 
+		// Register early so get_value() returns URL-param values inside
+		// WC_Checkout::initialize_checkout_fields(), which bakes the active
+		// country into the state field definition on first call — potentially
+		// before the wp action fires.
+		add_filter( 'woocommerce_checkout_get_value', array( $this, 'prefill_checkout_get_value' ), 10, 2 );
+
 		/* Set is checkout flag */
 		add_filter( 'woocommerce_is_checkout', array( $this, 'woo_checkout_flag' ), 9999 );
 
@@ -465,6 +471,107 @@ class Cartflows_Checkout_Markup {
 	}
 
 	/**
+	 * Whether a post ID is a CartFlows checkout step (not merely a step post type).
+	 *
+	 * @since 3.2.1
+	 *
+	 * @param int $post_id Post ID to test.
+	 * @return bool
+	 */
+	private function is_checkout_step( $post_id ) {
+		return CARTFLOWS_STEP_POST_TYPE === get_post_type( $post_id ) && 'checkout' === get_post_meta( $post_id, 'wcf-step-type', true );
+	}
+
+	/**
+	 * Resolve a checkout template candidate to a safe, includable path.
+	 *
+	 * Fail-closed: returns the real path only when the candidate is an existing
+	 * `.php` file inside an allowed root (plugin, mu-plugin, or active/parent
+	 * theme). The writable uploads dir is excluded by construction.
+	 *
+	 * @since 3.2.1
+	 *
+	 * @param mixed $candidate Filtered template value.
+	 * @return string|false Real path to include, or false when it is not allowed.
+	 */
+	private function resolve_allowed_template( $candidate ) {
+
+		if ( ! is_string( $candidate ) || '' === $candidate || ! file_exists( $candidate ) ) {
+			return false;
+		}
+
+		$real_path = realpath( $candidate );
+
+		if ( ! $real_path || 'php' !== strtolower( pathinfo( $real_path, PATHINFO_EXTENSION ) ) ) {
+			return false;
+		}
+
+		$allowed_roots = array_filter(
+			array_map(
+				'realpath',
+				array(
+					WP_PLUGIN_DIR,
+					defined( 'WPMU_PLUGIN_DIR' ) ? WPMU_PLUGIN_DIR : '',
+					get_stylesheet_directory(),
+					get_template_directory(),
+				)
+			)
+		);
+
+		foreach ( $allowed_roots as $allowed_root ) {
+			if ( 0 === strpos( $real_path, $allowed_root . DIRECTORY_SEPARATOR ) ) {
+				return $real_path;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Resolve the checkout template to include for a step.
+	 *
+	 * The `wcf-checkout-layout` meta is a layout slug, never a path. It is still
+	 * passed to `cartflows_checkout_layout_template` as argument 1 so existing
+	 * callbacks keep working, but when no callback replaces it the hardcoded
+	 * default is used. A callback's return is honoured only when it resolves to a
+	 * `.php` file inside an allowed root, so nothing writable can be included.
+	 *
+	 * @since 3.2.1
+	 *
+	 * @param int $checkout_id Checkout step post ID.
+	 * @return array Template path to include, and whether an override was refused.
+	 */
+	private function resolve_checkout_template( $checkout_id ) {
+
+		$template_default = CARTFLOWS_CHECKOUT_DIR . 'templates/embed/checkout-template-simple.php';
+
+		$checkout_layout = wcf()->options->get_checkout_meta_value( $checkout_id, 'wcf-checkout-layout' );
+
+		// Back-compat: arg 1 stays the layout slug, arg 2 adds the checkout ID.
+		$template_layout = apply_filters( 'cartflows_checkout_layout_template', $checkout_layout, $checkout_id );
+
+		// Security: no callback replaced the slug, so there is no override - the meta is never used as a path.
+		if ( $template_layout === $checkout_layout ) {
+			$template_layout = $template_default;
+		}
+
+		$real_path = $this->resolve_allowed_template( $template_layout );
+
+		if ( false !== $real_path ) {
+			return array(
+				'template' => $real_path,
+				'rejected' => false,
+			);
+		}
+
+		return array(
+			'template' => $template_default,
+			// A filter that returned a real file we refused to include is a misconfiguration worth surfacing.
+			'rejected' => is_string( $template_layout ) && $template_layout !== $template_default && is_file( $template_layout ),
+		);
+	}
+
+	/**
 	 * Render checkout shortcode markup.
 	 *
 	 * @param array $atts attributes.
@@ -486,7 +593,12 @@ class Cartflows_Checkout_Markup {
 		);
 
 		$checkout_id = intval( $atts['id'] );
-		
+
+		// Security: an explicit `id` must resolve to a real checkout step, else it drives template inclusion for any post.
+		if ( $checkout_id > 0 && ! $this->is_checkout_step( $checkout_id ) ) {
+			$checkout_id = 0;
+		}
+
 		$show_checkout_demo = false;
 
 		if ( is_admin() ) {
@@ -494,7 +606,8 @@ class Cartflows_Checkout_Markup {
 			$show_checkout_demo = apply_filters( 'cartflows_show_demo_checkout', false );
 
 			if ( $show_checkout_demo && 0 === $checkout_id && isset( $_POST['id'] ) ) { //phpcs:ignore WordPress.Security.NonceVerification.Missing
-				$checkout_id = intval( $_POST['id'] ); //phpcs:ignore WordPress.Security.NonceVerification.Missing
+				$demo_id     = intval( $_POST['id'] ); //phpcs:ignore WordPress.Security.NonceVerification.Missing
+				$checkout_id = $this->is_checkout_step( $demo_id ) ? $demo_id : 0;
 			}
 		}
 		if ( empty( $checkout_id ) ) {
@@ -505,7 +618,7 @@ class Cartflows_Checkout_Markup {
 				$error_html .= '<p>' . sprintf(
 					/* translators: %1$1s, %2$2s Link to article */
 					__( 'It seems that this is not the CartFlows Checkout page where you have added this shortcode. Please refer to this %1$1sarticle%2$2s to know more.', 'cartflows' ),
-					'<a href="https://cartflows.com/docs/resolve-checkout-id-not-found-error/?utm_source=dashboard&utm_medium=free-cartflows&utm_campaign=docs" target="_blank">',
+					'<a href="' . esc_url( \Cartflows_Helper::get_kb_doc_link( 'https://cartflows.com/docs/resolve-checkout-id-not-found-error/' ) ) . '" target="_blank">',
 					'</a>'
 				) . '</p>';
 
@@ -514,7 +627,7 @@ class Cartflows_Checkout_Markup {
 
 			global $post;
 
-			$checkout_id = intval( $post->ID );
+			$checkout_id = ! empty( $post ) ? intval( $post->ID ) : 0;
 		}
 
 		$output = '';
@@ -523,23 +636,18 @@ class Cartflows_Checkout_Markup {
 
 		do_action( 'cartflows_checkout_form_before', $checkout_id );
 
+		// Kept in scope because included templates have historically read it.
 		$checkout_layout = wcf()->options->get_checkout_meta_value( $checkout_id, 'wcf-checkout-layout' );
 
-		$template_default = CARTFLOWS_CHECKOUT_DIR . 'templates/embed/checkout-template-simple.php';
+		$resolved_template = $this->resolve_checkout_template( $checkout_id );
 
-		$template_layout = apply_filters( 'cartflows_checkout_layout_template', $checkout_layout );
-
-		// Security: Only include the filtered template when it resolves to a real file inside wp-content
-		// (themes/plugins/mu-plugins). Prevents path traversal via the cartflows_checkout_layout_template filter.
-		$real_path = is_string( $template_layout ) && file_exists( $template_layout ) ? realpath( $template_layout ) : false;
-
-		if ( $real_path && 0 === strpos( $real_path, WP_CONTENT_DIR . DIRECTORY_SEPARATOR ) ) {
-			include $template_layout;
-		} else {
-			include $template_default;
-		}
+		include $resolved_template['template'];
 
 		$output .= ob_get_clean();
+
+		if ( $resolved_template['rejected'] ) {
+			_doing_it_wrong( __METHOD__, esc_html__( 'The cartflows_checkout_layout_template filter must return a .php file inside a plugin, mu-plugin, or theme directory.', 'cartflows' ), '3.2.1' );
+		}
 
 		return $output;
 	}
@@ -715,7 +823,7 @@ class Cartflows_Checkout_Markup {
 
 											$_var_product = wc_get_product( $v_id );
 
-											if ( $_var_product->is_in_stock() && 'publish' === $_var_product->get_status() ) {
+											if ( $_var_product && $_var_product->is_in_stock() && 'publish' === $_var_product->get_status() ) {
 												$variation_product_id = $v_id;
 												$variation_product    = $_var_product;
 												break;
@@ -832,6 +940,10 @@ class Cartflows_Checkout_Markup {
 		add_filter( 'woocommerce_order_button_text', array( $this, 'place_order_button_text' ), 99, 1 );
 
 		add_filter( 'woocommerce_checkout_fields', array( $this, 'checkout_fields_actions' ), 10, 1 );
+
+		// Auto-check "Ship to a different address?" when shipping URL params are present,
+		// so the pre-filled shipping fields are visible on page load.
+		add_filter( 'woocommerce_ship_to_different_address_checked', array( $this, 'maybe_check_ship_to_different_address' ) );
 
 		// Add file field type support.
 		add_filter( 'woocommerce_form_field_file', array( $this, 'render_file_field' ), 10, 4 );
@@ -1109,10 +1221,72 @@ class Cartflows_Checkout_Markup {
 					$checkout_fields['shipping'][ $key ]['default'] = $field_value;
 				}
 			}
+
+			// WC bakes the country into the state field definition during
+			// initialize_checkout_fields(). If that ran before our early-registered
+			// woocommerce_checkout_get_value filter could return the URL param country,
+			// the wrong country's states would be used. Override it here.
+			$billing_country = isset( $_GET['billing_country'] ) && ! empty( $_GET['billing_country'] )
+				? sanitize_text_field( wp_unslash( $_GET['billing_country'] ) ) : '';
+
+			$shipping_country = isset( $_GET['shipping_country'] ) && ! empty( $_GET['shipping_country'] )
+				? sanitize_text_field( wp_unslash( $_GET['shipping_country'] ) ) : '';
+
+			if ( $billing_country && isset( $checkout_fields['billing']['billing_state'] ) ) {
+				$checkout_fields['billing']['billing_state']['country'] = $billing_country;
+			}
+
+			if ( $shipping_country && isset( $checkout_fields['shipping']['shipping_state'] ) ) {
+				$checkout_fields['shipping']['shipping_state']['country'] = $shipping_country;
+			}
 		}
 
 		return $checkout_fields;
 		//phpcs:enable WordPress.Security.NonceVerification.Recommended
+	}
+
+	/**
+	 * Return URL param value for a checkout field so that it takes priority
+	 * over saved customer/session data.
+	 *
+	 * WC_Checkout::get_value() checks this filter before falling back to the
+	 * logged-in customer's saved address, so hooking here is the only reliable
+	 * way to pre-fill fields for logged-in users via checkout links.
+	 *
+	 * @since x.x.x
+	 * @param mixed  $value The current value (null = not yet set).
+	 * @param string $input The field key (e.g. 'billing_first_name').
+	 * @return mixed URL param value when present, original $value otherwise.
+	 */
+	public function prefill_checkout_get_value( $value, $input ) {
+		//phpcs:disable WordPress.Security.NonceVerification.Recommended
+		if ( is_auto_prefill_checkout_fields_enabled() && ! empty( $_GET[ $input ] ) ) {
+			return sanitize_text_field( wp_unslash( $_GET[ $input ] ) );
+		}
+		//phpcs:enable WordPress.Security.NonceVerification.Recommended
+		return $value;
+	}
+
+	/**
+	 * Pre-check the "Ship to a different address?" checkbox when any shipping_*
+	 * URL parameter is present, so the pre-filled shipping fields are visible
+	 * on page load instead of hidden inside the collapsed section.
+	 *
+	 * @since x.x.x
+	 * @param int $checked 1 if the checkbox should be pre-checked, 0 otherwise.
+	 * @return int
+	 */
+	public function maybe_check_ship_to_different_address( $checked ) {
+		//phpcs:disable WordPress.Security.NonceVerification.Recommended
+		if ( is_auto_prefill_checkout_fields_enabled() ) {
+			foreach ( array_keys( $_GET ) as $key ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+				if ( 0 === strpos( $key, 'shipping_' ) && ! empty( $_GET[ $key ] ) ) {
+					return 1;
+				}
+			}
+		}
+		//phpcs:enable WordPress.Security.NonceVerification.Recommended
+		return $checked;
 	}
 
 	/**
@@ -1544,12 +1718,49 @@ class Cartflows_Checkout_Markup {
 		$flow_id     = '';
 		$meta_data   = $this->get_cartflows_checkout_id_and_flow_id_from_cart();
 
+		if ( empty( $meta_data ) ) {
+			// Store Checkout products carry no cart item meta and express checkout sends no POST data.
+			$meta_data = $this->get_store_checkout_id_and_flow_id();
+		}
+
 		if ( ! empty( $meta_data ) && is_array( $meta_data ) ) {
 			$checkout_id = $meta_data['checkout_id'];
 			$flow_id     = $meta_data['flow_id'];
 		}
 
 		$this->store_flow_metadata_on_order( $checkout_id, $flow_id, $order );
+	}
+
+	/**
+	 * Retrieve the checkout ID and flow ID of the configured Store Checkout.
+	 * Returns null when no Store Checkout is set or it has no checkout step.
+	 *
+	 * @return array{checkout_id: string, flow_id: string}|null
+	 */
+	private function get_store_checkout_id_and_flow_id() {
+		$store_checkout = Cartflows_Helper::get_global_setting( '_cartflows_store_checkout' );
+		$flow_id        = is_scalar( $store_checkout ) ? intval( $store_checkout ) : 0;
+
+		if ( empty( $flow_id ) ) {
+			return null;
+		}
+
+		$steps = get_post_meta( $flow_id, 'wcf-steps', true );
+
+		if ( ! is_array( $steps ) ) {
+			return null;
+		}
+
+		foreach ( $steps as $step ) {
+			if ( isset( $step['id'], $step['type'] ) && 'checkout' === $step['type'] ) {
+				return array(
+					'checkout_id' => (string) $step['id'],
+					'flow_id'     => (string) $flow_id,
+				);
+			}
+		}
+
+		return null;
 	}
 
 	/**

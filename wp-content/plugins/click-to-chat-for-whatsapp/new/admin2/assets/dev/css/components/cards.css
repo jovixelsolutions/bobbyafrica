@@ -1,0 +1,54 @@
+/* ==========================================================================
+   CARDS
+   ========================================================================== */
+/* .ctc-admin-dashboard .fields-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 672px;
+} */
+
+/* .ctc-admin-dashboard .fields-container .ctc-card {
+    margin-bottom: 0;
+} */
+
+.ctc-admin-dashboard .ctc-card {
+    max-width: 520px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    margin-bottom: 2rem;
+    backdrop-filter: blur(8px);
+    /* Soft lift, matching .sidebar-widget so all cards share one depth. */
+    /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03); */
+
+    /* border-radius: var(--radius-md); */ 
+    /* backdrop-filter: blur(12px); */
+    /* box-shadow: var(--shadow-prism); */
+    /* transition: var(--transition); */
+}
+
+.ctc-admin-dashboard .ctc-card-header {
+    padding: 1.25rem 1.5rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.ctc-admin-dashboard .ctc-card-header h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 0.125rem 0;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+}
+
+.ctc-admin-dashboard .ctc-card-header p {
+    color: var(--text-secondary);
+    font-size: 0.8125rem;
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+.ctc-admin-dashboard .ctc-card-content {
+    padding: 1.5rem;
+}

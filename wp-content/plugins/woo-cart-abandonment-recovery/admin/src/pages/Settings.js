@@ -13,6 +13,7 @@ import {
 	LinkIcon,
 	KeyIcon,
 	NoSymbolIcon,
+	BanknotesIcon,
 } from '@heroicons/react/24/outline';
 import TabWrapper from '@Components/common/TabWrapper';
 import RenderFields from '@Components/RenderFields';
@@ -27,6 +28,9 @@ const iconMap = {
 	'email-settings': <EnvelopeIcon className="h-6 w-6 text-gray-500" />,
 	'recovery-report-settings': (
 		<CircleStackIcon className="h-6 w-6 text-gray-500" />
+	),
+	'banner-settings': (
+		<BanknotesIcon className="h-6 w-6 text-gray-500" />
 	),
 	'gdpr-settings': (
 		<ChatBubbleBottomCenterIcon className="h-6 w-6 text-gray-500" />

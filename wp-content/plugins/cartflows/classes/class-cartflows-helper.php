@@ -1224,6 +1224,17 @@ class Cartflows_Helper {
 			$product = wc_get_product( $product_id );
 		}
 
+		if ( $product && $product->is_type( 'bundle' ) && method_exists( $product, 'get_bundle_price' ) ) {
+			/*
+			 * A bundle's own price is only its container base price, which is 0 or empty as soon
+			 * as the bundled items are priced individually — leaving the step showing just a
+			 * currency symbol. Use the bundle's minimum price instead: the "from" price the
+			 * customer would pay, mirroring how a variable product resolves to a variation price
+			 * above. Kept scalar because callers run discount maths on this value.
+			 */
+			return $product->get_bundle_price( 'min', false );
+		}
+
 		if ( $product ) {
 			$custom_price = $product->get_price( 'edit' );
 		}
@@ -1748,30 +1759,85 @@ class Cartflows_Helper {
 	}
 
 	/**
-	 * Function get the CartFlows upgrade to PRO link.
+	 * Common UTM defaults shared across PHP and JS — single source of truth.
 	 *
-	 * @param string $page      The page name which needs to be displayed.
-	 * @param string $custom_url The Another URL if wish to send.
-	 * @return string $url The modified URL.
+	 * @return array<string,string>
 	 */
-	public static function get_upgrade_to_pro_link( $page = 'cartflows-pricing-plans', $custom_url = '' ) {
+	public static function get_utm_defaults() {
+		return array(
+			'source' => 'dashboard',
+			'medium' => 'free-cartflows',
+		);
+	}
 
-		$base_url = CARTFLOWS_DOMAIN_URL . $page . '/';
-		$url      = empty( $custom_url ) ? $base_url : esc_url( $custom_url );
+	/**
+	 * Build a cartflows.com URL with the common UTM parameters appended.
+	 * Single source of truth for utm_source and utm_medium defaults.
+	 *
+	 * @param string               $base_url Destination URL.
+	 * @param array<string,string> $args     Optional UTM overrides (utm_source, utm_medium, utm_campaign, utm_content, utm_term).
+	 * @return string The final URL — UTM-stamped, partner-aware, BSF-referer-aware.
+	 */
+	public static function get_utm_url( $base_url, $args = array() ) {
 
 		$partner_id = get_option( 'cartflows_partner_url_param', '' );
 		$partner_id = is_string( $partner_id ) ? sanitize_text_field( $partner_id ) : '';
 
 		if ( ! empty( $partner_id ) ) {
-			return add_query_arg( array( 'cf' => $partner_id ), $url );
+			return esc_url( add_query_arg( array( 'cf' => $partner_id ), $base_url ) );
 		}
 
-		// Modify the utm_source parameter using the UTM ready link function to include tracking information.
+		$defaults = self::get_utm_defaults();
+		$utm_args = wp_parse_args(
+			$args,
+			array(
+				'utm_source' => $defaults['source'],
+				'utm_medium' => $defaults['medium'],
+			)
+		);
+
+		$url = add_query_arg( $utm_args, $base_url );
+
+		// BSF analytics overrides utm_source when a cross-product referer is set; no-op otherwise.
 		if ( class_exists( '\BSF_UTM_Analytics' ) && is_callable( '\BSF_UTM_Analytics::get_utm_ready_link' ) ) {
 			$url = \BSF_UTM_Analytics::get_utm_ready_link( $url, 'cartflows' );
 		}
 
 		return esc_url( $url );
+	}
+
+	/**
+	 * Build a CartFlows upgrade-to-pro / pricing URL with UTM params.
+	 * Thin wrapper around get_utm_url() with utm_campaign defaulted to 'go-pro'.
+	 *
+	 * @param string               $page       Page slug appended to the domain (used when $custom_url is empty).
+	 * @param string               $custom_url Optional full URL to use instead of building from $page.
+	 * @param array<string,string> $args       Optional UTM overrides.
+	 * @return string The modified URL.
+	 */
+	public static function get_upgrade_to_pro_link( $page = 'pricing', $custom_url = '', $args = array() ) {
+
+		$base_url = CARTFLOWS_DOMAIN_URL . $page . '/';
+		$url      = empty( $custom_url ) ? $base_url : $custom_url;
+
+		$args = wp_parse_args( $args, array( 'utm_campaign' => 'go-pro' ) );
+
+		return self::get_utm_url( $url, $args );
+	}
+
+	/**
+	 * Build a CartFlows knowledgebase / docs URL with UTM params.
+	 * Thin wrapper around get_utm_url() with utm_campaign defaulted to 'docs'.
+	 *
+	 * @param string               $base_url Destination docs URL.
+	 * @param array<string,string> $args     Optional UTM overrides.
+	 * @return string The modified URL.
+	 */
+	public static function get_kb_doc_link( $base_url, $args = array() ) {
+
+		$args = wp_parse_args( $args, array( 'utm_campaign' => 'docs' ) );
+
+		return self::get_utm_url( $base_url, $args );
 	}
 
 	/**
@@ -1931,7 +1997,7 @@ class Cartflows_Helper {
 	 * @return array<string> Allowed file extensions.
 	 */
 	public static function get_allowed_file_extensions() {
-		return array( 'jpg', 'jpeg', 'png', 'gif', 'webp', 'ico', 'pdf', 'mp3', 'm4a', 'wav', 'mp4', 'm4v', 'mov' );
+		return array( 'jpg', 'jpeg', 'png', 'gif', 'webp', 'pdf', 'mp3', 'm4a', 'wav', 'mp4', 'm4v', 'mov' );
 	}
 
 	/**

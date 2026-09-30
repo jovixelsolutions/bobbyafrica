@@ -46,6 +46,7 @@ if ( 'enable' === $is_delete ) {
 		'cf_usage_optin',
 		'cartflows_delete_plugin_data',
 		'wcf-instant-checkout-notice-skipped',
+		'nps-survey-cartflows',
 	);
 
 	foreach ( $options as $index => $key ) {

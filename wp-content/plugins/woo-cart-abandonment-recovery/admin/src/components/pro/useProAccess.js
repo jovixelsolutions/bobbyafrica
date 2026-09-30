@@ -83,10 +83,7 @@ export const useProAccess = () => {
 		return baseUrl;
 	};
 
-	const upgradeActionButton = (
-		args = 'utm_source=wcar-dashboard&utm_medium=free-wcar&utm_campaign=go-wcar-pro',
-		customUrl = ''
-	) => {
+	const upgradeActionButton = ( args = '', customUrl = '' ) => {
 		if ( 'not-installed' === cart_abandonment_admin?.wcar_pro_status ) {
 			const baseUrl = getUpgradeToProUrl( args, customUrl );
 			window.open( baseUrl, '_blank' );

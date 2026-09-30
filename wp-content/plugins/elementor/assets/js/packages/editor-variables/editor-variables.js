@@ -1,3 +1,3894 @@
-/*! For license information please see editor-variables.js.LICENSE.txt */
-!function(){"use strict";var e={"./packages/packages/core/editor-variables/src/api.ts":function(e,a,r){r.r(a),r.d(a,{apiClient:function(){return o}});var t=r("@elementor/http-client");const n="elementor/v1/variables",o={list:()=>(0,t.httpService)().get(n+"/list"),create:(e,a,r)=>(0,t.httpService)().post(n+"/create",{type:e,label:a,value:r}),update:(e,a,r,o)=>(0,t.httpService)().put(n+"/update",{id:e,label:a,value:r,type:o}),delete:e=>(0,t.httpService)().post(n+"/delete",{id:e}),restore:(e,a,r,o)=>{const i={id:e};return a&&(i.label=a),r&&(i.value=r),o&&(i.type=o),(0,t.httpService)().post(n+"/restore",i)},batch:e=>(0,t.httpService)().post(n+"/batch",e)}},"./packages/packages/core/editor-variables/src/batch-operations.ts":function(e,a,r){r.r(a),r.d(a,{buildOperationsArray:function(){return buildOperationsArray},generateTempId:function(){return generateTempId},isTempId:function(){return isTempId}});const generateTempId=()=>`tmp-${Date.now().toString(36)}-${Math.random().toString(36).substring(2,8)}`,isTempId=e=>e.startsWith("tmp-"),buildOperationsArray=(e,a,r)=>{const t=[];return Object.entries(a).forEach(([a,r])=>{if(isTempId(a))t.push({type:"create",variable:{...r,id:a}});else if(e[a]){const n=e[a],o=n.sync_to_v3!==r.sync_to_v3;n.deleted&&!r.deleted?t.push({type:"restore",id:a,...n.label!==r.label&&{label:r.label},...n.value!==r.value&&{value:r.value}}):r.deleted||n.label===r.label&&n.value===r.value&&n.order===r.order&&n.type===r.type&&!o||t.push({type:"update",id:a,variable:{...n.label!==r.label&&{label:r.label},...n.value!==r.value&&{value:r.value},...n.order!==r.order&&{order:r.order},...n.type!==r.type&&{type:r.type},...o&&{sync_to_v3:r.sync_to_v3}}})}}),r.forEach(e=>{t.push({type:"delete",id:e})}),t.filter(e=>{const r=e.id||e.variable?.id;return r&&!(isTempId(r)&&a[r]?.deleted)})}},"./packages/packages/core/editor-variables/src/components/fields/color-field.tsx":function(e,a,r){r.r(a),r.d(a,{ColorField:function(){return ColorField}});var t=r("react"),n=r("@elementor/ui"),o=r("./packages/packages/core/editor-variables/src/context/variable-selection-popover.context.tsx"),i=r("./packages/packages/core/editor-variables/src/utils/validations.ts");const ColorField=({value:e,onChange:a,onValidationChange:r})=>{const[s,l]=(0,t.useState)(e),[c,p]=(0,t.useState)(""),u=(0,t.useRef)(null),d=(0,o.usePopoverContentRef)()??u.current;return t.createElement(n.UnstableColorField,{id:"color-variable-field",size:"tiny",fullWidth:!0,value:s,onChange:e=>{l(e);const t=(0,i.validateValue)(e);p(t),r?.(t),a(t?"":e)},error:c||void 0,slotProps:{colorPicker:{anchorEl:d,anchorOrigin:{vertical:"top",horizontal:"right"},transformOrigin:{vertical:"top",horizontal:-10},slotProps:{colorIndicator:{size:"inherit",sx:{borderRadius:.5}}}}}})}},"./packages/packages/core/editor-variables/src/components/fields/font-field.tsx":function(e,a,r){r.r(a),r.d(a,{FontField:function(){return FontField}});var t=r("react"),n=r("@elementor/editor-controls"),o=r("@elementor/editor-ui"),i=r("@elementor/icons"),s=r("@elementor/ui"),l=r("@wordpress/i18n"),c=r("./packages/packages/core/editor-variables/src/context/variable-selection-popover.context.tsx"),p=r("./packages/packages/core/editor-variables/src/utils/validations.ts");function _extends(){return _extends=Object.assign?Object.assign.bind():function(e){for(var a=1;a<arguments.length;a++){var r=arguments[a];for(var t in r)({}).hasOwnProperty.call(r,t)&&(e[t]=r[t])}return e},_extends.apply(null,arguments)}const FontField=({value:e,onChange:a,onValidationChange:r})=>{const[u,d]=(0,t.useState)(e),b=(0,t.useRef)(null),m=(0,c.usePopoverContentRef)()??b.current,v=(0,s.usePopupState)({variant:"popover"}),g=(0,n.useFontFamilies)(),k=(0,o.useSectionWidth)(),f=t.useMemo(()=>g.map(({label:e,fonts:a})=>({label:e,items:a})),[g]),y=(0,t.useId)();return t.createElement(t.Fragment,null,t.createElement(s.UnstableTag,_extends({id:y,variant:"outlined",label:u,endIcon:t.createElement(i.ChevronDownIcon,{fontSize:"tiny"})},(0,s.bindTrigger)(v),{fullWidth:!0})),t.createElement(s.Popover,_extends({disablePortal:!0,disableScrollLock:!0,anchorEl:m,anchorOrigin:{vertical:"top",horizontal:"right"},transformOrigin:{vertical:"top",horizontal:-28}},(0,s.bindPopover)(v)),t.createElement(n.ItemSelector,{id:"font-family-variables-selector",itemsList:f,selectedItem:u,onItemChange:e=>{(e=>{d(e);const t=(0,p.validateValue)(e);r?.(t),a(t?"":e)})(e),v.close()},onClose:v.close,sectionWidth:k,title:(0,l.__)("Font family","elementor"),itemStyle:e=>({fontFamily:e.value}),onDebounce:n.enqueueFont,icon:i.TextIcon})))}},"./packages/packages/core/editor-variables/src/components/fields/label-field.tsx":function(e,a,r){r.r(a),r.d(a,{LabelField:function(){return LabelField},useLabelError:function(){return useLabelError}});var t=r("react"),n=r("@elementor/editor-ui"),o=r("@elementor/ui"),i=r("./packages/packages/core/editor-variables/src/utils/validations.ts");function _extends(){return _extends=Object.assign?Object.assign.bind():function(e){for(var a=1;a<arguments.length;a++){var r=arguments[a];for(var t in r)({}).hasOwnProperty.call(r,t)&&(e[t]=r[t])}return e},_extends.apply(null,arguments)}function isLabelEqual(e,a){return e.trim().toLowerCase()===a.trim().toLowerCase()}const useLabelError=e=>{const[a,r]=(0,t.useState)(e??{value:"",message:""});return{labelFieldError:a,setLabelFieldError:r}},LabelField=({value:e,error:a,onChange:r,id:s,onErrorChange:l,size:c="tiny",focusOnShow:p=!1,selectOnShow:u=!1,showWarningInfotip:d=!1,variables:b,onKeyDown:m})=>{const[v,g]=(0,t.useState)(e),[k,f]=(0,t.useState)(""),y=(0,t.useRef)(null);let h=k;isLabelEqual(v,a?.value??"")&&a?.message&&(h=a.message);const E=h?"":(0,i.labelHint)(v),_=t.createElement(o.TextField,{ref:y,id:s,size:c,fullWidth:!0,value:v,error:!!h,onChange:e=>(e=>{g(e);const t=(0,i.validateLabel)(e,b);f(t),l?.(t),r(isLabelEqual(e,a?.value??"")||t?"":e)})(e.target.value),inputProps:{maxLength:i.VARIABLE_LABEL_MAX_LENGTH,...u&&{onFocus:e=>e.target.select()},"aria-label":"Name",onKeyDown:m},autoFocus:p});if(d){const e=Math.max(240,y.current?.getBoundingClientRect().width??240);return t.createElement(n.WarningInfotip,_extends({open:Boolean(h||E),text:h||E,placement:"bottom-start",width:e,offset:[0,-15]},E&&{hasError:!1}),_)}return _}},"./packages/packages/core/editor-variables/src/components/global-styles-import-listener.tsx":function(e,a,r){r.r(a),r.d(a,{GlobalStylesImportListener:function(){return GlobalStylesImportListener}});var t=r("react"),n=r("./packages/packages/core/editor-variables/src/service.ts"),o=r("./packages/packages/core/editor-variables/src/style-variables-repository.ts");function GlobalStylesImportListener(){return(0,t.useEffect)(()=>{const handleGlobalStylesImported=e=>{const a=e.detail?.global_variables;a&&(a.data&&"object"==typeof a.data&&o.styleVariablesRepository.update(a.data),n.service.load())};return window.addEventListener("elementor/global-styles/imported",handleGlobalStylesImported),()=>{window.removeEventListener("elementor/global-styles/imported",handleGlobalStylesImported)}},[]),null}},"./packages/packages/core/editor-variables/src/components/open-panel-from-event.tsx":function(e,a,r){r.r(a),r.d(a,{OpenPanelFromEvent:function(){return OpenPanelFromEvent}});var t=r("react"),n=r("@elementor/editor-v1-adapters"),o=r("./packages/packages/core/editor-variables/src/components/variables-manager/variables-manager-panel.tsx");const i="elementor/open-variables-manager",s="panel/elements/categories";function OpenPanelFromEvent(){const{open:e}=(0,o.usePanelActions)(),a=(0,t.useRef)(!1),[r,l]=(0,t.useState)(!1);return(0,t.useEffect)(()=>{r&&(l(!1),e())},[r,e]),(0,t.useEffect)(()=>(0,n.__privateListenTo)((0,n.routeOpenEvent)(s),()=>{a.current&&(a.current=!1,l(!0))}),[]),(0,t.useEffect)(()=>{const handler=()=>{a.current=!0,(0,n.__privateOpenRoute)(s)};return window.addEventListener(i,handler),()=>window.removeEventListener(i,handler)},[]),null}},"./packages/packages/core/editor-variables/src/components/open-panel-from-url.tsx":function(e,a,r){r.r(a),r.d(a,{OpenPanelFromUrl:function(){return OpenPanelFromUrl}});var t=r("react"),n=r("@elementor/editor-v1-adapters"),o=r("./packages/packages/core/editor-variables/src/components/variables-manager/variables-manager-panel.tsx");const i="active-panel",s="variables-manager",l="panel/elements";function OpenPanelFromUrl(){const{open:e}=(0,o.usePanelActions)(),a=(0,t.useRef)(!1);return(0,t.useEffect)(()=>{if(new URLSearchParams(window.location.search).get(i)!==s)return;return(0,n.__privateListenTo)((0,n.routeOpenEvent)(l),()=>{a.current||(a.current=!0,requestAnimationFrame(()=>{e()}))})},[e]),null}},"./packages/packages/core/editor-variables/src/components/ui/color-indicator.tsx":function(e,a,r){r.r(a),r.d(a,{ColorIndicator:function(){return n}});var t=r("@elementor/ui");const n=(0,t.styled)(t.UnstableColorIndicator)(({theme:e})=>({borderRadius:e.shape.borderRadius/2+"px",marginRight:e.spacing(.25)}))},"./packages/packages/core/editor-variables/src/components/ui/delete-confirmation-dialog.tsx":function(e,a,r){r.r(a),r.d(a,{DeleteConfirmationDialog:function(){return DeleteConfirmationDialog}});var t=r("react"),n=r("@elementor/editor-ui"),o=r("@elementor/ui"),i=r("@wordpress/i18n");const DeleteConfirmationDialog=({open:e,label:a,closeDialog:r,onConfirm:s})=>t.createElement(n.ConfirmationDialog,{open:e,onClose:r},t.createElement(n.ConfirmationDialog.Title,null,(0,i.__)("Delete this variable?","elementor")),t.createElement(n.ConfirmationDialog.Content,null,t.createElement(n.ConfirmationDialog.ContentText,null,(0,i.__)("All elements using","elementor")," ",t.createElement(o.Typography,{variant:"subtitle2",component:"span",sx:{lineBreak:"anywhere"}},a)," ",(0,i.__)("will keep their current values, but the variable itself will be removed.","elementor"))),t.createElement(n.ConfirmationDialog.Actions,{onClose:r,onConfirm:s}))},"./packages/packages/core/editor-variables/src/components/ui/deleted-variable-alert.tsx":function(e,a,r){r.r(a),r.d(a,{DeletedVariableAlert:function(){return DeletedVariableAlert}});var t=r("react"),n=r("@elementor/ui"),o=r("@wordpress/i18n");const DeletedVariableAlert=({onClose:e,onUnlink:a,onRestore:r,label:i})=>t.createElement(n.ClickAwayListener,{onClickAway:e},t.createElement(n.Alert,{variant:"standard",severity:"warning",onClose:e,action:t.createElement(t.Fragment,null,a&&t.createElement(n.AlertAction,{variant:"contained",onClick:a},(0,o.__)("Unlink","elementor")),r&&t.createElement(n.AlertAction,{variant:"outlined",onClick:r},(0,o.__)("Restore","elementor"))),sx:{maxWidth:300}},t.createElement(n.AlertTitle,null,(0,o.__)("Deleted variable","elementor")),t.createElement(n.Typography,{variant:"body2",color:"textPrimary"},(0,o.__)("The variable","elementor")," '",t.createElement(n.Typography,{variant:"body2",component:"span",sx:{lineBreak:"anywhere"}},i),"' ",(0,o.__)("has been deleted, but it is still referenced in this location. You may restore the variable or unlink it to assign a different value.","elementor"))))},"./packages/packages/core/editor-variables/src/components/ui/edit-confirmation-dialog.tsx":function(e,a,r){r.r(a),r.d(a,{EDIT_CONFIRMATION_DIALOG_ID:function(){return s},EditConfirmationDialog:function(){return EditConfirmationDialog}});var t=r("react"),n=r("@elementor/icons"),o=r("@elementor/ui"),i=r("@wordpress/i18n");const s="edit-confirmation-dialog",EditConfirmationDialog=({closeDialog:e,onConfirm:a,onSuppressMessage:r})=>{const[s,l]=(0,t.useState)(!1);return t.createElement(o.Dialog,{open:!0,onClose:e,maxWidth:"xs"},t.createElement(o.DialogTitle,{display:"flex",alignItems:"center",gap:1},t.createElement(n.AlertTriangleFilledIcon,{color:"secondary"}),(0,i.__)("Changes to variables go live right away.","elementor")),t.createElement(o.DialogContent,null,t.createElement(o.DialogContentText,{variant:"body2",color:"textPrimary"},(0,i.__)("Don't worry - all other changes you make will wait until you publish your site.","elementor"))),t.createElement(o.DialogActions,{sx:{justifyContent:"space-between",alignItems:"center"}},t.createElement(o.FormControlLabel,{control:t.createElement(o.Checkbox,{checked:s,onChange:e=>l(e.target.checked),size:"small"}),label:t.createElement(o.Typography,{variant:"body2"},(0,i.__)("Don't show me again","elementor"))}),t.createElement("div",null,t.createElement(o.Button,{color:"secondary",onClick:e},(0,i.__)("Keep editing","elementor")),t.createElement(o.Button,{variant:"contained",color:"secondary",onClick:()=>{s&&r?.(),a?.()},sx:{ml:1}},(0,i.__)("Save","elementor")))))}},"./packages/packages/core/editor-variables/src/components/ui/empty-state.tsx":function(e,a,r){r.r(a),r.d(a,{EmptyState:function(){return EmptyState}});var t=r("react"),n=r("@elementor/ui"),o=r("@wordpress/i18n"),i=r("./packages/packages/core/editor-variables/src/hooks/use-permissions.ts");const EmptyState=({icon:e,title:a,message:r,onAdd:s,children:l})=>{const c=(0,i.usePermissions)().canAdd(),p=c?a:(0,o.__)("There are no variables","elementor"),u=c?r:(0,o.__)("With your current role, you can only connect and detach variables.","elementor");return t.createElement(Content,{title:p,message:u,icon:e},l||s&&t.createElement(n.Button,{variant:"outlined",color:"secondary",size:"small",onClick:s},(0,o.__)("Create a variable","elementor")))};function Content({title:e,message:a,icon:r,children:o}){return t.createElement(n.Stack,{gap:1,alignItems:"center",justifyContent:"flex-start",height:"100%",color:"text.secondary",sx:{p:2.5,pt:8,pb:5.5}},r,t.createElement(n.Typography,{align:"center",variant:"subtitle2"},e),t.createElement(n.Typography,{align:"center",variant:"caption",maxWidth:"180px"},a),o)}},"./packages/packages/core/editor-variables/src/components/ui/form-field.tsx":function(e,a,r){r.r(a),r.d(a,{FormField:function(){return FormField}});var t=r("react"),n=r("@elementor/ui");const FormField=({id:e,label:a,errorMsg:r,noticeMsg:o,children:i})=>t.createElement(n.Grid,{container:!0,gap:.75,alignItems:"center"},t.createElement(n.Grid,{item:!0,xs:12},t.createElement(n.FormLabel,{htmlFor:e,size:"tiny"},a)),t.createElement(n.Grid,{item:!0,xs:12},i,r&&t.createElement(n.FormHelperText,{error:!0},r),o&&t.createElement(n.FormHelperText,null,o)))},"./packages/packages/core/editor-variables/src/components/ui/menu-item-content.tsx":function(e,a,r){r.r(a),r.d(a,{MenuItemContent:function(){return MenuItemContent}});var t=r("react"),n=r("@elementor/editor-ui"),o=r("@elementor/icons"),i=r("@elementor/ui"),s=r("@wordpress/i18n");const l=(0,s.__)("Edit variable","elementor"),MenuItemContent=({item:e,disabled:a=!1})=>{const r=e.onEdit;return t.createElement(t.Fragment,null,t.createElement(i.ListItemIcon,{sx:{color:a?"text.disabled":"inherit"}},e.icon),t.createElement(i.Box,{sx:{flex:1,minWidth:0,display:"flex",alignItems:"center",gap:1}},t.createElement(n.EllipsisWithTooltip,{title:e.label||e.value,as:i.Typography,variant:"caption",color:a?"text.disabled":"text.primary",sx:{marginTop:"1px",lineHeight:"2"},maxWidth:"50%"}),e.secondaryText&&t.createElement(n.EllipsisWithTooltip,{title:e.secondaryText,as:i.Typography,variant:"caption",color:a?"text.disabled":"text.tertiary",sx:{marginTop:"1px",lineHeight:"1"},maxWidth:"50%"})),!!r&&!a&&t.createElement(i.Tooltip,{placement:"top",title:l},t.createElement(i.IconButton,{sx:{mx:1,opacity:"0"},onClick:a=>{a.stopPropagation(),r(e.value)},"aria-label":l},t.createElement(o.EditIcon,{color:"action",fontSize:"tiny"}))))}},"./packages/packages/core/editor-variables/src/components/ui/mismatch-variable-alert.tsx":function(e,a,r){r.r(a),r.d(a,{MismatchVariableAlert:function(){return MismatchVariableAlert}});var t=r("react"),n=r("@elementor/ui"),o=r("@wordpress/i18n");const i={title:(0,o.__)("Variable has changed","elementor"),message:(0,o.__)("This variable is no longer compatible with this property. You can clear it or select a different one.","elementor"),buttons:{clear:(0,o.__)("Clear","elementor"),select:(0,o.__)("Select variable","elementor")}},MismatchVariableAlert=({onClose:e,onClear:a,triggerSelect:r})=>t.createElement(n.ClickAwayListener,{onClickAway:e},t.createElement(n.Alert,{variant:"standard",severity:"warning",onClose:e,action:t.createElement(t.Fragment,null,a&&t.createElement(n.AlertAction,{variant:"contained",onClick:a},i.buttons.clear),r&&t.createElement(n.AlertAction,{variant:"outlined",onClick:r},i.buttons.select)),sx:{maxWidth:300}},t.createElement(n.AlertTitle,null,i.title),t.createElement(n.Typography,{variant:"body2",color:"textPrimary"},i.message)))},"./packages/packages/core/editor-variables/src/components/ui/missing-variable-alert.tsx":function(e,a,r){r.r(a),r.d(a,{MissingVariableAlert:function(){return MissingVariableAlert}});var t=r("react"),n=r("@elementor/ui"),o=r("@wordpress/i18n");const MissingVariableAlert=({onClose:e,onClear:a})=>t.createElement(n.ClickAwayListener,{onClickAway:e},t.createElement(n.Alert,{variant:"standard",severity:"warning",onClose:e,action:t.createElement(t.Fragment,null,a&&t.createElement(n.AlertAction,{variant:"contained",onClick:a},(0,o.__)("Clear","elementor"))),sx:{maxWidth:300}},t.createElement(n.AlertTitle,null,(0,o.__)("This variable is missing","elementor")),t.createElement(n.Typography,{variant:"body2",color:"textPrimary"},(0,o.__)("It may have been deleted. Try clearing this field and select a different value or variable.","elementor"))))},"./packages/packages/core/editor-variables/src/components/ui/no-search-results.tsx":function(e,a,r){r.r(a),r.d(a,{NoSearchResults:function(){return NoSearchResults}});var t=r("react"),n=r("@elementor/ui"),o=r("@wordpress/i18n");const NoSearchResults=({searchValue:e,onClear:a,icon:r})=>t.createElement(n.Stack,{gap:1,alignItems:"center",justifyContent:"center",p:2.5,color:"text.secondary",sx:{pb:3.5,pt:8}},r,t.createElement(n.Typography,{align:"center",variant:"subtitle2"},(0,o.__)("Sorry, nothing matched","elementor"),t.createElement("br",null),"“",e,"”."),t.createElement(n.Typography,{align:"center",variant:"caption",sx:{display:"flex",flexDirection:"column"}},(0,o.__)("Try something else.","elementor"),t.createElement(n.Link,{color:"text.secondary",variant:"caption",component:"button",onClick:a},(0,o.__)("Clear & try again","elementor"))))},"./packages/packages/core/editor-variables/src/components/ui/styled-menu-list.tsx":function(e,a,r){r.r(a),r.d(a,{VariablesStyledMenuList:function(){return n}});var t=r("@elementor/ui");const n=(0,t.styled)(t.MenuList)(({theme:e,disabled:a})=>({"& > li":{height:32,width:"100%",display:"flex",alignItems:"center"},'& > [role="option"]':{...e.typography.caption,lineHeight:"inherit",padding:e.spacing(.5,1,.5,2),...!a&&{"&:hover, &:focus":{backgroundColor:e.palette.action.hover},cursor:"pointer"},'&[aria-selected="true"]':{backgroundColor:e.palette.action.selected},textOverflow:"ellipsis",position:"absolute",top:0,left:0,"&:hover .MuiIconButton-root, .MuiIconButton-root:focus":{opacity:1}},width:"100%",position:"relative"}))},"./packages/packages/core/editor-variables/src/components/ui/tags/assigned-tag.tsx":function(e,a,r){r.r(a),r.d(a,{AssignedTag:function(){return AssignedTag},SIZE:function(){return s}});var t=r("react"),n=r("@elementor/icons"),o=r("@elementor/ui"),i=r("@wordpress/i18n");function _extends(){return _extends=Object.assign?Object.assign.bind():function(e){for(var a=1;a<arguments.length;a++){var r=arguments[a];for(var t in r)({}).hasOwnProperty.call(r,t)&&(e[t]=r[t])}return e},_extends.apply(null,arguments)}const s="tiny",l=(0,i.__)("Unlink variable","elementor"),AssignedTag=({startIcon:e,label:a,onUnlink:r,...i})=>{const c=[];return r&&c.push(t.createElement(o.Tooltip,{key:"unlink",title:l,placement:"bottom"},t.createElement(o.IconButton,{size:s,onClick:r,"aria-label":l},t.createElement(n.DetachIcon,{fontSize:s})))),t.createElement(o.Tooltip,{title:a,placement:"top"},t.createElement(o.UnstableTag,_extends({fullWidth:!0,showActionsOnHover:!0,startIcon:t.createElement(o.Stack,{gap:.5,direction:"row",alignItems:"center"},e),label:t.createElement(o.Box,{sx:{display:"inline-grid",minWidth:0}},t.createElement(o.Typography,{sx:{lineHeight:1.34},variant:"caption",noWrap:!0},a)),actions:c},i)))}},"./packages/packages/core/editor-variables/src/components/ui/tags/warning-variable-tag.tsx":function(e,a,r){r.r(a),r.d(a,{WarningVariableTag:function(){return i}});var t=r("react"),n=r("@elementor/icons"),o=r("@elementor/ui");function _extends(){return _extends=Object.assign?Object.assign.bind():function(e){for(var a=1;a<arguments.length;a++){var r=arguments[a];for(var t in r)({}).hasOwnProperty.call(r,t)&&(e[t]=r[t])}return e},_extends.apply(null,arguments)}const i=t.forwardRef(({label:e,suffix:a,onClick:r,icon:i,...s},l)=>{const c=a?`${e} (${a})`:e;return t.createElement(o.Chip,_extends({ref:l,size:"tiny",color:"warning",shape:"rounded",variant:"standard",onClick:r,icon:t.createElement(n.AlertTriangleFilledIcon,null),label:t.createElement(o.Tooltip,{title:c,placement:"top"},t.createElement(o.Box,{sx:{display:"inline-grid",minWidth:0}},t.createElement(o.Typography,{variant:"caption",noWrap:!0,sx:{lineHeight:1.34}},c))),sx:{height:e=>e.spacing(3.5),borderRadius:e=>e.spacing(1),justifyContent:"flex-start",width:"100%"}},s))});i.displayName="WarningVariableTag"},"./packages/packages/core/editor-variables/src/components/ui/variable-promotion-chip.tsx":function(e,a,r){r.r(a),r.d(a,{VariablePromotionChip:function(){return c}});var t=r("react"),n=r("@elementor/editor-controls"),o=r("@elementor/editor-ui"),i=r("@elementor/ui"),s=r("@elementor/utils"),l=r("@wordpress/i18n");const c=(0,t.forwardRef)(({variableType:e,upgradeUrl:a,trackingData:r},c)=>{const[p,u]=(0,t.useState)(!1);(0,o.useCanvasClickHandler)(p,()=>u(!1));const d=(0,t.useCallback)(()=>{u(e=>(e||(0,n.trackViewPromotion)(r),!e))},[r]);(0,t.useImperativeHandle)(c,()=>({toggle:d}),[d]);const b=(0,l.sprintf)((0,l.__)("%s variables","elementor"),(0,s.capitalize)(e)),m=(0,l.sprintf)((0,l.__)("Upgrade to continue creating and editing %s variables.","elementor"),e);return t.createElement(o.PromotionPopover,{open:p,title:b,content:m,ctaText:(0,l.__)("Upgrade now","elementor"),ctaUrl:a,onClose:e=>{e.stopPropagation(),u(!1)},onCtaClick:()=>(0,n.trackUpgradePromotionClick)(r)},t.createElement(i.Box,{onClick:e=>{e.stopPropagation(),d()},sx:{cursor:"pointer",display:"inline-flex"}},t.createElement(o.PromotionChip,null)))})},"./packages/packages/core/editor-variables/src/components/ui/variable/assigned-variable.tsx":function(e,a,r){r.r(a),r.d(a,{AssignedVariable:function(){return AssignedVariable}});var t=r("react"),n=r("@elementor/editor-controls"),o=r("@elementor/icons"),i=r("@elementor/ui"),s=r("./packages/packages/core/editor-variables/src/utils/unlink-variable.ts"),l=r("./packages/packages/core/editor-variables/src/variables-registry/variable-type-registry.ts"),c=r("./packages/packages/core/editor-variables/src/components/variable-selection-popover.tsx"),p=r("./packages/packages/core/editor-variables/src/components/ui/tags/assigned-tag.tsx");function _extends(){return _extends=Object.assign?Object.assign.bind():function(e){for(var a=1;a<arguments.length;a++){var r=arguments[a];for(var t in r)({}).hasOwnProperty.call(r,t)&&(e[t]=r[t])}return e},_extends.apply(null,arguments)}const AssignedVariable=({variable:e,propTypeKey:a})=>{const{startIcon:r,propTypeUtil:u}=(0,l.getVariableType)(a),{setValue:d}=(0,n.useBoundProp)(),b=(0,t.useRef)(null),m=(0,t.useId)(),v=(0,i.usePopupState)({variant:"popover",popupId:`elementor-variables-list-${m}`}),g=(0,s.createUnlinkHandler)(e,a,d),k=r||(()=>null);return t.createElement(i.Box,{ref:b},t.createElement(p.AssignedTag,_extends({label:e.label,startIcon:t.createElement(t.Fragment,null,t.createElement(o.ColorFilterIcon,{fontSize:p.SIZE}),t.createElement(k,{value:e.value})),onUnlink:g},(0,i.bindTrigger)(v))),t.createElement(i.Popover,_extends({disableScrollLock:!0,anchorEl:b.current,anchorOrigin:{vertical:"bottom",horizontal:"right"},transformOrigin:{vertical:"top",horizontal:"right"},PaperProps:{sx:{my:1}}},(0,i.bindPopover)(v)),t.createElement(c.VariableSelectionPopover,{selectedVariable:e,closePopover:v.close,propTypeKey:u.key})))}},"./packages/packages/core/editor-variables/src/components/ui/variable/deleted-variable.tsx":function(e,a,r){r.r(a),r.d(a,{DeletedVariable:function(){return DeletedVariable}});var t=r("react"),n=r("@elementor/editor-controls"),o=r("@elementor/ui"),i=r("@wordpress/i18n"),s=r("./packages/packages/core/editor-variables/src/context/variable-type-context.tsx"),l=r("./packages/packages/core/editor-variables/src/hooks/use-permissions.ts"),c=r("./packages/packages/core/editor-variables/src/hooks/use-prop-variables.ts"),p=r("./packages/packages/core/editor-variables/src/hooks/use-variable-bound-prop.ts"),u=r("./packages/packages/core/editor-variables/src/utils/unlink-variable.ts"),d=r("./packages/packages/core/editor-variables/src/variables-registry/variable-type-registry.ts"),b=r("./packages/packages/core/editor-variables/src/components/variable-restore.tsx"),m=r("./packages/packages/core/editor-variables/src/components/ui/deleted-variable-alert.tsx"),v=r("./packages/packages/core/editor-variables/src/components/ui/tags/warning-variable-tag.tsx");function _extends(){return _extends=Object.assign?Object.assign.bind():function(e){for(var a=1;a<arguments.length;a++){var r=arguments[a];for(var t in r)({}).hasOwnProperty.call(r,t)&&(e[t]=r[t])}return e},_extends.apply(null,arguments)}const DeletedVariable=({variable:e,propTypeKey:a})=>{const{propTypeUtil:r}=(0,d.getVariableType)(a),g=(0,n.useBoundProp)(),k=(0,l.usePermissions)(),[f,y]=(0,t.useState)(!1),closeInfotip=()=>y(!1),h=(0,t.useRef)(null),E=(0,t.useId)(),_=(0,o.usePopupState)({variant:"popover",popupId:`elementor-variables-restore-${E}`}),C={};k.canUnlink()&&(C.onUnlink=(0,u.createUnlinkHandler)(e,a,g.setValue)),k.canRestore()&&(C.onRestore=()=>{e.key&&(0,c.restoreVariable)(e.key).then(e=>{(0,p.resolveBoundPropAndSetValue)(r.create(e),g),closeInfotip()}).catch(()=>{closeInfotip(),_.setAnchorEl(h.current),_.open()})});return t.createElement(t.Fragment,null,t.createElement(o.Box,{ref:h},f&&t.createElement(o.Backdrop,{open:!0,onClick:closeInfotip,invisible:!0}),t.createElement(o.Infotip,{color:"warning",placement:"right-start",open:f,disableHoverListener:!0,onClose:closeInfotip,content:t.createElement(m.DeletedVariableAlert,{onClose:closeInfotip,onUnlink:C.onUnlink,onRestore:C.onRestore,label:e.label}),slotProps:{popper:{modifiers:[{name:"offset",options:{offset:[0,24]}}]}}},t.createElement(v.WarningVariableTag,{label:e.label,onClick:()=>y(e=>!e),suffix:(0,i.__)("deleted","elementor")})),t.createElement(o.Popover,_extends({disableScrollLock:!0,anchorOrigin:{vertical:"bottom",horizontal:"right"},transformOrigin:{vertical:"top",horizontal:"right"},PaperProps:{sx:{my:1}}},(0,o.bindPopover)(_)),t.createElement(s.VariableTypeProvider,{propTypeKey:a},t.createElement(b.VariableRestore,{variableId:e.key??"",onClose:_.close,onSubmit:()=>{_.close()}})))))}},"./packages/packages/core/editor-variables/src/components/ui/variable/mismatch-variable.tsx":function(e,a,r){r.r(a),r.d(a,{MismatchVariable:function(){return MismatchVariable}});var t=r("react"),n=r("@elementor/editor-controls"),o=r("@elementor/ui"),i=r("@wordpress/i18n"),s=r("./packages/packages/core/editor-variables/src/components/variable-selection-popover.tsx"),l=r("./packages/packages/core/editor-variables/src/components/ui/mismatch-variable-alert.tsx"),c=r("./packages/packages/core/editor-variables/src/components/ui/tags/warning-variable-tag.tsx");function _extends(){return _extends=Object.assign?Object.assign.bind():function(e){for(var a=1;a<arguments.length;a++){var r=arguments[a];for(var t in r)({}).hasOwnProperty.call(r,t)&&(e[t]=r[t])}return e},_extends.apply(null,arguments)}const MismatchVariable=({variable:e})=>{const{setValue:a,value:r}=(0,n.useBoundProp)(),p=(0,t.useRef)(null),u=(0,t.useId)(),d=(0,o.usePopupState)({variant:"popover",popupId:`elementor-variables-list-${u}`}),[b,m]=(0,t.useState)(!1),closeInfotip=()=>m(!1),v=!!r;return t.createElement(o.Box,{ref:p},b&&t.createElement(o.Backdrop,{open:!0,onClick:closeInfotip,invisible:!0}),t.createElement(o.Infotip,{color:"warning",placement:"right-start",open:b,disableHoverListener:!0,onClose:closeInfotip,content:t.createElement(l.MismatchVariableAlert,{onClose:closeInfotip,onClear:v?()=>{closeInfotip(),a(null)}:void 0,triggerSelect:()=>{closeInfotip(),d.setAnchorEl(p.current),d.open()}}),slotProps:{popper:{modifiers:[{name:"offset",options:{offset:[0,24]}}]}}},t.createElement(c.WarningVariableTag,{label:e.label,onClick:()=>m(e=>!e),suffix:(0,i.__)("changed","elementor")})),t.createElement(o.Popover,_extends({disableScrollLock:!0,anchorEl:p.current,anchorOrigin:{vertical:"bottom",horizontal:"right"},transformOrigin:{vertical:"top",horizontal:"right"},PaperProps:{sx:{my:1}}},(0,o.bindPopover)(d)),t.createElement(s.VariableSelectionPopover,{selectedVariable:e,closePopover:d.close,propTypeKey:e.type})))}},"./packages/packages/core/editor-variables/src/components/ui/variable/missing-variable.tsx":function(e,a,r){r.r(a),r.d(a,{MissingVariable:function(){return MissingVariable}});var t=r("react"),n=r("@elementor/editor-controls"),o=r("@elementor/ui"),i=r("@wordpress/i18n"),s=r("./packages/packages/core/editor-variables/src/components/ui/missing-variable-alert.tsx"),l=r("./packages/packages/core/editor-variables/src/components/ui/tags/warning-variable-tag.tsx");const MissingVariable=()=>{const{setValue:e}=(0,n.useBoundProp)(),[a,r]=(0,t.useState)(!1),closeInfotip=()=>r(!1);return t.createElement(t.Fragment,null,a&&t.createElement(o.Backdrop,{open:!0,onClick:closeInfotip,invisible:!0}),t.createElement(o.Infotip,{color:"warning",placement:"right-start",open:a,disableHoverListener:!0,onClose:closeInfotip,content:t.createElement(s.MissingVariableAlert,{onClose:closeInfotip,onClear:()=>e(null)}),slotProps:{popper:{modifiers:[{name:"offset",options:{offset:[0,24]}}]}}},t.createElement(l.WarningVariableTag,{label:(0,i.__)("Missing variable","elementor"),onClick:()=>r(e=>!e)})))}},"./packages/packages/core/editor-variables/src/components/variable-creation.tsx":function(e,a,r){r.r(a),r.d(a,{VariableCreation:function(){return VariableCreation}});var t=r("react"),n=r("@elementor/editor-controls"),o=r("@elementor/editor-ui"),i=r("@elementor/icons"),s=r("@elementor/ui"),l=r("@wordpress/i18n"),c=r("./packages/packages/core/editor-variables/src/context/variable-type-context.tsx"),p=r("./packages/packages/core/editor-variables/src/hooks/use-initial-value.ts"),u=r("./packages/packages/core/editor-variables/src/hooks/use-prop-variables.ts"),d=r("./packages/packages/core/editor-variables/src/hooks/use-variable-bound-prop.ts"),b=r("./packages/packages/core/editor-variables/src/utils/tracking.ts"),m=r("./packages/packages/core/editor-variables/src/utils/validations.ts"),v=r("./packages/packages/core/editor-variables/src/components/fields/label-field.tsx"),g=r("./packages/packages/core/editor-variables/src/components/ui/form-field.tsx");const k="tiny",VariableCreation=({onGoBack:e,onClose:a})=>{const{icon:r,valueField:f,variableType:y,propTypeUtil:h}=(0,c.useVariableType)(),{setVariableValue:E,path:_}=(0,d.useVariableBoundProp)(),{propType:C}=(0,n.useBoundProp)(),x=(0,p.useInitialValue)(),[T,V]=(0,t.useState)(x),[S,w]=(0,t.useState)(""),[P,I]=(0,t.useState)(""),[A,R]=(0,t.useState)(""),[L,O]=(0,t.useState)(h.key),{labelFieldError:D,setLabelFieldError:B}=(0,v.useLabelError)(),closePopover=()=>{V(""),w(""),I(""),R(""),a()},handleCreateAndTrack=()=>{(0,u.createVariable)({value:T,label:S,type:L}).then(e=>{E(e),closePopover()}).catch(e=>{const a=(0,m.mapServerError)(e);if(a&&"label"===a.field)return w(""),void B({value:S,message:a.message});I(m.ERROR_MESSAGES.UNEXPECTED_ERROR)}),(0,b.trackVariableEvent)({varType:y,controlPath:_.join("."),action:"save"})},M=""===S.trim()||("string"==typeof T?""===T.trim():!1===Boolean(T))||!!P,handleKeyDown=e=>{"Enter"!==e.key||M||(e.preventDefault(),handleCreateAndTrack())};return t.createElement(o.SectionPopoverBody,{height:"auto"},t.createElement(o.PopoverHeader,{icon:t.createElement(t.Fragment,null,e&&t.createElement(s.IconButton,{size:k,"aria-label":(0,l.__)("Go Back","elementor"),onClick:e},t.createElement(i.ArrowLeftIcon,{fontSize:k})),t.createElement(r,{fontSize:k})),title:(0,l.__)("Create variable","elementor"),onClose:closePopover}),t.createElement(s.Divider,null),t.createElement(n.PopoverContent,{p:2},t.createElement(g.FormField,{id:"variable-label",label:(0,l.__)("Name","elementor"),errorMsg:D?.message,noticeMsg:(0,m.labelHint)(S)},t.createElement(v.LabelField,{id:"variable-label",value:S,error:D,onChange:e=>{w(e),I("")},onErrorChange:e=>{B({value:"",message:e})},onKeyDown:handleKeyDown,focusOnShow:!0})),f&&t.createElement(g.FormField,{errorMsg:A,label:(0,l.__)("Value","elementor")},t.createElement(s.Typography,{variant:"h5",id:"variable-value-wrapper"},t.createElement(f,{value:T,onPropTypeKeyChange:e=>O(e),onChange:e=>{V(e),I(""),R("")},onValidationChange:R,propType:C,onKeyDown:handleKeyDown}))),P&&t.createElement(s.FormHelperText,{error:!0},P)),t.createElement(s.CardActions,{sx:{pt:.5,pb:1}},t.createElement(s.Button,{id:"create-variable-button",size:"small",variant:"contained",disabled:M,onClick:handleCreateAndTrack},(0,l.__)("Create","elementor"))))}},"./packages/packages/core/editor-variables/src/components/variable-edit.tsx":function(e,a,r){r.r(a),r.d(a,{VariableEdit:function(){return VariableEdit}});var t=r("react"),n=r("@elementor/editor-controls"),o=r("@elementor/editor-current-user"),i=r("@elementor/editor-ui"),s=r("@elementor/icons"),l=r("@elementor/ui"),c=r("@wordpress/i18n"),p=r("./packages/packages/core/editor-variables/src/context/variable-type-context.tsx"),u=r("./packages/packages/core/editor-variables/src/hooks/use-permissions.ts"),d=r("./packages/packages/core/editor-variables/src/hooks/use-prop-variables.ts"),b=r("./packages/packages/core/editor-variables/src/hooks/use-variable-bound-prop.ts"),m=r("./packages/packages/core/editor-variables/src/style-variables-repository.ts"),v=r("./packages/packages/core/editor-variables/src/utils/validations.ts"),g=r("./packages/packages/core/editor-variables/src/components/fields/label-field.tsx"),k=r("./packages/packages/core/editor-variables/src/components/ui/delete-confirmation-dialog.tsx"),f=r("./packages/packages/core/editor-variables/src/components/ui/edit-confirmation-dialog.tsx"),y=r("./packages/packages/core/editor-variables/src/components/ui/form-field.tsx");const h="tiny",E=(0,c.__)("Delete variable","elementor"),VariableEdit=({onClose:e,onGoBack:a,onSubmit:r,editId:_})=>{const{icon:C,valueField:x,variableType:T,propTypeUtil:V}=(0,p.useVariableType)(),{setVariableValue:S,variableId:w}=(0,b.useVariableBoundProp)(),{propType:P}=(0,n.useBoundProp)(),[I,A]=(0,o.useSuppressedMessage)(f.EDIT_CONFIRMATION_DIALOG_ID),[R,L]=(0,t.useState)(!1),[O,D]=(0,t.useState)(!1),[B,M]=(0,t.useState)(""),[F,U]=(0,t.useState)(""),{labelFieldError:z,setLabelFieldError:N}=(0,g.useLabelError)(),j=(0,d.useVariable)(_),[G,H]=(0,t.useState)(j?.type??V.key);if(!j)throw new Error(`Global ${T} variable not found`);const W=(0,u.usePermissions)(),[q,$]=(0,t.useState)(()=>j.value),[K,X]=(0,t.useState)(()=>j.label);(0,t.useEffect)(()=>(m.styleVariablesRepository.update({[_]:{...j,value:q}}),()=>{m.styleVariablesRepository.update({[_]:{...j}})}),[_,q,j]);const handleUpdate=()=>{I?handleSaveVariable():D(!0)},handleSaveVariable=()=>{const e=G!==j.type?{value:q,label:K,type:G}:{value:q,label:K};(0,d.updateVariable)(_,e).then(()=>{maybeTriggerBoundPropChange(),r?.()}).catch(e=>{const a=(0,v.mapServerError)(e);if(a&&"label"===a.field)return X(""),void N({value:K,message:a.message});M(v.ERROR_MESSAGES.UNEXPECTED_ERROR)})},maybeTriggerBoundPropChange=()=>{_===w&&S(_)},handleDeleteConfirmation=()=>{L(!0)},Q=[];W.canDelete()&&Q.push(t.createElement(l.Tooltip,{key:"delete",placement:"top",title:E},t.createElement(l.IconButton,{size:h,onClick:handleDeleteConfirmation,"aria-label":E},t.createElement(s.TrashIcon,{fontSize:h}))));const Z=q===j.value&&K===j.label||""===K.trim()||("string"==typeof q?""===q.trim():!1===Boolean(q))||!!B,handleKeyDown=e=>{"Enter"!==e.key||Z||(e.preventDefault(),handleUpdate())};return t.createElement(t.Fragment,null,t.createElement(i.SectionPopoverBody,{height:"auto"},t.createElement(i.PopoverHeader,{title:(0,c.__)("Edit variable","elementor"),onClose:e,icon:t.createElement(t.Fragment,null,a&&t.createElement(l.IconButton,{size:h,"aria-label":(0,c.__)("Go Back","elementor"),onClick:a},t.createElement(s.ArrowLeftIcon,{fontSize:h})),t.createElement(C,{fontSize:h})),actions:Q}),t.createElement(l.Divider,null),t.createElement(n.PopoverContent,{p:2},t.createElement(y.FormField,{id:"variable-label",label:(0,c.__)("Name","elementor"),errorMsg:z?.message,noticeMsg:(0,v.labelHint)(K)},t.createElement(g.LabelField,{id:"variable-label",value:K,error:z,onChange:e=>{X(e),M("")},onErrorChange:e=>{N({value:"",message:e})},onKeyDown:handleKeyDown,focusOnShow:!0})),x&&t.createElement(y.FormField,{errorMsg:F,label:(0,c.__)("Value","elementor")},t.createElement(l.Typography,{variant:"h5"},t.createElement(x,{propTypeKey:j.type,onPropTypeKeyChange:e=>H(e),value:q,onChange:e=>{$(e),M(""),U("")},onKeyDown:handleKeyDown,onValidationChange:U,propType:P}))),B&&t.createElement(l.FormHelperText,{error:!0},B)),t.createElement(l.CardActions,{sx:{pt:.5,pb:1}},t.createElement(l.Button,{size:"small",variant:"contained",disabled:Z,onClick:handleUpdate},(0,c.__)("Save","elementor")))),R&&t.createElement(k.DeleteConfirmationDialog,{open:!0,label:K,onConfirm:()=>{(0,d.deleteVariable)(_).then(()=>{maybeTriggerBoundPropChange(),r?.()})},closeDialog:()=>{L(!1)}}),O&&!I&&t.createElement(f.EditConfirmationDialog,{closeDialog:()=>{D(!1)},onConfirm:handleSaveVariable,onSuppressMessage:A}))}},"./packages/packages/core/editor-variables/src/components/variable-restore.tsx":function(e,a,r){r.r(a),r.d(a,{VariableRestore:function(){return VariableRestore}});var t=r("react"),n=r("@elementor/editor-controls"),o=r("@elementor/editor-ui"),i=r("@elementor/ui"),s=r("@wordpress/i18n"),l=r("./packages/packages/core/editor-variables/src/context/variable-selection-popover.context.tsx"),c=r("./packages/packages/core/editor-variables/src/context/variable-type-context.tsx"),p=r("./packages/packages/core/editor-variables/src/hooks/use-prop-variables.ts"),u=r("./packages/packages/core/editor-variables/src/hooks/use-variable-bound-prop.ts"),d=r("./packages/packages/core/editor-variables/src/utils/validations.ts"),b=r("./packages/packages/core/editor-variables/src/components/fields/label-field.tsx"),m=r("./packages/packages/core/editor-variables/src/components/ui/form-field.tsx");const VariableRestore=({variableId:e,onClose:a,onSubmit:r})=>{const{icon:v,valueField:g,variableType:k,propTypeUtil:f}=(0,c.useVariableType)(),{setVariableValue:y}=(0,u.useVariableBoundProp)(),{propType:h}=(0,n.useBoundProp)(),E=(0,p.useVariable)(e);if(!E)throw new Error(`Global ${k} variable not found`);const[_,C]=(0,t.useState)(""),[x,T]=(0,t.useState)(""),[V,S]=(0,t.useState)(E.label),[w,P]=(0,t.useState)(E.value),[I,A]=(0,t.useState)(E?.type??f.key),{labelFieldError:R,setLabelFieldError:L}=(0,b.useLabelError)({value:E.label,message:d.ERROR_MESSAGES.DUPLICATED_LABEL}),handleRestore=()=>{(I!==E.type?(0,p.restoreVariable)(e,V,w,I):(0,p.restoreVariable)(e,V,w)).then(()=>{y(e),r?.()}).catch(e=>{const a=(0,d.mapServerError)(e);if(a&&"label"===a.field)return S(""),void L({value:V,message:a.message});C(d.ERROR_MESSAGES.UNEXPECTED_ERROR)})},O=w===E.value&&V===E.label||""===V.trim()||("string"==typeof w?""===w.trim():!1===Boolean(w))||!!_,handleKeyDown=e=>{"Enter"!==e.key||O||(e.preventDefault(),handleRestore())};return t.createElement(l.PopoverContentRefContextProvider,null,t.createElement(o.SectionPopoverBody,{height:"auto"},t.createElement(o.PopoverHeader,{icon:t.createElement(v,{fontSize:"tiny"}),title:(0,s.__)("Restore variable","elementor"),onClose:a}),t.createElement(i.Divider,null),t.createElement(n.PopoverContent,{p:2},t.createElement(m.FormField,{id:"variable-label",label:(0,s.__)("Name","elementor"),errorMsg:R?.message,noticeMsg:(0,d.labelHint)(V)},t.createElement(b.LabelField,{id:"variable-label",value:V,error:R,onChange:e=>{S(e),C("")},onErrorChange:e=>{L({value:"",message:e})},onKeyDown:handleKeyDown,focusOnShow:!0})),g&&t.createElement(m.FormField,{errorMsg:x,label:(0,s.__)("Value","elementor")},t.createElement(i.Typography,{variant:"h5"},t.createElement(g,{propTypeKey:I,onPropTypeKeyChange:e=>A(e),value:w,onChange:e=>{P(e),C(""),T("")},onValidationChange:T,propType:h,onKeyDown:handleKeyDown}))),_&&t.createElement(i.FormHelperText,{error:!0},_)),t.createElement(i.CardActions,{sx:{pt:.5,pb:1}},t.createElement(i.Button,{size:"small",variant:"contained",disabled:O,onClick:handleRestore},(0,s.__)("Restore","elementor")))))}},"./packages/packages/core/editor-variables/src/components/variable-selection-popover.tsx":function(e,a,r){r.r(a),r.d(a,{VariableSelectionPopover:function(){return VariableSelectionPopover}});var t=r("react"),n=r("@elementor/editor-v1-adapters"),o=r("./packages/packages/core/editor-variables/src/context/variable-selection-popover.context.tsx"),i=r("./packages/packages/core/editor-variables/src/context/variable-type-context.tsx"),s=r("./packages/packages/core/editor-variables/src/hooks/use-permissions.ts"),l=r("./packages/packages/core/editor-variables/src/hooks/use-quota-permissions.ts"),c=r("./packages/packages/core/editor-variables/src/components/variable-creation.tsx"),p=r("./packages/packages/core/editor-variables/src/components/variable-edit.tsx"),u=r("./packages/packages/core/editor-variables/src/components/variables-manager/variables-manager-panel.tsx"),d=r("./packages/packages/core/editor-variables/src/components/variables-selection.tsx");const b="list",m="add",v="edit",VariableSelectionPopover=({closePopover:e,propTypeKey:a,selectedVariable:r})=>{const[g,k]=(0,t.useState)(b),[f,y]=(0,t.useState)(""),{open:h}=(0,u.usePanelActions)(),E=(0,n.isExperimentActive)("e_variables_manager")?()=>{h()}:void 0;return t.createElement(i.VariableTypeProvider,{propTypeKey:a},t.createElement(o.PopoverContentRefContextProvider,null,function RenderView(e){const a=(0,s.usePermissions)(),r=(0,l.useQuotaPermissions)(e.propTypeKey),n={onClose:()=>{e.closePopover()},onGoBack:()=>{e.setCurrentView(b)}};a.canAdd()&&(n.onAdd=()=>{e.setCurrentView(m)});a.canEdit()&&(n.onEdit=a=>{e.setEditId(a),e.setCurrentView(v)});a.canManageSettings()&&e.onSettings&&(n.onSettings=()=>{e.closePopover(),e.onSettings?.()});const handleSubmitOnEdit=()=>{e?.selectedVariable?.key===e.editId?n.onClose():n.onGoBack?.()};if(b===e.currentView)return t.createElement(d.VariablesSelection,{closePopover:n.onClose,onAdd:n.onAdd,onEdit:n.onEdit,onSettings:n.onSettings,disabled:!r.canAdd()});if(m===e.currentView)return t.createElement(c.VariableCreation,{onGoBack:n.onGoBack,onClose:n.onClose});if(v===e.currentView)return t.createElement(p.VariableEdit,{editId:e.editId,onGoBack:n.onGoBack,onClose:n.onClose,onSubmit:handleSubmitOnEdit});return null}({propTypeKey:a,currentView:g,selectedVariable:r,editId:f,setEditId:y,setCurrentView:k,closePopover:e,onSettings:E})))}},"./packages/packages/core/editor-variables/src/components/variables-manager/hooks/use-auto-edit.ts":function(e,a,r){r.r(a),r.d(a,{useAutoEdit:function(){return useAutoEdit}});var t=r("react");const useAutoEdit=()=>{const[e,a]=(0,t.useState)(void 0);return{autoEditVariableId:e,startAutoEdit:(0,t.useCallback)(e=>{a(e)},[]),handleAutoEditComplete:(0,t.useCallback)(()=>{setTimeout(()=>{a(void 0)},100)},[])}}},"./packages/packages/core/editor-variables/src/components/variables-manager/hooks/use-error-navigation.ts":function(e,a,r){r.r(a),r.d(a,{useErrorNavigation:function(){return useErrorNavigation}});var t=r("react");const useErrorNavigation=()=>{const e=(0,t.useRef)(0);return{createNavigationCallback:(0,t.useCallback)((a,r,t)=>()=>{if(!a?.length)return;const n=e.current,o=a[n];if(o){r(o);const i=n+1;i>=a.length?(t(),e.current=0):e.current=i}},[]),resetNavigation:(0,t.useCallback)(()=>{e.current=0},[])}}},"./packages/packages/core/editor-variables/src/components/variables-manager/hooks/use-variables-manager-state.ts":function(e,a,r){r.r(a),r.d(a,{useVariablesManagerState:function(){return useVariablesManagerState}});var t=r("react"),n=r("./packages/packages/core/editor-variables/src/batch-operations.ts"),o=r("./packages/packages/core/editor-variables/src/hooks/use-prop-variables.ts"),i=r("./packages/packages/core/editor-variables/src/service.ts"),s=r("./packages/packages/core/editor-variables/src/utils/filter-by-search.ts"),l=r("./packages/packages/core/editor-variables/src/utils/variables-to-list.ts"),c=r("./packages/packages/core/editor-variables/src/variables-registry/variable-type-registry.ts");const useVariablesManagerState=()=>{const[e,a]=(0,t.useState)(()=>(0,o.getVariables)(!1)),[r,p]=(0,t.useState)([]),[u,d]=(0,t.useState)(!1),[b,m]=(0,t.useState)(!1),[v,g]=(0,t.useState)(!1),[k,f]=(0,t.useState)(""),y=(0,t.useCallback)(r=>{a({...e,...r}),m(!0)},[e]),h=(0,t.useCallback)((e,r,t)=>{const o=(0,n.generateTempId)(),i={id:o,label:r.trim(),value:t.trim(),type:e};return a(e=>({...e,[o]:i})),m(!0),o},[]),E=(0,t.useCallback)(e=>{p(a=>[...a,e]),a(a=>({...a,[e]:{...a[e],deleted:!0}})),m(!0)},[]),_=(0,t.useCallback)(e=>{a(a=>({...a,[e]:{...a[e],sync_to_v3:!0}})),m(!0)},[]),C=(0,t.useCallback)(e=>{a(a=>({...a,[e]:{...a[e],sync_to_v3:!1}})),m(!0)},[]),x=(0,t.useCallback)(async()=>{const t=(0,o.getVariables)(!1);g(!0);const n=await i.service.batchSave(t,e,r);if(n.success){await i.service.load();const e=i.service.variables();a(e),p([]),m(!1)}return{success:n.success}},[e,r]);return{variables:(0,t.useCallback)(()=>{const a=(0,l.variablesToList)(e).filter(e=>!e.deleted),r=(0,l.applySelectionFilters)(a,(0,c.getVariableTypes)()),t=(0,s.filterBySearch)(r,k);return Object.fromEntries(t.map(({key:e,...a})=>[e,a]))},[e,k])(),deletedVariables:r,isDirty:b,isSaveDisabled:u,handleOnChange:y,createVariable:h,handleDeleteVariable:E,handleStartSync:_,handleStopSync:C,handleSave:x,isSaving:v,handleSearch:e=>{f(e)},searchValue:k,setIsSaving:g,setIsSaveDisabled:d}}},"./packages/packages/core/editor-variables/src/components/variables-manager/ui/variable-edit-menu.tsx":function(e,a,r){r.r(a),r.d(a,{VariableEditMenu:function(){return VariableEditMenu}});var t=r("react"),n=r("@elementor/icons"),o=r("@elementor/ui");function _extends(){return _extends=Object.assign?Object.assign.bind():function(e){for(var a=1;a<arguments.length;a++){var r=arguments[a];for(var t in r)({}).hasOwnProperty.call(r,t)&&(e[t]=r[t])}return e},_extends.apply(null,arguments)}const VariableEditMenu=({menuActions:e,disabled:a,itemId:r})=>{const i=(0,o.usePopupState)({variant:"popover"}),s=(0,o.bindTrigger)(i);return t.createElement(t.Fragment,null,t.createElement(o.IconButton,_extends({},s,{disabled:a,size:"tiny",onClick:e=>{e.stopPropagation(),s.onClick?.(e)}}),t.createElement(n.DotsVerticalIcon,{fontSize:"tiny"})),t.createElement(o.Menu,_extends({disablePortal:!0,MenuListProps:{dense:!0},PaperProps:{elevation:6}},(0,o.bindMenu)(i),{anchorEl:i.anchorEl,anchorOrigin:{vertical:"bottom",horizontal:"right"},transformOrigin:{vertical:"top",horizontal:"right"},open:i.isOpen,onClose:i.close}),e.map(e=>t.createElement(o.MenuItem,{key:e.name,onClick:a=>{a.stopPropagation(),e.onClick?.(r),i.close()},sx:{color:e.color,gap:1}},e.icon&&(0,t.createElement)(e.icon,{fontSize:"inherit"})," ",e.name))))}},"./packages/packages/core/editor-variables/src/components/variables-manager/ui/variable-table-cell.tsx":function(e,a,r){r.r(a),r.d(a,{VariableTableCell:function(){return VariableTableCell}});var t=r("react"),n=r("@elementor/ui");const VariableTableCell=({children:e,isHeader:a,width:r,maxWidth:o,align:i,noPadding:s,sx:l})=>{const c={maxWidth:o??150,cursor:"initial",typography:"caption",...a&&{color:"text.primary",fontWeight:"bold"},...a&&!s&&{padding:"10px 16px"},...r&&{width:r},...l};return t.createElement(n.TableCell,{size:"small",padding:s?"none":void 0,align:i,sx:c},e)}},"./packages/packages/core/editor-variables/src/components/variables-manager/ui/variable-table-row.tsx":function(e,a,r){r.r(a),r.d(a,{VariableRow:function(){return VariableRow}});var t=r("react"),n=r("@elementor/editor-ui"),o=r("@elementor/icons"),i=r("@elementor/ui"),s=r("./packages/packages/core/editor-variables/src/hooks/use-quota-permissions.ts"),l=r("./packages/packages/core/editor-variables/src/components/fields/label-field.tsx"),c=r("./packages/packages/core/editor-variables/src/components/ui/variable-promotion-chip.tsx"),p=r("./packages/packages/core/editor-variables/src/components/variables-manager/variable-editable-cell.tsx"),u=r("./packages/packages/core/editor-variables/src/components/variables-manager/ui/variable-edit-menu.tsx"),d=r("./packages/packages/core/editor-variables/src/components/variables-manager/ui/variable-table-cell.tsx");function _extends(){return _extends=Object.assign?Object.assign.bind():function(e){for(var a=1;a<arguments.length;a++){var r=arguments[a];for(var t in r)({}).hasOwnProperty.call(r,t)&&(e[t]=r[t])}return e},_extends.apply(null,arguments)}const b={target_name:"variables_manager",target_location:"variables_manager"},VariableRow=e=>{const{row:a,variables:r,handleOnChange:m,autoEditVariableId:v,onAutoEditComplete:g,onFieldError:k,menuActions:f,handleRowRef:y,itemProps:h,showDropIndication:E,triggerProps:_,itemStyle:C,triggerStyle:x,isDragged:T,dropPosition:V,setTriggerRef:S,isSorting:w}=e,P=(0,t.useRef)(null),I=!(0,s.useQuotaPermissions)(a.type).canEdit(),A=E&&"before"===V,R=E&&"after"===V;return t.createElement(i.TableRow,_extends({},h,{ref:h.ref,selected:T,sx:{...I&&{"& td, & th":{color:"text.disabled"}},...A&&{"& td, & th":{borderTop:"2px solid",borderTopColor:"primary.main"}},...R&&{"& td, & th":{borderBottom:"2px solid",borderBottomColor:"primary.main"}},"&:hover, &:focus-within":{backgroundColor:"action.hover",'& [role="toolbar"], & [draggable]':{opacity:1}},'& [role="toolbar"], & [draggable]':{opacity:0}},style:{...C,...x},onClick:()=>{I&&P.current?.toggle()}}),t.createElement(d.VariableTableCell,{noPadding:!0,width:10,maxWidth:10},t.createElement(i.IconButton,_extends({size:"small",ref:S},_,{disabled:w,draggable:!0}),t.createElement(o.GripVerticalIcon,{fontSize:"inherit"}))),t.createElement(d.VariableTableCell,null,t.createElement(p.VariableEditableCell,{initialValue:a.name,onChange:e=>{e===a.name||I||m({...r,[a.id]:{...r[a.id],label:e}})},prefixElement:(0,t.createElement)(a.icon,{fontSize:"inherit",color:I?"disabled":"inherit"}),editableElement:({value:e,onChange:n,onValidationChange:o,error:i})=>t.createElement(l.LabelField,{id:"variable-label-"+a.id,size:"tiny",value:e,onChange:n,onErrorChange:e=>{o?.(e),k?.(!!e)},error:i,focusOnShow:!0,selectOnShow:v===a.id,showWarningInfotip:!0,variables:r}),autoEdit:v===a.id&&!I,onRowRef:y(a.id),onAutoEditComplete:v===a.id?g:void 0,fieldType:"label",disabled:I},t.createElement(n.EllipsisWithTooltip,{title:a.name,sx:{border:"4px solid transparent"}},a.name))),t.createElement(d.VariableTableCell,null,t.createElement(p.VariableEditableCell,{initialValue:a.value,onChange:e=>{e===a.value||I||m({...r,[a.id]:{...r[a.id],value:e}})},editableElement:({value:e,onChange:n,onValidationChange:o,error:i})=>a.valueField?.({value:e,onChange:n,onPropTypeKeyChange:e=>{I||m({...r,[a.id]:{...r[a.id],type:e}})},propTypeKey:a.type,onValidationChange:e=>{o?.(e),k?.(!!e)},error:i})??t.createElement(t.Fragment,null),onRowRef:y(a.id),gap:.25,fieldType:"value",disabled:I},a.startIcon&&a.startIcon({value:a.value}),t.createElement(n.EllipsisWithTooltip,{title:a.value,sx:{border:"4px solid transparent",lineHeight:"1",pt:.25}},a.value))),t.createElement(d.VariableTableCell,{align:"right",noPadding:!0,width:16,maxWidth:16,sx:{paddingInlineEnd:1}},t.createElement(i.Stack,{role:"toolbar",direction:"row",justifyContent:"flex-end",alignItems:"center"},I&&t.createElement(c.VariablePromotionChip,{variableType:a.variableType,upgradeUrl:`https://go.elementor.com/renew-license-manager-${a.variableType}-variable`,ref:P,trackingData:b}),t.createElement(u.VariableEditMenu,{menuActions:f(a.id),disabled:w,itemId:a.id}))))}},"./packages/packages/core/editor-variables/src/components/variables-manager/variable-editable-cell.tsx":function(e,a,r){r.r(a),r.d(a,{VariableEditableCell:function(){return i}});var t=r("react"),n=r("@elementor/ui"),o=r("./packages/packages/core/editor-variables/src/components/fields/label-field.tsx");const i=t.memo(({initialValue:e,children:a,editableElement:r,onChange:i,prefixElement:s,autoEdit:l=!1,onRowRef:c,onAutoEditComplete:p,gap:u=1,fieldType:d,disabled:b=!1})=>{const[m,v]=(0,t.useState)(e),[g,k]=(0,t.useState)(!1),{labelFieldError:f,setLabelFieldError:y}=(0,o.useLabelError)(),[h,E]=(0,t.useState)(""),_=(0,t.useRef)(null),C=(0,t.useCallback)(()=>{"label"===d&&f?.message||"value"===d&&h||i(m),k(!1)},[m,i,d,f,h]);(0,t.useEffect)(()=>{c?.(_?.current)},[c]),(0,t.useEffect)(()=>{!l||g||b||(k(!0),p?.())},[l,g,p,b]);const handleDoubleClick=()=>{b||k(!0)},handleKeyDown=e=>{b||("Enter"===e.key?C():"Escape"===e.key&&k(!1)," "!==e.key||g||(e.preventDefault(),k(!0)))},x=(0,t.useCallback)(e=>{v(e)},[]),T=(0,t.useCallback)(e=>{"label"===d?y({value:m,message:e}):E(e)},[d,m,y,E]);let V;"label"===d?V=f:"value"===d&&(V={value:m,message:h});const S=r({value:m,onChange:x,onValidationChange:T,error:V});return g?t.createElement(n.ClickAwayListener,{onClickAway:C},t.createElement(n.Stack,{ref:_,direction:"row",alignItems:"center",gap:u,onDoubleClick:handleDoubleClick,onKeyDown:handleKeyDown,tabIndex:0,role:"button","aria-label":"Double click or press Space to edit"},s,S)):t.createElement(n.Stack,{ref:_,direction:"row",alignItems:"center",gap:u,onDoubleClick:handleDoubleClick,onKeyDown:handleKeyDown,tabIndex:b?-1:0,role:"button","aria-label":b?"":"Double click or press Space to edit"},s,a)})},"./packages/packages/core/editor-variables/src/components/variables-manager/variables-manager-create-menu.tsx":function(e,a,r){r.r(a),r.d(a,{SIZE:function(){return b},VariableManagerCreateMenu:function(){return VariableManagerCreateMenu},getDefaultName:function(){return getDefaultName}});var t=r("react"),n=r("@elementor/icons"),o=r("@elementor/ui"),i=r("@elementor/utils"),s=r("@wordpress/i18n"),l=r("./packages/packages/core/editor-variables/src/hooks/use-quota-permissions.ts"),c=r("./packages/packages/core/editor-variables/src/utils/tracking.ts"),p=r("./packages/packages/core/editor-variables/src/variables-registry/variable-type-registry.ts"),u=r("./packages/packages/core/editor-variables/src/components/ui/variable-promotion-chip.tsx");function _extends(){return _extends=Object.assign?Object.assign.bind():function(e){for(var a=1;a<arguments.length;a++){var r=arguments[a];for(var t in r)({}).hasOwnProperty.call(r,t)&&(e[t]=r[t])}return e},_extends.apply(null,arguments)}const d={target_name:"variables_manager",target_location:"variables_manager",location_l1:"create variable menu"},b="tiny",VariableManagerCreateMenu=({variables:e,onCreate:a,menuState:r})=>{const i=(0,t.useRef)(null),l=(0,p.getVariableTypes)(),c=(0,t.useMemo)(()=>Object.entries(l).filter(([,e])=>!!e.defaultValue).map(([e,a])=>({key:e,propTypeKey:a.propTypeUtil.key,variableType:a.variableType,defaultValue:a.defaultValue||"",icon:a.icon})),[l]);return t.createElement(t.Fragment,null,t.createElement(o.IconButton,_extends({},(0,o.bindTrigger)(r),{ref:i,size:b,"aria-label":(0,s.__)("Add variable","elementor")}),t.createElement(n.PlusIcon,{fontSize:b})),t.createElement(o.Menu,_extends({disablePortal:!0,MenuListProps:{dense:!0},PaperProps:{elevation:6}},(0,o.bindMenu)(r),{anchorEl:i.current,anchorOrigin:{vertical:"bottom",horizontal:"right"},transformOrigin:{vertical:"top",horizontal:"right"},"data-testid":"variable-manager-create-menu"}),c.map(n=>t.createElement(MenuOption,{key:n.key,config:n,variables:e,onCreate:a,onClose:r.close}))))},MenuOption=({config:e,variables:a,onCreate:r,onClose:n})=>{const s=(0,t.useRef)(null),p=(0,l.useQuotaPermissions)(e.propTypeKey),m=(0,i.capitalize)(e.variableType),v=!p.canAdd();return t.createElement(o.MenuItem,{onClick:()=>{if(v)return void s.current?.toggle();const t=getDefaultName(a,e.variableType);r(e.key,t,e.defaultValue),(0,c.trackVariablesManagerEvent)({action:"add",varType:e.variableType}),n()},sx:{gap:1.5,cursor:"pointer"}},(0,t.createElement)(e.icon,{fontSize:b,color:v?"disabled":"action"}),t.createElement(o.Typography,{variant:"caption",color:v?"text.disabled":"text.primary"},m),v&&t.createElement(u.VariablePromotionChip,{variableType:e.variableType,upgradeUrl:`https://go.elementor.com/go-pro-manager-${e.variableType}-variable/`,ref:s,trackingData:d}))},getDefaultName=(e,a)=>{const r=new RegExp(`^${a}-(\\d+)$`,"i"),t=new Set;Object.values(e).forEach(e=>{const a=e.label.match(r);a&&t.add(parseInt(a[1],10))});let n=1;for(;t.has(n);)n++;return`${a}-${n}`}},"./packages/packages/core/editor-variables/src/components/variables-manager/variables-manager-panel.tsx":function(e,a,r){r.r(a),r.d(a,{VariablesManagerPanel:function(){return VariablesManagerPanel},panel:function(){return x},usePanelActions:function(){return T}});var t=r("react"),n=r("@elementor/editor-current-user"),o=r("@elementor/editor-panels"),i=r("@elementor/editor-ui"),s=r("@elementor/editor-v1-adapters"),l=r("@elementor/icons"),c=r("@elementor/ui"),p=r("@wordpress/i18n"),u=r("./packages/packages/core/editor-variables/src/utils/tracking.ts"),d=r("./packages/packages/core/editor-variables/src/utils/validations.ts"),b=r("./packages/packages/core/editor-variables/src/variables-registry/variable-type-registry.ts"),m=r("./packages/packages/core/editor-variables/src/components/ui/delete-confirmation-dialog.tsx"),v=r("./packages/packages/core/editor-variables/src/components/ui/empty-state.tsx"),g=r("./packages/packages/core/editor-variables/src/components/ui/no-search-results.tsx"),k=r("./packages/packages/core/editor-variables/src/components/variables-manager/hooks/use-auto-edit.ts"),f=r("./packages/packages/core/editor-variables/src/components/variables-manager/hooks/use-error-navigation.ts"),y=r("./packages/packages/core/editor-variables/src/components/variables-manager/hooks/use-variables-manager-state.ts"),h=r("./packages/packages/core/editor-variables/src/components/variables-manager/variables-manager-create-menu.tsx"),E=r("./packages/packages/core/editor-variables/src/components/variables-manager/variables-manager-table.tsx");const _="variables-manager",C="stop-sync-variable",{panel:x,usePanelActions:T}=(0,o.__createPanel)({id:_,component:VariablesManagerPanel,allowedEditModes:["edit",_],onOpen:()=>{(0,s.changeEditMode)(_)},onClose:async()=>{(0,s.changeEditMode)("edit")},isOpenPreviousElement:!0});function VariablesManagerPanel(){const{close:e}=T(),{open:a,close:r,isOpen:s}=(0,i.useDialog)(),[_]=(0,n.useSuppressedMessage)(C),x=(0,c.usePopupState)({variant:"popover"}),{variables:V,isDirty:S,searchValue:w,isSaveDisabled:P,handleOnChange:I,createVariable:A,handleDeleteVariable:R,handleStartSync:L,handleStopSync:O,handleSave:D,isSaving:B,handleSearch:M,setIsSaving:F,setIsSaveDisabled:U}=(0,y.useVariablesManagerState)(),{autoEditVariableId:z,startAutoEdit:N,handleAutoEditComplete:j}=(0,k.useAutoEdit)(),{createNavigationCallback:G,resetNavigation:H}=(0,f.useErrorNavigation)(),[W,q]=(0,t.useState)(null),[$,K]=(0,t.useState)(null),[X,Q]=(0,t.useState)(null);usePreventUnload(S);const Z=(0,t.useCallback)((e,a,r)=>{const t=A(e,a,r);t&&N(t)},[A,N]),handleSaveClick=async()=>{try{Q(null),H();const e=await D();return(0,u.trackVariablesManagerEvent)({action:"saveChanges"}),e}catch(e){const a=(0,d.mapServerError)(e),r=a?.action?.data?.duplicatedIds;return a&&"label"===a.field&&(r&&a.action&&(a.action.callback=G(r,N,()=>{U(!1)})),Q(a),U(!0),H()),{success:!1,error:a}}finally{F(!1)}},J=(0,t.useCallback)(e=>{R(e),q(null)},[R]),Y=(0,t.useCallback)(e=>{O(e);const a=V[e];a&&(0,u.trackVariableSyncToV3)({variableLabel:a.label,action:"unsync"})},[O,V]),ee=(0,t.useCallback)(e=>{L(e);const a=V[e];a&&(0,u.trackVariableSyncToV3)({variableLabel:a.label,action:"sync"})},[L,V]),ae=(0,t.useCallback)(e=>{_?Y(e):K(e)},[_,Y]),re=(0,t.useCallback)(e=>{const a=V[e];if(!a)return[];return[...(0,b.getMenuActionsForVariable)(a.type,{variable:a,variableId:e,handlers:{onStartSync:ee,onStopSync:ae}}),{name:(0,p.__)("Delete","elementor"),icon:l.TrashIcon,color:"error.main",onClick:e=>{const a=V[e];if(a){q({id:e,label:a.label});const r=(0,b.getVariableType)(a.type);(0,u.trackVariablesManagerEvent)({action:"delete",varType:r?.variableType})}}}]},[V,ee,ae]),te=Object.keys(V).length>0;return t.createElement(i.ThemeProvider,null,t.createElement(o.Panel,null,t.createElement(o.PanelHeader,{sx:{height:"unset"}},t.createElement(c.Stack,{width:"100%",direction:"column",alignItems:"center"},t.createElement(c.Stack,{p:1,pl:2,width:"100%",direction:"row",alignItems:"center"},t.createElement(c.Stack,{width:"100%",direction:"row",gap:1},t.createElement(o.PanelHeaderTitle,{sx:{display:"flex",alignItems:"center",gap:.5}},t.createElement(l.ColorFilterIcon,{fontSize:"inherit"}),(0,p.__)("Variables Manager","elementor"))),t.createElement(c.Stack,{direction:"row",gap:.5,alignItems:"center"},t.createElement(h.VariableManagerCreateMenu,{onCreate:Z,variables:V,menuState:x}),t.createElement(c.CloseButton,{"aria-label":"Close",slotProps:{icon:{fontSize:h.SIZE}},onClick:()=>{S?a():e()}}))),t.createElement(c.Stack,{width:"100%",direction:"row",gap:1},t.createElement(i.SearchField,{sx:{display:"flex",flex:1},placeholder:(0,p.__)("Search","elementor"),value:w,onSearch:M})),t.createElement(c.Divider,{sx:{width:"100%"}}))),t.createElement(o.PanelBody,{sx:{display:"flex",flexDirection:"column",height:"100%"}},te&&t.createElement(E.VariablesManagerTable,{menuActions:re,variables:V,onChange:I,autoEditVariableId:z,onAutoEditComplete:j,onFieldError:U}),!te&&w&&t.createElement(g.NoSearchResults,{searchValue:w,onClear:()=>M(""),icon:t.createElement(l.ColorFilterIcon,{fontSize:"large"})}),!te&&!w&&t.createElement(v.EmptyState,{title:(0,p.__)("Create your first variable","elementor"),message:(0,p.__)("Variables are saved attributes that you can apply anywhere on your site.","elementor"),icon:t.createElement(l.ColorFilterIcon,{fontSize:"large"}),onAdd:x.open})),t.createElement(o.PanelFooter,null,t.createElement(c.Infotip,{placement:"right",open:!!X,content:X?t.createElement(c.Alert,{severity:X.severity??"error",action:X.action?.label?t.createElement(c.AlertAction,{onClick:X.action.callback},X.action.label):void 0,onClose:X.action?.label?void 0:()=>{Q(null),U(!1)},icon:X.IconComponent?t.createElement(X.IconComponent,null):t.createElement(l.AlertTriangleFilledIcon,null)},t.createElement(c.AlertTitle,null,X.message),X.action?.message):null,arrow:!1,slotProps:{popper:{modifiers:[{name:"offset",options:{offset:[-10,10]}}]}}},t.createElement(c.Button,{fullWidth:!0,size:"small",color:"global",variant:"contained",disabled:P||!S||B,onClick:handleSaveClick,loading:B},(0,p.__)("Save changes","elementor"))))),W&&t.createElement(m.DeleteConfirmationDialog,{open:!0,label:W.label,onConfirm:()=>J(W.id),closeDialog:()=>q(null)}),$&&t.createElement(StopSyncConfirmationDialog,{open:!0,onClose:()=>K(null),onConfirm:()=>{Y($),K(null)}}),s&&t.createElement(i.SaveChangesDialog,null,t.createElement(i.SaveChangesDialog.Title,{onClose:r},(0,p.__)("You have unsaved changes","elementor")),t.createElement(i.SaveChangesDialog.Content,null,t.createElement(i.SaveChangesDialog.ContentText,null,(0,p.__)("To avoid losing your updates, save your changes before leaving.","elementor"))),t.createElement(i.SaveChangesDialog.Actions,{actions:{discard:{label:(0,p.__)("Discard","elementor"),action:()=>{r(),e()}},confirm:{label:(0,p.__)("Save","elementor"),action:async()=>{const a=await handleSaveClick();r(),a?.success&&e()}}}})))}const usePreventUnload=e=>{(0,t.useEffect)(()=>{const handleBeforeUnload=a=>{e&&a.preventDefault()};return window.addEventListener("beforeunload",handleBeforeUnload),()=>{window.removeEventListener("beforeunload",handleBeforeUnload)}},[e])},StopSyncConfirmationDialog=({open:e,onClose:a,onConfirm:r})=>{const[,o]=(0,n.useSuppressedMessage)(C);return t.createElement(i.ConfirmationDialog,{open:e,onClose:a},t.createElement(i.ConfirmationDialog.Title,{icon:l.ColorFilterIcon,iconColor:"primary"},(0,p.__)("Stop syncing variable color","elementor")),t.createElement(i.ConfirmationDialog.Content,null,t.createElement(i.ConfirmationDialog.ContentText,null,(0,p.__)("This will disconnect the variable color from Global Colors. Existing uses on your site will automatically switch to a default color.","elementor"))),t.createElement(i.ConfirmationDialog.Actions,{onClose:a,onConfirm:r,cancelLabel:(0,p.__)("Cancel","elementor"),confirmLabel:(0,p.__)("Got it","elementor"),color:"primary",onSuppressMessage:o,suppressLabel:(0,p.__)("Don't show again","elementor")}))}},"./packages/packages/core/editor-variables/src/components/variables-manager/variables-manager-table.tsx":function(e,a,r){r.r(a),r.d(a,{VariablesManagerTable:function(){return VariablesManagerTable}});var t=r("react"),n=r("@elementor/ui"),o=r("@wordpress/i18n"),i=r("./packages/packages/core/editor-variables/src/variables-registry/variable-type-registry.ts"),s=r("./packages/packages/core/editor-variables/src/components/variables-manager/ui/variable-table-cell.tsx"),l=r("./packages/packages/core/editor-variables/src/components/variables-manager/ui/variable-table-row.tsx");function _extends(){return _extends=Object.assign?Object.assign.bind():function(e){for(var a=1;a<arguments.length;a++){var r=arguments[a];for(var t in r)({}).hasOwnProperty.call(r,t)&&(e[t]=r[t])}return e},_extends.apply(null,arguments)}const VariablesManagerTable=({menuActions:e,variables:a,onChange:r,autoEditVariableId:c,onAutoEditComplete:p,onFieldError:u})=>{const d=(0,t.useRef)(null),b=(0,t.useRef)(new Map);(0,t.useEffect)(()=>{if(c&&d.current){const e=b.current.get(c);e&&setTimeout(()=>{e.scrollIntoView({behavior:"smooth",block:"center",inline:"nearest"})},100)}},[c]);const handleRowRef=e=>a=>{a?b.current.set(e,a):b.current.delete(e)},m=Object.keys(a).sort(function sortVariablesOrder(e){return(a,r)=>(e[a]?.order??Number.MAX_SAFE_INTEGER)-(e[r]?.order??Number.MAX_SAFE_INTEGER)}(a)),v=m.map(e=>{const r=a[e],t=(0,i.getVariableType)(r.type);return t?{id:e,type:r.type,name:r.label,value:r.value,...t}:null}).filter(Boolean),g={minWidth:250,tableLayout:"fixed"};return t.createElement(n.TableContainer,{ref:d,sx:{overflow:"initial"}},t.createElement(n.Table,{sx:g,"aria-label":"Variables manager list with drag and drop reordering",stickyHeader:!0},t.createElement(n.TableHead,null,t.createElement(n.TableRow,null,t.createElement(s.VariableTableCell,{isHeader:!0,noPadding:!0,width:10,maxWidth:10}),t.createElement(s.VariableTableCell,{isHeader:!0},(0,o.__)("Name","elementor")),t.createElement(s.VariableTableCell,{isHeader:!0},(0,o.__)("Value","elementor")),t.createElement(s.VariableTableCell,{isHeader:!0,noPadding:!0,width:16,maxWidth:16}))),t.createElement(n.TableBody,null,t.createElement(n.UnstableSortableProvider,{value:m,onChange:e=>{const t={...a};e.forEach((e,a)=>{const r=t[e];r&&(t[e]=Object.assign({},r,{order:a+1}))}),r(t)},variant:"static",restrictAxis:!0,dragOverlay:({children:e,...a})=>t.createElement(n.Table,_extends({sx:g},a),t.createElement(n.TableBody,null,e))},v.map(o=>t.createElement(n.UnstableSortableItem,{key:o.id,id:o.id,render:n=>t.createElement(l.VariableRow,_extends({},n,{row:o,variables:a,handleOnChange:r,autoEditVariableId:c,onAutoEditComplete:p,onFieldError:u,menuActions:e,handleRowRef:handleRowRef}))}))))))}},"./packages/packages/core/editor-variables/src/components/variables-repeater-item-slot.tsx":function(e,a,r){r.r(a),r.d(a,{BackgroundRepeaterColorIndicator:function(){return BackgroundRepeaterColorIndicator},BackgroundRepeaterLabel:function(){return BackgroundRepeaterLabel},BoxShadowRepeaterColorIndicator:function(){return BoxShadowRepeaterColorIndicator}});var t=r("react"),n=r("./packages/packages/core/editor-variables/src/hooks/use-prop-variables.ts"),o=r("./packages/packages/core/editor-variables/src/components/ui/color-indicator.tsx");const useColorVariable=e=>{const a=e?.value?.color?.value;return(0,n.useVariable)(a||"")},BackgroundRepeaterColorIndicator=({value:e})=>{const a=useColorVariable(e);return t.createElement(o.ColorIndicator,{component:"span",size:"inherit",value:a?.value})},BackgroundRepeaterLabel=({value:e})=>{const a=useColorVariable(e);return t.createElement("span",null,a?.label)},BoxShadowRepeaterColorIndicator=({value:e})=>{const a=useColorVariable(e);return t.createElement(o.ColorIndicator,{component:"span",size:"inherit",value:a?.value})}},"./packages/packages/core/editor-variables/src/components/variables-selection.tsx":function(e,a,r){r.r(a),r.d(a,{VariablesSelection:function(){return VariablesSelection}});var t=r("react"),n=r("@elementor/editor-controls"),o=r("@elementor/editor-ui"),i=r("@elementor/icons"),s=r("@elementor/ui"),l=r("@wordpress/i18n"),c=r("./packages/packages/core/editor-variables/src/context/variable-type-context.tsx"),p=r("./packages/packages/core/editor-variables/src/hooks/use-prop-variables.ts"),u=r("./packages/packages/core/editor-variables/src/hooks/use-variable-bound-prop.ts"),d=r("./packages/packages/core/editor-variables/src/utils/tracking.ts"),b=r("./packages/packages/core/editor-variables/src/components/ui/empty-state.tsx"),m=r("./packages/packages/core/editor-variables/src/components/ui/menu-item-content.tsx"),v=r("./packages/packages/core/editor-variables/src/components/ui/no-search-results.tsx"),g=r("./packages/packages/core/editor-variables/src/components/ui/styled-menu-list.tsx");function _extends(){return _extends=Object.assign?Object.assign.bind():function(e){for(var a=1;a<arguments.length;a++){var r=arguments[a];for(var t in r)({}).hasOwnProperty.call(r,t)&&(e[t]=r[t])}return e},_extends.apply(null,arguments)}const k="tiny",f=(0,l.__)("Create variable","elementor"),y=(0,l.__)("Variables Manager","elementor"),getProUpgradeUrl=e=>`https://go.elementor.com/renew-license-panel-${e}-variable`,VariablesSelection=({closePopover:e,onAdd:a,onEdit:r,onSettings:h,disabled:E=!1})=>{const{icon:_,startIcon:C,variableType:x,propTypeUtil:T,emptyState:V}=(0,c.useVariableType)(),{value:S,setValue:w,path:P}=(0,u.useVariableBoundProp)(),[I,A]=(0,t.useState)(""),{list:R,hasMatches:L,isSourceNotEmpty:O,hasNoCompatibleVariables:D}=(0,p.useFilteredVariables)(I,T.key),onAddAndTrack=()=>{a?.(),(0,d.trackVariableEvent)({varType:x,controlPath:P.join("."),action:"add"})},B=[];if(a&&B.push(t.createElement(s.Tooltip,{key:"add",placement:"top",title:f},t.createElement("span",null,t.createElement(s.IconButton,{id:"add-variable-button",size:k,onClick:onAddAndTrack,"aria-label":f,disabled:E},t.createElement(i.PlusIcon,{fontSize:k}))))),h){const handleOpenManager=()=>{h(),(0,d.trackVariablesManagerEvent)({action:"openManager",varType:x,controlPath:P.join(".")})};B.push(t.createElement(s.Tooltip,{key:"settings",placement:"top",title:y},t.createElement(s.IconButton,{id:"variables-manager-button",size:k,onClick:handleOpenManager,"aria-label":y},t.createElement(i.SettingsIcon,{fontSize:k}))))}const M=C||(()=>t.createElement(_,{fontSize:k})),F=R.map(({value:e,label:a,key:n})=>({type:"item",value:n,label:a,icon:t.createElement(M,{value:e}),secondaryText:e,onEdit:r?()=>r?.(n):void 0}));return(0,t.useEffect)(()=>{E&&(0,n.trackViewPromotion)({target_name:"variables_popover",target_location:"widget_panel",location_l1:"variables_list"})},[E]),t.createElement(o.SectionPopoverBody,null,t.createElement(o.PopoverHeader,{title:(0,l.__)("Variables","elementor"),icon:t.createElement(i.ColorFilterIcon,{fontSize:k}),onClose:e,actions:B}),O&&t.createElement(o.SearchField,{value:I,onSearch:e=>{A(e)},placeholder:(0,l.__)("Search","elementor")}),t.createElement(s.Divider,null),O&&L&&t.createElement(t.Fragment,null,t.createElement(o.PopoverMenuList,{items:F,onSelect:E?()=>{}:a=>{w(a),(0,d.trackVariableEvent)({varType:x,controlPath:P.join("."),action:"connect"}),e()},onClose:()=>{},selectedValue:S,"data-testid":`${x}-variables-list`,menuListTemplate:e=>t.createElement(g.VariablesStyledMenuList,_extends({},e,{disabled:E})),menuItemContentTemplate:e=>t.createElement(m.MenuItemContent,{item:e,disabled:E})}),E&&t.createElement(o.PromotionAlert,{message:(0,l.sprintf)((0,l.__)("Upgrade to continue creating and editing %s variables.","elementor"),x),upgradeUrl:getProUpgradeUrl(x),onCtaClick:()=>(0,n.trackUpgradePromotionClick)({target_name:"variables_popover",location_l1:"variables_list"})})),!L&&O&&t.createElement(v.NoSearchResults,{searchValue:I,onClear:()=>{A("")},icon:t.createElement(_,{fontSize:"large"})}),E&&!O&&t.createElement(b.EmptyState,{title:(0,l.sprintf)((0,l.__)("No %s variables yet","elementor"),x),message:(0,l.sprintf)((0,l.__)("Upgrade to create %s variables and maintain consistent element sizing.","elementor"),x),icon:t.createElement(_,{fontSize:"large"})},V),!O&&!D&&!E&&t.createElement(b.EmptyState,{title:(0,l.sprintf)((0,l.__)("Create your first %s variable","elementor"),x),message:(0,l.__)("Variables are saved attributes that you can apply anywhere on your site.","elementor"),icon:t.createElement(_,{fontSize:"large"}),onAdd:a}),D&&!E&&t.createElement(b.EmptyState,{title:(0,l.__)("No compatible variables","elementor"),message:(0,l.__)("Looks like none of your variables work with this control. Create a new variable to use it here.","elementor"),icon:t.createElement(_,{fontSize:"large"}),onAdd:a}))}},"./packages/packages/core/editor-variables/src/context/variable-selection-popover.context.tsx":function(e,a,r){r.r(a),r.d(a,{PopoverContentRefContextProvider:function(){return PopoverContentRefContextProvider},usePopoverContentRef:function(){return usePopoverContentRef}});var t=r("react"),n=r("@elementor/ui");const o=(0,t.createContext)(null),PopoverContentRefContextProvider=({children:e})=>{const[a,r]=(0,t.useState)(null);return t.createElement(o.Provider,{value:a},t.createElement(n.Box,{ref:r},e))},usePopoverContentRef=()=>(0,t.useContext)(o)},"./packages/packages/core/editor-variables/src/context/variable-type-context.tsx":function(e,a,r){r.r(a),r.d(a,{VariableTypeProvider:function(){return VariableTypeProvider},useVariableType:function(){return useVariableType}});var t=r("react"),n=r("./packages/packages/core/editor-variables/src/variables-registry/variable-type-registry.ts");const o=(0,t.createContext)(null);function VariableTypeProvider({children:e,propTypeKey:a}){return t.createElement(o.Provider,{value:a},e)}function useVariableType(){const e=(0,t.useContext)(o);if(null===e)throw new Error("useVariableType must be used within a VariableTypeProvider");return(0,n.getVariableType)(e)}},"./packages/packages/core/editor-variables/src/controls/variable-control.tsx":function(e,a,r){r.r(a),r.d(a,{VariableControl:function(){return VariableControl}});var t=r("react"),n=r("@elementor/editor-controls"),o=r("./packages/packages/core/editor-variables/src/components/ui/variable/assigned-variable.tsx"),i=r("./packages/packages/core/editor-variables/src/components/ui/variable/deleted-variable.tsx"),s=r("./packages/packages/core/editor-variables/src/components/ui/variable/mismatch-variable.tsx"),l=r("./packages/packages/core/editor-variables/src/components/ui/variable/missing-variable.tsx"),c=r("./packages/packages/core/editor-variables/src/hooks/use-prop-variables.ts"),p=r("./packages/packages/core/editor-variables/src/variables-registry/variable-type-registry.ts");const VariableControl=()=>{const e=(0,n.useBoundProp)(),a=e.value??e.placeholder,r=(0,c.useVariable)(a?.value);if(!r)return t.createElement(l.MissingVariable,null);const{$$type:u}=a;if(r?.deleted)return t.createElement(i.DeletedVariable,{variable:r,propTypeKey:u});const{isCompatible:d}=(0,p.getVariableType)(r.type);return d&&!d(e?.propType,r)?t.createElement(s.MismatchVariable,{variable:r}):t.createElement(o.AssignedVariable,{variable:r,propTypeKey:u})}},"./packages/packages/core/editor-variables/src/create-style-variables-repository.ts":function(e,a,r){r.r(a),r.d(a,{createStyleVariablesRepository:function(){return createStyleVariablesRepository}});var t=r("@elementor/editor-v1-adapters"),n=r("./packages/packages/core/editor-variables/src/prop-types/font-variable-prop-type.ts");const createStyleVariablesRepository=()=>{const e={};let a;const shouldUpdate=(a,r)=>!(a in e)||(e[a].label!==r.label||(e[a].value!==r.value||(!(e[a]?.deleted||!r?.deleted)||!(!e[a]?.deleted||r?.deleted)))),fontEnqueue=e=>{if(e)try{(0,t.enqueueFont)(e)}catch{}};return{subscribe:e=>(a=e,()=>{a=()=>{}}),update:r=>{(a=>{let r=!1;for(const[t,o]of Object.entries(a))shouldUpdate(t,o)&&(e[t]=o,o.type===n.fontVariablePropTypeUtil.key&&fontEnqueue(o.value),r=!0);return r})(r)&&"function"==typeof a&&a({...e})}}}},"./packages/packages/core/editor-variables/src/hooks/use-initial-value.ts":function(e,a,r){r.r(a),r.d(a,{useInitialValue:function(){return useInitialValue}});var t=r("@elementor/editor-controls"),n=r("./packages/packages/core/editor-variables/src/variables-registry/variable-type-registry.ts"),o=r("./packages/packages/core/editor-variables/src/hooks/use-prop-variables.ts");const useInitialValue=()=>{const{value:e}=(0,t.useBoundProp)(),a=(0,n.hasVariableType)(e?.$$type)&&Boolean(e?.value),r=(0,o.useVariable)(a?e.value:"");return a?r?r.value:"":e?.value??""}},"./packages/packages/core/editor-variables/src/hooks/use-permissions.ts":function(e,a,r){r.r(a),r.d(a,{usePermissions:function(){return usePermissions}});var t=r("@elementor/editor-current-user");const usePermissions=()=>{const{canUser:e,isAdmin:a}=(0,t.useCurrentUserCapabilities)();return{canAssign:()=>e("edit_posts"),canUnlink:()=>e("edit_posts"),canAdd:()=>a,canDelete:()=>a,canEdit:()=>a,canRestore:()=>a,canManageSettings:()=>a}}},"./packages/packages/core/editor-variables/src/hooks/use-prop-variable-action.tsx":function(e,a,r){r.r(a),r.d(a,{usePropVariableAction:function(){return usePropVariableAction}});var t=r("react"),n=r("@elementor/editor-controls"),o=r("@elementor/icons"),i=r("@wordpress/i18n"),s=r("./packages/packages/core/editor-variables/src/components/variable-selection-popover.tsx"),l=r("./packages/packages/core/editor-variables/src/utils/tracking.ts"),c=r("./packages/packages/core/editor-variables/src/variables-registry/variable-type-registry.ts");const usePropVariableAction=()=>{const{propType:e,path:a}=(0,n.useBoundProp)(),r=resolveVariableFromPropType(e);return{visible:Boolean(r),icon:o.ColorFilterIcon,title:(0,i.__)("Variables","elementor"),content:({close:e})=>r?(trackOpenVariablePopover(a,r.variableType),t.createElement(s.VariableSelectionPopover,{closePopover:e,propTypeKey:r.propTypeUtil.key})):null}},resolveVariableFromPropType=e=>{if("union"===e.kind)for(const a of Object.keys(e.prop_types)){const e=(0,c.getVariableType)(a);if(e)return e}},trackOpenVariablePopover=(e,a)=>{(0,l.trackVariableEvent)({varType:a,controlPath:e.join("."),action:"open"})}},"./packages/packages/core/editor-variables/src/hooks/use-prop-variables.ts":function(e,a,r){r.r(a),r.d(a,{createVariable:function(){return createVariable},deleteVariable:function(){return deleteVariable},getVariables:function(){return getVariables},hasVariable:function(){return hasVariable},restoreVariable:function(){return restoreVariable},updateVariable:function(){return updateVariable},useFilteredVariables:function(){return useFilteredVariables},useVariable:function(){return useVariable}});var t=r("react"),n=r("@elementor/editor-controls"),o=r("./packages/packages/core/editor-variables/src/context/variable-type-context.tsx"),i=r("./packages/packages/core/editor-variables/src/service.ts"),s=r("./packages/packages/core/editor-variables/src/utils/filter-by-search.ts"),l=r("./packages/packages/core/editor-variables/src/utils/variables-to-list.ts"),c=r("./packages/packages/core/editor-variables/src/variables-registry/variable-type-registry.ts");const getVariables=(e=!0)=>{const a=i.service.variables();return e?a:Object.fromEntries(Object.entries(a).filter(([,e])=>!e.deleted))},hasVariable=e=>void 0!==getVariables()[e],useVariable=e=>{const a=getVariables();return a?.[e]?{...a[e],key:e}:null},useFilteredVariables=(e,a)=>{const r=usePropVariables(a),t=useVariableSelectionFilter(r),n=(0,s.filterBySearch)(t,e);return{list:n.sort((e,a)=>(e.order??Number.MAX_SAFE_INTEGER)-(a.order??Number.MAX_SAFE_INTEGER)),hasMatches:n.length>0,isSourceNotEmpty:t.length>0,hasNoCompatibleVariables:r.length>0&&0===t.length}},useVariableSelectionFilter=e=>{const{selectionFilter:a}=(0,o.useVariableType)(),{propType:r}=(0,n.useBoundProp)();return a?a(e,r):e},usePropVariables=e=>(0,t.useMemo)(()=>normalizeVariables(e),[e]),normalizeVariables=e=>{const a=getVariables(!1),r=(e=>{const a=[],r=(0,c.getVariableTypes)(),t=(0,c.getVariableType)(e);return Object.entries(r).forEach(([e,r])=>{t.variableType===r.variableType&&a.push(e)}),a})(e);return(0,l.variablesToList)(a).filter(e=>r.includes(e.type)).map(l.toNormalizedVariable)},extractId=({id:e})=>e,createVariable=e=>i.service.create(e).then(extractId),updateVariable=(e,{value:a,label:r,type:t})=>i.service.update(e,{value:a,label:r,type:t}).then(extractId),deleteVariable=e=>i.service.delete(e).then(extractId),restoreVariable=(e,a,r,t)=>i.service.restore(e,a,r,t).then(extractId)},"./packages/packages/core/editor-variables/src/hooks/use-quota-permissions.ts":function(e,a,r){r.r(a),r.d(a,{useQuotaPermissions:function(){return useQuotaPermissions}});const useQuotaPermissions=e=>{const a={...window.ElementorVariablesQuotaConfig??{},...window.ElementorVariablesQuotaConfigExtended??{}},r=void 0===a[e]&&window.elementorPro,t=a[e]||0,n=r||t>0;return{canAdd:()=>n,canEdit:()=>n}}},"./packages/packages/core/editor-variables/src/hooks/use-variable-bound-prop.ts":function(e,a,r){r.r(a),r.d(a,{resolveBoundPropAndSetValue:function(){return resolveBoundPropAndSetValue},useVariableBoundProp:function(){return useVariableBoundProp}});var t=r("@elementor/editor-controls"),n=r("@elementor/editor-props"),o=r("./packages/packages/core/editor-variables/src/context/variable-type-context.tsx");const useVariableBoundProp=()=>{const{propTypeUtil:e}=(0,o.useVariableType)(),a=(0,t.useBoundProp)(e);return{...a,setVariableValue:e=>resolveBoundPropAndSetValue(e,a),variableId:a.value??a.placeholder}},resolveBoundPropAndSetValue=(e,a)=>{const r=unwrapValue(a.value),t=unwrapValue(a.placeholder),n=unwrapValue(e);return r||t!==n?a.setValue(e):a.setValue(null)},unwrapValue=e=>(0,n.isTransformable)(e)?e.value:e},"./packages/packages/core/editor-variables/src/init.ts":function(e,a,r){r.r(a),r.d(a,{init:function(){return init}});var t=r("@elementor/editor"),n=r("@elementor/editor-controls"),o=r("@elementor/editor-mcp"),i=r("@elementor/editor-panels"),s=r("@elementor/editor-props"),l=r("@elementor/menus"),c=r("./packages/packages/core/editor-variables/src/components/global-styles-import-listener.tsx"),p=r("./packages/packages/core/editor-variables/src/components/open-panel-from-event.tsx"),u=r("./packages/packages/core/editor-variables/src/components/open-panel-from-url.tsx"),d=r("./packages/packages/core/editor-variables/src/components/variables-manager/variables-manager-panel.tsx"),b=r("./packages/packages/core/editor-variables/src/controls/variable-control.tsx"),m=r("./packages/packages/core/editor-variables/src/hooks/use-prop-variable-action.tsx"),v=r("./packages/packages/core/editor-variables/src/mcp/index.ts"),g=r("./packages/packages/core/editor-variables/src/register-variable-types.tsx"),k=r("./packages/packages/core/editor-variables/src/renderers/style-variables-renderer.tsx"),f=r("./packages/packages/core/editor-variables/src/repeater-injections.ts"),y=r("./packages/packages/core/editor-variables/src/service.ts"),h=r("./packages/packages/core/editor-variables/src/variables-registry/variable-type-registry.ts");const{registerPopoverAction:E}=l.controlActionsMenu;function init(){(0,g.registerVariableTypes)(),(0,f.registerRepeaterInjections)(),(0,n.registerControlReplacement)({component:b.VariableControl,condition:({value:e,placeholder:a})=>!!hasVariableAssigned(e)||!e&&hasVariableAssigned(a)}),E({id:"variables",priority:40,useProps:m.usePropVariableAction}),y.service.init().then(()=>{(0,v.initMcp)((0,o.getMCPByDomain)("variables"),(0,o.getMCPByDomain)("canvas"))}),(0,t.injectIntoTop)({id:"canvas-style-variables-render",component:k.StyleVariablesRenderer}),(0,t.injectIntoLogic)({id:"variables-import-listener",component:c.GlobalStylesImportListener}),(0,t.injectIntoLogic)({id:"variables-open-panel-from-url",component:u.OpenPanelFromUrl}),(0,t.injectIntoLogic)({id:"variables-open-panel-from-event",component:p.OpenPanelFromEvent}),(0,i.__registerPanel)(d.panel)}function hasVariableAssigned(e){return!!(0,s.isTransformable)(e)&&(0,h.hasVariableType)(e.$$type)}},"./packages/packages/core/editor-variables/src/mcp/index.ts":function(e,a,r){r.r(a),r.d(a,{initMcp:function(){return initMcp}});var t=r("./packages/packages/core/editor-variables/src/mcp/manage-variable-tool.ts"),n=r("./packages/packages/core/editor-variables/src/mcp/variables-resource.ts");function initMcp(e,a){const{setMCPDescription:r}=e;r("Everything related to V4 ( Atomic ) variables.\n# Global variables\n- Create/update/delete global variables\n- Get list of global variables\n- Get details of a global variable\n"),(0,t.initManageVariableTool)(e),(0,n.initVariablesResource)(e,a)}},"./packages/packages/core/editor-variables/src/mcp/manage-variable-tool.ts":function(e,a,r){r.r(a),r.d(a,{initManageVariableTool:function(){return initManageVariableTool}});var t=r("@elementor/schema"),n=r("./packages/packages/core/editor-variables/src/service.ts"),o=r("./packages/packages/core/editor-variables/src/mcp/variables-resource.ts");const initManageVariableTool=e=>{const{addTool:a}=e;a({name:"manage-global-variable",schema:{action:t.z.enum(["create","update","delete"]).describe("Operation to perform"),id:t.z.string().optional().describe("Variable id (required for update/delete). Get from list-global-variables."),type:t.z.string().optional().describe('Variable type: "global-color-variable" or "global-font-variable" (required for create)'),label:t.z.string().optional().describe("Variable label (required for create/update)"),value:t.z.string().optional().describe("Variable value (required for create/update)")},outputSchema:{status:t.z.enum(["ok"]).describe("Operation status"),message:t.z.string().optional().describe("Error details if status is error")},modelPreferences:{intelligencePriority:.75,speedPriority:.75},requiredResources:[{uri:o.GLOBAL_VARIABLES_URI,description:"Global variables"}],description:'Manages global variables (create/update/delete). Existing variables available in resources.\nCREATE: requires type, label, value. Ensure label is unique.\nUPDATE: requires id, label, value. When renaming: keep existing value. When updating value: keep exact label.\nDELETE: requires id. DESTRUCTIVE - confirm with user first.\n\n# NAMING - IMPORTANT\nthe variables names should ALWAYS be lowercased and dashed spaced. example: "Headline Primary" should be "headline-primary"\n',handler:async e=>{const a=function getServiceActions(e){return{create({type:a,label:r,value:t}){if(!a||!r||!t)throw new Error("Create requires type, label, and value");return e.create({type:a,label:r,value:t})},update({id:a,label:r,value:t}){if(!a||!r||!t)throw new Error("Update requires id, label, and value");return e.update(a,{label:r,value:t})},delete({id:a}){if(!a)throw new Error("delete requires id");return e.delete(a)}}}(n.service)[e.action];if(a)return await a(e),{status:"ok"};throw new Error(`Unknown action ${e.action}`)},isDestructive:!0})}},"./packages/packages/core/editor-variables/src/mcp/variables-resource.ts":function(e,a,r){r.r(a),r.d(a,{GLOBAL_VARIABLES_URI:function(){return n},initVariablesResource:function(){return initVariablesResource}});var t=r("./packages/packages/core/editor-variables/src/service.ts");const n="elementor://global-variables",initVariablesResource=(e,a)=>{[a,e].forEach(e=>{const{resource:a,sendResourceUpdated:r}=e;a("global-variables",n,{description:"List of Global variables. Defined as a key-value store (ID as key, global-variable object as value)"},async()=>{const e={};return Object.entries(t.service.variables()).forEach(([a,r])=>{r.deleted||(e[a]=r)}),{contents:[{uri:n,text:JSON.stringify(e)}]}}),window.addEventListener("variables:updated",()=>{r({uri:n})})})}},"./packages/packages/core/editor-variables/src/prop-types/color-variable-prop-type.ts":function(e,a,r){r.r(a),r.d(a,{colorVariablePropTypeUtil:function(){return o}});var t=r("@elementor/editor-props"),n=r("@elementor/schema");const o=(0,t.createPropUtils)("global-color-variable",n.z.string())},"./packages/packages/core/editor-variables/src/prop-types/font-variable-prop-type.ts":function(e,a,r){r.r(a),r.d(a,{fontVariablePropTypeUtil:function(){return o}});var t=r("@elementor/editor-props"),n=r("@elementor/schema");const o=(0,t.createPropUtils)("global-font-variable",n.z.string())},"./packages/packages/core/editor-variables/src/prop-types/size-variable-prop-type.ts":function(e,a,r){r.r(a),r.d(a,{sizeVariablePropTypeUtil:function(){return o}});var t=r("@elementor/editor-props"),n=r("@elementor/schema");const o=(0,t.createPropUtils)("global-size-variable",n.z.string())},"./packages/packages/core/editor-variables/src/register-variable-types.tsx":function(e,a,r){r.r(a),r.d(a,{registerVariableTypes:function(){return registerVariableTypes}});var t=r("react"),n=r("@elementor/editor-controls"),o=r("@elementor/editor-props"),i=r("@elementor/editor-ui"),s=r("@elementor/icons"),l=r("@wordpress/i18n"),c=r("./packages/packages/core/editor-variables/src/components/fields/color-field.tsx"),p=r("./packages/packages/core/editor-variables/src/components/fields/font-field.tsx"),u=r("./packages/packages/core/editor-variables/src/components/ui/color-indicator.tsx"),d=r("./packages/packages/core/editor-variables/src/prop-types/color-variable-prop-type.ts"),b=r("./packages/packages/core/editor-variables/src/prop-types/font-variable-prop-type.ts"),m=r("./packages/packages/core/editor-variables/src/prop-types/size-variable-prop-type.ts"),v=r("./packages/packages/core/editor-variables/src/transformers/empty-transformer.tsx"),g=r("./packages/packages/core/editor-variables/src/variables-registry/variable-type-registry.ts");function registerVariableTypes(){(0,g.registerVariableType)({key:d.colorVariablePropTypeUtil.key,valueField:c.ColorField,icon:s.BrushIcon,propTypeUtil:d.colorVariablePropTypeUtil,fallbackPropTypeUtil:o.colorPropTypeUtil,variableType:"color",startIcon:({value:e})=>t.createElement(u.ColorIndicator,{size:"inherit",component:"span",value:e}),defaultValue:"#ffffff",menuActionsFactory:({variable:e,variableId:a,handlers:r})=>{const t=[];return e.sync_to_v3?t.push({name:(0,l.__)("Stop syncing to Global Colors","elementor"),icon:s.RefreshOffIcon,color:"text.primary",onClick:()=>r.onStopSync(a)}):t.push({name:(0,l.__)("Sync to Global Colors","elementor"),icon:s.RefreshIcon,color:"text.primary",onClick:()=>r.onStartSync(a)}),t}}),(0,g.registerVariableType)({key:b.fontVariablePropTypeUtil.key,valueField:p.FontField,icon:s.TextIcon,propTypeUtil:b.fontVariablePropTypeUtil,fallbackPropTypeUtil:o.stringPropTypeUtil,variableType:"font",defaultValue:"Roboto"});const e={isActive:!1,icon:s.ExpandDiagonalIcon,propTypeUtil:m.sizeVariablePropTypeUtil,fallbackPropTypeUtil:o.sizePropTypeUtil,styleTransformer:v.EmptyTransformer,variableType:"size",selectionFilter:()=>[],emptyState:t.createElement(i.CtaButton,{size:"small",href:"https://go.elementor.com/go-pro-panel-size-variable/",onClick:()=>(0,n.trackUpgradePromotionClick)({target_name:"variables_popover",location_l1:"variables_list"})})};(0,g.registerVariableType)({...e,key:m.sizeVariablePropTypeUtil.key,defaultValue:"0px"}),(0,g.registerVariableType)({...e,key:"global-custom-size-variable"})}},"./packages/packages/core/editor-variables/src/renderers/style-variables-renderer.tsx":function(e,a,r){r.r(a),r.d(a,{StyleVariablesRenderer:function(){return StyleVariablesRenderer}});var t=r("react"),n=r("@elementor/editor-v1-adapters"),o=r("@elementor/ui"),i=r("./packages/packages/core/editor-variables/src/style-variables-repository.ts");const s=":root";function StyleVariablesRenderer(){const e=function usePortalContainer(){return(0,n.__privateUseListenTo)((0,n.commandEndEvent)("editor/documents/attach-preview"),()=>(0,n.getCanvasIframeDocument)()?.head)}(),a=function useStyleVariables(){const[e,a]=(0,t.useState)({});return(0,t.useEffect)(()=>{const e=i.styleVariablesRepository.subscribe(a);return()=>{e()}},[]),e}(),r=Object.keys(a).length>0;if(!e||!r)return null;const l=function convertToCssVariables(e){return Object.entries(e).map(([e,a])=>function cssVariableDeclaration(e,a){const r=a?.deleted?e:a.label,t=a.value;return`--${r}:${t};`}(e,a)).join("")}(a),c=`${s}{${l}}`;return t.createElement(o.Portal,{container:e},t.createElement("style",{"data-e-style-id":"e-variables",key:c},c))}},"./packages/packages/core/editor-variables/src/repeater-injections.ts":function(e,a,r){r.r(a),r.d(a,{registerRepeaterInjections:function(){return registerRepeaterInjections}});var t=r("@elementor/editor-controls"),n=r("@elementor/editor-props"),o=r("./packages/packages/core/editor-variables/src/components/variables-repeater-item-slot.tsx"),i=r("./packages/packages/core/editor-variables/src/prop-types/color-variable-prop-type.ts");function registerRepeaterInjections(){(0,t.injectIntoRepeaterItemIcon)({id:"color-variables-background-icon",component:o.BackgroundRepeaterColorIndicator,condition:({value:e})=>hasAssignedColorVariable(n.backgroundColorOverlayPropTypeUtil.extract(e)?.color)}),(0,t.injectIntoRepeaterItemIcon)({id:"color-variables-icon",component:o.BoxShadowRepeaterColorIndicator,condition:({value:e})=>hasAssignedColorVariable(n.shadowPropTypeUtil.extract(e)?.color)}),(0,t.injectIntoRepeaterItemLabel)({id:"color-variables-label",component:o.BackgroundRepeaterLabel,condition:({value:e})=>hasAssignedColorVariable(n.backgroundColorOverlayPropTypeUtil.extract(e)?.color)})}const hasAssignedColorVariable=e=>!!i.colorVariablePropTypeUtil.isValid(e)},"./packages/packages/core/editor-variables/src/service.ts":function(e,a,r){r.r(a),r.d(a,{service:function(){return c}});var t=r("@wordpress/i18n"),n=r("./packages/packages/core/editor-variables/src/api.ts"),o=r("./packages/packages/core/editor-variables/src/batch-operations.ts"),i=r("./packages/packages/core/editor-variables/src/storage.ts"),s=r("./packages/packages/core/editor-variables/src/style-variables-repository.ts");const l=new i.Storage,c={variables:()=>l.load(),findIdByLabel(e){const a=Object.entries(this.variables()).find(([,a])=>a.label===e);if(!a)throw new Error(`Variable with label ${e} not found`);return a[0]},findVariableByLabel(e){return Object.values(this.variables()).find(a=>a.label===e)||null},getWatermark:()=>l.state.watermark,init:()=>c.load(),load:()=>n.apiClient.list().then(e=>{const{success:a,data:r}=e.data;if(!a)throw new Error("Unexpected response from server");return r}).then(e=>{const{variables:a,watermark:r}=e;return l.fill(a,r),s.styleVariablesRepository.update(a),a}),create:({type:e,label:a,value:r})=>n.apiClient.create(e,a,r).then(e=>{const{success:a,data:r}=e.data;if(!a){const e=r?.message||(0,t.__)("Unexpected response from server","elementor");throw new Error(e)}return r}).then(e=>{const{variable:a,watermark:r}=e;handleWatermark(i.OP_RW,r);const{id:t,...n}=a;return l.add(t,n),s.styleVariablesRepository.update({[t]:n}),{id:t,variable:n}}),update:(e,{label:a,value:r,type:o})=>n.apiClient.update(e,a,r,o).then(e=>{const{success:a,data:r}=e.data;if(!a){const e=r?.message||(0,t.__)("Unexpected response from server","elementor");throw new Error(e)}return r}).then(e=>{const{variable:a,watermark:r}=e;handleWatermark(i.OP_RW,r);const{id:t,...n}=a;return l.update(t,n),s.styleVariablesRepository.update({[t]:n}),{id:t,variable:n}}),delete:e=>n.apiClient.delete(e).then(e=>{const{success:a,data:r}=e.data;if(!a)throw new Error("Unexpected response from server");return r}).then(e=>{const{variable:a,watermark:r}=e;handleWatermark(i.OP_RW,r);const{id:t,...n}=a;return l.update(t,n),s.styleVariablesRepository.update({[t]:n}),{id:t,variable:n}}),restore:(e,a,r,t)=>n.apiClient.restore(e,a,r,t).then(e=>{const{success:a,data:r}=e.data;if(!a)throw new Error("Unexpected response from server");return r}).then(e=>{const{variable:a,watermark:r}=e;handleWatermark(i.OP_RW,r);const{id:t,...n}=a;return l.update(t,n),s.styleVariablesRepository.update({[t]:n}),{id:t,variable:n}}),batchSave:(e,a,r)=>{const t=(0,o.buildOperationsArray)(e,a,r),c={operations:t,watermark:l.state.watermark};return 0===t.length?Promise.resolve({success:!0,watermark:l.state.watermark,operations:0}):n.apiClient.batch(c).then(e=>{const{success:a,data:r}=e.data;if(!a)throw new Error("Unexpected response from server");return r}).then(e=>{const{results:a,watermark:r}=e;return handleWatermark(i.OP_RW,r),a&&a.forEach(e=>{const a=e.id;e.variable&&("create"===e.type?l.add(a,e.variable):l.update(a,e.variable),s.styleVariablesRepository.update({[a]:e.variable}))}),{success:!0,watermark:r,operations:t.length}})}},handleWatermark=(e,a)=>{l.watermarkDiff(e,a)&&setTimeout(()=>c.load(),500),l.watermark(a)}},"./packages/packages/core/editor-variables/src/storage.ts":function(e,a,r){r.r(a),r.d(a,{OP_RW:function(){return o},Storage:function(){return Storage}});const t="elementor-global-variables",n="elementor-global-variables-watermark",o="RW";class Storage{notifyChange(){window.dispatchEvent(new Event("variables:updated"))}constructor(){this.state={watermark:-1,variables:{}}}load(){return this.state.watermark=parseInt(localStorage.getItem(n)||"-1"),this.state.variables=JSON.parse(localStorage.getItem(t)||"{}"),this.state.variables}fill(e,a){this.state.variables={},e&&Object.keys(e).length&&(this.state.variables=e),this.state.watermark=a,localStorage.setItem(n,this.state.watermark.toString()),localStorage.setItem(t,JSON.stringify(this.state.variables)),this.notifyChange()}add(e,a){this.load(),this.state.variables[e]=a,localStorage.setItem(t,JSON.stringify(this.state.variables)),this.notifyChange()}update(e,a){this.load(),this.state.variables[e]=a,localStorage.setItem(t,JSON.stringify(this.state.variables)),this.notifyChange()}watermark(e){this.state.watermark=e,localStorage.setItem(n,this.state.watermark.toString())}watermarkDiff(e,a){const r=a-this.state.watermark;return o===e?1!==r:"RO"===e&&0!==r}}},"./packages/packages/core/editor-variables/src/style-variables-repository.ts":function(e,a,r){r.r(a),r.d(a,{styleVariablesRepository:function(){return t}});const t=(0,r("./packages/packages/core/editor-variables/src/create-style-variables-repository.ts").createStyleVariablesRepository)()},"./packages/packages/core/editor-variables/src/transformers/empty-transformer.tsx":function(e,a,r){r.r(a),r.d(a,{EmptyTransformer:function(){return n}});var t=r("@elementor/editor-canvas");const n=(0,t.createTransformer)(e=>null)},"./packages/packages/core/editor-variables/src/transformers/inheritance-transformer.tsx":function(e,a,r){r.r(a),r.d(a,{inheritanceTransformer:function(){return u}});var t=r("react"),n=r("@elementor/editor-canvas"),o=r("@elementor/ui"),i=r("@wordpress/i18n"),s=r("./packages/packages/core/editor-variables/src/components/ui/color-indicator.tsx"),l=r("./packages/packages/core/editor-variables/src/prop-types/color-variable-prop-type.ts"),c=r("./packages/packages/core/editor-variables/src/service.ts"),p=r("./packages/packages/core/editor-variables/src/transformers/utils/resolve-css-variable.ts");const u=(0,n.createTransformer)(e=>{const a=c.service.variables()[e];if(!a)return t.createElement("span",null,(0,i.__)("Missing variable","elementor"));const r=a.type===l.colorVariablePropTypeUtil.key,n=(0,p.resolveCssVariable)(e,a);return t.createElement(o.Stack,{direction:"row",spacing:.5,sx:{paddingInline:"1px"},alignItems:"center"},r&&t.createElement(s.ColorIndicator,{size:"inherit",value:a.value}),t.createElement(o.Typography,{variant:"caption",overflow:"hidden",whiteSpace:"nowrap",textOverflow:"ellipsis"},n))})},"./packages/packages/core/editor-variables/src/transformers/utils/resolve-css-variable.ts":function(e,a,r){r.r(a),r.d(a,{resolveCssVariable:function(){return resolveCssVariable}});const resolveCssVariable=(e,a)=>{let r=e,t="";if(a&&(t=a.value),a&&!a.deleted&&(r=a.label),!r.trim())return null;const n=`--${r}`;return t.trim()?`var(${n}, ${t})`:`var(${n})`}},"./packages/packages/core/editor-variables/src/transformers/variable-transformer.ts":function(e,a,r){r.r(a),r.d(a,{variableTransformer:function(){return i}});var t=r("@elementor/editor-canvas"),n=r("./packages/packages/core/editor-variables/src/service.ts"),o=r("./packages/packages/core/editor-variables/src/transformers/utils/resolve-css-variable.ts");const i=(0,t.createTransformer)(e=>{const a=n.service.variables()[e]||n.service.findVariableByLabel(e);if(!a)return null;const r=n.service.findIdByLabel(a.label);return(0,o.resolveCssVariable)(r,a)})},"./packages/packages/core/editor-variables/src/utils/filter-by-search.ts":function(e,a,r){function filterBySearch(e,a){const r=a.toLowerCase();return e.filter(e=>e.label.toLowerCase().includes(r))}r.r(a),r.d(a,{filterBySearch:function(){return filterBySearch}})},"./packages/packages/core/editor-variables/src/utils/llm-propvalue-label-resolver.ts":function(e,a,r){r.r(a),r.d(a,{globalVariablesLLMResolvers:function(){return n}});var t=r("./packages/packages/core/editor-variables/src/service.ts");const defaultResolver=e=>a=>{const r=String(a);return{$$type:e,value:t.service.variables()[r]?r:t.service.findIdByLabel(r)}},n={"global-color-variable":defaultResolver("global-color-variable"),"global-font-variable":defaultResolver("global-font-variable"),"global-size-variable":defaultResolver("global-size-variable")}},"./packages/packages/core/editor-variables/src/utils/tracking.ts":function(e,a,r){r.r(a),r.d(a,{trackVariableEvent:function(){return trackVariableEvent},trackVariableSyncToV3:function(){return trackVariableSyncToV3},trackVariablesManagerEvent:function(){return trackVariablesManagerEvent}});var t=r("@elementor/events");const trackVariableEvent=({varType:e,controlPath:a,action:r})=>{const{dispatchEvent:n,config:o}=(0,t.getMixpanel)();if(!o?.names?.variables?.[r])return;const i=o.names.variables[r];n?.(i,{location:o?.locations?.variables||"",secondaryLocation:o?.secondaryLocations?.variablesPopover||"",trigger:o?.triggers?.click||"",var_type:e,control_path:a,action_type:i})},trackVariablesManagerEvent=({action:e,varType:a,controlPath:r})=>{const{dispatchEvent:n,config:o}=(0,t.getMixpanel)();if(!o?.names?.variables?.[e])return;const i=o.names.variables[e],s={location:o?.locations?.variablesManager||"",trigger:o?.triggers?.click||"",action_type:i};a&&(s.var_type=a),r&&(s.style_control_path=r),n?.(i,s)},trackVariableSyncToV3=({variableLabel:e,action:a})=>{try{const{dispatchEvent:r,config:n}=(0,t.getMixpanel)();if(!n?.names?.variables?.variableSyncToV3)return;const o=n.names.variables.variableSyncToV3,i="sync"===a;r?.(o,{interaction_type:"click",target_type:e,target_name:i?"sync_to_v3":"unsync_to_v3",interaction_result:i?"var_is_synced_to_V3":"var_is_unsynced_from_V3",target_location:"widget_panel",location_l1:"var_manager",interaction_description:i?`user_synced_${e}_to_v3`:`user_unsync_${e}_from_v3`})}catch{}}},"./packages/packages/core/editor-variables/src/utils/unlink-variable.ts":function(e,a,r){r.r(a),r.d(a,{createUnlinkHandler:function(){return createUnlinkHandler},transformValueBeforeUnlink:function(){return transformValueBeforeUnlink}});var t=r("./packages/packages/core/editor-variables/src/variables-registry/variable-type-registry.ts");function transformValueBeforeUnlink(e,a){const{valueTransformer:r}=(0,t.getVariableType)(a);return r?r(e.value,e.type):e.value}function createUnlinkHandler(e,a,r){return()=>{const{fallbackPropTypeUtil:n}=(0,t.getVariableType)(a),o=transformValueBeforeUnlink(e,a);r(n.create(o))}}},"./packages/packages/core/editor-variables/src/utils/validations.ts":function(e,a,r){r.r(a),r.d(a,{ERROR_MESSAGES:function(){return o},VARIABLE_LABEL_MAX_LENGTH:function(){return i},labelHint:function(){return labelHint},mapServerError:function(){return mapServerError},validateLabel:function(){return validateLabel},validateValue:function(){return validateValue}});var t=r("@elementor/icons"),n=r("@wordpress/i18n");const o={MISSING_VARIABLE_NAME:(0,n.__)("Give your variable a name.","elementor"),MISSING_VARIABLE_VALUE:(0,n.__)("Add a value to complete your variable.","elementor"),INVALID_CHARACTERS:(0,n.__)("Use letters, numbers, dashes (-), or underscores (_) for the name.","elementor"),NO_NON_SPECIAL_CHARACTER:(0,n.__)("Names have to include at least one non-special character.","elementor"),VARIABLE_LABEL_MAX_LENGTH:(0,n.__)("Keep names up to 50 characters.","elementor"),DUPLICATED_LABEL:(0,n.__)("This variable name already exists. Please choose a unique name.","elementor"),UNEXPECTED_ERROR:(0,n.__)("There was a glitch. Try saving your variable again.","elementor"),BATCH:{DUPLICATED_LABELS:(e,a)=>(0,n.sprintf)((0,n.__)("We found %1$d duplicated %2$s.","elementor"),e,a),UNEXPECTED_ERROR:(0,n.__)("There was a glitch.","elementor"),DUPLICATED_LABEL_ACTION:(0,n.__)("Take me there","elementor"),DUPLICATED_LABEL_ACTION_MESSAGE:(0,n.__)("Please rename the variables.","elementor"),UNEXPECTED_ERROR_ACTION_MESSAGE:(0,n.__)("Try saving your variables again.","elementor")}},i=50,mapServerError=e=>{if("duplicated_label"===e?.response?.data?.code)return{field:"label",message:o.DUPLICATED_LABEL};if("batch_duplicated_label"===e?.response?.data?.code){const a=e?.response?.data?.data??{},r=Object.keys(a).length,n=1===r?"name":"names",i=Object.keys(a);return{field:"label",message:o.BATCH.DUPLICATED_LABELS(r,n),severity:"error",IconComponent:t.AlertTriangleFilledIcon,action:{label:o.BATCH.DUPLICATED_LABEL_ACTION,message:o.BATCH.DUPLICATED_LABEL_ACTION_MESSAGE,data:{duplicatedIds:i}}}}return"batch_operation_failed"===e?.response?.data?.code?{field:"label",message:o.BATCH.UNEXPECTED_ERROR,severity:"secondary",IconComponent:t.InfoCircleFilledIcon,action:{message:o.BATCH.UNEXPECTED_ERROR_ACTION_MESSAGE}}:void 0},validateLabel=(e,a)=>{if(!e.trim())return o.MISSING_VARIABLE_NAME;if(!/^[a-zA-Z0-9_-]+$/.test(e))return o.INVALID_CHARACTERS;return/[a-zA-Z0-9]/.test(e)?i<e.length?o.VARIABLE_LABEL_MAX_LENGTH:Object.values(a??{}).some(a=>a.label===e)?o.DUPLICATED_LABEL:"":o.NO_NON_SPECIAL_CHARACTER},labelHint=e=>.8*i-1<e.length?o.VARIABLE_LABEL_MAX_LENGTH:"",validateValue=e=>e.trim()?"":o.MISSING_VARIABLE_VALUE},"./packages/packages/core/editor-variables/src/utils/variables-to-list.ts":function(e,a,r){r.r(a),r.d(a,{applySelectionFilters:function(){return applySelectionFilters},toNormalizedVariable:function(){return toNormalizedVariable},variablesToList:function(){return variablesToList}});const variablesToList=e=>Object.entries(e).map(([e,a])=>({key:e,...a})),toNormalizedVariable=({key:e,label:a,value:r,order:t,sync_to_v3:n})=>({key:e,label:a,value:r,order:t,sync_to_v3:n}),applySelectionFilters=(e,a)=>{const r={};return e.forEach(e=>(r[e.type]??=[]).push(e)),Object.entries(r).flatMap(([e,r])=>{const t=a[e]?.selectionFilter,n=r.map(toNormalizedVariable);return(t?.(n)??n).map(a=>({...a,type:e}))})}},"./packages/packages/core/editor-variables/src/variables-registry/create-variable-type-registry.ts":function(e,a,r){r.r(a),r.d(a,{createVariableTypeRegistry:function(){return createVariableTypeRegistry}});var t=r("@elementor/editor-canvas"),n=r("./packages/packages/core/editor-variables/src/transformers/inheritance-transformer.tsx"),o=r("./packages/packages/core/editor-variables/src/transformers/variable-transformer.ts");function createVariableTypeRegistry(){const e={},registerTransformer=(e,a)=>{t.styleTransformersRegistry.register(e,a??o.variableTransformer)},registerInheritanceTransformer=e=>{t.stylesInheritanceTransformersRegistry.register(e,n.inheritanceTransformer)};return{registerVariableType:({key:a,icon:r,startIcon:t,valueField:n,propTypeUtil:o,variableType:i,defaultValue:s,selectionFilter:l,valueTransformer:c,styleTransformer:p,fallbackPropTypeUtil:u,isCompatible:d,emptyState:b,isActive:m=!0,menuActionsFactory:v})=>{const g=a??o.key;d||(d=(e,a)=>"union"===e.kind&&a.type in e.prop_types),e[g]={icon:r,startIcon:t,valueField:n,propTypeUtil:o,variableType:i,defaultValue:s,selectionFilter:l,valueTransformer:c,fallbackPropTypeUtil:u,isCompatible:d,emptyState:b,isActive:m,menuActionsFactory:v},registerTransformer(o.key,p),registerInheritanceTransformer(o.key)},getVariableType:a=>e[a],getVariableTypes:()=>e,hasVariableType:a=>a in e&&!!e[a].isActive}}},"./packages/packages/core/editor-variables/src/variables-registry/variable-type-registry.ts":function(e,a,r){r.r(a),r.d(a,{getMenuActionsForVariable:function(){return getMenuActionsForVariable},getVariableType:function(){return o},getVariableTypes:function(){return i},hasVariableType:function(){return s},registerVariableType:function(){return n}});var t=r("./packages/packages/core/editor-variables/src/variables-registry/create-variable-type-registry.ts");const{registerVariableType:n,getVariableType:o,getVariableTypes:i,hasVariableType:s}=(0,t.createVariableTypeRegistry)();function getMenuActionsForVariable(e,a){const r=o(e);return r?.menuActionsFactory?r.menuActionsFactory(a):[]}},"@elementor/editor":function(e){e.exports=window.elementorV2.editor},"@elementor/editor-canvas":function(e){e.exports=window.elementorV2.editorCanvas},"@elementor/editor-controls":function(e){e.exports=window.elementorV2.editorControls},"@elementor/editor-current-user":function(e){e.exports=window.elementorV2.editorCurrentUser},"@elementor/editor-mcp":function(e){e.exports=window.elementorV2.editorMcp},"@elementor/editor-panels":function(e){e.exports=window.elementorV2.editorPanels},"@elementor/editor-props":function(e){e.exports=window.elementorV2.editorProps},"@elementor/editor-ui":function(e){e.exports=window.elementorV2.editorUi},"@elementor/editor-v1-adapters":function(e){e.exports=window.elementorV2.editorV1Adapters},"@elementor/events":function(e){e.exports=window.elementorV2.events},"@elementor/http-client":function(e){e.exports=window.elementorV2.httpClient},"@elementor/icons":function(e){e.exports=window.elementorV2.icons},"@elementor/menus":function(e){e.exports=window.elementorV2.menus},"@elementor/schema":function(e){e.exports=window.elementorV2.schema},"@elementor/ui":function(e){e.exports=window.elementorV2.ui},"@elementor/utils":function(e){e.exports=window.elementorV2.utils},"@wordpress/i18n":function(e){e.exports=window.wp.i18n},react:function(e){e.exports=window.React}},a={};function __webpack_require__(r){var t=a[r];if(void 0!==t)return t.exports;var n=a[r]={exports:{}};return e[r](n,n.exports,__webpack_require__),n.exports}__webpack_require__.n=function(e){var a=e&&e.__esModule?function(){return e.default}:function(){return e};return __webpack_require__.d(a,{a:a}),a},__webpack_require__.d=function(e,a){for(var r in a)__webpack_require__.o(a,r)&&!__webpack_require__.o(e,r)&&Object.defineProperty(e,r,{enumerable:!0,get:a[r]})},__webpack_require__.o=function(e,a){return Object.prototype.hasOwnProperty.call(e,a)},__webpack_require__.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})};var r={};!function(){__webpack_require__.r(r),__webpack_require__.d(r,{GLOBAL_VARIABLES_URI:function(){return a.GLOBAL_VARIABLES_URI},Utils:function(){return l},getMenuActionsForVariable:function(){return i.getMenuActionsForVariable},hasVariable:function(){return s.hasVariable},init:function(){return e.init},registerVariableType:function(){return i.registerVariableType},registerVariableTypes:function(){return n.registerVariableTypes},service:function(){return o.service},sizeVariablePropTypeUtil:function(){return t.sizeVariablePropTypeUtil}});var e=__webpack_require__("./packages/packages/core/editor-variables/src/init.ts"),a=__webpack_require__("./packages/packages/core/editor-variables/src/mcp/variables-resource.ts"),t=__webpack_require__("./packages/packages/core/editor-variables/src/prop-types/size-variable-prop-type.ts"),n=__webpack_require__("./packages/packages/core/editor-variables/src/register-variable-types.tsx"),o=__webpack_require__("./packages/packages/core/editor-variables/src/service.ts"),i=__webpack_require__("./packages/packages/core/editor-variables/src/variables-registry/variable-type-registry.ts"),s=__webpack_require__("./packages/packages/core/editor-variables/src/hooks/use-prop-variables.ts");const l={globalVariablesLLMResolvers:__webpack_require__("./packages/packages/core/editor-variables/src/utils/llm-propvalue-label-resolver.ts").globalVariablesLLMResolvers}}(),(window.elementorV2=window.elementorV2||{}).editorVariables=r}(),window.elementorV2.editorVariables?.init?.();
+(function(react, _elementor_editor_current_user, _elementor_editor_panels, _elementor_editor_ui, _elementor_icons, _elementor_ui, _wordpress_i18n, _elementor_events, _elementor_editor_canvas, _elementor_editor_props, _elementor_schema, _elementor_http_client, _elementor_editor_v1_adapters, _elementor_editor_controls, _elementor_utils, _elementor_editor, _elementor_editor_mcp, _elementor_menus) {
+
+//#region \0rolldown/runtime.js
+	var __create = Object.create;
+	var __defProp$1 = Object.defineProperty;
+	var __name = (target, value) => __defProp$1(target, "name", {
+		value,
+		configurable: true
+	});
+	var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+	var __getOwnPropNames = Object.getOwnPropertyNames;
+	var __getProtoOf = Object.getPrototypeOf;
+	var __hasOwnProp = Object.prototype.hasOwnProperty;
+	var __exportAll = (all, no_symbols) => {
+		let target = {};
+		for (var name in all) {
+			__defProp$1(target, name, {
+				get: all[name],
+				enumerable: true
+			});
+		}
+		if (!no_symbols) {
+			__defProp$1(target, Symbol.toStringTag, { value: "Module" });
+		}
+		return target;
+	};
+	var __copyProps = (to, from, except, desc) => {
+		if (from && typeof from === "object" || typeof from === "function") {
+			for (var keys = __getOwnPropNames(from), i = 0, n = keys.length, key; i < n; i++) {
+				key = keys[i];
+				if (!__hasOwnProp.call(to, key) && key !== except) {
+					__defProp$1(to, key, {
+						get: ((k) => from[k]).bind(null, key),
+						enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable
+					});
+				}
+			}
+		}
+		return to;
+	};
+	var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule ? __defProp$1(target, "default", {
+		value: mod,
+		enumerable: true
+	}) : target, mod));
+
+//#endregion
+react = __toESM(react);
+
+//#region packages/packages/core/editor-variables/src/utils/tracking.ts
+	var trackVariableEvent = ({ varType, controlPath, action, executedBy }) => {
+		const { dispatchEvent, config } = (0, _elementor_events.getMixpanel)();
+		if (!config?.names?.variables?.[action]) return;
+		const name = config.names.variables[action];
+		let eventData = {
+			var_type: varType,
+			action_type: name
+		};
+		if (executedBy) eventData.executed_by = executedBy;
+		const defaultLocationInfo = {
+			location: config?.locations?.variables || "",
+			secondaryLocation: config?.secondaryLocations?.variablesPopover || "",
+			trigger: config?.triggers?.click || ""
+		};
+		if (!executedBy || executedBy !== "mcp_tool") eventData = {
+			...defaultLocationInfo,
+			...eventData
+		};
+		if (controlPath) eventData.control_path = controlPath;
+		dispatchEvent?.(name, eventData);
+	};
+	var trackVariablesManagerEvent = ({ action, source, varType, controlPath }) => {
+		const { dispatchEvent, config } = (0, _elementor_events.getMixpanel)();
+		if (!config?.names?.variables?.[action]) return;
+		const name = config.names.variables[action];
+		const eventData = {
+			location: config?.locations?.variablesManager || "",
+			trigger: config?.triggers?.click || "",
+			action_type: name
+		};
+		if (source) eventData.source = source;
+		if (varType) eventData.var_type = varType;
+		if (controlPath) eventData.style_control_path = controlPath;
+		dispatchEvent?.(name, eventData);
+	};
+	var trackVariableSyncToV3 = ({ variableLabel, action }) => {
+		const { dispatchEvent, config } = (0, _elementor_events.getMixpanel)();
+		if (!config?.names?.variables?.variableSyncToV3) return;
+		const name = config.names.variables.variableSyncToV3;
+		const isSync = action === "sync";
+		dispatchEvent?.(name, {
+			interaction_type: "click",
+			target_type: variableLabel,
+			target_name: isSync ? "sync_to_v3" : "unsync_to_v3",
+			interaction_result: isSync ? "var_is_synced_to_V3" : "var_is_unsynced_from_V3",
+			target_location: "widget_panel",
+			location_l1: "var_manager",
+			interaction_description: isSync ? `user_synced_${variableLabel}_to_v3` : `user_unsync_${variableLabel}_from_v3`
+		});
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/utils/validations.ts
+	var ERROR_MESSAGES = {
+		MISSING_VARIABLE_NAME: (0, _wordpress_i18n.__)("Give your variable a name.", "elementor"),
+		MISSING_VARIABLE_VALUE: (0, _wordpress_i18n.__)("Add a value to complete your variable.", "elementor"),
+		INVALID_CHARACTERS: (0, _wordpress_i18n.__)("Use letters, numbers, dashes (-), or underscores (_) for the name.", "elementor"),
+		NO_NON_SPECIAL_CHARACTER: (0, _wordpress_i18n.__)("Names have to include at least one non-special character.", "elementor"),
+		VARIABLE_LABEL_MAX_LENGTH: (0, _wordpress_i18n.__)("Keep names up to 50 characters.", "elementor"),
+		DUPLICATED_LABEL: (0, _wordpress_i18n.__)("This variable name already exists. Please choose a unique name.", "elementor"),
+		UNEXPECTED_ERROR: (0, _wordpress_i18n.__)("There was a glitch. Try saving your variable again.", "elementor"),
+		BATCH: {
+			DUPLICATED_LABELS: (count, name) => (0, _wordpress_i18n.sprintf)((0, _wordpress_i18n.__)("We found %1$d duplicated %2$s.", "elementor"), count, name),
+			UNEXPECTED_ERROR: (0, _wordpress_i18n.__)("There was a glitch.", "elementor"),
+			DUPLICATED_LABEL_ACTION: (0, _wordpress_i18n.__)("Take me there", "elementor"),
+			DUPLICATED_LABEL_ACTION_MESSAGE: (0, _wordpress_i18n.__)("Please rename the variables.", "elementor"),
+			UNEXPECTED_ERROR_ACTION_MESSAGE: (0, _wordpress_i18n.__)("Try saving your variables again.", "elementor")
+		}
+	};
+	var VARIABLE_LABEL_MAX_LENGTH = 50;
+	var mapServerError = (error) => {
+		if (error?.response?.data?.code === "duplicated_label") return {
+			field: "label",
+			message: ERROR_MESSAGES.DUPLICATED_LABEL
+		};
+		if (error?.response?.data?.code === "batch_duplicated_label") {
+			const errorData = error?.response?.data?.data ?? {};
+			const count = Object.keys(errorData).length;
+			const name = count === 1 ? "name" : "names";
+			const duplicatedIds = Object.keys(errorData);
+			return {
+				field: "label",
+				message: ERROR_MESSAGES.BATCH.DUPLICATED_LABELS(count, name),
+				severity: "error",
+				IconComponent: _elementor_icons.AlertTriangleFilledIcon,
+				action: {
+					label: ERROR_MESSAGES.BATCH.DUPLICATED_LABEL_ACTION,
+					message: ERROR_MESSAGES.BATCH.DUPLICATED_LABEL_ACTION_MESSAGE,
+					data: { duplicatedIds }
+				}
+			};
+		}
+		if (error?.response?.data?.code === "batch_operation_failed") return {
+			field: "label",
+			message: ERROR_MESSAGES.BATCH.UNEXPECTED_ERROR,
+			severity: "secondary",
+			IconComponent: _elementor_icons.InfoCircleFilledIcon,
+			action: { message: ERROR_MESSAGES.BATCH.UNEXPECTED_ERROR_ACTION_MESSAGE }
+		};
+	};
+	var validateLabel = (name, variables) => {
+		if (!name.trim()) return ERROR_MESSAGES.MISSING_VARIABLE_NAME;
+		if (!/^[a-zA-Z0-9_-]+$/.test(name)) return ERROR_MESSAGES.INVALID_CHARACTERS;
+		if (!/[a-zA-Z0-9]/.test(name)) return ERROR_MESSAGES.NO_NON_SPECIAL_CHARACTER;
+		if (50 < name.length) return ERROR_MESSAGES.VARIABLE_LABEL_MAX_LENGTH;
+		if (Object.values(variables ?? {}).some((variable) => variable.label === name)) return ERROR_MESSAGES.DUPLICATED_LABEL;
+		return "";
+	};
+	var labelHint = (name) => {
+		if (50 * .8 - 1 < name.length) return ERROR_MESSAGES.VARIABLE_LABEL_MAX_LENGTH;
+		return "";
+	};
+	var validateValue = (value) => {
+		if (!value.trim()) return ERROR_MESSAGES.MISSING_VARIABLE_VALUE;
+		return "";
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/ui/color-indicator.tsx
+	var ColorIndicator = (0, _elementor_ui.styled)(_elementor_ui.UnstableColorIndicator)(({ theme }) => ({
+		borderRadius: `${theme.shape.borderRadius / 2}px`,
+		marginRight: theme.spacing(.25)
+	}));
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/prop-types/color-variable-prop-type.ts
+	var colorVariablePropTypeUtil = (0, _elementor_editor_props.createPropUtils)("global-color-variable", _elementor_schema.z.string());
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/api.ts
+	var apiClient = {
+		list: () => {
+			return (0, _elementor_http_client.httpService)().get("elementor/v1/variables/list");
+		},
+		create: (type, label, value) => {
+			return (0, _elementor_http_client.httpService)().post("elementor/v1/variables/create", {
+				type,
+				label,
+				value
+			});
+		},
+		update: (id, label, value, type) => {
+			return (0, _elementor_http_client.httpService)().put("elementor/v1/variables/update", {
+				id,
+				label,
+				value,
+				type
+			});
+		},
+		delete: (id) => {
+			return (0, _elementor_http_client.httpService)().post("elementor/v1/variables/delete", { id });
+		},
+		restore: (id, label, value, type) => {
+			const payload = { id };
+			if (label) payload.label = label;
+			if (value) payload.value = value;
+			if (type) payload.type = type;
+			return (0, _elementor_http_client.httpService)().post("elementor/v1/variables/restore", payload);
+		},
+		batch: (payload) => {
+			return (0, _elementor_http_client.httpService)().post("elementor/v1/variables/batch", payload);
+		}
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/batch-operations.ts
+	var generateTempId = () => {
+		return `tmp-${Date.now().toString(36)}-${Math.random().toString(36).substring(2, 8)}`;
+	};
+	var isTempId = (id) => {
+		return id.startsWith("tmp-");
+	};
+	var buildOperationsArray = (originalVariables, currentVariables, deletedVariables) => {
+		const operations = [];
+		Object.entries(currentVariables).forEach(([id, variable]) => {
+			if (isTempId(id)) operations.push({
+				type: "create",
+				variable: {
+					...variable,
+					id
+				}
+			});
+			else if (originalVariables[id]) {
+				const original = originalVariables[id];
+				const syncChanged = original.sync_to_v3 !== variable.sync_to_v3;
+				if (original.deleted && !variable.deleted) operations.push({
+					type: "restore",
+					id,
+					...original.label !== variable.label && { label: variable.label },
+					...original.value !== variable.value && { value: variable.value }
+				});
+				else if (!variable.deleted && (original.label !== variable.label || original.value !== variable.value || original.order !== variable.order || original.type !== variable.type || syncChanged)) operations.push({
+					type: "update",
+					id,
+					variable: {
+						...original.label !== variable.label && { label: variable.label },
+						...original.value !== variable.value && { value: variable.value },
+						...original.order !== variable.order && { order: variable.order },
+						...original.type !== variable.type && { type: variable.type },
+						...syncChanged && { sync_to_v3: variable.sync_to_v3 }
+					}
+				});
+			}
+		});
+		deletedVariables.forEach((id) => {
+			operations.push({
+				type: "delete",
+				id
+			});
+		});
+		return operations.filter((op) => {
+			const id = op.id || op.variable?.id;
+			return id && !(isTempId(id) && currentVariables[id]?.deleted);
+		});
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/storage.ts
+	var __defProp = Object.defineProperty;
+	var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, {
+		enumerable: true,
+		configurable: true,
+		writable: true,
+		value
+	}) : obj[key] = value;
+	var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+	var STORAGE_KEY = "elementor-global-variables";
+	var STORAGE_WATERMARK_KEY = "elementor-global-variables-watermark";
+	var STORAGE_UPDATED_EVENT = "variables:updated";
+	var OP_RW = "RW";
+	var OP_RO = "RO";
+	var Storage = class {
+		constructor() {
+			__publicField(this, "state");
+			this.state = {
+				watermark: -1,
+				variables: {}
+			};
+		}
+		notifyChange() {
+			window.dispatchEvent(new Event(STORAGE_UPDATED_EVENT));
+		}
+		load() {
+			this.state.watermark = parseInt(localStorage.getItem(STORAGE_WATERMARK_KEY) || "-1");
+			this.state.variables = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+			return this.state.variables;
+		}
+		fill(variables, watermark) {
+			this.state.variables = {};
+			if (variables && Object.keys(variables).length) this.state.variables = variables;
+			this.state.watermark = watermark;
+			localStorage.setItem(STORAGE_WATERMARK_KEY, this.state.watermark.toString());
+			localStorage.setItem(STORAGE_KEY, JSON.stringify(this.state.variables));
+			this.notifyChange();
+		}
+		add(id, variable) {
+			this.load();
+			this.state.variables[id] = variable;
+			localStorage.setItem(STORAGE_KEY, JSON.stringify(this.state.variables));
+			this.notifyChange();
+		}
+		update(id, variable) {
+			this.load();
+			this.state.variables[id] = variable;
+			localStorage.setItem(STORAGE_KEY, JSON.stringify(this.state.variables));
+			this.notifyChange();
+		}
+		watermark(watermark) {
+			this.state.watermark = watermark;
+			localStorage.setItem(STORAGE_WATERMARK_KEY, this.state.watermark.toString());
+		}
+		watermarkDiff(operation, newWatermark) {
+			const diff = newWatermark - this.state.watermark;
+			if ("RW" === operation) return 1 !== diff;
+			if (OP_RO === operation) return 0 !== diff;
+			return false;
+		}
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/prop-types/font-variable-prop-type.ts
+	var fontVariablePropTypeUtil = (0, _elementor_editor_props.createPropUtils)("global-font-variable", _elementor_schema.z.string());
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/create-style-variables-repository.ts
+	var createStyleVariablesRepository = () => {
+		const variables = {};
+		let subscription;
+		const subscribe = (cb) => {
+			subscription = cb;
+			return () => {
+				subscription = () => {};
+			};
+		};
+		const notify = () => {
+			if (typeof subscription === "function") subscription({ ...variables });
+		};
+		const shouldUpdate = (key, maybeUpdated) => {
+			if (!(key in variables)) return true;
+			if (variables[key].label !== maybeUpdated.label) return true;
+			if (variables[key].value !== maybeUpdated.value) return true;
+			if (!variables[key]?.deleted && maybeUpdated?.deleted) return true;
+			if (variables[key]?.deleted && !maybeUpdated?.deleted) return true;
+			return false;
+		};
+		const applyUpdates = (updatedVars) => {
+			let hasChanges = false;
+			for (const [key, variable] of Object.entries(updatedVars)) if (shouldUpdate(key, variable)) {
+				variables[key] = variable;
+				if (variable.type === fontVariablePropTypeUtil.key) fontEnqueue(variable.value);
+				hasChanges = true;
+			}
+			return hasChanges;
+		};
+		const fontEnqueue = (value) => {
+			if (!value) return;
+			try {
+				(0, _elementor_editor_v1_adapters.enqueueFont)(value);
+			} catch {}
+		};
+		const update = (updatedVars) => {
+			if (applyUpdates(updatedVars)) notify();
+		};
+		return {
+			subscribe,
+			update
+		};
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/style-variables-repository.ts
+	var styleVariablesRepository = createStyleVariablesRepository();
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/service.ts
+	var storage = new Storage();
+	var service = {
+		variables: () => {
+			return storage.load();
+		},
+		findIdByLabel(needle) {
+			const variableId = Object.entries(this.variables()).find(([, variable]) => variable.label === needle);
+			if (!variableId) throw new Error(`Variable with label ${needle} not found`);
+			return variableId[0];
+		},
+		findVariableByLabel(needle) {
+			return Object.values(this.variables()).find((variable) => variable.label === needle) || null;
+		},
+		getWatermark: () => {
+			return storage.state.watermark;
+		},
+		init: () => {
+			return service.load();
+		},
+		load: () => {
+			return apiClient.list().then((response) => {
+				const { success, data: payload } = response.data;
+				if (!success) throw new Error("Unexpected response from server");
+				return payload;
+			}).then((data) => {
+				const { variables, watermark } = data;
+				storage.fill(variables, watermark);
+				styleVariablesRepository.update(variables);
+				return variables;
+			});
+		},
+		create: ({ type, label, value }, options = {}) => {
+			return apiClient.create(type, label, value).then((response) => {
+				const { success, data: payload } = response.data;
+				if (!success) {
+					const errorMessage = payload?.message || (0, _wordpress_i18n.__)("Unexpected response from server", "elementor");
+					throw new Error(errorMessage);
+				}
+				return payload;
+			}).then((data) => {
+				const { variable, watermark } = data;
+				handleWatermark("RW", watermark);
+				const { id: variableId, ...createdVariable } = variable;
+				storage.add(variableId, createdVariable);
+				styleVariablesRepository.update({ [variableId]: createdVariable });
+				trackVariableEvent({
+					varType: type,
+					action: "save",
+					...options.eventData
+				});
+				return {
+					id: variableId,
+					variable: createdVariable
+				};
+			});
+		},
+		update: (id, { label, value, type }, options = {}) => {
+			return apiClient.update(id, label, value, type).then((response) => {
+				const { success, data: payload } = response.data;
+				if (!success) {
+					const errorMessage = payload?.message || (0, _wordpress_i18n.__)("Unexpected response from server", "elementor");
+					throw new Error(errorMessage);
+				}
+				return payload;
+			}).then((data) => {
+				const { variable, watermark } = data;
+				handleWatermark("RW", watermark);
+				const { id: variableId, ...updatedVariable } = variable;
+				storage.update(variableId, updatedVariable);
+				styleVariablesRepository.update({ [variableId]: updatedVariable });
+				trackVariableEvent({
+					varType: updatedVariable.type,
+					action: "update",
+					...options.eventData
+				});
+				return {
+					id: variableId,
+					variable: updatedVariable
+				};
+			});
+		},
+		delete: (id) => {
+			return apiClient.delete(id).then((response) => {
+				const { success, data: payload } = response.data;
+				if (!success) throw new Error("Unexpected response from server");
+				return payload;
+			}).then((data) => {
+				const { variable, watermark } = data;
+				handleWatermark("RW", watermark);
+				const { id: variableId, ...deletedVariable } = variable;
+				storage.update(variableId, deletedVariable);
+				styleVariablesRepository.update({ [variableId]: deletedVariable });
+				return {
+					id: variableId,
+					variable: deletedVariable
+				};
+			});
+		},
+		restore: (id, label, value, type) => {
+			return apiClient.restore(id, label, value, type).then((response) => {
+				const { success, data: payload } = response.data;
+				if (!success) throw new Error("Unexpected response from server");
+				return payload;
+			}).then((data) => {
+				const { variable, watermark } = data;
+				handleWatermark("RW", watermark);
+				const { id: variableId, ...restoredVariable } = variable;
+				storage.update(variableId, restoredVariable);
+				styleVariablesRepository.update({ [variableId]: restoredVariable });
+				return {
+					id: variableId,
+					variable: restoredVariable
+				};
+			});
+		},
+		batchSave: (originalVariables, currentVariables, deletedVariables) => {
+			const operations = buildOperationsArray(originalVariables, currentVariables, deletedVariables);
+			const batchPayload = {
+				operations,
+				watermark: storage.state.watermark
+			};
+			if (operations.length === 0) return Promise.resolve({
+				success: true,
+				watermark: storage.state.watermark,
+				operations: 0
+			});
+			return apiClient.batch(batchPayload).then((response) => {
+				const { success, data: payload } = response.data;
+				if (!success) throw new Error("Unexpected response from server");
+				return payload;
+			}).then((data) => {
+				const { results, watermark } = data;
+				handleWatermark("RW", watermark);
+				if (results) results.forEach((result) => {
+					const variableId = result.id;
+					if (result.variable) {
+						if (result.type === "create") storage.add(variableId, result.variable);
+						else storage.update(variableId, result.variable);
+						styleVariablesRepository.update({ [variableId]: result.variable });
+					}
+				});
+				return {
+					success: true,
+					watermark,
+					operations: operations.length
+				};
+			});
+		}
+	};
+	var handleWatermark = (operation, newWatermark) => {
+		if (storage.watermarkDiff(operation, newWatermark)) setTimeout(() => service.load(), 500);
+		storage.watermark(newWatermark);
+	};
+	var applyLocalMutation = (action, variableWithId, watermark) => {
+		const { id: variableId, ...variable } = variableWithId;
+		handleWatermark("RW", watermark);
+		if (action === "create") storage.add(variableId, variable);
+		else storage.update(variableId, variable);
+		styleVariablesRepository.update({ [variableId]: variable });
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/transformers/utils/resolve-css-variable.ts
+	var resolveCssVariable = (id, variable) => {
+		let name = id;
+		let fallbackValue = "";
+		if (variable) fallbackValue = variable.value;
+		if (variable && !variable.deleted) name = variable.label;
+		if (!name.trim()) return null;
+		const validCssVariableName = `--${name}`;
+		if (!fallbackValue.trim()) return `var(${validCssVariableName})`;
+		return `var(${validCssVariableName}, ${fallbackValue})`;
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/transformers/inheritance-transformer.tsx
+	var inheritanceTransformer = (0, _elementor_editor_canvas.createTransformer)((id) => {
+		const variable = service.variables()[id];
+		if (!variable) return /* @__PURE__ */ react.createElement("span", null, (0, _wordpress_i18n.__)("Missing variable", "elementor"));
+		const showColorIndicator = variable.type === colorVariablePropTypeUtil.key;
+		const css = resolveCssVariable(id, variable);
+		return /* @__PURE__ */ react.createElement(_elementor_ui.Stack, {
+			direction: "row",
+			spacing: .5,
+			sx: { paddingInline: "1px" },
+			alignItems: "center"
+		}, showColorIndicator && /* @__PURE__ */ react.createElement(ColorIndicator, {
+			size: "inherit",
+			value: variable.value
+		}), /* @__PURE__ */ react.createElement(_elementor_ui.Typography, {
+			variant: "caption",
+			overflow: "hidden",
+			whiteSpace: "nowrap",
+			textOverflow: "ellipsis"
+		}, css));
+	});
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/transformers/variable-transformer.ts
+	var variableTransformer = (0, _elementor_editor_canvas.createTransformer)((idOrLabel, { key }) => {
+		const targetVariable = service.variables()[idOrLabel] || service.findVariableByLabel(idOrLabel);
+		if (!targetVariable) return null;
+		if ((0, _elementor_editor_canvas.isGridTrackProperty)(key)) return (0, _elementor_editor_canvas.formatGridTrackRepeat)(parseInt((targetVariable.value ?? "").trim(), 10));
+		return resolveCssVariable(service.findIdByLabel(targetVariable.label), targetVariable);
+	});
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/variables-registry/create-variable-type-registry.ts
+	function createVariableTypeRegistry() {
+		const variableTypes = {};
+		const registerVariableType = ({ key, icon, startIcon, valueField, propTypeUtil, variableType, defaultValue, selectionFilter, valueTransformer, styleTransformer, fallbackPropTypeUtil, isCompatible, emptyState, isActive = true, menuActionsFactory }) => {
+			const variableTypeKey = key ?? propTypeUtil.key;
+			if (!isCompatible) isCompatible = (propType, variable) => {
+				if ("union" === propType.kind) {
+					if (variable.type in propType.prop_types) return true;
+				}
+				return false;
+			};
+			variableTypes[variableTypeKey] = {
+				icon,
+				startIcon,
+				valueField,
+				propTypeUtil,
+				variableType,
+				defaultValue,
+				selectionFilter,
+				valueTransformer,
+				fallbackPropTypeUtil,
+				isCompatible,
+				emptyState,
+				isActive,
+				menuActionsFactory
+			};
+			registerTransformer(propTypeUtil.key, styleTransformer);
+			registerInheritanceTransformer(propTypeUtil.key);
+		};
+		const registerTransformer = (key, transformer) => {
+			_elementor_editor_canvas.styleTransformersRegistry.register(key, transformer ?? variableTransformer);
+		};
+		const registerInheritanceTransformer = (key) => {
+			_elementor_editor_canvas.stylesInheritanceTransformersRegistry.register(key, inheritanceTransformer);
+		};
+		const getVariableType = (key) => {
+			return variableTypes[key];
+		};
+		const getVariableTypes = () => {
+			return variableTypes;
+		};
+		const hasVariableType = (key) => {
+			return key in variableTypes && !!variableTypes[key].isActive;
+		};
+		return {
+			registerVariableType,
+			getVariableType,
+			getVariableTypes,
+			hasVariableType
+		};
+	}
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/variables-registry/variable-type-registry.ts
+	var { registerVariableType, getVariableType, getVariableTypes, hasVariableType } = createVariableTypeRegistry();
+	function getMenuActionsForVariable(variableType, context) {
+		const typeOptions = getVariableType(variableType);
+		if (typeOptions?.menuActionsFactory) return typeOptions.menuActionsFactory(context);
+		return [];
+	}
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/ui/delete-confirmation-dialog.tsx
+	var DeleteConfirmationDialog = ({ open, label, closeDialog, onConfirm }) => {
+		return /* @__PURE__ */ react.createElement(_elementor_editor_ui.ConfirmationDialog, {
+			open,
+			onClose: closeDialog
+		}, /* @__PURE__ */ react.createElement(_elementor_editor_ui.ConfirmationDialog.Title, null, (0, _wordpress_i18n.__)("Delete this variable?", "elementor")), /* @__PURE__ */ react.createElement(_elementor_editor_ui.ConfirmationDialog.Content, null, /* @__PURE__ */ react.createElement(_elementor_editor_ui.ConfirmationDialog.ContentText, null, (0, _wordpress_i18n.__)("All elements using", "elementor"), "\xA0", /* @__PURE__ */ react.createElement(_elementor_ui.Typography, {
+			variant: "subtitle2",
+			component: "span",
+			sx: { lineBreak: "anywhere" }
+		}, label), "\xA0", (0, _wordpress_i18n.__)("will keep their current values, but the variable itself will be removed.", "elementor"))), /* @__PURE__ */ react.createElement(_elementor_editor_ui.ConfirmationDialog.Actions, {
+			onClose: closeDialog,
+			onConfirm
+		}));
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/hooks/use-permissions.ts
+	var usePermissions = () => {
+		const { canUser, isAdmin } = (0, _elementor_editor_current_user.useCurrentUserCapabilities)();
+		return {
+			canAssign: () => canUser("edit_posts"),
+			canUnlink: () => canUser("edit_posts"),
+			canAdd: () => isAdmin,
+			canDelete: () => isAdmin,
+			canEdit: () => isAdmin,
+			canRestore: () => isAdmin,
+			canManageSettings: () => isAdmin
+		};
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/ui/empty-state.tsx
+	var EmptyState = ({ icon, title, message, onAdd, children }) => {
+		const canAdd = usePermissions().canAdd();
+		const displayTitle = canAdd ? title : (0, _wordpress_i18n.__)("There are no variables", "elementor");
+		const displayMessage = canAdd ? message : (0, _wordpress_i18n.__)("With your current role, you can only connect and detach variables.", "elementor");
+		return /* @__PURE__ */ react.createElement(Content, {
+			title: displayTitle,
+			message: displayMessage,
+			icon
+		}, children || onAdd && /* @__PURE__ */ react.createElement(_elementor_ui.Button, {
+			variant: "outlined",
+			color: "secondary",
+			size: "small",
+			onClick: onAdd
+		}, (0, _wordpress_i18n.__)("Create a variable", "elementor")));
+	};
+	function Content({ title, message, icon, children }) {
+		return /* @__PURE__ */ react.createElement(_elementor_ui.Stack, {
+			gap: 1,
+			alignItems: "center",
+			justifyContent: "flex-start",
+			height: "100%",
+			color: "text.secondary",
+			sx: {
+				p: 2.5,
+				pt: 8,
+				pb: 5.5
+			}
+		}, icon, /* @__PURE__ */ react.createElement(_elementor_ui.Typography, {
+			align: "center",
+			variant: "subtitle2"
+		}, title), /* @__PURE__ */ react.createElement(_elementor_ui.Typography, {
+			align: "center",
+			variant: "caption",
+			maxWidth: "180px"
+		}, message), children);
+	}
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/ui/no-search-results.tsx
+	var NoSearchResults = ({ searchValue, onClear, icon }) => {
+		return /* @__PURE__ */ react.createElement(_elementor_ui.Stack, {
+			gap: 1,
+			alignItems: "center",
+			justifyContent: "center",
+			p: 2.5,
+			color: "text.secondary",
+			sx: {
+				pb: 3.5,
+				pt: 8
+			}
+		}, icon, /* @__PURE__ */ react.createElement(_elementor_ui.Typography, {
+			align: "center",
+			variant: "subtitle2"
+		}, (0, _wordpress_i18n.__)("Sorry, nothing matched", "elementor"), /* @__PURE__ */ react.createElement("br", null), "“", searchValue, "”."), /* @__PURE__ */ react.createElement(_elementor_ui.Typography, {
+			align: "center",
+			variant: "caption",
+			sx: {
+				display: "flex",
+				flexDirection: "column"
+			}
+		}, (0, _wordpress_i18n.__)("Try something else.", "elementor"), /* @__PURE__ */ react.createElement(_elementor_ui.Link, {
+			color: "text.secondary",
+			variant: "caption",
+			component: "button",
+			onClick: onClear
+		}, (0, _wordpress_i18n.__)("Clear & try again", "elementor"))));
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/variables-manager/hooks/use-auto-edit.ts
+	var useAutoEdit = () => {
+		const [autoEditVariableId, setAutoEditVariableId] = (0, react.useState)(void 0);
+		return {
+			autoEditVariableId,
+			startAutoEdit: (0, react.useCallback)((variableId) => {
+				setAutoEditVariableId(variableId);
+			}, []),
+			handleAutoEditComplete: (0, react.useCallback)(() => {
+				setTimeout(() => {
+					setAutoEditVariableId(void 0);
+				}, 100);
+			}, [])
+		};
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/variables-manager/hooks/use-error-navigation.ts
+	var useErrorNavigation = () => {
+		const currentIndexRef = (0, react.useRef)(0);
+		return {
+			createNavigationCallback: (0, react.useCallback)((ids, onNavigate, onComplete) => {
+				return () => {
+					if (!ids?.length) return;
+					const currentIndex = currentIndexRef.current;
+					const currentId = ids[currentIndex];
+					if (currentId) {
+						onNavigate(currentId);
+						const nextIndex = currentIndex + 1;
+						if (nextIndex >= ids.length) {
+							onComplete();
+							currentIndexRef.current = 0;
+						} else currentIndexRef.current = nextIndex;
+					}
+				};
+			}, []),
+			resetNavigation: (0, react.useCallback)(() => {
+				currentIndexRef.current = 0;
+			}, [])
+		};
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/context/variable-type-context.tsx
+	var VariableTypeContext = (0, react.createContext)(null);
+	function VariableTypeProvider({ children, propTypeKey }) {
+		return /* @__PURE__ */ react.createElement(VariableTypeContext.Provider, { value: propTypeKey }, children);
+	}
+	function useVariableType() {
+		const context = (0, react.useContext)(VariableTypeContext);
+		if (context === null) throw new Error("useVariableType must be used within a VariableTypeProvider");
+		return getVariableType(context);
+	}
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/utils/filter-by-search.ts
+	function filterBySearch(variables, searchValue) {
+		const lowerSearchValue = searchValue.toLowerCase();
+		return variables.filter((variable) => variable.label.toLowerCase().includes(lowerSearchValue));
+	}
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/utils/variables-to-list.ts
+	var variablesToList = (variables) => {
+		return Object.entries(variables).map(([key, variable]) => ({
+			key,
+			...variable
+		}));
+	};
+	var toNormalizedVariable = ({ key, label, value, order, sync_to_v3: syncToV3 }) => ({
+		key,
+		label,
+		value,
+		order,
+		sync_to_v3: syncToV3
+	});
+	var applySelectionFilters = (variables, variableTypes) => {
+		const grouped = {};
+		variables.forEach((item) => {
+			var _a;
+			return (grouped[_a = item.type] ?? (grouped[_a] = [])).push(item);
+		});
+		return Object.entries(grouped).flatMap(([type, vars]) => {
+			const filter = variableTypes[type]?.selectionFilter;
+			const normalized = vars.map(toNormalizedVariable);
+			return (filter?.(normalized) ?? normalized).map((v) => ({
+				...v,
+				type
+			}));
+		});
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/hooks/use-prop-variables.ts
+	var getVariables = (includeDeleted = true) => {
+		const variables = service.variables();
+		if (includeDeleted) return variables;
+		return Object.fromEntries(Object.entries(variables).filter(([, variable]) => !variable.deleted));
+	};
+	var hasVariable = (key) => {
+		return getVariables()[key] !== void 0;
+	};
+	var useVariable = (key) => {
+		return getVariable(key);
+	};
+	function getVariable(key) {
+		const variables = getVariables();
+		if (!variables?.[key]) return null;
+		return {
+			...variables[key],
+			key
+		};
+	}
+	var useFilteredVariables = (searchValue, propTypeKey) => {
+		const baseVariables = usePropVariables(propTypeKey);
+		const typeFilteredVariables = useVariableSelectionFilter(baseVariables);
+		const searchFilteredVariables = filterBySearch(typeFilteredVariables, searchValue);
+		return {
+			list: searchFilteredVariables.sort((a, b) => {
+				return (a.order ?? Number.MAX_SAFE_INTEGER) - (b.order ?? Number.MAX_SAFE_INTEGER);
+			}),
+			hasMatches: searchFilteredVariables.length > 0,
+			isSourceNotEmpty: typeFilteredVariables.length > 0,
+			hasNoCompatibleVariables: baseVariables.length > 0 && typeFilteredVariables.length === 0
+		};
+	};
+	var useVariableSelectionFilter = (variables) => {
+		const { selectionFilter } = useVariableType();
+		const { propType } = (0, _elementor_editor_controls.useBoundProp)();
+		return selectionFilter ? selectionFilter(variables, propType) : variables;
+	};
+	var usePropVariables = (propKey) => {
+		return (0, react.useMemo)(() => normalizeVariables(propKey), [propKey]);
+	};
+	var getMatchingTypes = (propKey) => {
+		const matchingTypes = [];
+		const allTypes = getVariableTypes();
+		const variableType = getVariableType(propKey);
+		Object.entries(allTypes).forEach(([key, typeOptions]) => {
+			if (variableType.variableType === typeOptions.variableType) matchingTypes.push(key);
+		});
+		return matchingTypes;
+	};
+	var normalizeVariables = (propKey) => {
+		const variables = getVariables(false);
+		const matchingTypes = getMatchingTypes(propKey);
+		return variablesToList(variables).filter((variable) => matchingTypes.includes(variable.type)).map(toNormalizedVariable);
+	};
+	var extractId = ({ id }) => id;
+	var createVariable = (newVariable, options) => {
+		return service.create(newVariable, options).then(extractId);
+	};
+	var updateVariable = (updateId, { value, label, type }, options) => {
+		return service.update(updateId, {
+			value,
+			label,
+			type
+		}, options).then(extractId);
+	};
+	var deleteVariable = (deleteId) => {
+		return service.delete(deleteId).then(extractId);
+	};
+	var restoreVariable = (restoreId, label, value, type) => {
+		return service.restore(restoreId, label, value, type).then(extractId);
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/utils/duplicate-label.ts
+	var COPY_SUFFIX = "-Copy";
+	var trimToFit = (base, suffix) => {
+		const combined = base + suffix;
+		if (combined.length <= 50) return combined;
+		return base.slice(0, 50 - suffix.length) + suffix;
+	};
+	var generateDuplicateLabel = (originalLabel, existingLabels) => {
+		const labelsSet = new Set(existingLabels);
+		const firstCandidate = trimToFit(originalLabel, COPY_SUFFIX);
+		if (!labelsSet.has(firstCandidate)) return firstCandidate;
+		for (let i = 2; i <= labelsSet.size + 1; i++) {
+			const candidate = trimToFit(originalLabel, `${COPY_SUFFIX}-${i}`);
+			if (!labelsSet.has(candidate)) return candidate;
+		}
+		return firstCandidate;
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/variables-manager/hooks/use-variables-manager-state.ts
+	var useVariablesManagerState = () => {
+		const [variables, setVariables] = (0, react.useState)(() => getVariables(false));
+		const [deletedVariables, setDeletedVariables] = (0, react.useState)([]);
+		const [isSaveDisabled, setIsSaveDisabled] = (0, react.useState)(false);
+		const [isDirty, setIsDirty] = (0, react.useState)(false);
+		const [isSaving, setIsSaving] = (0, react.useState)(false);
+		const [searchValue, setSearchValue] = (0, react.useState)("");
+		(0, react.useEffect)(() => {
+			const handleStorageUpdated = () => {
+				setVariables(getVariables(false));
+				setDeletedVariables([]);
+				setIsDirty(false);
+			};
+			window.addEventListener(STORAGE_UPDATED_EVENT, handleStorageUpdated);
+			return () => {
+				window.removeEventListener(STORAGE_UPDATED_EVENT, handleStorageUpdated);
+			};
+		}, []);
+		const handleOnChange = (0, react.useCallback)((newVariables) => {
+			if (Object.entries(newVariables).some(([id, newVar]) => {
+				const existingVar = variables[id];
+				if (!existingVar) return true;
+				return existingVar.label !== newVar.label || existingVar.value !== newVar.value || existingVar.order !== newVar.order || existingVar.type !== newVar.type || (existingVar.sync_to_v3 ?? false) !== (newVar.sync_to_v3 ?? false);
+			})) {
+				setVariables({
+					...variables,
+					...newVariables
+				});
+				setIsDirty(true);
+			}
+		}, [variables]);
+		const createVariable = (0, react.useCallback)((type, defaultName, defaultValue) => {
+			const newId = generateTempId();
+			const newVariable = {
+				id: newId,
+				label: defaultName.trim(),
+				value: defaultValue.trim(),
+				type
+			};
+			setVariables((prev) => ({
+				...prev,
+				[newId]: newVariable
+			}));
+			setIsDirty(true);
+			return newId;
+		}, []);
+		const duplicateVariable = (0, react.useCallback)((sourceId) => {
+			const newId = generateTempId();
+			setVariables((prev) => {
+				const source = prev[sourceId];
+				if (!source || source.deleted) return prev;
+				const existingLabels = Object.values(prev).filter((v) => !v.deleted).map((v) => v.label);
+				return {
+					...prev,
+					[newId]: {
+						label: generateDuplicateLabel(source.label, existingLabels),
+						value: source.value,
+						type: source.type
+					}
+				};
+			});
+			setIsDirty(true);
+			return newId;
+		}, []);
+		const handleDeleteVariable = (0, react.useCallback)((itemId) => {
+			setDeletedVariables((prev) => [...prev, itemId]);
+			setVariables((prev) => ({
+				...prev,
+				[itemId]: {
+					...prev[itemId],
+					deleted: true
+				}
+			}));
+			setIsDirty(true);
+		}, []);
+		const handleStartSync = (0, react.useCallback)((itemId) => {
+			setVariables((prev) => ({
+				...prev,
+				[itemId]: {
+					...prev[itemId],
+					sync_to_v3: true
+				}
+			}));
+			setIsDirty(true);
+		}, []);
+		const handleStopSync = (0, react.useCallback)((itemId) => {
+			setVariables((prev) => ({
+				...prev,
+				[itemId]: {
+					...prev[itemId],
+					sync_to_v3: false
+				}
+			}));
+			setIsDirty(true);
+		}, []);
+		const handleSearch = (searchTerm) => {
+			setSearchValue(searchTerm);
+		};
+		const handleSave = (0, react.useCallback)(async () => {
+			const originalVariables = getVariables(false);
+			setIsSaving(true);
+			const result = await service.batchSave(originalVariables, variables, deletedVariables);
+			if (result.success) {
+				await service.load();
+				const updatedVariables = service.variables();
+				setVariables(updatedVariables);
+				setDeletedVariables([]);
+				setIsDirty(false);
+			}
+			return { success: result.success };
+		}, [variables, deletedVariables]);
+		return {
+			variables: (0, react.useCallback)(() => {
+				const searchFiltered = filterBySearch(applySelectionFilters(variablesToList(variables).filter((v) => !v.deleted), getVariableTypes()), searchValue);
+				return Object.fromEntries(searchFiltered.map(({ key, ...rest }) => [key, rest]));
+			}, [variables, searchValue])(),
+			deletedVariables,
+			isDirty,
+			isSaveDisabled,
+			handleOnChange,
+			createVariable,
+			duplicateVariable,
+			handleDeleteVariable,
+			handleStartSync,
+			handleStopSync,
+			handleSave,
+			isSaving,
+			handleSearch,
+			searchValue,
+			setIsSaving,
+			setIsSaveDisabled
+		};
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/hooks/use-quota-permissions.ts
+	var useQuotaPermissions = (variableType) => {
+		const quotaConfig = {
+			...window.ElementorVariablesQuotaConfig ?? {},
+			...window.ElementorVariablesQuotaConfigExtended ?? {}
+		};
+		const hasLegacySupport = quotaConfig[variableType] === void 0 && window.elementorPro;
+		const limit = quotaConfig[variableType] || 0;
+		const hasPermission = hasLegacySupport || limit > 0;
+		return {
+			canAdd: () => hasPermission,
+			canEdit: () => hasPermission
+		};
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/ui/variable-promotion-chip.tsx
+	var VariablePromotionChip = (0, react.forwardRef)(({ variableType, upgradeUrl, trackingData }, ref) => {
+		const [isOpen, setIsOpen] = (0, react.useState)(false);
+		(0, _elementor_editor_ui.useCanvasClickHandler)(isOpen, () => setIsOpen(false));
+		const toggle = (0, react.useCallback)(() => {
+			setIsOpen((prev) => {
+				if (!prev) (0, _elementor_editor_controls.trackViewPromotion)(trackingData);
+				return !prev;
+			});
+		}, [trackingData]);
+		(0, react.useImperativeHandle)(ref, () => ({ toggle }), [toggle]);
+		const title = (0, _wordpress_i18n.sprintf)((0, _wordpress_i18n.__)("%s variables", "elementor"), (0, _elementor_utils.capitalize)(variableType));
+		const content = (0, _wordpress_i18n.sprintf)((0, _wordpress_i18n.__)("Upgrade to continue creating and editing %s variables.", "elementor"), variableType);
+		return /* @__PURE__ */ react.createElement(_elementor_editor_ui.PromotionPopover, {
+			open: isOpen,
+			title,
+			content,
+			ctaText: (0, _wordpress_i18n.__)("Upgrade now", "elementor"),
+			ctaUrl: upgradeUrl,
+			onClose: (e) => {
+				e.stopPropagation();
+				setIsOpen(false);
+			},
+			onCtaClick: () => (0, _elementor_editor_controls.trackUpgradePromotionClick)(trackingData)
+		}, /* @__PURE__ */ react.createElement(_elementor_ui.Box, {
+			onClick: (e) => {
+				e.stopPropagation();
+				toggle();
+			},
+			sx: {
+				cursor: "pointer",
+				display: "inline-flex"
+			}
+		}, /* @__PURE__ */ react.createElement(_elementor_editor_ui.PromotionChip, null)));
+	});
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/variables-manager/variables-manager-create-menu.tsx
+	var TRACKING_DATA$1 = {
+		target_name: "variables_manager",
+		target_location: "variables_manager",
+		location_l1: "create variable menu"
+	};
+	var SIZE$6 = "tiny";
+	var VariableManagerCreateMenu = ({ variables, onCreate, menuState, outlinedTrigger = false }) => {
+		const buttonRef = (0, react.useRef)(null);
+		const variableTypes = getVariableTypes();
+		const menuOptionConfigs = (0, react.useMemo)(() => Object.entries(variableTypes).filter(([, variable]) => !!variable.defaultValue).map(([key, variable]) => ({
+			key,
+			propTypeKey: variable.propTypeUtil.key,
+			variableType: variable.variableType,
+			defaultValue: variable.defaultValue || "",
+			icon: variable.icon
+		})), [variableTypes]);
+		return /* @__PURE__ */ react.createElement(react.Fragment, null, /* @__PURE__ */ react.createElement(_elementor_ui.IconButton, {
+			...(0, _elementor_ui.bindTrigger)(menuState),
+			ref: buttonRef,
+			size: SIZE$6,
+			variant: outlinedTrigger ? "outlined" : void 0,
+			"aria-label": (0, _wordpress_i18n.__)("Add variable", "elementor")
+		}, /* @__PURE__ */ react.createElement(_elementor_icons.PlusIcon, { fontSize: SIZE$6 })), /* @__PURE__ */ react.createElement(_elementor_ui.Menu, {
+			disablePortal: true,
+			MenuListProps: { dense: true },
+			PaperProps: { elevation: 6 },
+			...(0, _elementor_ui.bindMenu)(menuState),
+			anchorEl: buttonRef.current,
+			anchorOrigin: {
+				vertical: "bottom",
+				horizontal: "right"
+			},
+			transformOrigin: {
+				vertical: "top",
+				horizontal: "right"
+			},
+			"data-testid": "variable-manager-create-menu"
+		}, menuOptionConfigs.map((config) => /* @__PURE__ */ react.createElement(MenuOption, {
+			key: config.key,
+			config,
+			variables,
+			onCreate,
+			onClose: menuState.close
+		}))));
+	};
+	var MenuOption = ({ config, variables, onCreate, onClose }) => {
+		const promotionRef = (0, react.useRef)(null);
+		const userQuotaPermissions = useQuotaPermissions(config.propTypeKey);
+		const displayName = (0, _elementor_utils.capitalize)(config.variableType);
+		const isDisabled = !userQuotaPermissions.canAdd();
+		const handleClick = () => {
+			if (isDisabled) {
+				promotionRef.current?.toggle();
+				return;
+			}
+			const defaultName = getDefaultName(variables, config.variableType);
+			onCreate(config.key, defaultName, config.defaultValue);
+			trackVariablesManagerEvent({
+				action: "add",
+				varType: config.variableType
+			});
+			onClose();
+		};
+		return /* @__PURE__ */ react.createElement(_elementor_ui.MenuItem, {
+			onClick: handleClick,
+			sx: {
+				gap: 1.5,
+				cursor: "pointer"
+			}
+		}, (0, react.createElement)(config.icon, {
+			fontSize: SIZE$6,
+			color: isDisabled ? "disabled" : "action"
+		}), /* @__PURE__ */ react.createElement(_elementor_ui.Typography, {
+			variant: "caption",
+			color: isDisabled ? "text.disabled" : "text.primary"
+		}, displayName), isDisabled && /* @__PURE__ */ react.createElement(VariablePromotionChip, {
+			variableType: config.variableType,
+			upgradeUrl: `https://go.elementor.com/go-pro-manager-${config.variableType}-variable/`,
+			ref: promotionRef,
+			trackingData: TRACKING_DATA$1
+		}));
+	};
+	var getDefaultName = (variables, baseName) => {
+		const pattern = new RegExp(`^${baseName}-(\\d+)$`, "i");
+		const takenNumbers = /* @__PURE__ */ new Set();
+		Object.values(variables).forEach((variable) => {
+			const match = variable.label.match(pattern);
+			if (match) takenNumbers.add(parseInt(match[1], 10));
+		});
+		let counter = 1;
+		while (takenNumbers.has(counter)) counter++;
+		return `${baseName}-${counter}`;
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/variables-manager/ui/variable-table-cell.tsx
+	var VariableTableCell = ({ children, isHeader, width, maxWidth, align, noPadding, sx }) => {
+		const baseSx = {
+			maxWidth: maxWidth ?? 150,
+			cursor: "initial",
+			typography: "caption",
+			...isHeader && {
+				color: "text.primary",
+				fontWeight: "bold"
+			},
+			...isHeader && !noPadding && { padding: "10px 16px" },
+			...width && { width },
+			...sx
+		};
+		return /* @__PURE__ */ react.createElement(_elementor_ui.TableCell, {
+			size: "small",
+			padding: noPadding ? "none" : void 0,
+			align,
+			sx: baseSx
+		}, children);
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/fields/label-field.tsx
+	function isLabelEqual(a, b) {
+		return a.trim().toLowerCase() === b.trim().toLowerCase();
+	}
+	var useLabelError = (initialError) => {
+		const [error, setError] = (0, react.useState)(initialError ?? {
+			value: "",
+			message: ""
+		});
+		return {
+			labelFieldError: error,
+			setLabelFieldError: setError
+		};
+	};
+	var LabelField = ({ value, error, onChange, id, onErrorChange, size = "tiny", focusOnShow = false, selectOnShow = false, showWarningInfotip = false, variables, onKeyDown }) => {
+		const [label, setLabel] = (0, react.useState)(value);
+		const [errorMessage, setErrorMessage] = (0, react.useState)("");
+		const fieldRef = (0, react.useRef)(null);
+		const handleChange = (newValue) => {
+			setLabel(newValue);
+			const errorMsg2 = validateLabel(newValue, variables);
+			setErrorMessage(errorMsg2);
+			onErrorChange?.(errorMsg2);
+			onChange(isLabelEqual(newValue, error?.value ?? "") || errorMsg2 ? "" : newValue);
+		};
+		let errorMsg = errorMessage;
+		if (isLabelEqual(label, error?.value ?? "") && error?.message) errorMsg = error.message;
+		const hintMsg = !errorMsg ? labelHint(label) : "";
+		const textField = /* @__PURE__ */ react.createElement(_elementor_ui.TextField, {
+			ref: fieldRef,
+			id,
+			size,
+			fullWidth: true,
+			value: label,
+			error: !!errorMsg,
+			onChange: (e) => handleChange(e.target.value),
+			inputProps: {
+				maxLength: 50,
+				...selectOnShow && { onFocus: (e) => e.target.select() },
+				"aria-label": "Name",
+				onKeyDown
+			},
+			autoFocus: focusOnShow
+		});
+		if (showWarningInfotip) {
+			const tooltipWidth = Math.max(240, fieldRef.current?.getBoundingClientRect().width ?? 240);
+			return /* @__PURE__ */ react.createElement(_elementor_editor_ui.WarningInfotip, {
+				open: Boolean(errorMsg || hintMsg),
+				text: errorMsg || hintMsg,
+				placement: "bottom-start",
+				width: tooltipWidth,
+				offset: [0, -15],
+				...hintMsg && { hasError: false }
+			}, textField);
+		}
+		return textField;
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/variables-manager/variable-editable-cell.tsx
+	var VariableEditableCell = react.memo(({ initialValue, children, editableElement, onChange, prefixElement, autoEdit = false, onRowRef, onAutoEditComplete, gap = 1, fieldType, disabled = false }) => {
+		const [value, setValue] = (0, react.useState)(initialValue);
+		const [isEditing, setIsEditing] = (0, react.useState)(false);
+		const { labelFieldError, setLabelFieldError } = useLabelError();
+		const [valueFieldError, setValueFieldError] = (0, react.useState)("");
+		const rowRef = (0, react.useRef)(null);
+		const handleSave = (0, react.useCallback)(() => {
+			if (!(fieldType === "label" && labelFieldError?.message || fieldType === "value" && valueFieldError)) onChange(value);
+			setIsEditing(false);
+		}, [
+			value,
+			onChange,
+			fieldType,
+			labelFieldError,
+			valueFieldError
+		]);
+		(0, react.useEffect)(() => {
+			onRowRef?.(rowRef?.current);
+		}, [onRowRef]);
+		(0, react.useEffect)(() => {
+			if (autoEdit && !isEditing && !disabled) {
+				setIsEditing(true);
+				onAutoEditComplete?.();
+			}
+		}, [
+			autoEdit,
+			isEditing,
+			onAutoEditComplete,
+			disabled
+		]);
+		const handleDoubleClick = () => {
+			if (disabled) return;
+			setIsEditing(true);
+		};
+		const handleKeyDown = (event) => {
+			if (disabled) return;
+			if (event.key === "Enter") handleSave();
+			else if (event.key === "Escape") setIsEditing(false);
+			if (event.key === " " && !isEditing) {
+				event.preventDefault();
+				setIsEditing(true);
+			}
+		};
+		const handleChange = (0, react.useCallback)((newValue) => {
+			setValue(newValue);
+		}, []);
+		const handleValidationChange = (0, react.useCallback)((errorMsg) => {
+			if (fieldType === "label") setLabelFieldError({
+				value,
+				message: errorMsg
+			});
+			else setValueFieldError(errorMsg);
+		}, [
+			fieldType,
+			value,
+			setLabelFieldError,
+			setValueFieldError
+		]);
+		let currentError;
+		if (fieldType === "label") currentError = labelFieldError;
+		else if (fieldType === "value") currentError = {
+			value,
+			message: valueFieldError
+		};
+		const editableContent = editableElement({
+			value,
+			onChange: handleChange,
+			onValidationChange: handleValidationChange,
+			error: currentError
+		});
+		if (isEditing) return /* @__PURE__ */ react.createElement(_elementor_ui.ClickAwayListener, { onClickAway: handleSave }, /* @__PURE__ */ react.createElement(_elementor_ui.Stack, {
+			ref: rowRef,
+			direction: "row",
+			alignItems: "center",
+			gap,
+			onDoubleClick: handleDoubleClick,
+			onKeyDown: handleKeyDown,
+			tabIndex: 0,
+			role: "button",
+			"aria-label": "Double click or press Space to edit"
+		}, prefixElement, editableContent));
+		return /* @__PURE__ */ react.createElement(_elementor_ui.Stack, {
+			ref: rowRef,
+			direction: "row",
+			alignItems: "center",
+			gap,
+			onDoubleClick: handleDoubleClick,
+			onKeyDown: handleKeyDown,
+			tabIndex: disabled ? -1 : 0,
+			role: "button",
+			"aria-label": disabled ? "" : "Double click or press Space to edit"
+		}, prefixElement, children);
+	});
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/variables-manager/ui/variable-edit-menu.tsx
+	var VariableEditMenu = ({ menuActions, disabled, itemId }) => {
+		const menuState = (0, _elementor_ui.usePopupState)({ variant: "popover" });
+		const triggerProps = (0, _elementor_ui.bindTrigger)(menuState);
+		return /* @__PURE__ */ react.createElement(react.Fragment, null, /* @__PURE__ */ react.createElement(_elementor_ui.IconButton, {
+			...triggerProps,
+			disabled,
+			size: "tiny",
+			onClick: (e) => {
+				e.stopPropagation();
+				triggerProps.onClick?.(e);
+			}
+		}, /* @__PURE__ */ react.createElement(_elementor_icons.DotsVerticalIcon, { fontSize: "tiny" })), /* @__PURE__ */ react.createElement(_elementor_ui.Menu, {
+			disablePortal: true,
+			MenuListProps: { dense: true },
+			PaperProps: { elevation: 6 },
+			...(0, _elementor_ui.bindMenu)(menuState),
+			anchorEl: menuState.anchorEl,
+			anchorOrigin: {
+				vertical: "bottom",
+				horizontal: "right"
+			},
+			transformOrigin: {
+				vertical: "top",
+				horizontal: "right"
+			},
+			open: menuState.isOpen,
+			onClose: menuState.close
+		}, menuActions.map((action) => /* @__PURE__ */ react.createElement(_elementor_ui.MenuItem, {
+			key: action.name,
+			onClick: (e) => {
+				e.stopPropagation();
+				action.onClick?.(itemId);
+				menuState.close();
+			},
+			sx: {
+				color: action.color,
+				gap: 1
+			}
+		}, action.icon && (0, react.createElement)(action.icon, { fontSize: "inherit" }), " ", action.name))));
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/variables-manager/ui/variable-table-row.tsx
+	var TRACKING_DATA = {
+		target_name: "variables_manager",
+		target_location: "variables_manager"
+	};
+	var VariableRow = (props) => {
+		const { row, variables, handleOnChange, autoEditVariableId, onAutoEditComplete, onFieldError, menuActions, handleRowRef, itemProps, showDropIndication, triggerProps, itemStyle, triggerStyle, isDragged, dropPosition, setTriggerRef, isSorting } = props;
+		const promotionRef = (0, react.useRef)(null);
+		const isDisabled = !useQuotaPermissions(row.type).canEdit();
+		const showIndicationBefore = showDropIndication && dropPosition === "before";
+		const showIndicationAfter = showDropIndication && dropPosition === "after";
+		return /* @__PURE__ */ react.createElement(_elementor_ui.TableRow, {
+			...itemProps,
+			ref: itemProps.ref,
+			selected: isDragged,
+			sx: {
+				...isDisabled && { "& td, & th": { color: "text.disabled" } },
+				...showIndicationBefore && { "& td, & th": {
+					borderTop: "2px solid",
+					borderTopColor: "primary.main"
+				} },
+				...showIndicationAfter && { "& td, & th": {
+					borderBottom: "2px solid",
+					borderBottomColor: "primary.main"
+				} },
+				"&:hover, &:focus-within": {
+					backgroundColor: "action.hover",
+					"& [role=\"toolbar\"], & [draggable]": { opacity: 1 }
+				},
+				"& [role=\"toolbar\"], & [draggable]": { opacity: 0 }
+			},
+			style: {
+				...itemStyle,
+				...triggerStyle
+			},
+			onClick: () => {
+				if (isDisabled) promotionRef.current?.toggle();
+			}
+		}, /* @__PURE__ */ react.createElement(VariableTableCell, {
+			noPadding: true,
+			width: 10,
+			maxWidth: 10
+		}, /* @__PURE__ */ react.createElement(_elementor_ui.IconButton, {
+			size: "small",
+			ref: setTriggerRef,
+			...triggerProps,
+			disabled: isSorting,
+			draggable: true
+		}, /* @__PURE__ */ react.createElement(_elementor_icons.GripVerticalIcon, { fontSize: "inherit" }))), /* @__PURE__ */ react.createElement(VariableTableCell, null, /* @__PURE__ */ react.createElement(VariableEditableCell, {
+			initialValue: row.name,
+			onChange: (value) => {
+				if (value !== row.name && !isDisabled) handleOnChange({
+					...variables,
+					[row.id]: {
+						...variables[row.id],
+						label: value
+					}
+				});
+			},
+			prefixElement: (0, react.createElement)(row.icon, {
+				fontSize: "inherit",
+				color: isDisabled ? "disabled" : "inherit"
+			}),
+			editableElement: ({ value, onChange, onValidationChange, error }) => /* @__PURE__ */ react.createElement(LabelField, {
+				id: "variable-label-" + row.id,
+				size: "tiny",
+				value,
+				onChange,
+				onErrorChange: (errorMsg) => {
+					onValidationChange?.(errorMsg);
+					onFieldError?.(!!errorMsg);
+				},
+				error,
+				focusOnShow: true,
+				selectOnShow: autoEditVariableId === row.id,
+				showWarningInfotip: true,
+				variables
+			}),
+			autoEdit: autoEditVariableId === row.id && !isDisabled,
+			onRowRef: handleRowRef(row.id),
+			onAutoEditComplete: autoEditVariableId === row.id ? onAutoEditComplete : void 0,
+			fieldType: "label",
+			disabled: isDisabled
+		}, /* @__PURE__ */ react.createElement(_elementor_editor_ui.EllipsisWithTooltip, {
+			title: row.name,
+			sx: { border: "4px solid transparent" }
+		}, row.name))), /* @__PURE__ */ react.createElement(VariableTableCell, null, /* @__PURE__ */ react.createElement(VariableEditableCell, {
+			initialValue: row.value,
+			onChange: (value) => {
+				if (value !== row.value && !isDisabled) handleOnChange({
+					...variables,
+					[row.id]: {
+						...variables[row.id],
+						value
+					}
+				});
+			},
+			editableElement: ({ value, onChange, onValidationChange, error }) => row.valueField?.({
+				value,
+				onChange,
+				onPropTypeKeyChange: (type) => {
+					if (!isDisabled && type !== row.type) handleOnChange({
+						...variables,
+						[row.id]: {
+							...variables[row.id],
+							type
+						}
+					});
+				},
+				propTypeKey: row.type,
+				onValidationChange: (errorMsg) => {
+					onValidationChange?.(errorMsg);
+					onFieldError?.(!!errorMsg);
+				},
+				error
+			}) ?? /* @__PURE__ */ react.createElement(react.Fragment, null),
+			onRowRef: handleRowRef(row.id),
+			gap: .25,
+			fieldType: "value",
+			disabled: isDisabled
+		}, row.startIcon && row.startIcon({ value: row.value }), /* @__PURE__ */ react.createElement(_elementor_editor_ui.EllipsisWithTooltip, {
+			title: row.value,
+			sx: {
+				border: "4px solid transparent",
+				lineHeight: "1",
+				pt: .25
+			}
+		}, row.value))), /* @__PURE__ */ react.createElement(VariableTableCell, {
+			align: "right",
+			noPadding: true,
+			width: 16,
+			maxWidth: 16,
+			sx: { paddingInlineEnd: 1 }
+		}, /* @__PURE__ */ react.createElement(_elementor_ui.Stack, {
+			role: "toolbar",
+			direction: "row",
+			justifyContent: "flex-end",
+			alignItems: "center"
+		}, isDisabled && /* @__PURE__ */ react.createElement(VariablePromotionChip, {
+			variableType: row.variableType,
+			upgradeUrl: `https://go.elementor.com/renew-license-manager-${row.variableType}-variable`,
+			ref: promotionRef,
+			trackingData: TRACKING_DATA
+		}), /* @__PURE__ */ react.createElement(VariableEditMenu, {
+			menuActions: menuActions(row.id),
+			disabled: isSorting,
+			itemId: row.id
+		}))));
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/variables-manager/variables-manager-table.tsx
+	var VariablesManagerTable = ({ menuActions, variables, onChange: handleOnChange, autoEditVariableId, onAutoEditComplete, onFieldError }) => {
+		const tableContainerRef = (0, react.useRef)(null);
+		const variableRowRefs = (0, react.useRef)(/* @__PURE__ */ new Map());
+		(0, react.useEffect)(() => {
+			if (autoEditVariableId && tableContainerRef.current) {
+				const rowElement = variableRowRefs.current.get(autoEditVariableId);
+				if (rowElement) setTimeout(() => {
+					rowElement.scrollIntoView({
+						behavior: "smooth",
+						block: "center",
+						inline: "nearest"
+					});
+				}, 100);
+			}
+		}, [autoEditVariableId]);
+		const handleRowRef = (id) => (ref) => {
+			if (ref) variableRowRefs.current.set(id, ref);
+			else variableRowRefs.current.delete(id);
+		};
+		const ids = Object.keys(variables).sort(sortVariablesOrder(variables));
+		const rows = ids.map((id) => {
+			const variable = variables[id];
+			const variableType = getVariableType(variable.type);
+			if (!variableType) return null;
+			return {
+				id,
+				type: variable.type,
+				name: variable.label,
+				value: variable.value,
+				...variableType
+			};
+		}).filter(Boolean);
+		const tableSX = {
+			minWidth: 250,
+			tableLayout: "fixed"
+		};
+		const handleReorder = (newIds) => {
+			const updatedVariables = { ...variables };
+			newIds.forEach((id, index) => {
+				const current = updatedVariables[id];
+				if (!current) return;
+				updatedVariables[id] = Object.assign({}, current, { order: index + 1 });
+			});
+			handleOnChange(updatedVariables);
+		};
+		return /* @__PURE__ */ react.createElement(_elementor_ui.TableContainer, {
+			ref: tableContainerRef,
+			sx: { overflow: "initial" }
+		}, /* @__PURE__ */ react.createElement(_elementor_ui.Table, {
+			sx: tableSX,
+			"aria-label": "Variables manager list with drag and drop reordering",
+			stickyHeader: true
+		}, /* @__PURE__ */ react.createElement(_elementor_ui.TableHead, null, /* @__PURE__ */ react.createElement(_elementor_ui.TableRow, null, /* @__PURE__ */ react.createElement(VariableTableCell, {
+			isHeader: true,
+			noPadding: true,
+			width: 10,
+			maxWidth: 10
+		}), /* @__PURE__ */ react.createElement(VariableTableCell, { isHeader: true }, (0, _wordpress_i18n.__)("Name", "elementor")), /* @__PURE__ */ react.createElement(VariableTableCell, { isHeader: true }, (0, _wordpress_i18n.__)("Value", "elementor")), /* @__PURE__ */ react.createElement(VariableTableCell, {
+			isHeader: true,
+			noPadding: true,
+			width: 16,
+			maxWidth: 16
+		}))), /* @__PURE__ */ react.createElement(_elementor_ui.TableBody, null, /* @__PURE__ */ react.createElement(_elementor_ui.UnstableSortableProvider, {
+			value: ids,
+			onChange: handleReorder,
+			variant: "static",
+			restrictAxis: true,
+			dragOverlay: ({ children: dragOverlayChildren, ...dragOverlayProps }) => /* @__PURE__ */ react.createElement(_elementor_ui.Table, {
+				sx: tableSX,
+				...dragOverlayProps
+			}, /* @__PURE__ */ react.createElement(_elementor_ui.TableBody, null, dragOverlayChildren))
+		}, rows.map((row) => /* @__PURE__ */ react.createElement(_elementor_ui.UnstableSortableItem, {
+			key: row.id,
+			id: row.id,
+			render: (props) => /* @__PURE__ */ react.createElement(VariableRow, {
+				...props,
+				row,
+				variables,
+				handleOnChange,
+				autoEditVariableId,
+				onAutoEditComplete,
+				onFieldError,
+				menuActions,
+				handleRowRef
+			})
+		}))))));
+	};
+	function sortVariablesOrder(variables) {
+		return (a, b) => {
+			return (variables[a]?.order ?? Number.MAX_SAFE_INTEGER) - (variables[b]?.order ?? Number.MAX_SAFE_INTEGER);
+		};
+	}
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/variables-manager/variables-manager-panel.tsx
+	var STOP_SYNC_MESSAGE_KEY = "stop-sync-variable";
+	function VariablesManagerPanelEmbedded({ onRequestClose, onExposeCloseAttempt }) {
+		return /* @__PURE__ */ react.createElement(VariablesManagerPanelContent, {
+			onRequestClose,
+			onExposeCloseAttempt
+		});
+	}
+	function VariablesManagerPanelContent({ onRequestClose, onExposeCloseAttempt }) {
+		const { open: openSaveChangesDialog, close: closeSaveChangesDialog, isOpen: isSaveChangesDialogOpen } = (0, _elementor_editor_ui.useDialog)();
+		const [isStopSyncSuppressed] = (0, _elementor_editor_current_user.useSuppressedMessage)(STOP_SYNC_MESSAGE_KEY);
+		const createMenuState = (0, _elementor_ui.usePopupState)({ variant: "popover" });
+		const { variables, isDirty, searchValue, isSaveDisabled, handleOnChange, createVariable, duplicateVariable, handleDeleteVariable, handleStartSync: startSyncFromState, handleStopSync: stopSyncFromState, handleSave, isSaving, handleSearch, setIsSaving, setIsSaveDisabled } = useVariablesManagerState();
+		const { autoEditVariableId, startAutoEdit, handleAutoEditComplete } = useAutoEdit();
+		const { createNavigationCallback, resetNavigation } = useErrorNavigation();
+		const [deleteConfirmation, setDeleteConfirmation] = (0, react.useState)(null);
+		const [stopSyncConfirmation, setStopSyncConfirmation] = (0, react.useState)(null);
+		const [serverError, setServerError] = (0, react.useState)(null);
+		usePreventUnload(isDirty);
+		const handleClosePanel = (0, react.useCallback)(() => {
+			if (isDirty) {
+				openSaveChangesDialog();
+				return;
+			}
+			onRequestClose();
+		}, [
+			isDirty,
+			openSaveChangesDialog,
+			onRequestClose
+		]);
+		(0, react.useEffect)(() => {
+			if (!onExposeCloseAttempt) return;
+			onExposeCloseAttempt(() => handleClosePanel());
+			return () => onExposeCloseAttempt(null);
+		}, [onExposeCloseAttempt, handleClosePanel]);
+		const handleCreateVariable = (0, react.useCallback)((type, defaultName, defaultValue) => {
+			const newId = createVariable(type, defaultName, defaultValue);
+			if (newId) startAutoEdit(newId);
+		}, [createVariable, startAutoEdit]);
+		const handleSaveClick = async () => {
+			try {
+				setServerError(null);
+				resetNavigation();
+				const result = await handleSave();
+				trackVariablesManagerEvent({ action: "saveChanges" });
+				return result;
+			} catch (error) {
+				const mappedError = mapServerError(error);
+				const duplicatedIds = mappedError?.action?.data?.duplicatedIds;
+				if (mappedError && "label" === mappedError.field) {
+					if (duplicatedIds && mappedError.action) mappedError.action.callback = createNavigationCallback(duplicatedIds, startAutoEdit, () => {
+						setIsSaveDisabled(false);
+					});
+					setServerError(mappedError);
+					setIsSaveDisabled(true);
+					resetNavigation();
+				}
+				return {
+					success: false,
+					error: mappedError
+				};
+			} finally {
+				setIsSaving(false);
+			}
+		};
+		const handleDeleteVariableWithConfirmation = (0, react.useCallback)((itemId) => {
+			handleDeleteVariable(itemId);
+			setDeleteConfirmation(null);
+		}, [handleDeleteVariable]);
+		const commitStopSync = (0, react.useCallback)((itemId) => {
+			stopSyncFromState(itemId);
+			const variable = variables[itemId];
+			if (variable) trackVariableSyncToV3({
+				variableLabel: variable.label,
+				action: "unsync"
+			});
+		}, [stopSyncFromState, variables]);
+		const handleStartSync = (0, react.useCallback)((itemId) => {
+			startSyncFromState(itemId);
+			const variable = variables[itemId];
+			if (variable) trackVariableSyncToV3({
+				variableLabel: variable.label,
+				action: "sync"
+			});
+		}, [startSyncFromState, variables]);
+		const handleStopSync = (0, react.useCallback)((itemId) => {
+			if (!isStopSyncSuppressed) setStopSyncConfirmation(itemId);
+			else commitStopSync(itemId);
+		}, [isStopSyncSuppressed, commitStopSync]);
+		const buildMenuActions = (0, react.useCallback)((variableId) => {
+			const variable = variables[variableId];
+			if (!variable) return [];
+			const typeActions = getMenuActionsForVariable(variable.type, {
+				variable,
+				variableId,
+				handlers: {
+					onStartSync: handleStartSync,
+					onStopSync: handleStopSync
+				}
+			});
+			const duplicateAction = {
+				name: (0, _wordpress_i18n.__)("Duplicate", "elementor"),
+				icon: _elementor_icons.CopyIcon,
+				color: "text.primary",
+				onClick: (itemId) => {
+					const newId = duplicateVariable(itemId);
+					startAutoEdit(newId);
+					trackVariablesManagerEvent({
+						action: "duplicate",
+						varType: getVariableType(variable.type)?.variableType
+					});
+				}
+			};
+			const deleteAction = {
+				name: (0, _wordpress_i18n.__)("Delete", "elementor"),
+				icon: _elementor_icons.TrashIcon,
+				color: "error.main",
+				onClick: (itemId) => {
+					const v = variables[itemId];
+					if (v) {
+						setDeleteConfirmation({
+							id: itemId,
+							label: v.label
+						});
+						trackVariablesManagerEvent({
+							action: "delete",
+							varType: getVariableType(v.type)?.variableType
+						});
+					}
+				}
+			};
+			return [
+				...typeActions,
+				duplicateAction,
+				deleteAction
+			];
+		}, [
+			variables,
+			handleStartSync,
+			handleStopSync,
+			duplicateVariable,
+			startAutoEdit
+		]);
+		const hasVariables = Object.keys(variables).length > 0;
+		return /* @__PURE__ */ react.createElement(react.Fragment, null, /* @__PURE__ */ react.createElement(_elementor_ui.Stack, {
+			direction: "column",
+			sx: {
+				height: "100%",
+				width: "100%",
+				flex: 1,
+				minHeight: 0,
+				overflow: "hidden"
+			}
+		}, /* @__PURE__ */ react.createElement(_elementor_ui.Stack, {
+			direction: "row",
+			alignItems: "center",
+			spacing: 1,
+			width: "100%",
+			sx: {
+				flexShrink: 0,
+				px: 2,
+				pb: 1
+			}
+		}, /* @__PURE__ */ react.createElement(_elementor_editor_ui.SearchField, {
+			placeholder: (0, _wordpress_i18n.__)("Search", "elementor"),
+			value: searchValue,
+			onSearch: handleSearch,
+			sx: {
+				flex: 1,
+				minWidth: 0,
+				px: 0,
+				py: 0,
+				display: "flex",
+				alignItems: "center",
+				alignSelf: "stretch"
+			}
+		}), /* @__PURE__ */ react.createElement(_elementor_ui.Box, { sx: {
+			display: "flex",
+			flexShrink: 0,
+			alignItems: "center"
+		} }, /* @__PURE__ */ react.createElement(VariableManagerCreateMenu, {
+			outlinedTrigger: true,
+			onCreate: handleCreateVariable,
+			variables,
+			menuState: createMenuState
+		}))), /* @__PURE__ */ react.createElement(_elementor_ui.Divider, { sx: { width: "100%" } }), /* @__PURE__ */ react.createElement(_elementor_editor_panels.PanelBody, { sx: {
+			display: "flex",
+			flexDirection: "column",
+			flex: 1,
+			minHeight: 0
+		} }, hasVariables && /* @__PURE__ */ react.createElement(VariablesManagerTable, {
+			menuActions: buildMenuActions,
+			variables,
+			onChange: handleOnChange,
+			autoEditVariableId,
+			onAutoEditComplete: handleAutoEditComplete,
+			onFieldError: setIsSaveDisabled
+		}), !hasVariables && searchValue && /* @__PURE__ */ react.createElement(NoSearchResults, {
+			searchValue,
+			onClear: () => handleSearch(""),
+			icon: /* @__PURE__ */ react.createElement(_elementor_icons.ColorFilterIcon, { fontSize: "large" })
+		}), !hasVariables && !searchValue && /* @__PURE__ */ react.createElement(EmptyState, {
+			title: (0, _wordpress_i18n.__)("Create your first variable", "elementor"),
+			message: (0, _wordpress_i18n.__)("Variables are saved attributes that you can apply anywhere on your site.", "elementor"),
+			icon: /* @__PURE__ */ react.createElement(_elementor_icons.ColorFilterIcon, { fontSize: "large" }),
+			onAdd: createMenuState.open
+		})), /* @__PURE__ */ react.createElement(_elementor_editor_panels.PanelFooter, null, /* @__PURE__ */ react.createElement(_elementor_ui.Infotip, {
+			placement: "right",
+			open: !!serverError,
+			content: serverError ? /* @__PURE__ */ react.createElement(_elementor_ui.Alert, {
+				severity: serverError.severity ?? "error",
+				action: serverError.action?.label ? /* @__PURE__ */ react.createElement(_elementor_ui.AlertAction, { onClick: serverError.action.callback }, serverError.action.label) : void 0,
+				onClose: !serverError.action?.label ? () => {
+					setServerError(null);
+					setIsSaveDisabled(false);
+				} : void 0,
+				icon: serverError.IconComponent ? /* @__PURE__ */ react.createElement(serverError.IconComponent, null) : /* @__PURE__ */ react.createElement(_elementor_icons.AlertTriangleFilledIcon, null)
+			}, /* @__PURE__ */ react.createElement(_elementor_ui.AlertTitle, null, serverError.message), serverError.action?.message) : null,
+			arrow: false,
+			slotProps: { popper: { modifiers: [{
+				name: "offset",
+				options: { offset: [-10, 10] }
+			}] } }
+		}, /* @__PURE__ */ react.createElement(_elementor_ui.Button, {
+			fullWidth: true,
+			size: "small",
+			color: "global",
+			variant: "contained",
+			disabled: isSaveDisabled || !isDirty || isSaving,
+			onClick: handleSaveClick,
+			loading: isSaving
+		}, (0, _wordpress_i18n.__)("Save changes", "elementor"))))), deleteConfirmation && /* @__PURE__ */ react.createElement(DeleteConfirmationDialog, {
+			open: true,
+			label: deleteConfirmation.label,
+			onConfirm: () => handleDeleteVariableWithConfirmation(deleteConfirmation.id),
+			closeDialog: () => setDeleteConfirmation(null)
+		}), stopSyncConfirmation && /* @__PURE__ */ react.createElement(StopSyncConfirmationDialog, {
+			open: true,
+			onClose: () => setStopSyncConfirmation(null),
+			onConfirm: () => {
+				commitStopSync(stopSyncConfirmation);
+				setStopSyncConfirmation(null);
+			}
+		}), isSaveChangesDialogOpen && /* @__PURE__ */ react.createElement(_elementor_editor_ui.SaveChangesDialog, null, /* @__PURE__ */ react.createElement(_elementor_editor_ui.SaveChangesDialog.Title, { onClose: closeSaveChangesDialog }, (0, _wordpress_i18n.__)("You have unsaved changes", "elementor")), /* @__PURE__ */ react.createElement(_elementor_editor_ui.SaveChangesDialog.Content, null, /* @__PURE__ */ react.createElement(_elementor_editor_ui.SaveChangesDialog.ContentText, null, (0, _wordpress_i18n.__)("You have unsaved changes in the Variables Manager.", "elementor")), /* @__PURE__ */ react.createElement(_elementor_editor_ui.SaveChangesDialog.ContentText, null, (0, _wordpress_i18n.__)("To avoid losing your updates, save your changes before leaving.", "elementor"))), /* @__PURE__ */ react.createElement(_elementor_editor_ui.SaveChangesDialog.Actions, { actions: {
+			discard: {
+				label: (0, _wordpress_i18n.__)("Discard", "elementor"),
+				action: () => {
+					closeSaveChangesDialog();
+					onRequestClose();
+				}
+			},
+			confirm: {
+				label: (0, _wordpress_i18n.__)("Save", "elementor"),
+				action: async () => {
+					const result = await handleSaveClick();
+					closeSaveChangesDialog();
+					if (result?.success) onRequestClose();
+				}
+			}
+		} })));
+	}
+	var usePreventUnload = (isDirty) => {
+		(0, react.useEffect)(() => {
+			const handleBeforeUnload = (event) => {
+				if (isDirty) event.preventDefault();
+			};
+			window.addEventListener("beforeunload", handleBeforeUnload);
+			return () => {
+				window.removeEventListener("beforeunload", handleBeforeUnload);
+			};
+		}, [isDirty]);
+	};
+	var StopSyncConfirmationDialog = ({ open, onClose, onConfirm }) => {
+		const [, suppressStopSyncMessage] = (0, _elementor_editor_current_user.useSuppressedMessage)(STOP_SYNC_MESSAGE_KEY);
+		return /* @__PURE__ */ react.createElement(_elementor_editor_ui.ConfirmationDialog, {
+			open,
+			onClose
+		}, /* @__PURE__ */ react.createElement(_elementor_editor_ui.ConfirmationDialog.Title, {
+			icon: _elementor_icons.ColorFilterIcon,
+			iconColor: "primary"
+		}, (0, _wordpress_i18n.__)("Stop syncing variable color", "elementor")), /* @__PURE__ */ react.createElement(_elementor_editor_ui.ConfirmationDialog.Content, null, /* @__PURE__ */ react.createElement(_elementor_editor_ui.ConfirmationDialog.ContentText, null, (0, _wordpress_i18n.__)("This will disconnect the variable color from Global Colors. Existing uses on your site will automatically switch to a default color.", "elementor"))), /* @__PURE__ */ react.createElement(_elementor_editor_ui.ConfirmationDialog.Actions, {
+			onClose,
+			onConfirm,
+			cancelLabel: (0, _wordpress_i18n.__)("Cancel", "elementor"),
+			confirmLabel: (0, _wordpress_i18n.__)("Got it", "elementor"),
+			color: "primary",
+			onSuppressMessage: suppressStopSyncMessage,
+			suppressLabel: (0, _wordpress_i18n.__)("Don't show again", "elementor")
+		}));
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/global-styles-import-listener.tsx
+	function GlobalStylesImportListener() {
+		(0, react.useEffect)(() => {
+			const handleGlobalStylesImported = () => {
+				service.load();
+			};
+			window.addEventListener(_elementor_editor_canvas.GLOBAL_STYLES_IMPORTED_EVENT, handleGlobalStylesImported);
+			return () => {
+				window.removeEventListener(_elementor_editor_canvas.GLOBAL_STYLES_IMPORTED_EVENT, handleGlobalStylesImported);
+			};
+		}, []);
+		return null;
+	}
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/utils/extract-variables-from-style-value.ts
+	var VARIABLE_TYPE_KEYS = [
+		"global-color-variable",
+		"global-font-variable",
+		"global-size-variable",
+		"global-custom-size-variable"
+	];
+	function tryExtractVariable(value) {
+		for (const key of VARIABLE_TYPE_KEYS) {
+			const propUtil = (0, _elementor_editor_props.getPropSchemaFromCache)(key);
+			if (propUtil?.isValid(value)) return {
+				type: key,
+				variableId: propUtil.extract(value)
+			};
+		}
+		return null;
+	}
+	function traverse(value, path, result) {
+		const extracted = tryExtractVariable(value);
+		if (extracted) {
+			result.push({
+				...extracted,
+				controlPath: path.join(".")
+			});
+			return;
+		}
+		if ((0, _elementor_editor_props.isTransformable)(value)) {
+			traverse(value.value, path, result);
+			return;
+		}
+		if (value && typeof value === "object") for (const [key, val] of Object.entries(value)) traverse(val, [...path, key], result);
+	}
+	function extractVariablesFromStyleValue(styleValue) {
+		const result = [];
+		traverse(styleValue, [], result);
+		return result;
+	}
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/mcp-variable-connect-listener.tsx
+	function McpVariableConnectListener() {
+		(0, react.useEffect)(() => {
+			const handleMcpStylesApplied = (event) => {
+				const { styleValue } = event.detail;
+				extractVariablesFromStyleValue(styleValue).forEach(({ type, controlPath }) => {
+					trackVariableEvent({
+						varType: type,
+						controlPath,
+						action: "connect",
+						executedBy: "mcp_tool"
+					});
+				});
+			};
+			window.addEventListener(_elementor_editor_mcp.MCP_STYLES_APPLIED_EVENT, handleMcpStylesApplied);
+			return () => {
+				window.removeEventListener(_elementor_editor_mcp.MCP_STYLES_APPLIED_EVENT, handleMcpStylesApplied);
+			};
+		}, []);
+		return null;
+	}
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/utils/unlink-variable.ts
+	function transformValueBeforeUnlink(variable, propTypeKey) {
+		const { valueTransformer } = getVariableType(propTypeKey);
+		if (valueTransformer) return valueTransformer(variable.value, variable.type);
+		return variable.value;
+	}
+	function createUnlinkHandler(variable, propTypeKey, setValue) {
+		return () => {
+			const { fallbackPropTypeUtil } = getVariableType(propTypeKey);
+			const transformedValue = transformValueBeforeUnlink(variable, propTypeKey);
+			setValue(fallbackPropTypeUtil.create(transformedValue));
+		};
+	}
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/context/variable-selection-popover.context.tsx
+	var PopoverContentRefContext = (0, react.createContext)(null);
+	var PopoverContentRefContextProvider = ({ children }) => {
+		const [anchorRef, setAnchorRef] = (0, react.useState)(null);
+		return /* @__PURE__ */ react.createElement(PopoverContentRefContext.Provider, { value: anchorRef }, /* @__PURE__ */ react.createElement(_elementor_ui.Box, { ref: setAnchorRef }, children));
+	};
+	var usePopoverContentRef = () => {
+		return (0, react.useContext)(PopoverContentRefContext);
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/hooks/use-initial-value.ts
+	var useInitialValue = () => {
+		const { value: initial } = (0, _elementor_editor_controls.useBoundProp)();
+		const hasAssignedVariable = hasVariableType(initial?.$$type) && Boolean(initial?.value);
+		const variable = useVariable(hasAssignedVariable ? initial.value : "");
+		if (hasAssignedVariable) return variable ? variable.value : "";
+		return initial?.value ?? "";
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/hooks/use-variable-bound-prop.ts
+	var useVariableBoundProp = () => {
+		const { propTypeUtil } = useVariableType();
+		const boundProp = (0, _elementor_editor_controls.useBoundProp)(propTypeUtil);
+		return {
+			...boundProp,
+			setVariableValue: (value) => resolveBoundPropAndSetValue(value, boundProp),
+			variableId: boundProp.value ?? boundProp.placeholder
+		};
+	};
+	var resolveBoundPropAndSetValue = (value, boundProp) => {
+		const propValue = unwrapValue(boundProp.value);
+		const placeholder = unwrapValue(boundProp.placeholder);
+		const newValue = unwrapValue(value);
+		if (!propValue && placeholder === newValue) return boundProp.setValue(null);
+		return boundProp.setValue(value);
+	};
+	var unwrapValue = (input) => {
+		if ((0, _elementor_editor_props.isTransformable)(input)) return input.value;
+		return input;
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/ui/form-field.tsx
+	var FormField = ({ id, label, errorMsg, noticeMsg, children }) => {
+		return /* @__PURE__ */ react.createElement(_elementor_ui.Grid, {
+			container: true,
+			gap: .75,
+			alignItems: "center"
+		}, /* @__PURE__ */ react.createElement(_elementor_ui.Grid, {
+			item: true,
+			xs: 12
+		}, /* @__PURE__ */ react.createElement(_elementor_ui.FormLabel, {
+			htmlFor: id,
+			size: "tiny"
+		}, label)), /* @__PURE__ */ react.createElement(_elementor_ui.Grid, {
+			item: true,
+			xs: 12
+		}, children, errorMsg && /* @__PURE__ */ react.createElement(_elementor_ui.FormHelperText, { error: true }, errorMsg), noticeMsg && /* @__PURE__ */ react.createElement(_elementor_ui.FormHelperText, null, noticeMsg)));
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/variable-creation.tsx
+	var SIZE$5 = "tiny";
+	var VariableCreation = ({ onGoBack, onClose }) => {
+		const { icon: VariableIcon, valueField: ValueField, propTypeUtil } = useVariableType();
+		const { setVariableValue: setVariable, path } = useVariableBoundProp();
+		const { propType } = (0, _elementor_editor_controls.useBoundProp)();
+		const [value, setValue] = (0, react.useState)(useInitialValue());
+		const [label, setLabel] = (0, react.useState)("");
+		const [errorMessage, setErrorMessage] = (0, react.useState)("");
+		const [valueFieldError, setValueFieldError] = (0, react.useState)("");
+		const [propTypeKey, setPropTypeKey] = (0, react.useState)(propTypeUtil.key);
+		const { labelFieldError, setLabelFieldError } = useLabelError();
+		const resetFields = () => {
+			setValue("");
+			setLabel("");
+			setErrorMessage("");
+			setValueFieldError("");
+		};
+		const closePopover = () => {
+			resetFields();
+			onClose();
+		};
+		const handleCreateAndTrack = () => {
+			createVariable({
+				value,
+				label,
+				type: propTypeKey
+			}, { eventData: { controlPath: path.join(".") } }).then((key) => {
+				setVariable(key);
+				closePopover();
+			}).catch((error) => {
+				const mappedError = mapServerError(error);
+				if (mappedError && "label" === mappedError.field) {
+					setLabel("");
+					setLabelFieldError({
+						value: label,
+						message: mappedError.message
+					});
+					return;
+				}
+				setErrorMessage(ERROR_MESSAGES.UNEXPECTED_ERROR);
+			});
+		};
+		const hasEmptyFields = () => {
+			if ("" === label.trim()) return true;
+			if ("string" === typeof value) return "" === value.trim();
+			return false === Boolean(value);
+		};
+		const hasErrors = () => {
+			return !!errorMessage;
+		};
+		const isSubmitDisabled = hasEmptyFields() || hasErrors();
+		const handleKeyDown = (event) => {
+			if (event.key === "Enter" && !isSubmitDisabled) {
+				event.preventDefault();
+				handleCreateAndTrack();
+			}
+		};
+		return /* @__PURE__ */ react.createElement(_elementor_editor_ui.SectionPopoverBody, { height: "auto" }, /* @__PURE__ */ react.createElement(_elementor_editor_ui.PopoverHeader, {
+			icon: /* @__PURE__ */ react.createElement(react.Fragment, null, onGoBack && /* @__PURE__ */ react.createElement(_elementor_ui.IconButton, {
+				size: SIZE$5,
+				"aria-label": (0, _wordpress_i18n.__)("Go Back", "elementor"),
+				onClick: onGoBack
+			}, /* @__PURE__ */ react.createElement(_elementor_icons.ArrowLeftIcon, { fontSize: SIZE$5 })), /* @__PURE__ */ react.createElement(VariableIcon, { fontSize: SIZE$5 })),
+			title: (0, _wordpress_i18n.__)("Create variable", "elementor"),
+			onClose: closePopover
+		}), /* @__PURE__ */ react.createElement(_elementor_ui.Divider, null), /* @__PURE__ */ react.createElement(_elementor_editor_controls.PopoverContent, { p: 2 }, /* @__PURE__ */ react.createElement(FormField, {
+			id: "variable-label",
+			label: (0, _wordpress_i18n.__)("Name", "elementor"),
+			errorMsg: labelFieldError?.message,
+			noticeMsg: labelHint(label)
+		}, /* @__PURE__ */ react.createElement(LabelField, {
+			id: "variable-label",
+			value: label,
+			error: labelFieldError,
+			onChange: (newValue) => {
+				setLabel(newValue);
+				setErrorMessage("");
+			},
+			onErrorChange: (errorMsg) => {
+				setLabelFieldError({
+					value: "",
+					message: errorMsg
+				});
+			},
+			onKeyDown: handleKeyDown,
+			focusOnShow: true
+		})), ValueField && /* @__PURE__ */ react.createElement(FormField, {
+			errorMsg: valueFieldError,
+			label: (0, _wordpress_i18n.__)("Value", "elementor")
+		}, /* @__PURE__ */ react.createElement(_elementor_ui.Typography, {
+			variant: "h5",
+			id: "variable-value-wrapper"
+		}, /* @__PURE__ */ react.createElement(ValueField, {
+			value,
+			onPropTypeKeyChange: (key) => setPropTypeKey(key),
+			onChange: (newValue) => {
+				setValue(newValue);
+				setErrorMessage("");
+				setValueFieldError("");
+			},
+			onValidationChange: setValueFieldError,
+			propType,
+			onKeyDown: handleKeyDown
+		}))), errorMessage && /* @__PURE__ */ react.createElement(_elementor_ui.FormHelperText, { error: true }, errorMessage)), /* @__PURE__ */ react.createElement(_elementor_ui.CardActions, { sx: {
+			pt: .5,
+			pb: 1
+		} }, /* @__PURE__ */ react.createElement(_elementor_ui.Button, {
+			id: "create-variable-button",
+			size: "small",
+			variant: "contained",
+			disabled: isSubmitDisabled,
+			onClick: handleCreateAndTrack
+		}, (0, _wordpress_i18n.__)("Create", "elementor"))));
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/ui/edit-confirmation-dialog.tsx
+	var EDIT_CONFIRMATION_DIALOG_ID = "edit-confirmation-dialog";
+	var EditConfirmationDialog = ({ closeDialog, onConfirm, onSuppressMessage }) => {
+		const [dontShowAgain, setDontShowAgain] = (0, react.useState)(false);
+		const handleSave = () => {
+			if (dontShowAgain) onSuppressMessage?.();
+			onConfirm?.();
+		};
+		return /* @__PURE__ */ react.createElement(_elementor_ui.Dialog, {
+			open: true,
+			onClose: closeDialog,
+			maxWidth: "xs"
+		}, /* @__PURE__ */ react.createElement(_elementor_ui.DialogTitle, {
+			display: "flex",
+			alignItems: "center",
+			gap: 1
+		}, /* @__PURE__ */ react.createElement(_elementor_icons.AlertTriangleFilledIcon, { color: "secondary" }), (0, _wordpress_i18n.__)("Changes to variables go live right away.", "elementor")), /* @__PURE__ */ react.createElement(_elementor_ui.DialogContent, null, /* @__PURE__ */ react.createElement(_elementor_ui.DialogContentText, {
+			variant: "body2",
+			color: "textPrimary"
+		}, (0, _wordpress_i18n.__)("Don't worry - all other changes you make will wait until you publish your site.", "elementor"))), /* @__PURE__ */ react.createElement(_elementor_ui.DialogActions, { sx: {
+			justifyContent: "space-between",
+			alignItems: "center"
+		} }, /* @__PURE__ */ react.createElement(_elementor_ui.FormControlLabel, {
+			control: /* @__PURE__ */ react.createElement(_elementor_ui.Checkbox, {
+				checked: dontShowAgain,
+				onChange: (event) => setDontShowAgain(event.target.checked),
+				size: "small"
+			}),
+			label: /* @__PURE__ */ react.createElement(_elementor_ui.Typography, { variant: "body2" }, (0, _wordpress_i18n.__)("Don't show me again", "elementor"))
+		}), /* @__PURE__ */ react.createElement("div", null, /* @__PURE__ */ react.createElement(_elementor_ui.Button, {
+			color: "secondary",
+			onClick: closeDialog
+		}, (0, _wordpress_i18n.__)("Keep editing", "elementor")), /* @__PURE__ */ react.createElement(_elementor_ui.Button, {
+			variant: "contained",
+			color: "secondary",
+			onClick: handleSave,
+			sx: { ml: 1 }
+		}, (0, _wordpress_i18n.__)("Save", "elementor")))));
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/variable-edit.tsx
+	var SIZE$4 = "tiny";
+	var DELETE_LABEL = (0, _wordpress_i18n.__)("Delete variable", "elementor");
+	var VariableEdit = ({ onClose, onGoBack, onSubmit, editId }) => {
+		const { icon: VariableIcon, valueField: ValueField, variableType, propTypeUtil } = useVariableType();
+		const { setVariableValue: notifyBoundPropChange, variableId, path } = useVariableBoundProp();
+		const { propType } = (0, _elementor_editor_controls.useBoundProp)();
+		const [isMessageSuppressed, suppressMessage] = (0, _elementor_editor_current_user.useSuppressedMessage)(EDIT_CONFIRMATION_DIALOG_ID);
+		const [deleteConfirmation, setDeleteConfirmation] = (0, react.useState)(false);
+		const [editConfirmation, setEditConfirmation] = (0, react.useState)(false);
+		const [errorMessage, setErrorMessage] = (0, react.useState)("");
+		const [valueFieldError, setValueFieldError] = (0, react.useState)("");
+		const { labelFieldError, setLabelFieldError } = useLabelError();
+		const variable = useVariable(editId);
+		const [propTypeKey, setPropTypeKey] = (0, react.useState)(variable?.type ?? propTypeUtil.key);
+		if (!variable) throw new Error(`Global ${variableType} variable not found`);
+		const userPermissions = usePermissions();
+		const [value, setValue] = (0, react.useState)(() => variable.value);
+		const [label, setLabel] = (0, react.useState)(() => variable.label);
+		(0, react.useEffect)(() => {
+			styleVariablesRepository.update({ [editId]: {
+				...variable,
+				value
+			} });
+			return () => {
+				styleVariablesRepository.update({ [editId]: { ...variable } });
+			};
+		}, [
+			editId,
+			value,
+			variable
+		]);
+		const handleUpdate = () => {
+			if (isMessageSuppressed) handleSaveVariable();
+			else setEditConfirmation(true);
+		};
+		const handleSaveVariable = () => {
+			updateVariable(editId, propTypeKey !== variable.type ? {
+				value,
+				label,
+				type: propTypeKey
+			} : {
+				value,
+				label
+			}, { eventData: { controlPath: path.join(".") } }).then(() => {
+				maybeTriggerBoundPropChange();
+				onSubmit?.();
+			}).catch((error) => {
+				const mappedError = mapServerError(error);
+				if (mappedError && "label" === mappedError.field) {
+					setLabel("");
+					setLabelFieldError({
+						value: label,
+						message: mappedError.message
+					});
+					return;
+				}
+				setErrorMessage(ERROR_MESSAGES.UNEXPECTED_ERROR);
+			});
+		};
+		const handleDelete = () => {
+			deleteVariable(editId).then(() => {
+				maybeTriggerBoundPropChange();
+				onSubmit?.();
+			});
+		};
+		const maybeTriggerBoundPropChange = () => {
+			if (editId === variableId) notifyBoundPropChange(editId);
+		};
+		const handleDeleteConfirmation = () => {
+			setDeleteConfirmation(true);
+		};
+		const closeDeleteDialog = () => () => {
+			setDeleteConfirmation(false);
+		};
+		const closeEditDialog = () => () => {
+			setEditConfirmation(false);
+		};
+		const actions = [];
+		if (userPermissions.canDelete()) actions.push(/* @__PURE__ */ react.createElement(_elementor_ui.Tooltip, {
+			key: "delete",
+			placement: "top",
+			title: DELETE_LABEL
+		}, /* @__PURE__ */ react.createElement(_elementor_ui.IconButton, {
+			size: SIZE$4,
+			onClick: handleDeleteConfirmation,
+			"aria-label": DELETE_LABEL
+		}, /* @__PURE__ */ react.createElement(_elementor_icons.TrashIcon, { fontSize: SIZE$4 }))));
+		const hasEmptyFields = () => {
+			if ("" === label.trim()) return true;
+			if ("string" === typeof value) return "" === value.trim();
+			return false === Boolean(value);
+		};
+		const noValueChanged = () => {
+			return value === variable.value && label === variable.label;
+		};
+		const hasErrors = () => {
+			return !!errorMessage;
+		};
+		const isSubmitDisabled = noValueChanged() || hasEmptyFields() || hasErrors();
+		const handleKeyDown = (event) => {
+			if (event.key === "Enter" && !isSubmitDisabled) {
+				event.preventDefault();
+				handleUpdate();
+			}
+		};
+		return /* @__PURE__ */ react.createElement(react.Fragment, null, /* @__PURE__ */ react.createElement(_elementor_editor_ui.SectionPopoverBody, { height: "auto" }, /* @__PURE__ */ react.createElement(_elementor_editor_ui.PopoverHeader, {
+			title: (0, _wordpress_i18n.__)("Edit variable", "elementor"),
+			onClose,
+			icon: /* @__PURE__ */ react.createElement(react.Fragment, null, onGoBack && /* @__PURE__ */ react.createElement(_elementor_ui.IconButton, {
+				size: SIZE$4,
+				"aria-label": (0, _wordpress_i18n.__)("Go Back", "elementor"),
+				onClick: onGoBack
+			}, /* @__PURE__ */ react.createElement(_elementor_icons.ArrowLeftIcon, { fontSize: SIZE$4 })), /* @__PURE__ */ react.createElement(VariableIcon, { fontSize: SIZE$4 })),
+			actions
+		}), /* @__PURE__ */ react.createElement(_elementor_ui.Divider, null), /* @__PURE__ */ react.createElement(_elementor_editor_controls.PopoverContent, { p: 2 }, /* @__PURE__ */ react.createElement(FormField, {
+			id: "variable-label",
+			label: (0, _wordpress_i18n.__)("Name", "elementor"),
+			errorMsg: labelFieldError?.message,
+			noticeMsg: labelHint(label)
+		}, /* @__PURE__ */ react.createElement(LabelField, {
+			id: "variable-label",
+			value: label,
+			error: labelFieldError,
+			onChange: (newValue) => {
+				setLabel(newValue);
+				setErrorMessage("");
+			},
+			onErrorChange: (errorMsg) => {
+				setLabelFieldError({
+					value: "",
+					message: errorMsg
+				});
+			},
+			onKeyDown: handleKeyDown,
+			focusOnShow: true
+		})), ValueField && /* @__PURE__ */ react.createElement(FormField, {
+			errorMsg: valueFieldError,
+			label: (0, _wordpress_i18n.__)("Value", "elementor")
+		}, /* @__PURE__ */ react.createElement(_elementor_ui.Typography, { variant: "h5" }, /* @__PURE__ */ react.createElement(ValueField, {
+			propTypeKey: variable.type,
+			onPropTypeKeyChange: (key) => setPropTypeKey(key),
+			value,
+			onChange: (newValue) => {
+				setValue(newValue);
+				setErrorMessage("");
+				setValueFieldError("");
+			},
+			onKeyDown: handleKeyDown,
+			onValidationChange: setValueFieldError,
+			propType
+		}))), errorMessage && /* @__PURE__ */ react.createElement(_elementor_ui.FormHelperText, { error: true }, errorMessage)), /* @__PURE__ */ react.createElement(_elementor_ui.CardActions, { sx: {
+			pt: .5,
+			pb: 1
+		} }, /* @__PURE__ */ react.createElement(_elementor_ui.Button, {
+			size: "small",
+			variant: "contained",
+			disabled: isSubmitDisabled,
+			onClick: handleUpdate
+		}, (0, _wordpress_i18n.__)("Save", "elementor")))), deleteConfirmation && /* @__PURE__ */ react.createElement(DeleteConfirmationDialog, {
+			open: true,
+			label,
+			onConfirm: handleDelete,
+			closeDialog: closeDeleteDialog()
+		}), editConfirmation && !isMessageSuppressed && /* @__PURE__ */ react.createElement(EditConfirmationDialog, {
+			closeDialog: closeEditDialog(),
+			onConfirm: handleSaveVariable,
+			onSuppressMessage: suppressMessage
+		}));
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/ui/menu-item-content.tsx
+	var SIZE$3 = "tiny";
+	var EDIT_LABEL = (0, _wordpress_i18n.__)("Edit variable", "elementor");
+	var MenuItemContent = ({ item, disabled = false }) => {
+		const onEdit = item.onEdit;
+		return /* @__PURE__ */ react.createElement(react.Fragment, null, /* @__PURE__ */ react.createElement(_elementor_ui.ListItemIcon, { sx: { color: disabled ? "text.disabled" : "inherit" } }, item.icon), /* @__PURE__ */ react.createElement(_elementor_ui.Box, { sx: {
+			flex: 1,
+			minWidth: 0,
+			display: "flex",
+			alignItems: "center",
+			gap: 1
+		} }, /* @__PURE__ */ react.createElement(_elementor_editor_ui.EllipsisWithTooltip, {
+			title: item.label || item.value,
+			as: _elementor_ui.Typography,
+			variant: "caption",
+			color: disabled ? "text.disabled" : "text.primary",
+			sx: {
+				marginTop: "1px",
+				lineHeight: "2"
+			},
+			maxWidth: "50%"
+		}), item.secondaryText && /* @__PURE__ */ react.createElement(_elementor_editor_ui.EllipsisWithTooltip, {
+			title: item.secondaryText,
+			as: _elementor_ui.Typography,
+			variant: "caption",
+			color: disabled ? "text.disabled" : "text.tertiary",
+			sx: {
+				marginTop: "1px",
+				lineHeight: "1"
+			},
+			maxWidth: "50%"
+		})), !!onEdit && !disabled && /* @__PURE__ */ react.createElement(_elementor_ui.Tooltip, {
+			placement: "top",
+			title: EDIT_LABEL
+		}, /* @__PURE__ */ react.createElement(_elementor_ui.IconButton, {
+			sx: {
+				mx: 1,
+				opacity: "0"
+			},
+			onClick: (e) => {
+				e.stopPropagation();
+				onEdit(item.value);
+			},
+			"aria-label": EDIT_LABEL
+		}, /* @__PURE__ */ react.createElement(_elementor_icons.EditIcon, {
+			color: "action",
+			fontSize: SIZE$3
+		}))));
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/ui/styled-menu-list.tsx
+	var VariablesStyledMenuList = (0, _elementor_ui.styled)(_elementor_ui.MenuList)(({ theme, disabled }) => ({
+		"& > li": {
+			height: 32,
+			width: "100%",
+			display: "flex",
+			alignItems: "center"
+		},
+		"& > [role=\"option\"]": {
+			...theme.typography.caption,
+			lineHeight: "inherit",
+			padding: theme.spacing(.5, 1, .5, 2),
+			...!disabled && {
+				"&:hover, &:focus": { backgroundColor: theme.palette.action.hover },
+				cursor: "pointer"
+			},
+			"&[aria-selected=\"true\"]": { backgroundColor: theme.palette.action.selected },
+			textOverflow: "ellipsis",
+			position: "absolute",
+			top: 0,
+			left: 0,
+			"&:hover .MuiIconButton-root, .MuiIconButton-root:focus": { opacity: 1 }
+		},
+		width: "100%",
+		position: "relative"
+	}));
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/variables-selection.tsx
+	var SIZE$2 = "tiny";
+	var CREATE_LABEL = (0, _wordpress_i18n.__)("Create variable", "elementor");
+	var MANAGER_LABEL = (0, _wordpress_i18n.__)("Variables Manager", "elementor");
+	var getProUpgradeUrl = (variableType) => `https://go.elementor.com/renew-license-panel-${variableType}-variable`;
+	var VariablesSelection = ({ closePopover, onAdd, onEdit, onSettings, disabled = false }) => {
+		const { icon: VariableIcon, startIcon, variableType, propTypeUtil, emptyState } = useVariableType();
+		const { value: variable, setValue: setVariable, path } = useVariableBoundProp();
+		const [searchValue, setSearchValue] = (0, react.useState)("");
+		const { list: variables, hasMatches: hasSearchResults, isSourceNotEmpty: hasVariables, hasNoCompatibleVariables } = useFilteredVariables(searchValue, propTypeUtil.key);
+		const handleSetVariable = (key) => {
+			setVariable(key);
+			trackVariableEvent({
+				varType: variableType,
+				controlPath: path.join("."),
+				action: "connect"
+			});
+			closePopover();
+		};
+		const onAddAndTrack = () => {
+			onAdd?.();
+			trackVariableEvent({
+				varType: variableType,
+				controlPath: path.join("."),
+				action: "add"
+			});
+		};
+		const actions = [];
+		if (onAdd) actions.push(/* @__PURE__ */ react.createElement(_elementor_ui.Tooltip, {
+			key: "add",
+			placement: "top",
+			title: CREATE_LABEL
+		}, /* @__PURE__ */ react.createElement("span", null, /* @__PURE__ */ react.createElement(_elementor_ui.IconButton, {
+			id: "add-variable-button",
+			size: SIZE$2,
+			onClick: onAddAndTrack,
+			"aria-label": CREATE_LABEL,
+			disabled
+		}, /* @__PURE__ */ react.createElement(_elementor_icons.PlusIcon, { fontSize: SIZE$2 })))));
+		if (onSettings) {
+			const handleOpenManager = () => {
+				onSettings();
+				trackVariablesManagerEvent({
+					action: "openManager",
+					source: "vars-popover",
+					varType: variableType,
+					controlPath: path.join(".")
+				});
+			};
+			actions.push(/* @__PURE__ */ react.createElement(_elementor_ui.Tooltip, {
+				key: "settings",
+				placement: "top",
+				title: MANAGER_LABEL
+			}, /* @__PURE__ */ react.createElement(_elementor_ui.IconButton, {
+				id: "variables-manager-button",
+				size: SIZE$2,
+				onClick: handleOpenManager,
+				"aria-label": MANAGER_LABEL
+			}, /* @__PURE__ */ react.createElement(_elementor_icons.SettingsIcon, { fontSize: SIZE$2 }))));
+		}
+		const StartIcon = startIcon || (() => /* @__PURE__ */ react.createElement(VariableIcon, { fontSize: SIZE$2 }));
+		const items = variables.map(({ value, label, key }) => ({
+			type: "item",
+			value: key,
+			label,
+			icon: /* @__PURE__ */ react.createElement(StartIcon, { value }),
+			secondaryText: value,
+			onEdit: onEdit ? () => onEdit?.(key) : void 0
+		}));
+		const handleSearch = (search) => {
+			setSearchValue(search);
+		};
+		const handleClearSearch = () => {
+			setSearchValue("");
+		};
+		(0, react.useEffect)(() => {
+			if (disabled) (0, _elementor_editor_controls.trackViewPromotion)({
+				target_name: "variables_popover",
+				target_location: "widget_panel",
+				location_l1: "variables_list"
+			});
+		}, [disabled]);
+		return /* @__PURE__ */ react.createElement(_elementor_editor_ui.SectionPopoverBody, null, /* @__PURE__ */ react.createElement(_elementor_editor_ui.PopoverHeader, {
+			title: (0, _wordpress_i18n.__)("Variables", "elementor"),
+			icon: /* @__PURE__ */ react.createElement(_elementor_icons.ColorFilterIcon, { fontSize: SIZE$2 }),
+			onClose: closePopover,
+			actions
+		}), hasVariables && /* @__PURE__ */ react.createElement(_elementor_editor_ui.SearchField, {
+			value: searchValue,
+			onSearch: handleSearch,
+			placeholder: (0, _wordpress_i18n.__)("Search", "elementor")
+		}), /* @__PURE__ */ react.createElement(_elementor_ui.Divider, null), hasVariables && hasSearchResults && /* @__PURE__ */ react.createElement(react.Fragment, null, /* @__PURE__ */ react.createElement(_elementor_editor_ui.PopoverMenuList, {
+			items,
+			onSelect: disabled ? () => {} : handleSetVariable,
+			onClose: () => {},
+			selectedValue: variable,
+			"data-testid": `${variableType}-variables-list`,
+			menuListTemplate: (props) => /* @__PURE__ */ react.createElement(VariablesStyledMenuList, {
+				...props,
+				disabled
+			}),
+			menuItemContentTemplate: (item) => /* @__PURE__ */ react.createElement(MenuItemContent, {
+				item,
+				disabled
+			})
+		}), disabled && /* @__PURE__ */ react.createElement(_elementor_editor_ui.PromotionAlert, {
+			message: (0, _wordpress_i18n.sprintf)((0, _wordpress_i18n.__)("Upgrade to continue creating and editing %s variables.", "elementor"), variableType),
+			upgradeUrl: getProUpgradeUrl(variableType),
+			onCtaClick: () => (0, _elementor_editor_controls.trackUpgradePromotionClick)({
+				target_name: "variables_popover",
+				location_l1: "variables_list"
+			})
+		})), !hasSearchResults && hasVariables && /* @__PURE__ */ react.createElement(NoSearchResults, {
+			searchValue,
+			onClear: handleClearSearch,
+			icon: /* @__PURE__ */ react.createElement(VariableIcon, { fontSize: "large" })
+		}), disabled && !hasVariables && /* @__PURE__ */ react.createElement(EmptyState, {
+			title: (0, _wordpress_i18n.sprintf)((0, _wordpress_i18n.__)("No %s variables yet", "elementor"), variableType),
+			message: (0, _wordpress_i18n.sprintf)((0, _wordpress_i18n.__)("Upgrade to create %s variables and maintain consistent element sizing.", "elementor"), variableType),
+			icon: /* @__PURE__ */ react.createElement(VariableIcon, { fontSize: "large" })
+		}, emptyState), !hasVariables && !hasNoCompatibleVariables && !disabled && /* @__PURE__ */ react.createElement(EmptyState, {
+			title: (0, _wordpress_i18n.sprintf)((0, _wordpress_i18n.__)("Create your first %s variable", "elementor"), variableType),
+			message: (0, _wordpress_i18n.__)("Variables are saved attributes that you can apply anywhere on your site.", "elementor"),
+			icon: /* @__PURE__ */ react.createElement(VariableIcon, { fontSize: "large" }),
+			onAdd
+		}), hasNoCompatibleVariables && !disabled && /* @__PURE__ */ react.createElement(EmptyState, {
+			title: (0, _wordpress_i18n.__)("No compatible variables", "elementor"),
+			message: (0, _wordpress_i18n.__)("Looks like none of your variables work with this control. Create a new variable to use it here.", "elementor"),
+			icon: /* @__PURE__ */ react.createElement(VariableIcon, { fontSize: "large" }),
+			onAdd
+		}));
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/variable-selection-popover.tsx
+	var VIEW_LIST = "list";
+	var VIEW_ADD = "add";
+	var VIEW_EDIT = "edit";
+	var VariableSelectionPopover = ({ closePopover, propTypeKey, selectedVariable }) => {
+		const [currentView, setCurrentView] = (0, react.useState)(VIEW_LIST);
+		const [editId, setEditId] = (0, react.useState)("");
+		const onSettingsAvailable = () => {
+			window.dispatchEvent(new CustomEvent("elementor/toggle-design-system", { detail: { tab: "variables" } }));
+		};
+		return /* @__PURE__ */ react.createElement(VariableTypeProvider, { propTypeKey }, /* @__PURE__ */ react.createElement(PopoverContentRefContextProvider, null, RenderView({
+			propTypeKey,
+			currentView,
+			selectedVariable,
+			editId,
+			setEditId,
+			setCurrentView,
+			closePopover,
+			onSettings: onSettingsAvailable
+		})));
+	};
+	function RenderView(props) {
+		const userPermissions = usePermissions();
+		const userQuotaPermissions = useQuotaPermissions(props.propTypeKey);
+		const handlers = {
+			onClose: () => {
+				props.closePopover();
+			},
+			onGoBack: () => {
+				props.setCurrentView(VIEW_LIST);
+			}
+		};
+		if (userPermissions.canAdd()) handlers.onAdd = () => {
+			props.setCurrentView(VIEW_ADD);
+		};
+		if (userPermissions.canEdit()) handlers.onEdit = (key) => {
+			props.setEditId(key);
+			props.setCurrentView(VIEW_EDIT);
+		};
+		if (userPermissions.canManageSettings() && props.onSettings) handlers.onSettings = () => {
+			props.closePopover();
+			props.onSettings?.();
+		};
+		const handleSubmitOnEdit = () => {
+			if (props?.selectedVariable?.key === props.editId) handlers.onClose();
+			else handlers.onGoBack?.();
+		};
+		if (VIEW_LIST === props.currentView) return /* @__PURE__ */ react.createElement(VariablesSelection, {
+			closePopover: handlers.onClose,
+			onAdd: handlers.onAdd,
+			onEdit: handlers.onEdit,
+			onSettings: handlers.onSettings,
+			disabled: !userQuotaPermissions.canAdd()
+		});
+		if (VIEW_ADD === props.currentView) return /* @__PURE__ */ react.createElement(VariableCreation, {
+			onGoBack: handlers.onGoBack,
+			onClose: handlers.onClose
+		});
+		if (VIEW_EDIT === props.currentView) return /* @__PURE__ */ react.createElement(VariableEdit, {
+			editId: props.editId,
+			onGoBack: handlers.onGoBack,
+			onClose: handlers.onClose,
+			onSubmit: handleSubmitOnEdit
+		});
+		return null;
+	}
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/ui/tags/assigned-tag.tsx
+	var SIZE$1 = "tiny";
+	var UNLINK_LABEL = (0, _wordpress_i18n.__)("Unlink variable", "elementor");
+	var AssignedTag = ({ startIcon, label, onUnlink, ...props }) => {
+		const actions = [];
+		if (onUnlink) actions.push(/* @__PURE__ */ react.createElement(_elementor_ui.Tooltip, {
+			key: "unlink",
+			title: UNLINK_LABEL,
+			placement: "bottom"
+		}, /* @__PURE__ */ react.createElement(_elementor_ui.IconButton, {
+			size: SIZE$1,
+			onClick: onUnlink,
+			"aria-label": UNLINK_LABEL
+		}, /* @__PURE__ */ react.createElement(_elementor_icons.DetachIcon, { fontSize: SIZE$1 }))));
+		return /* @__PURE__ */ react.createElement(_elementor_ui.Tooltip, {
+			title: label,
+			placement: "top"
+		}, /* @__PURE__ */ react.createElement(_elementor_ui.UnstableTag, {
+			fullWidth: true,
+			showActionsOnHover: true,
+			startIcon: /* @__PURE__ */ react.createElement(_elementor_ui.Stack, {
+				gap: .5,
+				direction: "row",
+				alignItems: "center"
+			}, startIcon),
+			label: /* @__PURE__ */ react.createElement(_elementor_ui.Box, { sx: {
+				display: "inline-grid",
+				minWidth: 0
+			} }, /* @__PURE__ */ react.createElement(_elementor_ui.Typography, {
+				sx: { lineHeight: 1.34 },
+				variant: "caption",
+				noWrap: true
+			}, label)),
+			actions,
+			...props
+		}));
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/ui/variable/assigned-variable.tsx
+	var AssignedVariable = ({ variable, propTypeKey }) => {
+		const { startIcon, propTypeUtil } = getVariableType(propTypeKey);
+		const { setValue } = (0, _elementor_editor_controls.useBoundProp)();
+		const anchorRef = (0, react.useRef)(null);
+		const popupState = (0, _elementor_ui.usePopupState)({
+			variant: "popover",
+			popupId: `elementor-variables-list-${(0, react.useId)()}`
+		});
+		const unlinkVariable = createUnlinkHandler(variable, propTypeKey, setValue);
+		const StartIcon = startIcon || (() => null);
+		return /* @__PURE__ */ react.createElement(_elementor_ui.Box, { ref: anchorRef }, /* @__PURE__ */ react.createElement(AssignedTag, {
+			label: variable.label,
+			startIcon: /* @__PURE__ */ react.createElement(react.Fragment, null, /* @__PURE__ */ react.createElement(_elementor_icons.ColorFilterIcon, { fontSize: SIZE$1 }), /* @__PURE__ */ react.createElement(StartIcon, { value: variable.value })),
+			onUnlink: unlinkVariable,
+			...(0, _elementor_ui.bindTrigger)(popupState)
+		}), /* @__PURE__ */ react.createElement(_elementor_ui.Popover, {
+			disableScrollLock: true,
+			anchorEl: anchorRef.current,
+			anchorOrigin: {
+				vertical: "bottom",
+				horizontal: "right"
+			},
+			transformOrigin: {
+				vertical: "top",
+				horizontal: "right"
+			},
+			PaperProps: { sx: { my: 1 } },
+			...(0, _elementor_ui.bindPopover)(popupState)
+		}, /* @__PURE__ */ react.createElement(VariableSelectionPopover, {
+			selectedVariable: variable,
+			closePopover: popupState.close,
+			propTypeKey: propTypeUtil.key
+		})));
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/variable-restore.tsx
+	var SIZE = "tiny";
+	var VariableRestore = ({ variableId, onClose, onSubmit }) => {
+		const { icon: VariableIcon, valueField: ValueField, variableType, propTypeUtil } = useVariableType();
+		const { setVariableValue: notifyBoundPropChange } = useVariableBoundProp();
+		const { propType } = (0, _elementor_editor_controls.useBoundProp)();
+		const variable = useVariable(variableId);
+		if (!variable) throw new Error(`Global ${variableType} variable not found`);
+		const [errorMessage, setErrorMessage] = (0, react.useState)("");
+		const [valueFieldError, setValueFieldError] = (0, react.useState)("");
+		const [label, setLabel] = (0, react.useState)(variable.label);
+		const [value, setValue] = (0, react.useState)(variable.value);
+		const [propTypeKey, setPropTypeKey] = (0, react.useState)(variable?.type ?? propTypeUtil.key);
+		const { labelFieldError, setLabelFieldError } = useLabelError({
+			value: variable.label,
+			message: ERROR_MESSAGES.DUPLICATED_LABEL
+		});
+		const handleRestore = () => {
+			(propTypeKey !== variable.type ? restoreVariable(variableId, label, value, propTypeKey) : restoreVariable(variableId, label, value)).then(() => {
+				notifyBoundPropChange(variableId);
+				onSubmit?.();
+			}).catch((error) => {
+				const mappedError = mapServerError(error);
+				if (mappedError && "label" === mappedError.field) {
+					setLabel("");
+					setLabelFieldError({
+						value: label,
+						message: mappedError.message
+					});
+					return;
+				}
+				setErrorMessage(ERROR_MESSAGES.UNEXPECTED_ERROR);
+			});
+		};
+		const hasEmptyFields = () => {
+			if ("" === label.trim()) return true;
+			if ("string" === typeof value) return "" === value.trim();
+			return false === Boolean(value);
+		};
+		const noValueChanged = () => {
+			return value === variable.value && label === variable.label;
+		};
+		const hasErrors = () => {
+			return !!errorMessage;
+		};
+		const isSubmitDisabled = noValueChanged() || hasEmptyFields() || hasErrors();
+		const handleKeyDown = (event) => {
+			if (event.key === "Enter" && !isSubmitDisabled) {
+				event.preventDefault();
+				handleRestore();
+			}
+		};
+		return /* @__PURE__ */ react.createElement(PopoverContentRefContextProvider, null, /* @__PURE__ */ react.createElement(_elementor_editor_ui.SectionPopoverBody, { height: "auto" }, /* @__PURE__ */ react.createElement(_elementor_editor_ui.PopoverHeader, {
+			icon: /* @__PURE__ */ react.createElement(VariableIcon, { fontSize: SIZE }),
+			title: (0, _wordpress_i18n.__)("Restore variable", "elementor"),
+			onClose
+		}), /* @__PURE__ */ react.createElement(_elementor_ui.Divider, null), /* @__PURE__ */ react.createElement(_elementor_editor_controls.PopoverContent, { p: 2 }, /* @__PURE__ */ react.createElement(FormField, {
+			id: "variable-label",
+			label: (0, _wordpress_i18n.__)("Name", "elementor"),
+			errorMsg: labelFieldError?.message,
+			noticeMsg: labelHint(label)
+		}, /* @__PURE__ */ react.createElement(LabelField, {
+			id: "variable-label",
+			value: label,
+			error: labelFieldError,
+			onChange: (newValue) => {
+				setLabel(newValue);
+				setErrorMessage("");
+			},
+			onErrorChange: (errorMsg) => {
+				setLabelFieldError({
+					value: "",
+					message: errorMsg
+				});
+			},
+			onKeyDown: handleKeyDown,
+			focusOnShow: true
+		})), ValueField && /* @__PURE__ */ react.createElement(FormField, {
+			errorMsg: valueFieldError,
+			label: (0, _wordpress_i18n.__)("Value", "elementor")
+		}, /* @__PURE__ */ react.createElement(_elementor_ui.Typography, { variant: "h5" }, /* @__PURE__ */ react.createElement(ValueField, {
+			propTypeKey,
+			onPropTypeKeyChange: (key) => setPropTypeKey(key),
+			value,
+			onChange: (newValue) => {
+				setValue(newValue);
+				setErrorMessage("");
+				setValueFieldError("");
+			},
+			onValidationChange: setValueFieldError,
+			propType,
+			onKeyDown: handleKeyDown
+		}))), errorMessage && /* @__PURE__ */ react.createElement(_elementor_ui.FormHelperText, { error: true }, errorMessage)), /* @__PURE__ */ react.createElement(_elementor_ui.CardActions, { sx: {
+			pt: .5,
+			pb: 1
+		} }, /* @__PURE__ */ react.createElement(_elementor_ui.Button, {
+			size: "small",
+			variant: "contained",
+			disabled: isSubmitDisabled,
+			onClick: handleRestore
+		}, (0, _wordpress_i18n.__)("Restore", "elementor")))));
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/ui/deleted-variable-alert.tsx
+	var DeletedVariableAlert = ({ onClose, onUnlink, onRestore, label }) => {
+		return /* @__PURE__ */ react.createElement(_elementor_ui.ClickAwayListener, { onClickAway: onClose }, /* @__PURE__ */ react.createElement(_elementor_ui.Alert, {
+			variant: "standard",
+			severity: "warning",
+			onClose,
+			action: /* @__PURE__ */ react.createElement(react.Fragment, null, onUnlink && /* @__PURE__ */ react.createElement(_elementor_ui.AlertAction, {
+				variant: "contained",
+				onClick: onUnlink
+			}, (0, _wordpress_i18n.__)("Unlink", "elementor")), onRestore && /* @__PURE__ */ react.createElement(_elementor_ui.AlertAction, {
+				variant: "outlined",
+				onClick: onRestore
+			}, (0, _wordpress_i18n.__)("Restore", "elementor"))),
+			sx: { maxWidth: 300 }
+		}, /* @__PURE__ */ react.createElement(_elementor_ui.AlertTitle, null, (0, _wordpress_i18n.__)("Deleted variable", "elementor")), /* @__PURE__ */ react.createElement(_elementor_ui.Typography, {
+			variant: "body2",
+			color: "textPrimary"
+		}, (0, _wordpress_i18n.__)("The variable", "elementor"), "\xA0'", /* @__PURE__ */ react.createElement(_elementor_ui.Typography, {
+			variant: "body2",
+			component: "span",
+			sx: { lineBreak: "anywhere" }
+		}, label), "'\xA0", (0, _wordpress_i18n.__)("has been deleted, but it is still referenced in this location. You may restore the variable or unlink it to assign a different value.", "elementor"))));
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/ui/tags/warning-variable-tag.tsx
+	var WarningVariableTag = react.forwardRef(({ label, suffix, onClick, icon, ...props }, ref) => {
+		const displayText = suffix ? `${label} (${suffix})` : label;
+		return /* @__PURE__ */ react.createElement(_elementor_ui.Chip, {
+			ref,
+			size: "tiny",
+			color: "warning",
+			shape: "rounded",
+			variant: "standard",
+			onClick,
+			icon: /* @__PURE__ */ react.createElement(_elementor_icons.AlertTriangleFilledIcon, null),
+			label: /* @__PURE__ */ react.createElement(_elementor_ui.Tooltip, {
+				title: displayText,
+				placement: "top"
+			}, /* @__PURE__ */ react.createElement(_elementor_ui.Box, { sx: {
+				display: "inline-grid",
+				minWidth: 0
+			} }, /* @__PURE__ */ react.createElement(_elementor_ui.Typography, {
+				variant: "caption",
+				noWrap: true,
+				sx: { lineHeight: 1.34 }
+			}, displayText))),
+			sx: {
+				height: (theme) => theme.spacing(3.5),
+				borderRadius: (theme) => theme.spacing(1),
+				justifyContent: "flex-start",
+				width: "100%"
+			},
+			...props
+		});
+	});
+	WarningVariableTag.displayName = "WarningVariableTag";
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/ui/variable/deleted-variable.tsx
+	var DeletedVariable = ({ variable, propTypeKey }) => {
+		const { propTypeUtil } = getVariableType(propTypeKey);
+		const boundProp = (0, _elementor_editor_controls.useBoundProp)();
+		const userPermissions = usePermissions();
+		const [showInfotip, setShowInfotip] = (0, react.useState)(false);
+		const toggleInfotip = () => setShowInfotip((prev) => !prev);
+		const closeInfotip = () => setShowInfotip(false);
+		const deletedChipAnchorRef = (0, react.useRef)(null);
+		const popupState = (0, _elementor_ui.usePopupState)({
+			variant: "popover",
+			popupId: `elementor-variables-restore-${(0, react.useId)()}`
+		});
+		const handlers = {};
+		if (userPermissions.canUnlink()) handlers.onUnlink = createUnlinkHandler(variable, propTypeKey, boundProp.setValue);
+		if (userPermissions.canRestore()) handlers.onRestore = () => {
+			if (!variable.key) return;
+			restoreVariable(variable.key).then((id) => {
+				resolveBoundPropAndSetValue(propTypeUtil.create(id), boundProp);
+				closeInfotip();
+			}).catch(() => {
+				closeInfotip();
+				popupState.setAnchorEl(deletedChipAnchorRef.current);
+				popupState.open();
+			});
+		};
+		const handleRestoreWithOverrides = () => {
+			popupState.close();
+		};
+		return /* @__PURE__ */ react.createElement(react.Fragment, null, /* @__PURE__ */ react.createElement(_elementor_ui.Box, { ref: deletedChipAnchorRef }, showInfotip && /* @__PURE__ */ react.createElement(_elementor_ui.Backdrop, {
+			open: true,
+			onClick: closeInfotip,
+			invisible: true
+		}), /* @__PURE__ */ react.createElement(_elementor_ui.Infotip, {
+			color: "warning",
+			placement: "right-start",
+			open: showInfotip,
+			disableHoverListener: true,
+			onClose: closeInfotip,
+			content: /* @__PURE__ */ react.createElement(DeletedVariableAlert, {
+				onClose: closeInfotip,
+				onUnlink: handlers.onUnlink,
+				onRestore: handlers.onRestore,
+				label: variable.label
+			}),
+			slotProps: { popper: { modifiers: [{
+				name: "offset",
+				options: { offset: [0, 24] }
+			}] } }
+		}, /* @__PURE__ */ react.createElement(WarningVariableTag, {
+			label: variable.label,
+			onClick: toggleInfotip,
+			suffix: (0, _wordpress_i18n.__)("deleted", "elementor")
+		})), /* @__PURE__ */ react.createElement(_elementor_ui.Popover, {
+			disableScrollLock: true,
+			anchorOrigin: {
+				vertical: "bottom",
+				horizontal: "right"
+			},
+			transformOrigin: {
+				vertical: "top",
+				horizontal: "right"
+			},
+			PaperProps: { sx: { my: 1 } },
+			...(0, _elementor_ui.bindPopover)(popupState)
+		}, /* @__PURE__ */ react.createElement(VariableTypeProvider, { propTypeKey }, /* @__PURE__ */ react.createElement(VariableRestore, {
+			variableId: variable.key ?? "",
+			onClose: popupState.close,
+			onSubmit: handleRestoreWithOverrides
+		})))));
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/ui/mismatch-variable-alert.tsx
+	var i18n = {
+		title: (0, _wordpress_i18n.__)("Variable has changed", "elementor"),
+		message: (0, _wordpress_i18n.__)(`This variable is no longer compatible with this property. You can clear it or select a different one.`, "elementor"),
+		buttons: {
+			clear: (0, _wordpress_i18n.__)("Clear", "elementor"),
+			select: (0, _wordpress_i18n.__)("Select variable", "elementor")
+		}
+	};
+	var MismatchVariableAlert = ({ onClose, onClear, triggerSelect }) => {
+		return /* @__PURE__ */ react.createElement(_elementor_ui.ClickAwayListener, { onClickAway: onClose }, /* @__PURE__ */ react.createElement(_elementor_ui.Alert, {
+			variant: "standard",
+			severity: "warning",
+			onClose,
+			action: /* @__PURE__ */ react.createElement(react.Fragment, null, onClear && /* @__PURE__ */ react.createElement(_elementor_ui.AlertAction, {
+				variant: "contained",
+				onClick: onClear
+			}, i18n.buttons.clear), triggerSelect && /* @__PURE__ */ react.createElement(_elementor_ui.AlertAction, {
+				variant: "outlined",
+				onClick: triggerSelect
+			}, i18n.buttons.select)),
+			sx: { maxWidth: 300 }
+		}, /* @__PURE__ */ react.createElement(_elementor_ui.AlertTitle, null, i18n.title), /* @__PURE__ */ react.createElement(_elementor_ui.Typography, {
+			variant: "body2",
+			color: "textPrimary"
+		}, i18n.message)));
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/ui/variable/mismatch-variable.tsx
+	var MismatchVariable = ({ variable }) => {
+		const { setValue, value } = (0, _elementor_editor_controls.useBoundProp)();
+		const anchorRef = (0, react.useRef)(null);
+		const popupState = (0, _elementor_ui.usePopupState)({
+			variant: "popover",
+			popupId: `elementor-variables-list-${(0, react.useId)()}`
+		});
+		const [infotipVisible, setInfotipVisible] = (0, react.useState)(false);
+		const toggleInfotip = () => setInfotipVisible((prev) => !prev);
+		const closeInfotip = () => setInfotipVisible(false);
+		const triggerSelect = () => {
+			closeInfotip();
+			popupState.setAnchorEl(anchorRef.current);
+			popupState.open();
+		};
+		const clearValue = () => {
+			closeInfotip();
+			setValue(null);
+		};
+		const showClearButton = !!value;
+		return /* @__PURE__ */ react.createElement(_elementor_ui.Box, { ref: anchorRef }, infotipVisible && /* @__PURE__ */ react.createElement(_elementor_ui.Backdrop, {
+			open: true,
+			onClick: closeInfotip,
+			invisible: true
+		}), /* @__PURE__ */ react.createElement(_elementor_ui.Infotip, {
+			color: "warning",
+			placement: "right-start",
+			open: infotipVisible,
+			disableHoverListener: true,
+			onClose: closeInfotip,
+			content: /* @__PURE__ */ react.createElement(MismatchVariableAlert, {
+				onClose: closeInfotip,
+				onClear: showClearButton ? clearValue : void 0,
+				triggerSelect
+			}),
+			slotProps: { popper: { modifiers: [{
+				name: "offset",
+				options: { offset: [0, 24] }
+			}] } }
+		}, /* @__PURE__ */ react.createElement(WarningVariableTag, {
+			label: variable.label,
+			onClick: toggleInfotip,
+			suffix: (0, _wordpress_i18n.__)("changed", "elementor")
+		})), /* @__PURE__ */ react.createElement(_elementor_ui.Popover, {
+			disableScrollLock: true,
+			anchorEl: anchorRef.current,
+			anchorOrigin: {
+				vertical: "bottom",
+				horizontal: "right"
+			},
+			transformOrigin: {
+				vertical: "top",
+				horizontal: "right"
+			},
+			PaperProps: { sx: { my: 1 } },
+			...(0, _elementor_ui.bindPopover)(popupState)
+		}, /* @__PURE__ */ react.createElement(VariableSelectionPopover, {
+			selectedVariable: variable,
+			closePopover: popupState.close,
+			propTypeKey: variable.type
+		})));
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/ui/missing-variable-alert.tsx
+	var MissingVariableAlert = ({ onClose, onClear }) => {
+		return /* @__PURE__ */ react.createElement(_elementor_ui.ClickAwayListener, { onClickAway: onClose }, /* @__PURE__ */ react.createElement(_elementor_ui.Alert, {
+			variant: "standard",
+			severity: "warning",
+			onClose,
+			action: /* @__PURE__ */ react.createElement(react.Fragment, null, onClear && /* @__PURE__ */ react.createElement(_elementor_ui.AlertAction, {
+				variant: "contained",
+				onClick: onClear
+			}, (0, _wordpress_i18n.__)("Clear", "elementor"))),
+			sx: { maxWidth: 300 }
+		}, /* @__PURE__ */ react.createElement(_elementor_ui.AlertTitle, null, (0, _wordpress_i18n.__)("This variable is missing", "elementor")), /* @__PURE__ */ react.createElement(_elementor_ui.Typography, {
+			variant: "body2",
+			color: "textPrimary"
+		}, (0, _wordpress_i18n.__)("It may have been deleted. Try clearing this field and select a different value or variable.", "elementor"))));
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/ui/variable/missing-variable.tsx
+	var MissingVariable = () => {
+		const { setValue } = (0, _elementor_editor_controls.useBoundProp)();
+		const [infotipVisible, setInfotipVisible] = (0, react.useState)(false);
+		const toggleInfotip = () => setInfotipVisible((prev) => !prev);
+		const closeInfotip = () => setInfotipVisible(false);
+		const clearValue = () => setValue(null);
+		return /* @__PURE__ */ react.createElement(react.Fragment, null, infotipVisible && /* @__PURE__ */ react.createElement(_elementor_ui.Backdrop, {
+			open: true,
+			onClick: closeInfotip,
+			invisible: true
+		}), /* @__PURE__ */ react.createElement(_elementor_ui.Infotip, {
+			color: "warning",
+			placement: "right-start",
+			open: infotipVisible,
+			disableHoverListener: true,
+			onClose: closeInfotip,
+			content: /* @__PURE__ */ react.createElement(MissingVariableAlert, {
+				onClose: closeInfotip,
+				onClear: clearValue
+			}),
+			slotProps: { popper: { modifiers: [{
+				name: "offset",
+				options: { offset: [0, 24] }
+			}] } }
+		}, /* @__PURE__ */ react.createElement(WarningVariableTag, {
+			label: (0, _wordpress_i18n.__)("Missing variable", "elementor"),
+			onClick: toggleInfotip
+		})));
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/controls/variable-control.tsx
+	var VariableControl = () => {
+		const boundProp = (0, _elementor_editor_controls.useBoundProp)();
+		const boundPropValue = boundProp.value ?? boundProp.placeholder;
+		const assignedVariable = useVariable(boundPropValue?.value);
+		if (!assignedVariable) return /* @__PURE__ */ react.createElement(MissingVariable, null);
+		const { $$type: propTypeKey } = boundPropValue;
+		if (assignedVariable?.deleted) return /* @__PURE__ */ react.createElement(DeletedVariable, {
+			variable: assignedVariable,
+			propTypeKey
+		});
+		const { isCompatible } = getVariableType(assignedVariable.type);
+		if (isCompatible && !isCompatible(boundProp?.propType, assignedVariable)) return /* @__PURE__ */ react.createElement(MismatchVariable, { variable: assignedVariable });
+		return /* @__PURE__ */ react.createElement(AssignedVariable, {
+			variable: assignedVariable,
+			propTypeKey
+		});
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/hooks/use-prop-variable-action.tsx
+	var usePropVariableAction = () => {
+		const { propType, path } = (0, _elementor_editor_controls.useBoundProp)();
+		const variable = resolveVariableFromPropType(propType);
+		return {
+			visible: Boolean(variable),
+			icon: _elementor_icons.ColorFilterIcon,
+			title: (0, _wordpress_i18n.__)("Variables", "elementor"),
+			content: ({ close: closePopover }) => {
+				if (!variable) return null;
+				trackOpenVariablePopover(path, variable.variableType);
+				return /* @__PURE__ */ react.createElement(VariableSelectionPopover, {
+					closePopover,
+					propTypeKey: variable.propTypeUtil.key
+				});
+			}
+		};
+	};
+	var resolveVariableFromPropType = (propType) => {
+		if (propType.kind !== "union") return;
+		for (const key of Object.keys(propType.prop_types)) {
+			const variable = getVariableType(key);
+			if (variable) return variable;
+		}
+	};
+	var trackOpenVariablePopover = (path, variableType) => {
+		trackVariableEvent({
+			varType: variableType,
+			controlPath: path.join("."),
+			action: "open"
+		});
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/mcp/variable-tool-prompt.ts
+	var MANAGE_VARIABLES_GUIDE_URI = "elementor://variables/tools/manage-global-variable-guide";
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/mcp/variables-resource.ts
+	var MCP_PROXY_URL$1 = "elementor/v1/mcp-proxy";
+	var GLOBAL_VARIABLES_URI = "elementor://global-variables";
+	var initVariablesResource = (variablesMcpEntry, canvasMcpEntry) => {
+		[canvasMcpEntry, variablesMcpEntry].forEach((entry) => {
+			const { resource, sendResourceUpdated } = entry;
+			const notifyGlobalVariablesUpdated = () => {
+				sendResourceUpdated({ uri: GLOBAL_VARIABLES_URI });
+			};
+			resource("global-variables", GLOBAL_VARIABLES_URI, { description: "Global variables available (v4)" }, async (uri) => {
+				const { data } = await (0, _elementor_http_client.httpService)().get(MCP_PROXY_URL$1, { params: { uri: uri.href } });
+				return { contents: [{
+					uri: uri.href,
+					mimeType: "application/json",
+					text: JSON.stringify(data.data ?? {})
+				}] };
+			});
+			window.addEventListener(STORAGE_UPDATED_EVENT, notifyGlobalVariablesUpdated);
+			(0, _elementor_editor_v1_adapters.__privateListenTo)((0, _elementor_editor_v1_adapters.commandEndEvent)("document/save/update"), notifyGlobalVariablesUpdated);
+		});
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/mcp/manage-variable-tool.ts
+	var MCP_PROXY_URL = "elementor/v1/mcp-proxy";
+	var TOOL_NAME = "manage-global-variable";
+	var VARIABLE_TYPES = {
+		COLOR: "global-color-variable",
+		FONT: "global-font-variable",
+		SIZE: "global-size-variable",
+		CUSTOM_SIZE: "global-custom-size-variable"
+	};
+	var initManageVariableTool = (reg) => {
+		const { addTool, resource } = reg;
+		const RUNTIME_ALLOWED_VARIABLE_TYPES = (0, _elementor_utils.isProActive)() ? [
+			VARIABLE_TYPES.COLOR,
+			VARIABLE_TYPES.FONT,
+			VARIABLE_TYPES.SIZE,
+			VARIABLE_TYPES.CUSTOM_SIZE
+		] : [VARIABLE_TYPES.COLOR, VARIABLE_TYPES.FONT];
+		resource("manage-global-variable-guide", MANAGE_VARIABLES_GUIDE_URI, {
+			title: "Manage Global Variable Guide",
+			description: "Detailed guide for using the manage-global-variable tool",
+			mimeType: "text/plain"
+		}, async (uri) => {
+			const { data } = await (0, _elementor_http_client.httpService)().get(MCP_PROXY_URL, { params: { uri: uri.href } });
+			return { contents: [{
+				uri: uri.href,
+				mimeType: "text/plain",
+				text: data.data
+			}] };
+		});
+		addTool({
+			name: TOOL_NAME,
+			description: "Manage V4 global variables (color, font, size, custom-size). Read the guide resource before use. font = single Google Font family name, no fallback stacks, size = measured unit, custom-size = calculated values",
+			schema: {
+				action: _elementor_schema.z.enum([
+					"create",
+					"update",
+					"delete"
+				]),
+				id: _elementor_schema.z.string().optional().describe("Variable id — required for update/delete. Get from the global-variables resource."),
+				type: _elementor_schema.z.enum(RUNTIME_ALLOWED_VARIABLE_TYPES),
+				label: _elementor_schema.z.string().describe("Variable label (lowercase, dash-separated) — required for create/update."),
+				value: _elementor_schema.z.string().optional().describe("Plain CSS value — required for create/update. Color: hex/rgba/hsl. Font: single Google Font family name only — no fallback stacks, no generic families. Size: value with unit e.g. \"16px\", or \"auto\" (Pro). Do NOT pass JSON.")
+			},
+			outputSchema: {
+				status: _elementor_schema.z.enum(["ok"]).describe("Operation status"),
+				message: _elementor_schema.z.string().optional().describe("Error details if status is error")
+			},
+			requiredResources: [{
+				uri: MANAGE_VARIABLES_GUIDE_URI,
+				description: "Full guide for variable types, naming rules, and usage"
+			}, {
+				uri: GLOBAL_VARIABLES_URI,
+				description: "Current global variables — check before creating to avoid duplicates"
+			}],
+			isDestructive: true,
+			handler: async (params) => {
+				const { data } = await (0, _elementor_http_client.httpService)().post(MCP_PROXY_URL, {
+					tool: TOOL_NAME,
+					input: params
+				});
+				const payload = data.data;
+				if (payload.variable && typeof payload.watermark === "number") applyLocalMutation(params.action, payload.variable, payload.watermark);
+				return { status: "ok" };
+			}
+		});
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/mcp/index.ts
+	function initMcp(reg, canvasMcpEntry) {
+		window.addEventListener("elementor/init", () => {
+			initManageVariableTool(reg);
+			initVariablesResource(reg, canvasMcpEntry);
+		}, { once: true });
+	}
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/fields/color-field.tsx
+	var ColorField = ({ value, onChange, onValidationChange }) => {
+		const [color, setColor] = (0, react.useState)(value);
+		const [errorMessage, setErrorMessage] = (0, react.useState)("");
+		const defaultRef = (0, react.useRef)(null);
+		const anchorRef = usePopoverContentRef() ?? defaultRef.current;
+		const handleChange = (newValue) => {
+			setColor(newValue);
+			const errorMsg = validateValue(newValue);
+			setErrorMessage(errorMsg);
+			onValidationChange?.(errorMsg);
+			onChange(errorMsg ? "" : newValue);
+		};
+		return /* @__PURE__ */ react.createElement(_elementor_ui.UnstableColorField, {
+			id: "color-variable-field",
+			size: "tiny",
+			fullWidth: true,
+			value: color,
+			onChange: handleChange,
+			error: errorMessage || void 0,
+			slotProps: { colorPicker: {
+				anchorEl: anchorRef,
+				anchorOrigin: {
+					vertical: "top",
+					horizontal: "right"
+				},
+				transformOrigin: {
+					vertical: "top",
+					horizontal: -10
+				},
+				slotProps: { colorIndicator: {
+					size: "inherit",
+					sx: { borderRadius: .5 }
+				} }
+			} }
+		});
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/fields/font-field.tsx
+	var FontField = ({ value, onChange, onValidationChange }) => {
+		const [fontFamily, setFontFamily] = (0, react.useState)(value);
+		const defaultRef = (0, react.useRef)(null);
+		const anchorRef = usePopoverContentRef() ?? defaultRef.current;
+		const fontPopoverState = (0, _elementor_ui.usePopupState)({ variant: "popover" });
+		const fontFamilies = (0, _elementor_editor_controls.useFontFamilies)();
+		const sectionWidth = (0, _elementor_editor_ui.useSectionWidth)();
+		const mapFontSubs = (0, react.useMemo)(() => {
+			return fontFamilies.map(({ label, fonts }) => ({
+				label,
+				items: fonts
+			}));
+		}, [fontFamilies]);
+		const handleChange = (newValue) => {
+			setFontFamily(newValue);
+			const errorMsg = validateValue(newValue);
+			onValidationChange?.(errorMsg);
+			onChange(errorMsg ? "" : newValue);
+		};
+		const handleFontFamilyChange = (newFontFamily) => {
+			handleChange(newFontFamily);
+			fontPopoverState.close();
+		};
+		const id = (0, react.useId)();
+		return /* @__PURE__ */ react.createElement(react.Fragment, null, /* @__PURE__ */ react.createElement(_elementor_ui.UnstableTag, {
+			id,
+			variant: "outlined",
+			label: fontFamily,
+			endIcon: /* @__PURE__ */ react.createElement(_elementor_icons.ChevronDownIcon, { fontSize: "tiny" }),
+			...(0, _elementor_ui.bindTrigger)(fontPopoverState),
+			fullWidth: true
+		}), /* @__PURE__ */ react.createElement(_elementor_ui.Popover, {
+			disablePortal: true,
+			disableScrollLock: true,
+			anchorEl: anchorRef,
+			anchorOrigin: {
+				vertical: "top",
+				horizontal: "right"
+			},
+			transformOrigin: {
+				vertical: "top",
+				horizontal: -28
+			},
+			...(0, _elementor_ui.bindPopover)(fontPopoverState)
+		}, /* @__PURE__ */ react.createElement(_elementor_editor_controls.ItemSelector, {
+			id: "font-family-variables-selector",
+			itemsList: mapFontSubs,
+			selectedItem: fontFamily,
+			onItemChange: handleFontFamilyChange,
+			onClose: fontPopoverState.close,
+			sectionWidth,
+			title: (0, _wordpress_i18n.__)("Font family", "elementor"),
+			itemStyle: (item) => ({ fontFamily: item.value }),
+			onDebounce: _elementor_editor_controls.enqueueFont,
+			icon: _elementor_icons.TextIcon
+		})));
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/prop-types/size-variable-prop-type.ts
+	var sizeVariablePropTypeUtil = (0, _elementor_editor_props.createPropUtils)("global-size-variable", _elementor_schema.z.string());
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/transformers/empty-transformer.tsx
+	var EmptyTransformer = (0, _elementor_editor_canvas.createTransformer)((_value) => {
+		return null;
+	});
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/register-variable-types.tsx
+	function registerVariableTypes() {
+		registerVariableType({
+			key: colorVariablePropTypeUtil.key,
+			valueField: ColorField,
+			icon: _elementor_icons.BrushIcon,
+			propTypeUtil: colorVariablePropTypeUtil,
+			fallbackPropTypeUtil: _elementor_editor_props.colorPropTypeUtil,
+			variableType: "color",
+			startIcon: ({ value }) => /* @__PURE__ */ react.createElement(ColorIndicator, {
+				size: "inherit",
+				component: "span",
+				value
+			}),
+			defaultValue: "#ffffff",
+			menuActionsFactory: ({ variable, variableId, handlers }) => {
+				const actions = [];
+				if (variable.sync_to_v3) actions.push({
+					name: (0, _wordpress_i18n.__)("Stop syncing to Global Colors", "elementor"),
+					icon: _elementor_icons.RefreshOffIcon,
+					color: "text.primary",
+					onClick: () => handlers.onStopSync(variableId)
+				});
+				else actions.push({
+					name: (0, _wordpress_i18n.__)("Sync to Global Colors", "elementor"),
+					icon: _elementor_icons.RefreshIcon,
+					color: "text.primary",
+					onClick: () => handlers.onStartSync(variableId)
+				});
+				return actions;
+			}
+		});
+		registerVariableType({
+			key: fontVariablePropTypeUtil.key,
+			valueField: FontField,
+			icon: _elementor_icons.TextIcon,
+			propTypeUtil: fontVariablePropTypeUtil,
+			fallbackPropTypeUtil: _elementor_editor_props.stringPropTypeUtil,
+			variableType: "font",
+			defaultValue: "Roboto"
+		});
+		const sizePromotions = {
+			isActive: false,
+			icon: _elementor_icons.ExpandDiagonalIcon,
+			propTypeUtil: sizeVariablePropTypeUtil,
+			fallbackPropTypeUtil: _elementor_editor_props.sizePropTypeUtil,
+			styleTransformer: EmptyTransformer,
+			variableType: "size",
+			selectionFilter: () => [],
+			emptyState: /* @__PURE__ */ react.createElement(_elementor_editor_ui.CtaButton, {
+				size: "small",
+				href: "https://go.elementor.com/go-pro-panel-size-variable/",
+				onClick: () => (0, _elementor_editor_controls.trackUpgradePromotionClick)({
+					target_name: "variables_popover",
+					location_l1: "variables_list"
+				})
+			})
+		};
+		registerVariableType({
+			...sizePromotions,
+			key: sizeVariablePropTypeUtil.key,
+			defaultValue: "0px"
+		});
+		registerVariableType({
+			...sizePromotions,
+			key: "global-custom-size-variable"
+		});
+	}
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/renderers/style-variables-renderer.tsx
+	var VARIABLES_WRAPPER = ":root";
+	function StyleVariablesRenderer() {
+		const container = usePortalContainer();
+		const styleVariables = useStyleVariables();
+		const hasVariables = Object.keys(styleVariables).length > 0;
+		if (!container || !hasVariables) return null;
+		const cssVariables = convertToCssVariables(styleVariables);
+		const wrappedCss = `${VARIABLES_WRAPPER}{${cssVariables}}`;
+		return /* @__PURE__ */ react.createElement(_elementor_ui.Portal, { container }, /* @__PURE__ */ react.createElement("style", {
+			"data-e-style-id": "e-variables",
+			key: wrappedCss
+		}, wrappedCss));
+	}
+	function usePortalContainer() {
+		return (0, _elementor_editor_v1_adapters.__privateUseListenTo)((0, _elementor_editor_v1_adapters.commandEndEvent)("editor/documents/attach-preview"), () => (0, _elementor_editor_v1_adapters.getCanvasIframeDocument)()?.head);
+	}
+	function useStyleVariables() {
+		const [variables, setVariables] = (0, react.useState)({});
+		(0, react.useEffect)(() => {
+			const unsubscribe = styleVariablesRepository.subscribe(setVariables);
+			return () => {
+				unsubscribe();
+			};
+		}, []);
+		return variables;
+	}
+	function cssVariableDeclaration(key, variable) {
+		return `--${variable?.deleted ? key : variable.label}:${variable.value};`;
+	}
+	function convertToCssVariables(variables) {
+		return Object.entries(variables).map(([key, variable]) => cssVariableDeclaration(key, variable)).join("");
+	}
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/prop-types/custom-size-variable-prop-type.ts
+	var customSizeVariablePropTypeUtil = (0, _elementor_editor_props.createPropUtils)("global-custom-size-variable", _elementor_schema.z.string());
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/utils/size-value.ts
+	var DEFAULT_UNIT = "px";
+	var CUSTOM_SIZE_LABEL = "fx";
+	function sizeValue(value) {
+		if (sizeVariablePropTypeUtil.isValid(value) || customSizeVariablePropTypeUtil.isValid(value)) return getVariable(value?.value)?.value;
+		if (_elementor_editor_props.sizePropTypeUtil.isValid(value)) {
+			const { size, unit } = value.value;
+			if ("custom" !== unit) return `${size ?? 0}${unit ?? DEFAULT_UNIT}`;
+			if (!size) return CUSTOM_SIZE_LABEL;
+			return size;
+		}
+		return "";
+	}
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/components/variables-repeater-item-slot.tsx
+	var useColorVariable = (value) => {
+		const variableId = value?.value?.color?.value;
+		return getVariable(variableId || "");
+	};
+	var BackgroundRepeaterColorIndicator = ({ value }) => {
+		const colorVariable = useColorVariable(value);
+		return /* @__PURE__ */ react.createElement(ColorIndicator, {
+			component: "span",
+			size: "inherit",
+			value: colorVariable?.value
+		});
+	};
+	var BackgroundRepeaterLabel = ({ value }) => {
+		const colorVariable = useColorVariable(value);
+		return /* @__PURE__ */ react.createElement(_elementor_ui.Box, { component: "span" }, colorVariable?.label);
+	};
+	var BoxShadowRepeaterColorIndicator = ({ value }) => {
+		const colorVariable = useColorVariable(value);
+		return /* @__PURE__ */ react.createElement(ColorIndicator, {
+			component: "span",
+			size: "inherit",
+			value: colorVariable?.value
+		});
+	};
+	var FilterDropShadowIconIndicator = ({ value }) => {
+		const { args } = _elementor_editor_props.cssFilterFunctionPropUtil.extract(value) || {};
+		const { color } = _elementor_editor_props.dropShadowFilterPropTypeUtil.extract(args) || {};
+		const colorVariable = getVariable(color?.value || "");
+		return /* @__PURE__ */ react.createElement(ColorIndicator, {
+			component: "span",
+			size: "inherit",
+			value: colorVariable?.value
+		});
+	};
+	var FilterSingleSizeRepeaterLabel = ({ value }) => {
+		const cssFilterFunction = _elementor_editor_props.cssFilterFunctionPropUtil.extract(value);
+		if (_elementor_editor_props.dropShadowFilterPropTypeUtil.isValid(cssFilterFunction?.args)) return null;
+		const args = cssFilterFunction?.args;
+		const func = cssFilterFunction?.func?.value ?? "";
+		const rendered = sizeValue(args?.value?.size);
+		return /* @__PURE__ */ react.createElement(react.Fragment, null, /* @__PURE__ */ react.createElement(_elementor_ui.Box, {
+			component: "span",
+			style: { textTransform: "capitalize" }
+		}, `${func}: `), /* @__PURE__ */ react.createElement(_elementor_ui.Box, { component: "span" }, rendered));
+	};
+	var FilterDropShadowRepeaterLabel = ({ value }) => {
+		const { args } = _elementor_editor_props.cssFilterFunctionPropUtil.extract(value) || {};
+		const { xAxis, yAxis, blur } = _elementor_editor_props.dropShadowFilterPropTypeUtil.extract(args) || {};
+		const labels = [];
+		for (const val of [
+			xAxis,
+			yAxis,
+			blur
+		]) {
+			const rendered = sizeValue(val);
+			if (rendered) labels.push(rendered);
+		}
+		return /* @__PURE__ */ react.createElement(_elementor_ui.Box, { component: "span" }, (0, _wordpress_i18n.__)("Drop shadow:", "elementor"), " ", labels.join(" "));
+	};
+	var BoxShadowRepeaterLabel = ({ value }) => {
+		const { position, hOffset, vOffset, blur, spread } = _elementor_editor_props.shadowPropTypeUtil.extract(value) || {};
+		const labels = [];
+		for (const val of [
+			hOffset,
+			vOffset,
+			blur,
+			spread
+		]) {
+			const rendered = sizeValue(val);
+			if (rendered) labels.push(rendered);
+		}
+		const positionLabel = position?.value || "outset";
+		return /* @__PURE__ */ react.createElement(_elementor_ui.Box, {
+			component: "span",
+			style: { textTransform: "capitalize" }
+		}, positionLabel, ": ", labels.join(" "));
+	};
+	var TransformRepeaterLabel = ({ value }) => {
+		const labels = [];
+		if (_elementor_editor_props.moveTransformPropTypeUtil.isValid(value)) {
+			labels.push((0, _wordpress_i18n.__)("Move:", "elementor"));
+			const { x, y, z } = _elementor_editor_props.moveTransformPropTypeUtil.extract(value) || {};
+			for (const val of [
+				x,
+				y,
+				z
+			]) {
+				const rendered = sizeValue(val);
+				if (rendered) labels.push(rendered);
+			}
+		}
+		return /* @__PURE__ */ react.createElement(_elementor_ui.Box, { component: "span" }, labels.join(" "));
+	};
+	var TransitionsSizeVariableLabel = ({ value: prop }) => {
+		let label = "";
+		const variable = getVariable(prop?.value?.size?.value || "");
+		if (variable && _elementor_editor_props.selectionSizePropTypeUtil.isValid(prop)) {
+			const selection = prop.value?.selection?.value?.key?.value;
+			if (selection) label += `${selection}: `;
+			label += variable?.value;
+		}
+		return /* @__PURE__ */ react.createElement(_elementor_ui.Box, { component: "span" }, label);
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/repeater-injections.ts
+	function registerRepeaterInjections() {
+		backgroundOverlayRepeaterInjections();
+		boxShadowRepeaterInjections();
+		transitionsRepeaterInjections();
+		transformRepeaterInjections();
+		filterRepeaterInjections();
+	}
+	function backgroundOverlayRepeaterInjections() {
+		(0, _elementor_editor_controls.injectIntoRepeaterItemIcon)({
+			id: "background-color-variables-icon",
+			component: BackgroundRepeaterColorIndicator,
+			condition: ({ value }) => {
+				return hasAssignedColorVariable(_elementor_editor_props.backgroundColorOverlayPropTypeUtil.extract(value)?.color);
+			}
+		});
+		(0, _elementor_editor_controls.injectIntoRepeaterItemLabel)({
+			id: "background-color-variables-label",
+			component: BackgroundRepeaterLabel,
+			condition: ({ value }) => {
+				return hasAssignedColorVariable(_elementor_editor_props.backgroundColorOverlayPropTypeUtil.extract(value)?.color);
+			}
+		});
+	}
+	function boxShadowRepeaterInjections() {
+		(0, _elementor_editor_controls.injectIntoRepeaterItemIcon)({
+			id: "box-shadow-color-variables-icon",
+			component: BoxShadowRepeaterColorIndicator,
+			condition: ({ value }) => {
+				const { color } = _elementor_editor_props.shadowPropTypeUtil.extract(value) || {};
+				return hasAssignedColorVariable(color);
+			}
+		});
+		(0, _elementor_editor_controls.injectIntoRepeaterItemLabel)({
+			id: "color-variables-box-shadow-label",
+			component: BoxShadowRepeaterLabel,
+			condition: ({ value }) => {
+				const { hOffset, vOffset, blur, spread } = _elementor_editor_props.shadowPropTypeUtil.extract(value) || {};
+				return hasAssignedSizeVariable(hOffset) || hasAssignedSizeVariable(vOffset) || hasAssignedSizeVariable(blur) || hasAssignedSizeVariable(spread);
+			}
+		});
+	}
+	function transformRepeaterInjections() {
+		(0, _elementor_editor_controls.injectIntoRepeaterItemLabel)({
+			id: "transform-size-variables-label",
+			component: TransformRepeaterLabel,
+			condition: ({ value }) => {
+				if (_elementor_editor_props.moveTransformPropTypeUtil.isValid(value)) {
+					const { x: xAxis, y: yAxis, z: zAxis } = _elementor_editor_props.moveTransformPropTypeUtil.extract(value) || {};
+					return hasAssignedSizeVariable(xAxis) || hasAssignedSizeVariable(yAxis) || hasAssignedSizeVariable(zAxis);
+				}
+				return false;
+			}
+		});
+	}
+	function transitionsRepeaterInjections() {
+		(0, _elementor_editor_controls.injectIntoRepeaterItemLabel)({
+			id: "transition-size-variables-label",
+			component: TransitionsSizeVariableLabel,
+			condition: ({ value }) => {
+				return hasAssignedSizeVariable(_elementor_editor_props.selectionSizePropTypeUtil.extract(value)?.size);
+			}
+		});
+	}
+	function filterRepeaterInjections() {
+		(0, _elementor_editor_controls.injectIntoRepeaterItemIcon)({
+			id: "filters-color-variables-icon",
+			component: FilterDropShadowIconIndicator,
+			condition: ({ value }) => {
+				if (!_elementor_editor_props.cssFilterFunctionPropUtil.isValid(value)) return false;
+				const args = _elementor_editor_props.cssFilterFunctionPropUtil.extract(value)?.args;
+				if (_elementor_editor_props.dropShadowFilterPropTypeUtil.isValid(args)) return hasAssignedColorVariable(_elementor_editor_props.dropShadowFilterPropTypeUtil.extract(args)?.color);
+				return false;
+			}
+		});
+		(0, _elementor_editor_controls.injectIntoRepeaterItemLabel)({
+			id: "filters-drop-shadow-size-variables-label",
+			component: FilterDropShadowRepeaterLabel,
+			condition: ({ value }) => {
+				if (!_elementor_editor_props.cssFilterFunctionPropUtil.isValid(value)) return false;
+				const args = _elementor_editor_props.cssFilterFunctionPropUtil.extract(value)?.args;
+				if (_elementor_editor_props.dropShadowFilterPropTypeUtil.isValid(args)) {
+					const { xAxis, yAxis, blur } = _elementor_editor_props.dropShadowFilterPropTypeUtil.extract(args) || {};
+					return hasAssignedSizeVariable(xAxis) || hasAssignedSizeVariable(yAxis) || hasAssignedSizeVariable(blur);
+				}
+				return false;
+			}
+		});
+		(0, _elementor_editor_controls.injectIntoRepeaterItemLabel)({
+			id: "filters-size-variables-label",
+			component: FilterSingleSizeRepeaterLabel,
+			condition: ({ value }) => {
+				if (!_elementor_editor_props.cssFilterFunctionPropUtil.isValid(value)) return false;
+				const args = _elementor_editor_props.cssFilterFunctionPropUtil.extract(value)?.args;
+				return hasAssignedSizeVariable(args?.value?.size);
+			}
+		});
+	}
+	function hasAssignedSizeVariable(value) {
+		if (sizeVariablePropTypeUtil.isValid(value)) return true;
+		if (customSizeVariablePropTypeUtil.isValid(value)) return true;
+		return false;
+	}
+	function hasAssignedColorVariable(value) {
+		return !!colorVariablePropTypeUtil.isValid(value);
+	}
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/init.ts
+	var { registerPopoverAction } = _elementor_menus.controlActionsMenu;
+	function init() {
+		registerVariableTypes();
+		registerRepeaterInjections();
+		(0, _elementor_editor_controls.registerControlReplacement)({
+			component: VariableControl,
+			condition: ({ value, placeholder }) => {
+				if (hasVariableAssigned(value)) return true;
+				if (value) return false;
+				return hasVariableAssigned(placeholder);
+			}
+		});
+		registerPopoverAction({
+			id: "variables",
+			priority: 40,
+			useProps: usePropVariableAction
+		});
+		service.init();
+		initMcp((0, _elementor_editor_mcp.getMCPByDomain)("variables", { instructions: `Everything related to V4 ( Atomic ) variables.
+# Global variables
+- Create/update/delete global variables
+- Get list of global variables
+- Get details of a global variable
+` }), (0, _elementor_editor_mcp.getMCPByDomain)("canvas"));
+		(0, _elementor_editor.injectIntoTop)({
+			id: "canvas-style-variables-render",
+			component: StyleVariablesRenderer
+		});
+		(0, _elementor_editor.injectIntoLogic)({
+			id: "variables-import-listener",
+			component: GlobalStylesImportListener
+		});
+		(0, _elementor_editor.injectIntoLogic)({
+			id: "mcp-variable-connect-listener",
+			component: McpVariableConnectListener
+		});
+	}
+	function hasVariableAssigned(value) {
+		if ((0, _elementor_editor_props.isTransformable)(value)) return hasVariableType(value.$$type);
+		return false;
+	}
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/utils/llm-propvalue-label-resolver.ts
+	var defaultResolver = (key) => (value) => {
+		const idOrLabel = String(value);
+		return {
+			$$type: key,
+			value: service.variables()[idOrLabel] ? idOrLabel : service.findIdByLabel(idOrLabel)
+		};
+	};
+	var globalVariablesLLMResolvers = {
+		"global-color-variable": defaultResolver("global-color-variable"),
+		"global-font-variable": defaultResolver("global-font-variable"),
+		"global-size-variable": defaultResolver("global-size-variable")
+	};
+
+//#endregion
+//#region packages/packages/core/editor-variables/src/index.ts
+	var src_exports = /* @__PURE__ */ __exportAll({
+		GLOBAL_VARIABLES_URI: () => GLOBAL_VARIABLES_URI,
+		Utils: () => Utils,
+		VariablesManagerPanelEmbedded: () => VariablesManagerPanelEmbedded,
+		getMenuActionsForVariable: () => getMenuActionsForVariable,
+		hasVariable: () => hasVariable,
+		init: () => init,
+		registerVariableType: () => registerVariableType,
+		registerVariableTypes: () => registerVariableTypes,
+		service: () => service,
+		sizeVariablePropTypeUtil: () => sizeVariablePropTypeUtil,
+		trackVariablesManagerEvent: () => trackVariablesManagerEvent
+	});
+	var Utils = { globalVariablesLLMResolvers };
+
+//#endregion
+//#region \0elementor-package-library-entry
+	(window.elementorV2 = window.elementorV2 || {}).editorVariables = src_exports;
+
+//#endregion
+})(React, elementorV2.editorCurrentUser, elementorV2.editorPanels, elementorV2.editorUi, elementorV2.icons, elementorV2.ui, wp.i18n, elementorV2.events, elementorV2.editorCanvas, elementorV2.editorProps, elementorV2.schema, elementorV2.httpClient, elementorV2.editorV1Adapters, elementorV2.editorControls, elementorV2.utils, elementorV2.editor, elementorV2.editorMcp, elementorV2.menus);
+window.elementorV2.editorVariables?.init?.();
 //# sourceMappingURL=editor-variables.js.map

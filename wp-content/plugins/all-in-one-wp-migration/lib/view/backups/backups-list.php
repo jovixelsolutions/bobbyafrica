@@ -35,6 +35,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<table class="ai1wm-backups">
 			<thead>
 				<tr>
+					<th class="ai1wm-column-checkbox">
+						<input type="checkbox" id="ai1wm-backup-select-all" aria-label="<?php esc_attr_e( 'Select all backups', 'all-in-one-wp-migration' ); ?>" />
+					</th>
 					<th class="ai1wm-column-name"><?php esc_html_e( 'Name', 'all-in-one-wp-migration' ); ?></th>
 					<th class="ai1wm-column-date"><?php esc_html_e( 'Date', 'all-in-one-wp-migration' ); ?></th>
 					<th class="ai1wm-column-size"><?php esc_html_e( 'Size', 'all-in-one-wp-migration' ); ?></th>
@@ -43,7 +46,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</thead>
 			<tbody>
 				<tr class="ai1wm-backups-list-spinner-holder ai1wm-hide">
-					<td colspan="4" class="ai1wm-backups-list-spinner">
+					<td colspan="5" class="ai1wm-backups-list-spinner">
 						<span class="spinner"></span>
 						<?php esc_html_e( 'Refreshing backup list...', 'all-in-one-wp-migration' ); ?>
 					</td>
@@ -51,6 +54,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 				<?php foreach ( $backups as $backup ) : ?>
 				<tr>
+					<td class="ai1wm-column-checkbox">
+						<input type="checkbox" class="ai1wm-backup-checkbox" data-archive="<?php echo esc_attr( $backup['filename'] ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Select backup %s', 'all-in-one-wp-migration' ), $backup['filename'] ) ); ?>" />
+					</td>
 					<td class="ai1wm-column-name">
 						<?php if ( ! empty( $backup['path'] ) ) : ?>
 							<i class="ai1wm-icon-folder"></i>

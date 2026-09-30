@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$s2_options = get_option( 'ht_ctc_s2' );
+$s2_options = HT_CTC_Utils::get_option( 'ht_ctc_s2' );
 $s2_options = apply_filters( 'ht_ctc_fh_s2_options', $s2_options );
 
 $s2_img_size = ( isset( $s2_options['s2_img_size'] ) ) ? esc_attr( $s2_options['s2_img_size'] ) : '';

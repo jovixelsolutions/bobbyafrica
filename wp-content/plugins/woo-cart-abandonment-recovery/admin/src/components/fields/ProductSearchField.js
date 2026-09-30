@@ -157,7 +157,7 @@ const ProductSearchField = ( {
 					size="md"
 				>
 					<SearchBox.Input
-						className="w-[97%] [&_span]:hidden"
+						className="w-full box-border [&_span]:hidden"
 						onChange={ ( val ) =>
 							setSearchTerm(
 								val && val.target ? val.target.value : val

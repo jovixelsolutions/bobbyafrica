@@ -117,7 +117,7 @@ class Learn extends ApiBase {
 						'action_data' => array(
 							'url' => admin_url( 'admin.php?page=cartflows&path=flows' ),
 						),
-						'learn_how'   => esc_url( 'https://cartflows.com/docs/how-to-create-your-first-cartflows-funnel/?utm_source=dashboard&utm_medium=cartflows&utm_campaign=learn_how' ),
+						'learn_how'   => esc_url( \Cartflows_Helper::get_kb_doc_link( 'https://cartflows.com/docs/how-to-create-your-first-cartflows-funnel/', array( 'utm_campaign' => 'learn_how' ) ) ),
 						'is_pro'      => false,
 						'completed'   => $this->is_module_completed( 'create-your-first-funnel', intval( wp_count_posts( CARTFLOWS_FLOW_POST_TYPE )->publish ) > 0, $completed_modules ),
 					),
@@ -138,7 +138,7 @@ class Learn extends ApiBase {
 						'action_data' => array(
 							'url' => admin_url( 'admin.php?page=cartflows&path=flows' ),
 						),
-						'learn_how'   => esc_url( 'https://cartflows.com/docs/editing-and-customising-funnel-steps/?utm_source=dashboard&utm_medium=cartflows&utm_campaign=learn_how' ),
+						'learn_how'   => esc_url( \Cartflows_Helper::get_kb_doc_link( 'https://cartflows.com/docs/editing-and-customising-funnel-steps/', array( 'utm_campaign' => 'learn_how' ) ) ),
 						'is_pro'      => false,
 						'completed'   => $this->is_module_completed( 'edit-design-funnel-pages-steps', $this->has_step_been_edited(), $completed_modules ),
 					),
@@ -159,7 +159,7 @@ class Learn extends ApiBase {
 						'action_data' => array(
 							'url' => admin_url( 'edit.php?post_type=product' ),
 						),
-						'learn_how'   => esc_url( 'https://cartflows.com/docs/how-to-add-products-in-woocommerce/?utm_source=dashboard&utm_medium=cartflows&utm_campaign=learn_how' ),
+						'learn_how'   => esc_url( \Cartflows_Helper::get_kb_doc_link( 'https://cartflows.com/docs/how-to-add-products-in-woocommerce/', array( 'utm_campaign' => 'learn_how' ) ) ),
 						'is_pro'      => false,
 						'completed'   => $this->is_module_completed( 'add-products', intval( wp_count_posts( 'product' )->publish ) > 0, $completed_modules ),
 					),
@@ -173,7 +173,7 @@ class Learn extends ApiBase {
 						'action_data' => array(
 							'url' => admin_url( 'admin.php?page=cartflows&path=flows' ),
 						),
-						'learn_how'   => esc_url( 'https://cartflows.com/docs/how-to-add-assign-products-to-a-checkout-step-in-cartflows/?utm_source=dashboard&utm_medium=cartflows&utm_campaign=learn_how' ),
+						'learn_how'   => esc_url( \Cartflows_Helper::get_kb_doc_link( 'https://cartflows.com/docs/how-to-add-assign-products-to-a-checkout-step-in-cartflows/', array( 'utm_campaign' => 'learn_how' ) ) ),
 						'is_pro'      => false,
 						'completed'   => $this->is_module_completed( 'assign-products-to-checkout', $this->is_checkout_product_is_assigned(), $completed_modules ),
 					),
@@ -289,7 +289,7 @@ class Learn extends ApiBase {
 						'action_data' => array(
 							'url' => admin_url( 'admin.php?page=cartflows&path=flows' ),
 						),
-						'learn_how'   => esc_url( 'https://cartflows.com/docs/how-to-add-order-bumps-to-woocommerce-sales-funnel/?utm_source=dashboard&utm_medium=cartflows&utm_campaign=learn_how' ),
+						'learn_how'   => esc_url( \Cartflows_Helper::get_kb_doc_link( 'https://cartflows.com/docs/how-to-add-order-bumps-to-woocommerce-sales-funnel/', array( 'utm_campaign' => 'learn_how' ) ) ),
 						'is_pro'      => ! _is_cartflows_pro(),
 						'completed'   => $this->is_module_completed( 'add-order-bump', $this->has_published_order_bump(), $completed_modules ),
 					),
@@ -303,7 +303,7 @@ class Learn extends ApiBase {
 						'action_data' => array(
 							'url' => admin_url( 'admin.php?page=cartflows&path=flows' ),
 						),
-						'learn_how'   => esc_url( 'https://cartflows.com/docs/how-to-create-one-click-upsell-and-downsell-offers-in-cartflows/?utm_source=dashboard&utm_medium=cartflows&utm_campaign=learn_how' ),
+						'learn_how'   => esc_url( \Cartflows_Helper::get_kb_doc_link( 'https://cartflows.com/docs/how-to-create-one-click-upsell-and-downsell-offers-in-cartflows/', array( 'utm_campaign' => 'learn_how' ) ) ),
 						'is_pro'      => ! _is_cartflows_pro(),
 						'completed'   => $this->is_module_completed( 'setup-upsell-downsell-offers', $this->has_published_offer_step(), $completed_modules ),
 					),

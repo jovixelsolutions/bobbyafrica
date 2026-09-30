@@ -5,8 +5,8 @@
 */
 @font-face {
 	font-family: cartflows-logo-icon;
-	src: url( "../fonts/icons/cartflows-logo-icon.eot?kxnn1n" );
-	src: url( "../fonts/icons/cartflows-logo-icon.eot?kxnn1n#iefix" ) format( "embedded-opentype" ), url( "../fonts/icons/cartflows-logo-icon.ttf?kxnn1n" ) format( "truetype" ), url( "../fonts/icons/cartflows-logo-icon.woff?kxnn1n" ) format( "woff" ), url( "../fonts/icons/cartflows-logo-icon.svg?kxnn1n#cartflows-logo-icon" ) format( "svg" );
+	src: url( "../../../admin/assets/fonts/cartflows-logo-icon.eot?kxnn1n" );
+	src: url( "../../../admin/assets/fonts/cartflows-logo-icon.eot?kxnn1n#iefix" ) format( "embedded-opentype" ), url( "../../../admin/assets/fonts/cartflows-logo-icon.ttf?kxnn1n" ) format( "truetype" ), url( "../../../admin/assets/fonts/cartflows-logo-icon.woff?kxnn1n" ) format( "woff" ), url( "../../../admin/assets/fonts/cartflows-logo-icon.svg?kxnn1n#cartflows-logo-icon" ) format( "svg" );
 	font-weight: 400;
 	font-style: normal;
 }

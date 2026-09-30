@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-$ht_ctc_othersettings = get_option( 'ht_ctc_othersettings' );
+$ht_ctc_othersettings = HT_CTC_Utils::get_option( 'ht_ctc_othersettings' );
 
 
 // Includes
@@ -57,8 +57,5 @@ require_once HT_CTC_PLUGIN_DIR . 'new/admin/admin_commons/class-ht-ctc-metabox.p
 
 // admin demo
 require_once HT_CTC_PLUGIN_DIR . 'new/admin/admin_demo/class-ht-ctc-admin-demo.php';
-
-// feedback
-// require_once HT_CTC_PLUGIN_DIR . 'new/admin/feedback/class-ht-ctc-admin-deactivate-feedback.php';
 
 do_action( 'ht_ctc_ah_admin_includes' );

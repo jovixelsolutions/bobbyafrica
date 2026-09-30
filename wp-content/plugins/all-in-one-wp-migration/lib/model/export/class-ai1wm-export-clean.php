@@ -33,7 +33,8 @@ class Ai1wm_Export_Clean {
 
 	public static function execute( $params ) {
 
-		// Delete storage files
+		// Delete storage files. The ai1wm_status_<job_id> option lingers so poll
+		// clients still see the terminal state; the daily cron sweeps it later.
 		Ai1wm_Directory::delete( ai1wm_storage_path( $params ) );
 
 		if ( isset( $params['ai1wm_export_cancel'] ) ) {

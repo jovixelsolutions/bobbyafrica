@@ -1164,7 +1164,7 @@ class AdminHelper {
 
 			if ( 'http_request_failed' === $error_code ) {
 				/* translators: %1$s: HTML, %2$s: HTML */
-				$msg = $msg . '<br>' . sprintf( __( 'Request timeout error. Please check if the firewall or any security plugin is blocking the outgoing HTTP/HTTPS requests to templates.cartflows.com or not. %1$1sTo resolve this issue, please check this %2$2sarticle%3$3s.', 'cartflows' ), '<br><br>', '<a target="_blank" href="https://cartflows.com/docs/request-timeout-error-while-importing-the-flow-step-templates/?utm_source=dashboard&utm_medium=free-cartflows&utm_campaign=docs">', '</a>' );
+				$msg = $msg . '<br>' . sprintf( __( 'Request timeout error. Please check if the firewall or any security plugin is blocking the outgoing HTTP/HTTPS requests to templates.cartflows.com or not. %1$1sTo resolve this issue, please check this %2$2sarticle%3$3s.', 'cartflows' ), '<br><br>', '<a target="_blank" href="' . esc_url( \Cartflows_Helper::get_kb_doc_link( 'https://cartflows.com/docs/request-timeout-error-while-importing-the-flow-step-templates/' ) ) . '">', '</a>' );
 			}
 
 			$result['error']          = true;
@@ -1178,7 +1178,7 @@ class AdminHelper {
 
 			if ( false !== strpos( $error_body, 'MalCare' ) ) {
 				/* translators: %1$s: HTML, %2$s: HTML, %3$s: HTML */
-				$error_message     = $error_message . '<br>' . sprintf( __( 'Sorry for the inconvenience, but your website seems to be having trouble connecting to our server. %1$s Please open a technical %2$ssupport ticket%3$s and share the server\'s outgoing IP address.', 'cartflows' ), '<br><br>', '<a href="https://cartflows.com/support?utm_source=dashboard&utm_medium=free-cartflows&utm_campaign=support" target="_blank">', '</a>' );
+				$error_message     = $error_message . '<br>' . sprintf( __( 'Sorry for the inconvenience, but your website seems to be having trouble connecting to our server. %1$s Please open a technical %2$ssupport ticket%3$s and share the server\'s outgoing IP address.', 'cartflows' ), '<br><br>', '<a href="' . esc_url( \Cartflows_Helper::get_utm_url( 'https://cartflows.com/support', array( 'utm_campaign' => 'support' ) ) ) . '" target="_blank">', '</a>' );
 				$ip_address        = self::get_valid_ip_address();
 				$result['message'] = ! empty( $ip_address ) ? __( 'Server\'s outgoing IP address: ', 'cartflows' ) . $ip_address : '';
 			}

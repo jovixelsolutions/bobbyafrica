@@ -33,6 +33,8 @@ if ( ! function_exists( 'ht_ctc_wp_encode_emoji' ) ) {
 	/**
 	 * Encode emoji for database storage.
 	 *
+	 * REST API / admin2 equivalent: HT_CTC_Sanitizer::encode_emoji() (private).
+	 *
 	 * @param string $value Value to encode.
 	 * @return string Encoded value.
 	 */
@@ -89,10 +91,14 @@ if ( ! function_exists( 'ht_ctc_wp_sanitize_text_editor' ) ) {
 	/**
 	 * Sanitize text editor content.
 	 *
+	 * REST API / admin2 equivalent: HT_CTC_Sanitizer::ctc_sanitize_text_editor().
+	 *
 	 * @param string $value Value to sanitize.
 	 * @return string Sanitized value.
 	 */
 	function ht_ctc_wp_sanitize_text_editor( $value = '' ) {
+
+		$new_value = $value;
 
 		if ( ! empty( $value ) && '' !== $value ) {
 
@@ -151,6 +157,8 @@ if ( ! function_exists( 'ht_ctc_wp_sanitize_text_editor' ) ) {
 if ( ! function_exists( 'ht_ctc_sanitize_custom_css_code' ) ) {
 	/**
 	 * Sanitize custom CSS code.
+	 *
+	 * REST API / admin2 equivalent: HT_CTC_Sanitizer::ctc_sanitize_custom_css().
 	 *
 	 * @param string $value CSS code to sanitize.
 	 * @return string Sanitized CSS code.

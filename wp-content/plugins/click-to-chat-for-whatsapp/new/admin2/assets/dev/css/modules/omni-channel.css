@@ -1,0 +1,142 @@
+/* ==========================================================================
+   OMNI CHANNEL
+   ========================================================================== */
+.omni-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 15px;
+}
+
+.omni-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 20px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.omni-card:hover {
+    border-color: #4F46E5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.omni-card .dashicons {
+    font-size: 28px;
+}
+
+/* Hide inactive in main list */
+.omni-channel-item.is-inactive {
+    display: none !important;
+}
+
+.omni-item-header label {
+    display: none !important;
+}
+
+/* Icon Colors */
+.omni-whatsapp .dashicons-format-chat {
+    color: #25D366;
+}
+
+.omni-telegram .dashicons-paperplane {
+    color: #0088cc;
+}
+
+.omni-messenger .dashicons-format-status {
+    color: #0084ff;
+}
+
+.omni-instagram .dashicons-camera {
+    color: #C13584;
+}
+
+.omni-x .dashicons-twitter {
+    color: #000;
+}
+
+.omni-call .dashicons-phone {
+    color: #4ade80;
+}
+
+.omni-sms .dashicons-email-alt {
+    color: #facc15;
+}
+
+.omni-tiktok .dashicons-video-alt3 {
+    color: #000000;
+}
+
+.omni-snapchat .dashicons-images-alt2 {
+    color: #FFFC00;
+}
+
+.omni-linkedin .dashicons-linkedin {
+    color: #0077b5;
+}
+
+.omni-skype .dashicons-video-alt2 {
+    color: #00aff0;
+}
+
+.omni-slack .dashicons-slack {
+    color: #4A154B;
+}
+
+.omni-wechat .dashicons-format-chat {
+    color: #7BB32E;
+}
+
+.omni-viber .dashicons-phone {
+    color: #665CAC;
+}
+
+.omni-line .dashicons-format-chat {
+    color: #00C300;
+}
+
+.omni-email .dashicons-email {
+    color: #EA4335;
+}
+
+.omni-waze .dashicons-location {
+    color: #33ccff;
+}
+
+.omni-contact .dashicons-businessperson {
+    color: #6366f1;
+}
+
+.omni-tawkto .dashicons-format-chat {
+    color: #03a84e;
+}
+
+.omni-intercom .dashicons-format-chat {
+    color: #2e3135;
+}
+
+.omni-crisp .dashicons-format-chat {
+    color: #1972f5;
+}
+
+.omni-getbutton .dashicons-format-chat {
+    color: #FF6C37;
+}
+
+.omni-zendesk .dashicons-format-chat {
+    color: #03363D;
+}
+
+.omni-custom-link .dashicons-admin-links {
+    color: #6b7280;
+}
+
+.omni-javascript .dashicons-editor-code {
+    color: #F7DF1E;
+}

@@ -72,7 +72,6 @@ class AjaxInit {
 			'CartflowsAdmin\AdminCore\Ajax\Steps',
 			'CartflowsAdmin\AdminCore\Ajax\MetaData',
 			'CartflowsAdmin\AdminCore\Ajax\FlowsStats',
-			'CartflowsAdmin\AdminCore\Ajax\AbSteps',
 			'CartflowsAdmin\AdminCore\Ajax\Debugger',
 			'CartflowsAdmin\AdminCore\Ajax\Learn',
 			'CartflowsAdmin\AdminCore\Ajax\Onboarding',

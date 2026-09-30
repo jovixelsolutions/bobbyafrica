@@ -2,12 +2,17 @@
 /**
  * WooCommerce form-checkout override
  * Original template: woocommerce/checkout/form-checkout.php
- * WooCommerce version: 10.7.0
- * Reason: keep WooCommerce checkout logic but apply a cleaner, conversion-focused layout.
+ * WooCommerce template version: 9.4.0 (WooCommerce 10.7.0)
+ * Reason: keep WooCommerce checkout hooks and payment processing in a conversion-focused layout.
+ * The $checkout object is passed by WooCommerce when loading this template.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
+
+if ( ! isset( $checkout ) ) {
+	$checkout = WC()->checkout();
 }
 
 do_action( 'woocommerce_before_checkout_form', $checkout );
@@ -18,8 +23,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 }
 ?>
 
-<main class="marketplace-page">
-	<div class="container marketplace-page-shell">
+	<section class="container marketplace-page-shell marketplace-checkout-shell">
 		<h1><?php esc_html_e( 'Secure checkout', 'bobbyafrica-marketplace-child' ); ?></h1>
 		<form name="checkout" method="post" class="checkout woocommerce-checkout" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data">
 			<?php if ( $checkout->get_checkout_fields() ) : ?>
@@ -42,7 +46,6 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 				</div>
 			<?php endif; ?>
 		</form>
-	</div>
-</main>
+	</section>
 
 <?php do_action( 'woocommerce_after_checkout_form', $checkout ); ?>

@@ -29,6 +29,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( 'Kangaroos cannot jump here' );
 }
 
+/**
+ * @method RecursiveIterator getInnerIterator()
+ */
 class Ai1wm_Recursive_Exclude_Filter extends RecursiveFilterIterator {
 
 	protected $exclude = array();

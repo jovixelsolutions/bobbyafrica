@@ -170,14 +170,28 @@ class Debugger extends AjaxBase {
 
 		if ( $real_path && $real_log_dir && 0 === strpos( $real_path, $real_log_dir ) && file_exists( $real_path ) ) {
 			wp_delete_file( $real_path );
-			self::$file_deleted = true;
+
+			// Clear the stat cache so the re-check reflects the actual deletion.
+			clearstatcache( true, $real_path );
+
+			// Confirm the file is actually gone before reporting success.
+			if ( ! file_exists( $real_path ) ) {
+				self::$file_deleted = true;
+
+				wp_send_json_success(
+					array(
+						'message' => esc_html__( 'Log file deleted successfully.', 'cartflows' ),
+					)
+				);
+			}
 		}
 
-		// Return a success response to the client.
-		$response_data = array(
-			'message' => esc_html__( 'Log file deleted successfully.', 'cartflows' ),
+		// Reaching here means the file was not deleted.
+		wp_send_json_error(
+			array(
+				'message' => esc_html__( 'Log file could not be deleted. Please try again.', 'cartflows' ),
+			)
 		);
-		wp_send_json_success( $response_data );
 	}
 
 	/**

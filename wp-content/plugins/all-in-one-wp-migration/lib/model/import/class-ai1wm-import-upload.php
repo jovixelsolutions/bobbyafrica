@@ -196,6 +196,11 @@ class Ai1wm_Import_Upload {
 				);
 		}
 
+		// REST API: return params instead of exit so the handler can build a response
+		if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+			return $params;
+		}
+
 		ai1wm_json_response( array( 'errors' => array() ) );
 		exit;
 	}

@@ -2,8 +2,8 @@
 Contributors: sujaypawar, wpcrafter
 Tags: woocommerce, sales funnels, upsell, order bump, lead generation
 Requires at least: 5.8
-Tested up to: 6.9
-Stable tag: 3.0.1
+Tested up to: 7.1
+Stable tag: 3.2.1
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -403,6 +403,56 @@ We take plugin security extremely seriously. If you discover a vulnerability, pl
 4. Quickly re-arrange the steps.
 
 == Changelog ==
+
+= Version 3.2.1 - Wednesday, 23rd September 2026 =
+* Security Fix: Hardened the security of the plugin reported by PatchStack.
+* Improvement: Checkout file uploads are now stored in a dedicated, protected directory and processed more strictly.
+
+= Version 3.2.0 - Monday, 24th August 2026 =
+* New: Added compatibility for the Frequently Bought Together feature of CartFlows Pro to suggest companion products on the product page.
+* Fix: Fixed Apple Pay and Google Pay express payments skipping the upsell step on Store Checkout.
+* Fix: Fixed the funnel URL with ?cartflows_flow=<slug> opening the site home page instead of the first step of the funnel.
+
+= Version 3.1.4 - Monday, 10th August 2026 =
+* Improvement: Bundle products now show their product type and correct price range in the funnel product selector and step product rows.
+* Fix: Fixed the rule fields in the Dynamic Offer rule builder not retaining the saved selection, and the dropdown getting clipped by the surrounding section.
+* Fix: Fixed a custom product name in Checkout step product settings reverting to the previously saved value on every re-save.
+* Fix: Fixed the pre-checkout offer product being cleared on save, and the offer title and description going stale after changing the product.
+* Fix: Fixed the pre-checkout offer preview image overflowing its column, and corrected the offer product picker and Discount Value field widths.
+
+= Version 3.1.3 - Thursday, 9th July 2026 =
+* Improvement: Improved the Funnels page load speed on stores with a large number of funnels.
+* Fix: Fixed funnel and step titles converting dashes into HTML entities in the editor and saving the corrupted title on reload.
+* Fix: Fixed the redundant price range text leaking into the product search dropdown on Checkout and Order Bump settings.
+* Fix: Fixed the Delete and Download buttons not working on Settings > Logs.
+
+= Version 3.1.2 - Friday, 26th June 2026 =
+* Improvement: Redesigned the weekly performance report email with a cleaner layout and new sections for weekly tips, top wins, and quick action links.
+* Improvement: Enhanced Instant Checkout integration so the layout wrapper renders correctly before third-party payment buttons such as Stripe Express Checkout.
+* Improvement: Steps Analytics now displays A/B test variations and archived step rows so historical performance stays visible at a glance.
+* Improvement: Refined Analytics chart Y-axis with compact number and currency formatting.
+* Fix: Fixed the Funnel filter dropdown truncating long funnel names on the Analytics screen.
+* Fix: Fixed dropdown field overlap on product rows inside the Checkout product settings.
+* Fix: Fixed the trend line rendering outside the chart area on Analytics graphs.
+* Fix: Fixed Select2 dropdown height mismatch on the Checkout page with WooCommerce 9.7.1 and above.
+* Fix: Fixed a PHP notice for the Pre-Checkout Offer setting on CartFlows Free with PHP 8 and above.
+
+= Version 3.1.1 - Tuesday, 2nd June 2026 =
+* Improvement: Smoother step card interactions on the funnel canvas — uniform sizing and clearer hover feedback.
+* Fix: Resolved a PHP deprecation notice triggered when saving checkout step products on PHP 8.1 and above.
+
+= Version 3.1.0 - Monday, 1st June 2026 =
+* New: Introduced a redesigned Funnel Canvas for a cleaner and more intuitive funnel-building experience.
+* New: Added a Funnel Performance widget to the WordPress Dashboard with a quick 30-day summary of orders and revenue.
+* New: Introduced a new filter to optionally restrict adding the same product more than once on a checkout step.
+* Improvement: Improved the Funnels page load performance by preventing duplicate data fetch requests.
+* Improvement: Refined the usage data consent label on the setup wizard and onboarding to clearly highlight its benefits.
+* Fix: Fixed the View Funnel button opening the site home page instead of the first step of the funnel.
+* Fix: Fixed the Checkout step editor crashing when a selected product variation was deleted from WooCommerce.
+* Fix: Fixed Beaver Builder step templates importing as blank pages.
+* Fix: Fixed the Razorpay 'Something went wrong' popup appearing on the Instant Layout thank you page.
+* Fix: Fixed the thank you page access restriction blocking funnel preview when test mode was enabled.
+* Fix: Resolved PHP deprecation notices shown on the setup wizard with WordPress 6.4 and above.
 
 = Version 3.0.1 - Friday, 1st May 2026 =
 * Improvement: Refined admin UI for a more polished experience.

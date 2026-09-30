@@ -3,6 +3,7 @@
 namespace ElementorOne\Admin\Components;
 
 use ElementorOne\Admin\Helpers\Utils;
+use ElementorOne\Admin\Services\Licenses;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -60,10 +61,11 @@ class Fields {
 				'show_in_rest' => true,
 				'description' => 'Elementor One Dismiss Connect Alert',
 			],
-			'editor_update_notification_dismissed' => [
+			'dismiss_elementor_one_subscription_alert' => [
 				'type' => 'boolean',
+				'single' => true,
 				'show_in_rest' => true,
-				'description' => 'Elementor One Dismiss Editor Update Notification',
+				'description' => 'Elementor One Dismiss Elementor One Subscription Alert',
 			],
 		];
 	}
@@ -84,10 +86,22 @@ class Fields {
 			'siteUrl' => get_site_url(),
 			'welcomeScreenCompleted' => (bool) get_option( self::SETTING_PREFIX . 'welcome_screen_completed' ),
 			'dismissConnectAlert' => (bool) get_option( self::SETTING_PREFIX . 'dismiss_connect_alert' ),
-			'editorUpdateNotificationDismissed' => (bool) get_option( self::SETTING_PREFIX . 'editor_update_notification_dismissed' ),
+			'dismissElementorOneSubscriptionAlert' => (bool) get_option( self::SETTING_PREFIX . 'dismiss_elementor_one_subscription_alert' ),
+			'showElementorOneSubscriptionAlert' => $this->should_show_elementor_one_subscription_alert(),
 			'userLocale' => get_user_locale( get_current_user_id() ),
 			'isRTL' => is_rtl(),
 		];
+	}
+
+	/**
+	 * Should show elementor one subscription alert
+	 * @return bool
+	 */
+	private function should_show_elementor_one_subscription_alert(): bool {
+		$active_one_licenses = get_user_option( Licenses::USER_OPTION_ACTIVE_ONE_LICENSES );
+		$is_dismissed = (bool) get_option( self::SETTING_PREFIX . 'dismiss_elementor_one_subscription_alert' );
+
+		return ! empty( $active_one_licenses ) && ! $is_dismissed;
 	}
 
 	/**

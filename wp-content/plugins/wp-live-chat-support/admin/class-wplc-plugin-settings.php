@@ -183,6 +183,7 @@ class wplc_Admin_Settings
     $activated = get_option('wplc_activated');
     $options = $this->read_config();
     $callus_url = $options['callus_url'];
+    wplc_Admin_Settings::sanitize_callus_url($callus_url);
     $webclient_url = '';
     if (!empty($callus_url)){
       $url=parse_url($callus_url);
@@ -299,8 +300,10 @@ class wplc_Admin_Settings
   public function toggle_callus_url_callback($args)
   {
     $options = $this->read_config();
+    $callus_url = $options['callus_url'];
+    wplc_Admin_Settings::sanitize_callus_url($callus_url);
     $html ='<p class="description">'.__('Once signup is completed a 3CX Talk URL will be automatically added here. If you skip the signup process and you are already a 3CX customer, login to 3CX Web Client, choose "Admin" gear icon on bottom left, go to Voice & Chat and Add Live Chat. Once completed copy link here.','wp-live-chat-support').'</p><br/>';
-    $html.='<input type="text" id="callus_url" style="width:600px" name="wplc_display_options[callus_url]" placeholder="'.htmlspecialchars(sprintf(__('Example: %s', 'wp-live-chat-support'),'https://your-pbx.3cx.eu:5001/LiveChat12345')).'" value="' . $options['callus_url'] . '" />';
+    $html.='<input type="text" id="callus_url" style="width:600px" name="wplc_display_options[callus_url]" placeholder="'.htmlspecialchars(sprintf(__('Example: %s', 'wp-live-chat-support'),'https://your-pbx.3cx.eu:5001/LiveChat12345')).'" value="' . $callus_url . '" />';
     echo $html;
   } // end toggle_callus_url_callback
 
@@ -389,8 +392,10 @@ class wplc_Admin_Settings
       $path=preg_replace("/[^A-Za-z0-9 ]/", '', reset($ap));
     }
     if ($path=='' || substr($url,-1,1)=='/' || substr($url,-1,1)=='?'|| substr($url,0,8)!='https://' || !filter_var($url, FILTER_VALIDATE_URL,  FILTER_FLAG_PATH_REQUIRED)) {
+      $url='';
       return false;
     }
+
     $url='https://'.$theurl['host'].((isset($theurl['port']) && $theurl['port']!=443) ? ':'.$theurl['port'] : '').'/'.$path;
     return true;
   }

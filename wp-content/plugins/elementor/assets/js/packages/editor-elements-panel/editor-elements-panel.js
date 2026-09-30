@@ -1,3 +1,208 @@
-/*! For license information please see editor-elements-panel.js.LICENSE.txt */
-!function(){"use strict";var e={"./packages/packages/core/editor-elements-panel/src/components/elements-panel-tab.tsx":function(e,t,n){n.r(t),n.d(t,{ElementsPanelTab:function(){return ElementsPanelTab}});var r=n("react"),a=n("@elementor/ui"),o=n("./packages/packages/core/editor-elements-panel/src/hooks/use-active-tab.ts");const i="elementor-panel-elements-wrapper";function ElementsPanelTab(){const e=(0,o.useActiveTab)(),t=e?.component,n=document.getElementById(i);return t&&n?r.createElement(a.Portal,{container:n},r.createElement(t,null)):null}},"./packages/packages/core/editor-elements-panel/src/consts.ts":function(e,t,n){n.r(t),n.d(t,{LEGACY_ELEMENTS_PANEL_COMPONENT_NAME:function(){return r},LEGACY_ELEMENTS_PANEL_ROUTE_PREFIX:function(){return a}});const r="panel/elements",a=`${r}/`},"./packages/packages/core/editor-elements-panel/src/hooks/use-active-tab.ts":function(e,t,n){n.r(t),n.d(t,{useActiveTab:function(){return useActiveTab}});var r=n("@elementor/editor-v1-adapters"),a=n("./packages/packages/core/editor-elements-panel/src/consts.ts"),o=n("./packages/packages/core/editor-elements-panel/src/tabs.ts"),i=n("./packages/packages/core/editor-elements-panel/src/utils/get-window.ts");function useActiveTab(){return(0,r.__privateUseListenTo)([(0,r.v1ReadyEvent)(),(0,r.routeOpenEvent)(a.LEGACY_ELEMENTS_PANEL_ROUTE_PREFIX),(0,r.routeCloseEvent)(a.LEGACY_ELEMENTS_PANEL_ROUTE_PREFIX)],()=>{const e=(0,i.getWindow)().$e.routes.getCurrent()?.panel;if(!e||!e.startsWith(a.LEGACY_ELEMENTS_PANEL_ROUTE_PREFIX))return null;const t=e.replace(a.LEGACY_ELEMENTS_PANEL_ROUTE_PREFIX,"");return(0,o.getTab)(t)??null})}},"./packages/packages/core/editor-elements-panel/src/init.ts":function(e,t,n){n.r(t),n.d(t,{init:function(){return init}});var r=n("@elementor/editor"),a=n("./packages/packages/core/editor-elements-panel/src/components/elements-panel-tab.tsx");function init(){(0,r.injectIntoTop)({id:"editor-elements-panel-tab",component:a.ElementsPanelTab})}},"./packages/packages/core/editor-elements-panel/src/inject-tab.ts":function(e,t,n){n.r(t),n.d(t,{injectTab:function(){return injectTab}});var r=n("@elementor/editor-v1-adapters"),a=n("./packages/packages/core/editor-elements-panel/src/consts.ts"),o=n("./packages/packages/core/editor-elements-panel/src/tabs.ts"),i=n("./packages/packages/core/editor-elements-panel/src/utils/create-legacy-view.ts"),c=n("./packages/packages/core/editor-elements-panel/src/utils/create-tab-nav-item.ts"),s=n("./packages/packages/core/editor-elements-panel/src/utils/get-legacy-elements-panel-component.ts");function injectTab({id:e,label:t,component:n,position:l}){(0,o.registerTab)({id:e,label:t,component:n}),(0,r.__privateListenTo)((0,r.v1ReadyEvent)(),()=>{window.elementor?.hooks?.addFilter("panel/elements/regionViews",(t,{elements:n})=>(t[e]={region:n,view:(0,i.createLegacyView)()},t))}),(0,r.__privateListenTo)((0,r.windowEvent)("elementor/panel/init"),()=>{(0,s.getLegacyElementsPanelComponent)().addTab(e,{title:t})}),(0,r.__privateListenTo)((0,r.routeOpenEvent)(a.LEGACY_ELEMENTS_PANEL_ROUTE_PREFIX),n=>{const r=`${a.LEGACY_ELEMENTS_PANEL_ROUTE_PREFIX}${e}`;(0,c.createTabNavItem)({id:e,label:t,route:r,isActive:"route"in n&&n.route===r,position:l})})}},"./packages/packages/core/editor-elements-panel/src/tabs.ts":function(e,t,n){n.r(t),n.d(t,{getTab:function(){return getTab},registerTab:function(){return registerTab}});const r=new Map,a=10;function registerTab({id:e,priority:t=a,...n}){const o=r.get(e);(!o||t<=o.priority)&&r.set(e,{...n,priority:t})}function getTab(e){return r.get(e)??null}},"./packages/packages/core/editor-elements-panel/src/utils/create-legacy-view.ts":function(e,t,n){n.r(t),n.d(t,{createLegacyView:function(){return createLegacyView}});var r=n("./packages/packages/core/editor-elements-panel/src/utils/get-window.ts");function createLegacyView(){return(0,r.getWindow)().Marionette.CompositeView.extend({template:"<div></div>",initialize(){(0,r.getWindow)().elementor.getPanelView().getCurrentPageView().search.reset()}})}},"./packages/packages/core/editor-elements-panel/src/utils/create-tab-nav-item.ts":function(e,t,n){n.r(t),n.d(t,{createTabNavItem:function(){return createTabNavItem}});var r=n("./packages/packages/core/editor-elements-panel/src/utils/get-navigation-wrapper-element.ts"),a=n("./packages/packages/core/editor-elements-panel/src/utils/get-window.ts");function createTabNavItem({id:e,label:t,route:n,isActive:o,position:i}){const c=(0,r.getNavigationWrapperElement)(),s=document.createElement("button");s.className=["elementor-component-tab","elementor-panel-navigation-tab",o?"elementor-active":""].filter(Boolean).join(" "),s.setAttribute("data-tab",e),s.textContent=t,s.addEventListener("click",()=>{(0,a.getWindow)().$e.route(n)}),void 0!==i&&c.children[i]?c.insertBefore(s,c.children[i]):c.appendChild(s)}},"./packages/packages/core/editor-elements-panel/src/utils/get-legacy-elements-panel-component.ts":function(e,t,n){n.r(t),n.d(t,{getLegacyElementsPanelComponent:function(){return getLegacyElementsPanelComponent}});var r=n("@elementor/utils"),a=n("./packages/packages/core/editor-elements-panel/src/consts.ts"),o=n("./packages/packages/core/editor-elements-panel/src/utils/get-window.ts");const i=(0,r.createError)({code:"e_component_not_found",message:"Elementor component not found"});function getLegacyElementsPanelComponent(){const e=(0,o.getWindow)().$e.components.get(a.LEGACY_ELEMENTS_PANEL_COMPONENT_NAME);if(!e)throw new i({context:{componentId:a.LEGACY_ELEMENTS_PANEL_COMPONENT_NAME}});return e}},"./packages/packages/core/editor-elements-panel/src/utils/get-navigation-wrapper-element.ts":function(e,t,n){n.r(t),n.d(t,{getNavigationWrapperElement:function(){return getNavigationWrapperElement}});var r=n("@elementor/utils");const a="elementor-panel-elements-navigation",o=(0,r.createError)({code:"elements_panel_wrapper_element_not_found",message:"Elementor Elements Panel wrapper element not found"});function getNavigationWrapperElement(){const e=document.getElementById(a);if(!e)throw new o;return e}},"./packages/packages/core/editor-elements-panel/src/utils/get-window.ts":function(e,t,n){function getWindow(){return window}n.r(t),n.d(t,{getWindow:function(){return getWindow}})},"@elementor/editor":function(e){e.exports=window.elementorV2.editor},"@elementor/editor-v1-adapters":function(e){e.exports=window.elementorV2.editorV1Adapters},"@elementor/ui":function(e){e.exports=window.elementorV2.ui},"@elementor/utils":function(e){e.exports=window.elementorV2.utils},react:function(e){e.exports=window.React}},t={};function __webpack_require__(n){var r=t[n];if(void 0!==r)return r.exports;var a=t[n]={exports:{}};return e[n](a,a.exports,__webpack_require__),a.exports}__webpack_require__.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return __webpack_require__.d(t,{a:t}),t},__webpack_require__.d=function(e,t){for(var n in t)__webpack_require__.o(t,n)&&!__webpack_require__.o(e,n)&&Object.defineProperty(e,n,{enumerable:!0,get:t[n]})},__webpack_require__.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},__webpack_require__.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})};var n={};!function(){__webpack_require__.r(n),__webpack_require__.d(n,{init:function(){return e.init},injectTab:function(){return t.injectTab},registerTab:function(){return r.registerTab}});var e=__webpack_require__("./packages/packages/core/editor-elements-panel/src/init.ts"),t=__webpack_require__("./packages/packages/core/editor-elements-panel/src/inject-tab.ts"),r=__webpack_require__("./packages/packages/core/editor-elements-panel/src/tabs.ts")}(),(window.elementorV2=window.elementorV2||{}).editorElementsPanel=n}(),window.elementorV2.editorElementsPanel?.init?.();
+(function(_elementor_editor, react, _elementor_ui, _elementor_editor_v1_adapters, _elementor_utils) {
+
+//#region \0rolldown/runtime.js
+	var __create = Object.create;
+	var __defProp = Object.defineProperty;
+	var __name = (target, value) => __defProp(target, "name", {
+		value,
+		configurable: true
+	});
+	var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+	var __getOwnPropNames = Object.getOwnPropertyNames;
+	var __getProtoOf = Object.getPrototypeOf;
+	var __hasOwnProp = Object.prototype.hasOwnProperty;
+	var __exportAll = (all, no_symbols) => {
+		let target = {};
+		for (var name in all) {
+			__defProp(target, name, {
+				get: all[name],
+				enumerable: true
+			});
+		}
+		if (!no_symbols) {
+			__defProp(target, Symbol.toStringTag, { value: "Module" });
+		}
+		return target;
+	};
+	var __copyProps = (to, from, except, desc) => {
+		if (from && typeof from === "object" || typeof from === "function") {
+			for (var keys = __getOwnPropNames(from), i = 0, n = keys.length, key; i < n; i++) {
+				key = keys[i];
+				if (!__hasOwnProp.call(to, key) && key !== except) {
+					__defProp(to, key, {
+						get: ((k) => from[k]).bind(null, key),
+						enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable
+					});
+				}
+			}
+		}
+		return to;
+	};
+	var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", {
+		value: mod,
+		enumerable: true
+	}) : target, mod));
+
+//#endregion
+react = __toESM(react);
+
+//#region packages/packages/core/editor-elements-panel/src/consts.ts
+	var LEGACY_ELEMENTS_PANEL_COMPONENT_NAME = "panel/elements";
+	var LEGACY_ELEMENTS_PANEL_ROUTE_PREFIX = `${LEGACY_ELEMENTS_PANEL_COMPONENT_NAME}/`;
+
+//#endregion
+//#region packages/packages/core/editor-elements-panel/src/tabs.ts
+	var registry = /* @__PURE__ */ new Map();
+	var DEFAULT_PRIORITY = 10;
+	function registerTab({ id, priority = DEFAULT_PRIORITY, ...props }) {
+		const existing = registry.get(id);
+		if (!existing || priority <= existing.priority) registry.set(id, {
+			...props,
+			priority
+		});
+	}
+	function getTab(id) {
+		return registry.get(id) ?? null;
+	}
+
+//#endregion
+//#region packages/packages/core/editor-elements-panel/src/utils/get-window.ts
+	function getWindow() {
+		return window;
+	}
+
+//#endregion
+//#region packages/packages/core/editor-elements-panel/src/hooks/use-active-tab.ts
+	function useActiveTab() {
+		return (0, _elementor_editor_v1_adapters.__privateUseListenTo)([
+			(0, _elementor_editor_v1_adapters.v1ReadyEvent)(),
+			(0, _elementor_editor_v1_adapters.routeOpenEvent)(LEGACY_ELEMENTS_PANEL_ROUTE_PREFIX),
+			(0, _elementor_editor_v1_adapters.routeCloseEvent)(LEGACY_ELEMENTS_PANEL_ROUTE_PREFIX)
+		], () => {
+			const panelRoute = getWindow().$e.routes.getCurrent()?.panel;
+			if (!panelRoute || !panelRoute.startsWith(LEGACY_ELEMENTS_PANEL_ROUTE_PREFIX)) return null;
+			return getTab(panelRoute.replace(LEGACY_ELEMENTS_PANEL_ROUTE_PREFIX, "")) ?? null;
+		});
+	}
+
+//#endregion
+//#region packages/packages/core/editor-elements-panel/src/components/elements-panel-tab.tsx
+	var PANEL_WRAPPER_ID = "elementor-panel-elements-wrapper";
+	function ElementsPanelTab() {
+		const TabComponent = useActiveTab()?.component;
+		const container = document.getElementById(PANEL_WRAPPER_ID);
+		return TabComponent && container ? /* @__PURE__ */ react.createElement(_elementor_ui.Portal, { container }, /* @__PURE__ */ react.createElement(TabComponent, null)) : null;
+	}
+
+//#endregion
+//#region packages/packages/core/editor-elements-panel/src/init.ts
+	function init() {
+		(0, _elementor_editor.injectIntoTop)({
+			id: "editor-elements-panel-tab",
+			component: ElementsPanelTab
+		});
+	}
+
+//#endregion
+//#region packages/packages/core/editor-elements-panel/src/utils/create-legacy-view.ts
+	function createLegacyView() {
+		return getWindow().Marionette.CompositeView.extend({
+			template: `<div></div>`,
+			initialize() {
+				getWindow().elementor.getPanelView().getCurrentPageView().search.reset();
+			}
+		});
+	}
+
+//#endregion
+//#region packages/packages/core/editor-elements-panel/src/utils/get-navigation-wrapper-element.ts
+	var NAVIGATION_WRAPPER_ID = "elementor-panel-elements-navigation";
+	var ElementsPanelWrapperElementNotFoundError = (0, _elementor_utils.createError)({
+		code: "elements_panel_wrapper_element_not_found",
+		message: "Elementor Elements Panel wrapper element not found"
+	});
+	function getNavigationWrapperElement() {
+		const wrapper = document.getElementById(NAVIGATION_WRAPPER_ID);
+		if (!wrapper) throw new ElementsPanelWrapperElementNotFoundError();
+		return wrapper;
+	}
+
+//#endregion
+//#region packages/packages/core/editor-elements-panel/src/utils/create-tab-nav-item.ts
+	function createTabNavItem({ id, label, route, isActive, position }) {
+		const wrapper = getNavigationWrapperElement();
+		const btn = document.createElement("button");
+		btn.className = [
+			"elementor-component-tab",
+			"elementor-panel-navigation-tab",
+			isActive ? "elementor-active" : ""
+		].filter(Boolean).join(" ");
+		btn.setAttribute("data-tab", id);
+		btn.textContent = label;
+		btn.addEventListener("click", () => {
+			getWindow().$e.route(route);
+		});
+		if (position !== void 0 && wrapper.children[position]) wrapper.insertBefore(btn, wrapper.children[position]);
+		else wrapper.appendChild(btn);
+	}
+
+//#endregion
+//#region packages/packages/core/editor-elements-panel/src/utils/get-legacy-elements-panel-component.ts
+	var ComponentNotFoundError = (0, _elementor_utils.createError)({
+		code: "e_component_not_found",
+		message: "Elementor component not found"
+	});
+	function getLegacyElementsPanelComponent() {
+		const eComponent = getWindow().$e.components.get(LEGACY_ELEMENTS_PANEL_COMPONENT_NAME);
+		if (!eComponent) throw new ComponentNotFoundError({ context: { componentId: LEGACY_ELEMENTS_PANEL_COMPONENT_NAME } });
+		return eComponent;
+	}
+
+//#endregion
+//#region packages/packages/core/editor-elements-panel/src/inject-tab.ts
+	function injectTab({ id, label, component, position }) {
+		registerTab({
+			id,
+			label,
+			component
+		});
+		(0, _elementor_editor_v1_adapters.__privateListenTo)((0, _elementor_editor_v1_adapters.v1ReadyEvent)(), () => {
+			window.elementor?.hooks?.addFilter("panel/elements/regionViews", (regions, { elements }) => {
+				regions[id] = {
+					region: elements,
+					view: createLegacyView()
+				};
+				return regions;
+			});
+		});
+		(0, _elementor_editor_v1_adapters.__privateListenTo)((0, _elementor_editor_v1_adapters.windowEvent)("elementor/panel/init"), () => {
+			getLegacyElementsPanelComponent().addTab(id, { title: label });
+		});
+		(0, _elementor_editor_v1_adapters.__privateListenTo)((0, _elementor_editor_v1_adapters.routeOpenEvent)(LEGACY_ELEMENTS_PANEL_ROUTE_PREFIX), (e) => {
+			const route = `${LEGACY_ELEMENTS_PANEL_ROUTE_PREFIX}${id}`;
+			createTabNavItem({
+				id,
+				label,
+				route,
+				isActive: "route" in e && e.route === route,
+				position
+			});
+		});
+	}
+
+//#endregion
+//#region packages/packages/core/editor-elements-panel/src/index.ts
+	var src_exports = /* @__PURE__ */ __exportAll({
+		init: () => init,
+		injectTab: () => injectTab,
+		registerTab: () => registerTab
+	});
+
+//#endregion
+//#region \0elementor-package-library-entry
+	(window.elementorV2 = window.elementorV2 || {}).editorElementsPanel = src_exports;
+
+//#endregion
+})(elementorV2.editor, React, elementorV2.ui, elementorV2.editorV1Adapters, elementorV2.utils);
+window.elementorV2.editorElementsPanel?.init?.();
 //# sourceMappingURL=editor-elements-panel.js.map

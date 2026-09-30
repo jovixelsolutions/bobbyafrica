@@ -70,7 +70,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<?php do_action( 'ai1wm_export_compression_types' ); ?>
 
-			<li><strong><?php esc_html_e( 'Database Options' ); ?></strong></li>
+			<li><strong><?php esc_html_e( 'Database Options', 'all-in-one-wp-migration' ); ?></strong></li>
 			<li>
 				<label for="ai1wm-no-spam-comments">
 					<input type="checkbox" id="ai1wm-no-spam-comments" name="options[no_spam_comments]" />
@@ -105,7 +105,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<?php do_action( 'ai1wm_export_include_db_tables' ); ?>
 
-			<li><strong><?php esc_html_e( 'File Options' ); ?></strong></li>
+			<li><strong><?php esc_html_e( 'File Options', 'all-in-one-wp-migration' ); ?></strong></li>
 			<li>
 				<label for="ai1wm-no-media">
 					<input type="checkbox" id="ai1wm-no-media" name="options[no_media]" />

@@ -36,50 +36,59 @@ const OnboardingComplete = () => {
 				</p>
 
 				<ul className="list-none pl-0 m-0 flex flex-col gap-3">
-					<li className="flex items-center gap-1.5 m-0 text-gray-500 text-sm font-medium">
-						<CheckIcon className="h-4 w-4 text-flamingo-500" />
-						<strong>
-							{ __(
-								'Recover lost sales automatically',
-								'woo-cart-abandonment-recovery'
-							) }
-						</strong>
-						<span>
-							{ __(
-								'by reminding shoppers to complete their purchase.',
-								'woo-cart-abandonment-recovery'
-							) }
-						</span>
+					<li className="flex items-start gap-1.5 m-0 text-gray-500 font-medium">
+						<CheckIcon className="h-4 w-4 text-flamingo-500 mt-[3px]" />
+						<p className="m-0 text-sm">
+							<strong>
+								{ __(
+									'Recover lost sales automatically',
+									'woo-cart-abandonment-recovery'
+								) }
+							</strong>
+							{ ' ' }
+							<span>
+								{ __(
+									'by reminding shoppers to complete their purchase.',
+									'woo-cart-abandonment-recovery'
+								) }
+							</span>
+						</p>
 					</li>
-					<li className="flex items-center gap-1.5 m-0 text-gray-500 text-sm font-medium">
-						<CheckIcon className="h-4 w-4 text-flamingo-500" />
-						<strong>
-							{ __(
-								'Increase conversions',
-								'woo-cart-abandonment-recovery'
-							) }
-						</strong>
-						<span>
-							{ __(
-								'with timely follow-ups via Emails.',
-								'woo-cart-abandonment-recovery'
-							) }
-						</span>
+					<li className="flex items-start gap-1.5 m-0 text-gray-500 font-medium">
+						<CheckIcon className="h-4 w-4 text-flamingo-500 mt-[3px]" />
+						<p className="m-0 text-sm">
+							<strong>
+								{ __(
+									'Increase conversions',
+									'woo-cart-abandonment-recovery'
+								) }
+							</strong>
+							{ ' ' }
+							<span>
+								{ __(
+									'with timely follow-ups via Emails.',
+									'woo-cart-abandonment-recovery'
+								) }
+							</span>
+						</p>
 					</li>
-					<li className="flex items-center gap-1.5 m-0 text-gray-500 text-sm font-medium">
-						<CheckIcon className="h-4 w-4 text-flamingo-500" />
-						<strong>
-							{ __(
-								'Turn abandoned carts into revenue',
-								'woo-cart-abandonment-recovery'
-							) }
-						</strong>
-						<span>
-							{ __(
-								'without any manual effort.',
-								'woo-cart-abandonment-recovery'
-							) }
-						</span>
+					<li className="flex items-start gap-1.5 m-0 text-gray-500 font-medium">
+						<CheckIcon className="h-4 w-4 text-flamingo-500 mt-[3px]" />
+						<p className="m-0 text-sm">
+							<strong>
+								{ __(
+									'Turn abandoned carts into revenue',
+									'woo-cart-abandonment-recovery'
+								) }
+							</strong>
+							{ ' ' }
+							<span>
+								{ __(
+									'without any manual effort.',
+									'woo-cart-abandonment-recovery'
+								) }
+							</span>
+						</p>
 					</li>
 				</ul>
 			</div>

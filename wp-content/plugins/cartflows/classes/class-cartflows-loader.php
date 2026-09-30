@@ -143,12 +143,12 @@ if ( ! class_exists( 'Cartflows_Loader' ) ) {
 			define( 'CARTFLOWS_DIR', plugin_dir_path( CARTFLOWS_FILE ) );
 			define( 'CARTFLOWS_URL', plugins_url( '/', CARTFLOWS_FILE ) );
 
-			define( 'CARTFLOWS_VER', '3.0.1' );
+			define( 'CARTFLOWS_VER', '3.2.1' );
 			define( 'CARTFLOWS_SLUG', 'cartflows' );
 			define( 'CARTFLOWS_SETTINGS', 'cartflows_settings' );
 			define( 'CARTFLOWS_NAME', 'CartFlows' );
 
-			define( 'CARTFLOWS_REQ_CF_PRO_VER', '3.0.0' );
+			define( 'CARTFLOWS_REQ_CF_PRO_VER', '3.2.0' );
 
 			// Resolves to true for users upgrading from <3.0.0 (set by Cartflows_Update on first 3.0+ admin_init)
 			// and stays true until the user opts out via the Advanced-tab toggle or the legacy in-app switch.
@@ -353,7 +353,7 @@ if ( ! class_exists( 'Cartflows_Loader' ) ) {
 			require_once CARTFLOWS_DIR . 'classes/class-cartflows-rollback.php';
 
 			if ( is_admin() ) {
-				require_once CARTFLOWS_DIR . 'libraries/astra-notices/class-astra-notices.php';
+				require_once CARTFLOWS_DIR . 'libraries/astra-notices/class-bsf-admin-notices.php';
 			}
 
 			if ( ! class_exists( 'BSF_Analytics_Loader' ) ) {
@@ -463,6 +463,8 @@ if ( ! class_exists( 'Cartflows_Loader' ) ) {
 				/* Admin helper */
 				include_once CARTFLOWS_DIR . 'classes/class-cartflows-admin.php';
 
+				/* Dashboard widget — funnel performance summary on wp-admin/index.php. */
+				include_once CARTFLOWS_DIR . 'classes/class-cartflows-dashboard-widget.php';
 			}
 
 			/* Admin loader — fork between legacy (admin-legacy-core/) and current (admin-core/) UI. */
@@ -506,6 +508,7 @@ if ( ! class_exists( 'Cartflows_Loader' ) ) {
 				include_once CARTFLOWS_DIR . 'modules/optin/class-cartflows-optin.php';
 				include_once CARTFLOWS_DIR . 'modules/woo-dynamic-flow/class-cartflows-woo-dynamic-flow.php';
 				include_once CARTFLOWS_DIR . 'modules/email-report/class-cartflows-admin-report-emails.php';
+				include_once CARTFLOWS_DIR . 'modules/frequently-bought-together/class-cartflows-fbt.php';
 			}
 
 			if ( class_exists( '\Elementor\Plugin' ) ) {
@@ -527,6 +530,8 @@ if ( ! class_exists( 'Cartflows_Loader' ) ) {
 			// Abilities API (WordPress 6.9+).
 			require_once CARTFLOWS_DIR . 'abilities/class-cartflows-abilities-loader.php';
 			include_once CARTFLOWS_DIR . 'modules/webhook/class-cartflows-webhook-loader.php';
+
+			include_once CARTFLOWS_DIR . 'modules/content-generation/class-cartflows-ai-init.php';
 		}
 
 		/**

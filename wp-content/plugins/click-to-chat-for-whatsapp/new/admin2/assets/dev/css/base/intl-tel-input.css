@@ -1,0 +1,119 @@
+/* For number field alignment of and fontsize typography of intl-tel-input */
+.ctc-admin-dashboard .iti .iti__selected-dial-code, 
+.ctc-admin-dashboard .iti .intl_number {
+    font-size: 0.875rem; 
+    line-height: 1.5;
+    color: var(--text);
+}
+
+/* ==========================================================================
+   INTL-TEL-INPUT OVERRIDES (DARK MODE & RTL)
+   ========================================================================== */
+
+/*
+ * Dark Mode Overrides.
+ * Overrides library custom properties on the scoped container (.ctc_intl_container)
+ * for dark mode background, borders, hover, and icons.
+ * Uses opaque var(--bg) to prevent floating dropdown text bleed-through.
+ */
+html[data-theme="dark"] .ctc_intl_container {
+    --iti-country-selector-bg: var(--bg);
+    --iti-border-color: var(--border-color);
+    --iti-hover-color: rgba(255, 255, 255, 0.08);
+    --iti-icon-color: var(--text-secondary);
+}
+
+/* Text color has no library variable, so it still needs element rules. */
+html[data-theme="dark"] .iti__country-list,
+html[data-theme="dark"] .iti__country-name,
+html[data-theme="dark"] .iti__search-input,
+html[data-theme="dark"] .iti__no-results {
+    color: var(--text);
+}
+
+html[data-theme="dark"] .iti__dial-code {
+    color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .iti__country.iti__highlight {
+    background-color: var(--bg-secondary);
+}
+
+html[data-theme="dark"] .iti__arrow {
+    border-top-color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .iti__arrow--up {
+    border-bottom-color: var(--text-secondary);
+}
+
+/* Dark mode input text and border colors. */
+html[data-theme="dark"] input.iti__tel-input,
+html[data-theme="dark"] .iti__selected-country {
+    color: var(--text);
+    border-color: var(--border-color);
+}
+
+/* ==========================================================================
+   INTL-TEL-INPUT — LAYOUT FIXES
+   ========================================================================== */
+
+/*
+ * Prevent layout reflow during initialization by applying a consistent max-width
+ * to both the input and the intl-tel-input wrapper.
+ */
+.ctc-admin-dashboard .ctc_intl_container {
+    display: block;
+    width: 100%;
+}
+
+.ctc-admin-dashboard .intl_number,
+.ctc-admin-dashboard .ctc_intl_container {
+    /* max-width: 20rem; */
+    max-width: 15rem;
+}
+
+/*
+ * Stacking & Z-Index.
+ * Ensures detached country selector container clears admin cards and stays below modals.
+ */
+.iti--detached-country-selector,
+.iti__country-container {
+    z-index: 1060;
+}
+
+/*
+ * Search Box Padding.
+ * Doubled class (.iti__search-input.iti__search-input) increases specificity to override
+ * WP core admin form padding and preserve icon spacing in both dropdown and mobile views.
+ */
+.iti__search-input.iti__search-input {
+    padding-left: calc(var(--iti-spacer-horizontal) + var(--iti-globe-icon-size) + var(--iti-spacer-horizontal));
+    padding-right: calc(var(--iti-spacer-horizontal) + var(--iti-clear-icon-size) + var(--iti-spacer-horizontal));
+}
+
+[dir="rtl"] .iti__search-input.iti__search-input {
+    padding-left: calc(var(--iti-spacer-horizontal) + var(--iti-clear-icon-size) + var(--iti-spacer-horizontal));
+    padding-right: calc(var(--iti-spacer-horizontal) + var(--iti-globe-icon-size) + var(--iti-spacer-horizontal));
+}
+
+/* Country search box (intl-tel-input) */
+html[data-theme="dark"] .iti__search-input {
+    background-color: var(--input-bg);
+    color: var(--text);
+    border-bottom: 1px solid var(--border-color);
+}
+
+html[data-theme="dark"] .iti__country-name,
+html[data-theme="dark"] .iti__no-results {
+    color: var(--text-secondary);
+}
+
+/* RTL Overrides */
+/*
+ * RTL Dropdown Alignment.
+ * Pins inline country container to the left in RTL layout to prevent static anchoring.
+ */
+[dir="rtl"] .iti--inline-country-selector .iti__country-container {
+    left: 0;
+}

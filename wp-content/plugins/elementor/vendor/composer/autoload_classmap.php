@@ -6,10 +6,21 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Automattic\\Jetpack\\Autoloader\\AutoloadGenerator' => $vendorDir . '/automattic/jetpack-autoloader/src/AutoloadGenerator.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'ElementorDeps\\Attribute' => $baseDir . '/vendor_prefixed/twig/symfony/polyfill-php80/Resources/stubs/Attribute.php',
+    'ElementorDeps\\Base_MixpanelBase' => $baseDir . '/vendor_prefixed/mixpanel/lib/Base/MixpanelBase.php',
     'ElementorDeps\\CURLStringFile' => $baseDir . '/vendor_prefixed/twig/symfony/polyfill-php81/Resources/stubs/CURLStringFile.php',
+    'ElementorDeps\\ConsumerStrategies_AbstractConsumer' => $baseDir . '/vendor_prefixed/mixpanel/lib/ConsumerStrategies/AbstractConsumer.php',
+    'ElementorDeps\\ConsumerStrategies_CurlConsumer' => $baseDir . '/vendor_prefixed/mixpanel/lib/ConsumerStrategies/CurlConsumer.php',
+    'ElementorDeps\\ConsumerStrategies_FileConsumer' => $baseDir . '/vendor_prefixed/mixpanel/lib/ConsumerStrategies/FileConsumer.php',
+    'ElementorDeps\\ConsumerStrategies_SocketConsumer' => $baseDir . '/vendor_prefixed/mixpanel/lib/ConsumerStrategies/SocketConsumer.php',
+    'ElementorDeps\\Mixpanel' => $baseDir . '/vendor_prefixed/mixpanel/lib/Mixpanel.php',
     'ElementorDeps\\PhpToken' => $baseDir . '/vendor_prefixed/twig/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
+    'ElementorDeps\\Producers_MixpanelBaseProducer' => $baseDir . '/vendor_prefixed/mixpanel/lib/Producers/MixpanelBaseProducer.php',
+    'ElementorDeps\\Producers_MixpanelEvents' => $baseDir . '/vendor_prefixed/mixpanel/lib/Producers/MixpanelEvents.php',
+    'ElementorDeps\\Producers_MixpanelGroups' => $baseDir . '/vendor_prefixed/mixpanel/lib/Producers/MixpanelGroups.php',
+    'ElementorDeps\\Producers_MixpanelPeople' => $baseDir . '/vendor_prefixed/mixpanel/lib/Producers/MixpanelPeople.php',
     'ElementorDeps\\ReturnTypeWillChange' => $baseDir . '/vendor_prefixed/twig/symfony/polyfill-php81/Resources/stubs/ReturnTypeWillChange.php',
     'ElementorDeps\\Stringable' => $baseDir . '/vendor_prefixed/twig/symfony/polyfill-php80/Resources/stubs/Stringable.php',
     'ElementorDeps\\Symfony\\Polyfill\\Ctype\\Ctype' => $baseDir . '/vendor_prefixed/twig/symfony/polyfill-ctype/Ctype.php',

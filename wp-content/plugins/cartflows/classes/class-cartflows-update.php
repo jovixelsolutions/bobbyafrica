@@ -22,12 +22,14 @@ if ( ! class_exists( 'Cartflows_Update' ) ) :
 		 * Class instance.
 		 *
 		 * @access private
-		 * @var $instance Class instance.
+		 * @var Cartflows_Update|null
 		 */
 		private static $instance;
 
 		/**
 		 * Initiator
+		 *
+		 * @return Cartflows_Update
 		 */
 		public static function get_instance() {
 			if ( ! isset( self::$instance ) ) {

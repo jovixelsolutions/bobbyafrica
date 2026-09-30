@@ -153,6 +153,7 @@ class MetaData extends AjaxBase {
 					'product_desc'   => $product_object->get_short_description(),
 					'product_image'  => get_the_post_thumbnail_url( $product_object->get_id() ),
 					'product_type'   => $product_type,
+					'type_label'     => $this->get_product_type_label( $product_object ),
 					'stock_status'   => $availibility_text,
 					'in_stock'       => $is_in_stock,
 					'price_range'    => $product_price_range,
@@ -284,6 +285,35 @@ class MetaData extends AjaxBase {
 	}
 
 	/**
+	 * Get a short, human readable label for product types that behave differently in a funnel.
+	 *
+	 * Returned as its own field rather than appended to the product name, because the name is
+	 * also used for the selected-product chip. Only types that need distinguishing are labelled;
+	 * everything else returns an empty string so no tag is rendered.
+	 *
+	 * @since 3.1.4
+	 * @param \WC_Product $product The product object.
+	 * @return string Label to show beside the product, or an empty string.
+	 */
+	public function get_product_type_label( $product ) {
+
+		if ( ! is_a( $product, 'WC_Product' ) ) {
+			return '';
+		}
+
+		$labels = apply_filters(
+			'cartflows_product_type_labels_for_search',
+			array(
+				'bundle' => __( 'Bundle', 'cartflows' ),
+			)
+		);
+
+		$product_type = $product->get_type();
+
+		return isset( $labels[ $product_type ] ) ? $labels[ $product_type ] : '';
+	}
+
+	/**
 	 * Function to generate a formatted price range for a product.
 	 *
 	 * This function determines the price range for a product based on its type. For variable products, it calculates the price range from the minimum and maximum prices of its variations. For other product types, it uses the product's price or regular price if available.
@@ -308,12 +338,30 @@ class MetaData extends AjaxBase {
 			$max_reg_price = isset( $variation_price_range['regular_price'] ) ? end( $variation_price_range['regular_price'] ) : null;
 
 			if ( $min_price !== $max_price && ! is_null( $min_price ) && ! is_null( $max_price ) ) {
-				$original_price = html_entity_decode( wp_strip_all_tags( wc_format_price_range( $min_price, $max_price ) ) );
+				// Build the range from each bound directly so WooCommerce's screen-reader "Price range: ... through ..." text is not appended.
+				$original_price = html_entity_decode( wp_strip_all_tags( wc_price( $min_price ) ) ) . ' – ' . html_entity_decode( wp_strip_all_tags( wc_price( $max_price ) ) );
 			}
 
 			if ( $min_reg_price !== $max_reg_price && ! is_null( $min_reg_price ) && ! is_null( $max_reg_price ) ) {
 				if ( ! empty( $original_price ) ) {
-					$original_price = html_entity_decode( wp_strip_all_tags( wc_format_price_range( $min_reg_price, $max_reg_price ) ) );
+					$original_price = html_entity_decode( wp_strip_all_tags( wc_price( $min_reg_price ) ) ) . ' – ' . html_entity_decode( wp_strip_all_tags( wc_price( $max_reg_price ) ) );
+				}
+			}
+		} elseif ( 'bundle' === $product_type && method_exists( $product, 'get_bundle_price' ) ) {
+			/*
+			 * A bundle's own price is only its container base price, which is 0 whenever the
+			 * bundled items are priced individually. Use the bundle's min/max price instead so
+			 * the selector shows what the customer would actually pay, as it does for variable
+			 * products. Guarded on the method so this stays inert without Product Bundles.
+			 */
+			$min_price = $product->get_bundle_price( 'min', false );
+			$max_price = $product->get_bundle_price( 'max', false );
+
+			if ( '' !== $min_price && null !== $min_price ) {
+				$original_price = html_entity_decode( wp_strip_all_tags( wc_price( $min_price ) ) );
+
+				if ( '' !== $max_price && null !== $max_price && (float) $max_price !== (float) $min_price ) {
+					$original_price .= ' – ' . html_entity_decode( wp_strip_all_tags( wc_price( $max_price ) ) );
 				}
 			}
 		} else {

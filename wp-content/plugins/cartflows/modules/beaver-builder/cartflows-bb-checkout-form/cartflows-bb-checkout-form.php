@@ -119,7 +119,6 @@ class Cartflows_BB_Checkout_Form extends FLBuilderModule {
 		}
 
 		do_action( 'cartflows_bb_checkout_options_filters', $settings );
-
 	}
 
 	/**
@@ -170,7 +169,6 @@ class Cartflows_BB_Checkout_Form extends FLBuilderModule {
 
 		return $skin_options;
 	}
-
 }
 
 /**
@@ -189,7 +187,7 @@ FLBuilder::register_module(
 							'type'        => 'select',
 							'label'       => __( 'Select Layout', 'cartflows' ),
 							/* translators: %s: link */
-							'description' => ! _is_cartflows_pro() ? sprintf( __( 'The PRO layout options are available in the CartFlows Pro. %1$s  Upgrade Now! %2$s', 'cartflows' ), '<a href="https://cartflows.com/?utm_source=dashboard&utm_medium=free-cartflows&utm_campaign=go-pro" target="blank" class="cartflows-bb-link">', '</a>' ) : '',
+							'description' => ! _is_cartflows_pro() ? sprintf( __( 'The PRO layout options are available in the CartFlows Pro. %1$s  Upgrade Now! %2$s', 'cartflows' ), '<a href="' . esc_url( \Cartflows_Helper::get_upgrade_to_pro_link( '', 'https://cartflows.com/' ) ) . '" target="blank" class="cartflows-bb-link">', '</a>' ) : '',
 							'default'     => 'modern-checkout',
 							'options'     => Cartflows_BB_Checkout_Form::get_layout_types(),
 							'preview'     => array(
@@ -456,9 +454,6 @@ FLBuilder::register_module(
 								'property' => 'color',
 								'unit'     => 'px',
 							),
-							'preview'    => array(
-								'type' => 'refresh',
-							),
 						),
 						'button_text_hover_color'   => array(
 							'type'       => 'color',
@@ -500,9 +495,6 @@ FLBuilder::register_module(
 								'property' => 'background-color',
 								'unit'     => 'px',
 							),
-							'preview'    => array(
-								'type' => 'refresh',
-							),
 						),
 						'button_bg_hover_color'     => array(
 							'type'       => 'color',
@@ -532,9 +524,6 @@ FLBuilder::register_module(
 								'type'     => 'css',
 								'selector' => '.wcf-embed-checkout-form .woocommerce #order_review button, .wcf-embed-checkout-form .woocommerce form.woocommerce-form-login .form-row button,  .wcf-embed-checkout-form .woocommerce #order_review button.wcf-btn-small, .wcf-embed-checkout-form .woocommerce-checkout form.woocommerce-form-login .button,  .wcf-embed-checkout-form .woocommerce-checkout form.checkout_coupon .button, .wcf-embed-checkout-form form.checkout_coupon .button, .wcf-embed-checkout-form-two-step .woocommerce .wcf-embed-checkout-form-nav-btns .wcf-next-button,
 								body .wcf-pre-checkout-offer-wrapper #wcf-pre-checkout-offer-content button.wcf-pre-checkout-offer-btn',
-							),
-							'preview'    => array(
-								'type' => 'refresh',
 							),
 						),
 						'button_border_style'       => array(

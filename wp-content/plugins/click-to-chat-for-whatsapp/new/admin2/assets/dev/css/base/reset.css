@@ -1,0 +1,192 @@
+/* ==========================================================================
+   RESET & BASE
+   ========================================================================== */
+#wpcontent {
+    padding: 0;
+}
+
+/* changed body tag selection to .wrap */
+.wrap {
+    padding: 0;
+    margin: 0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* Jump offset. The page scrolls on the window while #wpadminbar and
+       .admin-header sit fixed/sticky on top, so anything scrolled to y=0 lands
+       behind them. Not inherited, hence the universal selector — this covers
+       Interface.scrollToElement and native #id jumps alike. */
+    scroll-margin-top: var(--ctc-scroll-offset);
+}
+
+body {
+    font-family: var(--font-main);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.3s ease;
+}
+
+html[data-theme="light"] body {
+    background: radial-gradient(circle at 100% 0%, rgba(16, 185, 129, 0.04), transparent 25%), linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    background-attachment: fixed;
+}
+
+html[data-theme="dark"] body {
+    background: radial-gradient(circle at 100% 0%, rgba(16, 185, 129, 0.08), transparent 40%), linear-gradient(135deg, #020617 0%, #0f172a 100%);
+    background-attachment: fixed;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
+/* Utility Classes */
+.ctc_init_disabled {
+    opacity: 0.6;
+    pointer-events: none;
+    filter: grayscale(1);
+}
+
+.ctc_init_display_none {
+    display: none !important;
+}
+
+/* SVG Icon Helper */
+.ctc-icon {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.ctc-spin {
+    animation: spin 2s infinite linear;
+}
+
+/* ==========================================================================
+   KEYBOARD FOCUS INDICATORS (Accessibility)
+   Only shown for keyboard navigation, not mouse clicks.
+   ========================================================================== */
+
+/* Many components use `transition: all`, which makes the focus ring FADE IN
+   (outline-width animates 0→2px over ~200ms) instead of appearing instantly.
+   Suspend transitions while an element shows its keyboard focus ring. */
+.ctc-admin-dashboard :focus-visible,
+.ctc-admin-dashboard:focus-visible,
+
+/* The grid tile draws the ring for the inner element that actually has focus, so it is
+   not itself :focus-visible and the two selectors above miss it — leaving `transition:
+   all` to fade its outline in over 300ms, the exact thing this block prevents. */
+.ctc-admin-dashboard .grid-option:has( > .grid-option-select:focus-visible ) {
+    /* Using !important so higher-specificity component `transition` rules
+       (e.g. `.ctc-admin-dashboard input[type="text"]`) can't re-enable the
+       fade while the ring is shown. */
+    transition: none !important;
+}
+
+.nav-item:focus-visible,
+.drill-down-btn:focus-visible,
+.drill-down-back-btn:focus-visible,
+.close-sidebar:focus-visible,
+.menu-toggle:focus-visible,
+/* todo: some pro things might be added. also overall will make things smart */
+.ht_ctc_pro_agent_remove_agent_link:focus-visible,
+.ctc_add_agent_button:focus-visible,
+.ctc_add_field_button:focus-visible,
+.dashicons-no-alt:focus-visible,
+.bh_click_to_add_time:focus-visible {
+    outline: 2px solid var(--primary) !important;
+    outline-offset: 2px !important;
+}
+
+.collapsible-header:focus-visible,
+.ctc-accordion-header:focus-visible,
+.ctc-styled-details>summary:focus-visible {
+    outline: 2px solid var(--primary) !important;
+    outline-offset: -2px !important;
+    /* background-color: var(--primary-glow) !important; */
+}
+
+.save-button:focus-visible {
+    outline: 3px solid var(--primary);
+    outline-offset: 3px;
+}
+
+.settings-toggle:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: var(--radius);
+}
+
+.radio-option.segment-option input:focus-visible+span {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/*
+ * The ring belongs on the TILE, but the tile is no longer what receives focus: splitting
+ * `.grid-option` moved tabindex/role onto the inner `.grid-option-select`, so the old
+ * `.grid-option:focus-visible` matched nothing and keyboard navigation lost its indicator.
+ *
+ * Matched on the tile, keyed off focus inside it, rather than moved onto the inner
+ * element. The ring has to enclose the whole tile — the same box as the selected tile's
+ * border — and ringing the inner element cannot reproduce that: it sits 10px inside the
+ * tile (0.5rem padding + 2px border), so the same 3px offset draws a box 20px smaller in
+ * both dimensions. Values here are unchanged from before the split.
+ */
+.grid-option:has( > .grid-option-select:focus-visible ) {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+    border-radius: var(--radius);
+}
+
+.tab-button:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.theme-option input:focus-visible+.theme-icon {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-pill);
+}
+
+/* The logo is a role="button" shortcut back to General, so it takes focus. */
+#logo-home:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 4px;
+    border-radius: var(--radius-pill);
+}

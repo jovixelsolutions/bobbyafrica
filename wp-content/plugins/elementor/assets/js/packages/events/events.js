@@ -1,3 +1,99 @@
-/*! For license information please see events.js.LICENSE.txt */
-!function(){"use strict";var n={"./packages/packages/libs/events/src/use-mixpanel.ts":function(n,e,i){i.r(e),i.d(e,{canSendEvents:function(){return canSendEvents},enableTracking:function(){return enableTracking},getMixpanel:function(){return getMixpanel},initializeAndEnableTracking:function(){return initializeAndEnableTracking},initializeMixpanel:function(){return initializeMixpanel},isMixpanelReady:function(){return isMixpanelReady},isTrackingEnabled:function(){return isTrackingEnabled},setCanSendEvents:function(){return setCanSendEvents},trackEvent:function(){return trackEvent},useMixpanel:function(){return useMixpanel}});const getMixpanel=()=>{const n=window.elementorCommon?.eventsManager||{};return{dispatchEvent:n.dispatchEvent?.bind(n),config:n.config,canSendEvents:n.canSendEvents?.bind(n),initializeMixpanel:n.initializeMixpanel?.bind(n),enableTracking:n.enableTracking?.bind(n),isMixpanelReady:n.isMixpanelReady?.bind(n),trackingEnabled:n.trackingEnabled??!1,getMixpanelInstance:n.getMixpanelInstance?.bind(n)}},useMixpanel=()=>{const{dispatchEvent:n,config:e}=getMixpanel();return{dispatchEvent:n,config:e}},trackEvent=n=>{const{dispatchEvent:e}=getMixpanel();e?.(n.eventName,n)},canSendEvents=()=>getMixpanel().canSendEvents?.()??!1,setCanSendEvents=n=>{const e=window.elementorCommon?.config?.editor_events;e&&(e.can_send_events=n)},isMixpanelReady=()=>getMixpanel().isMixpanelReady?.()??!1,isTrackingEnabled=()=>getMixpanel().trackingEnabled,enableTracking=()=>getMixpanel().enableTracking?.(),initializeMixpanel=n=>getMixpanel().initializeMixpanel?.(n??(()=>{}));function initializeAndEnableTracking(n){const e=getMixpanel();if(e.dispatchEvent){if(!e.trackingEnabled)return e.isMixpanelReady?.()?(e.enableTracking?.(),void n?.(e.getMixpanelInstance?.())):void e.initializeMixpanel?.(i=>{e.enableTracking?.(),n?.(i)});n?.(e.getMixpanelInstance?.())}}}},e={};function __webpack_require__(i){var t=e[i];if(void 0!==t)return t.exports;var a=e[i]={exports:{}};return n[i](a,a.exports,__webpack_require__),a.exports}__webpack_require__.d=function(n,e){for(var i in e)__webpack_require__.o(e,i)&&!__webpack_require__.o(n,i)&&Object.defineProperty(n,i,{enumerable:!0,get:e[i]})},__webpack_require__.o=function(n,e){return Object.prototype.hasOwnProperty.call(n,e)},__webpack_require__.r=function(n){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(n,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(n,"__esModule",{value:!0})};var i={};!function(){__webpack_require__.r(i),__webpack_require__.d(i,{canSendEvents:function(){return n.canSendEvents},enableTracking:function(){return n.enableTracking},getMixpanel:function(){return n.getMixpanel},initializeAndEnableTracking:function(){return n.initializeAndEnableTracking},initializeMixpanel:function(){return n.initializeMixpanel},isMixpanelReady:function(){return n.isMixpanelReady},isTrackingEnabled:function(){return n.isTrackingEnabled},setCanSendEvents:function(){return n.setCanSendEvents},trackEvent:function(){return n.trackEvent},useMixpanel:function(){return n.useMixpanel}});var n=__webpack_require__("./packages/packages/libs/events/src/use-mixpanel.ts")}(),(window.elementorV2=window.elementorV2||{}).events=i}(),window.elementorV2.events?.init?.();
+(function() {
+
+//#region \0rolldown/runtime.js
+	var __defProp = Object.defineProperty;
+	var __name = (target, value) => __defProp(target, "name", {
+		value,
+		configurable: true
+	});
+	var __exportAll = (all, no_symbols) => {
+		let target = {};
+		for (var name in all) {
+			__defProp(target, name, {
+				get: all[name],
+				enumerable: true
+			});
+		}
+		if (!no_symbols) {
+			__defProp(target, Symbol.toStringTag, { value: "Module" });
+		}
+		return target;
+	};
+
+//#endregion
+
+//#region packages/packages/libs/events/src/use-mixpanel.ts
+	var getMixpanel = () => {
+		const eventsManager = window.elementorCommon?.eventsManager || {};
+		return {
+			dispatchEvent: eventsManager.dispatchEvent?.bind(eventsManager),
+			config: eventsManager.config,
+			canSendEvents: eventsManager.canSendEvents?.bind(eventsManager),
+			initializeMixpanel: eventsManager.initializeMixpanel?.bind(eventsManager),
+			enableTracking: eventsManager.enableTracking?.bind(eventsManager),
+			isMixpanelReady: eventsManager.isMixpanelReady?.bind(eventsManager),
+			trackingEnabled: eventsManager.trackingEnabled ?? false,
+			getMixpanelInstance: eventsManager.getMixpanelInstance?.bind(eventsManager)
+		};
+	};
+	var useMixpanel = () => {
+		const { dispatchEvent, config } = getMixpanel();
+		return {
+			dispatchEvent,
+			config
+		};
+	};
+	var trackEvent = (event) => {
+		const { dispatchEvent } = getMixpanel();
+		dispatchEvent?.(event.eventName, event);
+	};
+	var canSendEvents = () => getMixpanel().canSendEvents?.() ?? false;
+	var setCanSendEvents = (value) => {
+		const editorEvents = window.elementorCommon?.config?.editor_events;
+		if (editorEvents) editorEvents.can_send_events = value;
+	};
+	var isMixpanelReady = () => getMixpanel().isMixpanelReady?.() ?? false;
+	var isTrackingEnabled = () => getMixpanel().trackingEnabled;
+	var enableTracking = () => getMixpanel().enableTracking?.();
+	var initializeMixpanel = (onLoaded) => getMixpanel().initializeMixpanel?.(onLoaded ?? (() => {}));
+	function initializeAndEnableTracking(onReady) {
+		const mixpanel = getMixpanel();
+		if (!mixpanel.dispatchEvent) return;
+		if (mixpanel.trackingEnabled) {
+			onReady?.(mixpanel.getMixpanelInstance?.());
+			return;
+		}
+		if (mixpanel.isMixpanelReady?.()) {
+			mixpanel.enableTracking?.();
+			onReady?.(mixpanel.getMixpanelInstance?.());
+			return;
+		}
+		mixpanel.initializeMixpanel?.((mpInstance) => {
+			mixpanel.enableTracking?.();
+			onReady?.(mpInstance);
+		});
+	}
+
+//#endregion
+//#region packages/packages/libs/events/src/index.ts
+	var src_exports = /* @__PURE__ */ __exportAll({
+		canSendEvents: () => canSendEvents,
+		enableTracking: () => enableTracking,
+		getMixpanel: () => getMixpanel,
+		initializeAndEnableTracking: () => initializeAndEnableTracking,
+		initializeMixpanel: () => initializeMixpanel,
+		isMixpanelReady: () => isMixpanelReady,
+		isTrackingEnabled: () => isTrackingEnabled,
+		setCanSendEvents: () => setCanSendEvents,
+		trackEvent: () => trackEvent,
+		useMixpanel: () => useMixpanel
+	});
+
+//#endregion
+//#region \0elementor-package-library-entry
+	(window.elementorV2 = window.elementorV2 || {}).events = src_exports;
+
+//#endregion
+})();
+window.elementorV2.events?.init?.();
 //# sourceMappingURL=events.js.map

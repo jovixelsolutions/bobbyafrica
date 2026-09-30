@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$s3_1_options = get_option( 'ht_ctc_s3_1' );
+$s3_1_options = HT_CTC_Utils::get_option( 'ht_ctc_s3_1' );
 
 $s3_type = ( isset( $s3_1_options['s3_type'] ) ) ? esc_attr( $s3_1_options['s3_type'] ) : 'simple';
 

@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$s8_options = get_option( 'ht_ctc_s8' );
+$s8_options = HT_CTC_Utils::get_option( 'ht_ctc_s8' );
 $s8_options = apply_filters( 'ht_ctc_fh_s8_options', $s8_options );
 
 $s8_icon_color          = esc_attr( $s8_options['s8_icon_color'] );

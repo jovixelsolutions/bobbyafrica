@@ -5,6 +5,7 @@ import { __ } from '@wordpress/i18n';
 import ProductSearchField from '@Components/fields/ProductSearchField';
 import MultiSelectField from '@Components/fields/MultiSelectField';
 import { useProAccess } from '@Components/pro/useProAccess';
+import { parseRulesValue } from '@Utils/helper';
 
 const RulesRepeater = ( { value = [], onChange, isPro = false } ) => {
 	const { shouldBlockProFeatures } = useProAccess();
@@ -25,22 +26,11 @@ const RulesRepeater = ( { value = [], onChange, isPro = false } ) => {
 		},
 	];
 
-	// Parse value if it's a JSON string
+	// Parse incoming value (string | array) and fall back to a seeded default
+	// group so the UI always has something to render.
 	const parseValue = ( val ) => {
-		if ( typeof val === 'string' ) {
-			try {
-				let parsed = JSON.parse( val );
-
-				// If the parsed value is still a string, parse again
-				if ( typeof parsed === 'string' ) {
-					parsed = JSON.parse( parsed );
-				}
-				return Array.isArray( parsed ) ? parsed : getDefaultRules();
-			} catch ( e ) {
-				return getDefaultRules();
-			}
-		}
-		return Array.isArray( val ) && val.length > 0 ? val : getDefaultRules();
+		const parsed = parseRulesValue( val );
+		return parsed.length > 0 ? parsed : getDefaultRules();
 	};
 
 	const [ rules, setRules ] = useState( parseValue( value ) );
@@ -312,11 +302,8 @@ const RulesRepeater = ( { value = [], onChange, isPro = false } ) => {
 
 								<Container className="flex gap-3 mb-3">
 									<Container.Item className="flex-1">
-										<Container
-											className="gap-3"
-											direction="column"
-										>
-											<Container.Item>
+										<Container className="gap-3 flex-col sm:flex-row">
+											<Container.Item className="flex-1 min-w-0">
 												<Select
 													value={
 														conditions.find(
@@ -366,7 +353,7 @@ const RulesRepeater = ( { value = [], onChange, isPro = false } ) => {
 												</Select>
 											</Container.Item>
 
-											<Container.Item>
+											<Container.Item className="flex-1 min-w-0">
 												<Select
 													value={
 														getOperatorsForCondition(
@@ -419,7 +406,7 @@ const RulesRepeater = ( { value = [], onChange, isPro = false } ) => {
 												</Select>
 											</Container.Item>
 
-											<Container.Item>
+											<Container.Item className="flex-1 min-w-0">
 												{ renderValueField(
 													rule,
 													groupIndex,

@@ -47,7 +47,6 @@ class CCW_Shortcode {
 
         $prefill_text = isset( $values['initial'] ) ? esc_attr( $values['initial'] ) : '';
 
-
         /**
          * There is an advantage if return here - 
          *  instead of doing this before loading this file.
@@ -154,15 +153,17 @@ class CCW_Shortcode {
         // use like -  '.esc_attr($a["title"]).'   
         
 
-        $num   = esc_attr($a["num"]);
+        // Phone number: digits only (allow leading +). Strips any character that
+        // could break out of the JS string in the onclick handler below.
+        $num = preg_replace( '/[^0-9+]/', '', (string) $a["num"] );
 
-        // initial text
+        // initial text - URL-encode so single quotes and other JS meta-chars
+        // cannot escape the JS string literal in the onclick attribute.
         $page_url = get_permalink();
-        $text = esc_attr($a["text"]);
-        $initial_text = str_replace( '{{url}}', $page_url, $text );;
+        $initial_text = rawurlencode( str_replace( '{{url}}', (string) $page_url, (string) $a["text"] ) );
 
-    
-        //  if it is mobile device , or tab is_mobile is 1, if not 2 or any thing 
+
+        //  if it is mobile device , or tab is_mobile is 1, if not 2 or any thing
         $is_mobile = ht_ccw()->device_type->is_mobile;
 
         // hide based on device type
@@ -173,7 +174,9 @@ class CCW_Shortcode {
         $redirect = "";
 
         $is_group = esc_attr($a["type"]);
-        $group_id = esc_attr($a["group_id"]);
+        // WhatsApp group invite IDs are alphanumeric; strip anything else so the
+        // value cannot escape the JS string in the onclick handler.
+        $group_id = preg_replace( '/[^A-Za-z0-9]/', '', (string) $a["group_id"] );
 
         /**
          * If type = group_chat , then only it consider as group chat,

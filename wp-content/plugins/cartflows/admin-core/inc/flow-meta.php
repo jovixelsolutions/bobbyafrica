@@ -129,7 +129,7 @@ class FlowMeta {
 						'desc'         => sprintf(
 							/* translators: %1$s: link html Start, %2$s: Link html end. */
 							__( 'This layout will replace the default page template for the Checkout, Upsell/Downsell and Thank You steps. You can customize the design in the Checkout, Upsell/Downsell and Thank You step\'s settings, under the design tab. %1$sRead More.%2$s', 'cartflows' ),
-							'<a href="https://cartflows.com/docs/cartflows-instant-checkout-layout/?utm_source=dashboard&utm_medium=free-cartflows&utm_campaign=docs" target="_blank">',
+							'<a href="' . esc_url( \Cartflows_Helper::get_kb_doc_link( 'https://cartflows.com/docs/cartflows-instant-checkout-layout/' ) ) . '" target="_blank">',
 							'</a>'
 						),
 						'is_fullwidth' => true,

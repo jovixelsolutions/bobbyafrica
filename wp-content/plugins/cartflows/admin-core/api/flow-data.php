@@ -111,13 +111,16 @@ class FlowData extends ApiBase {
 		/* Setup steps data */
 		$steps = AdminHelper::prepare_step_data( $flow_id, $meta_options );
 
+		$first_step_url = \Cartflows_Flow_Post_Type::get_instance()->get_first_step_url( get_post( $flow_id ) );
+
 		$data = apply_filters(
 			'cartflows_admin_flow_data',
 			array(
 				'id'            => $flow_id,
-				'title'         => get_the_title( $flow_id ),
+				// Use the raw stored title to avoid the_title filters (wptexturize) turning dashes into HTML entities.
+				'title'         => get_post_field( 'post_title', $flow_id, 'raw' ),
 				'slug'          => get_post_field( 'post_name', $flow_id, 'edit' ),
-				'link'          => get_permalink( $flow_id ),
+				'link'          => $first_step_url ? $first_step_url : '#',
 				'status'        => get_post_status( $flow_id ),
 				'steps'         => $steps,
 				'options'       => $meta_options,

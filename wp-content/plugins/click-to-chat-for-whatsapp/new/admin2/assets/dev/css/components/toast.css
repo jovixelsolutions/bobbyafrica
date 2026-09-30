@@ -1,0 +1,197 @@
+/* ==========================================================================
+   TOAST
+   ========================================================================== */
+.toast {
+    position: fixed;
+    bottom: 1.5rem;
+    inset-inline-end: 1.5rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 1rem;
+    width: 300px;
+    box-shadow: var(--shadow);
+    /* Hide off-screen with a height-independent transform (works regardless of how
+       tall the toast grows — e.g. when it includes the PRO action button). The extra
+       2rem clears the bottom gap so no part peeks above the viewport edge. */
+    transform: translateY(calc(100% + 2rem));
+    visibility: hidden;
+    transition: transform 0.3s ease, visibility 0s linear 0.3s;
+    z-index: 9999999999;
+}
+
+.toast.show {
+    transform: translateY(0);
+    visibility: visible;
+    transition: transform 0.3s ease, visibility 0s;
+}
+
+.toast-content {
+    display: flex;
+    /* Top-aligned: error toasts wrap to several lines, and a centered status
+       icon / close button next to a tall block reads as unattached. */
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+/* Status glyph. Neutral by default; the variant classes below own the colour,
+   so the icon and the progress bar can never disagree about what kind of
+   message this is. UIManager also still honours an explicit `iconColor` for
+   outside callers, which lands as an inline style and wins over both. */
+.toast-content>.dashicons {
+    color: var(--text-secondary);
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.toast-message {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Dismiss — quiet until you go for it, so it never competes with the message.
+   Sized to the WCAG 2.5.8 24px minimum target while the glyph stays 16px. */
+.toast-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    /* Pull the padded target back to the card's optical edge (logical, so it
+       stays on the outer corner in RTL). */
+    margin-block-start: -2px;
+    margin-inline-end: -2px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: none;
+    color: var(--text-secondary);
+    opacity: 0.6;
+    cursor: pointer;
+    transition: opacity 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.toast-close:hover {
+    opacity: 1;
+    color: var(--text);
+    background-color: rgba(0, 0, 0, 0.06);
+}
+
+html[data-theme="dark"] .toast-close:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.toast-close:focus-visible {
+    opacity: 1;
+    outline: 2px solid var(--primary);
+    outline-offset: 1px;
+}
+
+/* Override .toast-content > .dashicons's success green — this glyph is a
+   control, not a status indicator. */
+.toast-close .dashicons {
+    color: inherit;
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+}
+
+.toast-title {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.toast-description {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.toast-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-top: 0.6rem;
+    padding: 0.32rem 0.75rem;
+    background: linear-gradient(to right, #f59e0b, #d97706);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 1px 3px rgba(180, 83, 9, 0.25);
+    transition: filter 0.2s ease, box-shadow 0.2s ease;
+}
+
+.toast-action .dashicons {
+    /* This glyph belongs to the CTA, not the status row — take the button's white. */
+    color: inherit;
+    font-size: 0.95rem;
+    width: auto;
+    height: auto;
+    transition: transform 0.2s ease;
+}
+
+.toast-action:hover {
+    filter: brightness(1.06);
+    box-shadow: 0 3px 10px rgba(180, 83, 9, 0.35);
+    color: #fff;
+}
+
+.toast-action:hover .dashicons {
+    transform: translateX(3px);
+}
+
+.toast-progress {
+    height: 3px;
+    background-color: var(--primary);
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    inset-inline-start: 0;
+    border-radius: 0 0 var(--radius) var(--radius);
+}
+
+/* Variant colouring: the status icon and the progress bar come from one
+   source, so a save confirmation is green all the way through instead of a
+   green check sitting over a brand-cyan bar. Set by
+   UIManager.showToast({ variant }). */
+.toast.is-success .toast-content>.dashicons {
+    color: var(--success-strong);
+}
+
+.toast.is-success .toast-progress {
+    background-color: var(--success);
+}
+
+.toast.is-error .toast-content>.dashicons {
+    color: var(--error);
+}
+
+.toast.is-error .toast-progress {
+    background-color: var(--error);
+}
+
+.toast.show .toast-progress {
+    animation: progress 3s linear forwards;
+}
+
+/* Paused by JS (not by :hover) so the bar and the dismiss timer it depicts
+   stop and resume together — a CSS-only pause would drift out of sync with
+   the timer and finish the countdown behind a bar that looks frozen. */
+.toast.is-paused .toast-progress {
+    animation-play-state: paused;
+}
+
+@keyframes progress {
+    from {
+        width: 100%;
+    }
+
+    to {
+        width: 0%;
+    }
+}

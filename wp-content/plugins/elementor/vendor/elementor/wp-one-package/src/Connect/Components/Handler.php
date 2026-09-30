@@ -88,27 +88,30 @@ class Handler {
 		$code = sanitize_text_field( wp_unslash( $_GET['code'] ?? '' ) );
 		$state = sanitize_text_field( wp_unslash( $_GET['state'] ?? '' ) );
 
-		// Check if the state is valid
 		$this->validate_nonce( $state );
 
 		try {
-			// Exchange the code for an access token and store it
 			[ 'access_token' => $access_token ] = $this->facade->service()->get_token( GrantTypes::AUTHORIZATION_CODE, $code );
 			$this->facade->data()->set_share_usage_data( $this->is_share_usage_scope_granted( $access_token ) ? 'yes' : 'no' );
 			$this->facade->data()->set_owner_user_id( get_current_user_id() );
 			$this->facade->data()->set_home_url();
 		} catch ( \Throwable $th ) {
 			$this->facade->logger()->error( 'Unable to handle auth code: ' . $th->getMessage() );
+
+			do_action( 'elementor_one/connect_fail', $this->facade );
+			do_action(
+				'elementor_one/' . $this->facade->get_config( 'app_prefix' ) . '_connect_fail',
+				$this->facade
+			);
+
+			wp_safe_redirect( $this->facade->utils()->get_admin_url() );
+			exit;
 		}
 
-		// Trigger the connected event for all apps
 		do_action( 'elementor_one/connected', $this->facade );
-
-		// Trigger the connected event for the app prefix
 		do_action( 'elementor_one/' . $this->facade->get_config( 'app_prefix' ) . '_connected', $this->facade );
 
 		wp_safe_redirect( $this->facade->utils()->get_admin_url() );
-
 		exit;
 	}
 

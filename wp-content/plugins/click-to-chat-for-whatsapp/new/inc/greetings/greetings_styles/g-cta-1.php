@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$s1_options = get_option( 'ht_ctc_s1' );
+$s1_options = HT_CTC_Utils::get_option( 'ht_ctc_s1' );
 
 $s1_css        = 'padding:9px;width:100%;cursor:pointer; display:flex; align-items:center; justify-content:center;';
 $s1_text_color = ( isset( $s1_options['s1_text_color'] ) ) ? esc_attr( $s1_options['s1_text_color'] ) : '';

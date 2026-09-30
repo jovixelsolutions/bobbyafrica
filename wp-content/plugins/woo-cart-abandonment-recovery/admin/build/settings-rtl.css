@@ -288,6 +288,9 @@
 :is(#wcar-admin-app) .z-\[100000\] {
 	z-index: 100000;
 }
+:is(#wcar-admin-app) .z-\[100001\] {
+	z-index: 100001;
+}
 :is(#wcar-admin-app) .z-\[1\] {
 	z-index: 1;
 }
@@ -558,6 +561,9 @@
 :is(#wcar-admin-app) .mt-\[2px\] {
 	margin-top: 2px;
 }
+:is(#wcar-admin-app) .mt-\[3px\] {
+	margin-top: 3px;
+}
 :is(#wcar-admin-app) .mt-auto {
 	margin-top: auto;
 }
@@ -748,6 +754,9 @@
 :is(#wcar-admin-app) .max-h-\[550px\] {
 	max-height: 550px;
 }
+:is(#wcar-admin-app) .max-h-\[60vh\] {
+	max-height: 60vh;
+}
 :is(#wcar-admin-app) .max-h-\[calc\(100\%_-_6rem\)\] {
 	max-height: calc(100% - 6rem);
 }
@@ -890,9 +899,6 @@
 :is(#wcar-admin-app) .w-\[4\.375rem\] {
 	width: 4.375rem;
 }
-:is(#wcar-admin-app) .w-\[97\%\] {
-	width: 97%;
-}
 :is(#wcar-admin-app) .w-\[calc\(100\%\+0\.75rem\)\] {
 	width: calc(100% + 0.75rem);
 }
@@ -911,6 +917,9 @@
 }
 :is(#wcar-admin-app) .w-full {
 	width: 100%;
+}
+:is(#wcar-admin-app) .min-w-0 {
+	min-width: 0px;
 }
 :is(#wcar-admin-app) .min-w-10 {
 	min-width: 2.5rem;
@@ -941,6 +950,9 @@
 }
 :is(#wcar-admin-app) .max-w-32 {
 	max-width: 8rem;
+}
+:is(#wcar-admin-app) .max-w-3xl {
+	max-width: 48rem;
 }
 :is(#wcar-admin-app) .max-w-48 {
 	max-width: 12rem;

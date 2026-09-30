@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$s4_options = get_option( 'ht_ctc_s4' );
+$s4_options = HT_CTC_Utils::get_option( 'ht_ctc_s4' );
 $s4_options = apply_filters( 'ht_ctc_fh_s4_options', $s4_options );
 
 $s4_text_color   = esc_attr( $s4_options['s4_text_color'] );

@@ -22,8 +22,8 @@ $s6_css_div = "background-color: $s6_circle_background_color; height: $s6_circle
 <div class="ccw_plugin">
 <div class="chatbot btn_only_style_div_circle pointer ccw-analytics animated <?php echo esc_attr($an_on_load) .' '. esc_attr($an_on_hover) ?>" id="style-6" data-ccw="style-6"
     style="<?php echo esc_attr($p1) ?>; <?php echo esc_attr($p2) ?>; <?php echo esc_attr($s6_css_div) ?>"
-    onmouseover = "this.style.backgroundColor = '<?php echo esc_attr($s6_circle_background_hover_color) ?>', document.getElementsByClassName('ccw-s6-icon')[0].style.color = '<?php echo esc_attr($s6_hover_color) ?>' "
-    onmouseout  = "this.style.backgroundColor = '<?php echo esc_attr($s6_circle_background_color) ?>', document.getElementsByClassName('ccw-s6-icon')[0].style.color = '<?php echo esc_attr($s6_color) ?>' "
+    onmouseover = "this.style.backgroundColor = '<?php echo esc_js($s6_circle_background_hover_color) ?>', document.getElementsByClassName('ccw-s6-icon')[0].style.color = '<?php echo esc_js($s6_hover_color) ?>' "
+    onmouseout  = "this.style.backgroundColor = '<?php echo esc_js($s6_circle_background_color) ?>', document.getElementsByClassName('ccw-s6-icon')[0].style.color = '<?php echo esc_js($s6_color) ?>' "
     onclick = "<?php echo esc_attr($redirect) ?>" >
         <span class="icon icon-whatsapp2 ccw-s6-icon nofocus ccw-analytics" id="s6-icon" data-ccw="style-6" style="<?php echo esc_attr($s6_css_icon) ?>"></span>
 </div>

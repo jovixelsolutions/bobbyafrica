@@ -32,7 +32,7 @@ if ( ! class_exists( 'HT_CTC_Group' ) ) {
 		 */
 		public function group() {
 
-			$options       = get_option( 'ht_ctc_group' );
+			$options       = HT_CTC_Utils::get_option( 'ht_ctc_group' );
 			$othersettings = get_option( 'ht_ctc_othersettings' );
 			$type          = 'group';
 
@@ -86,6 +86,10 @@ if ( ! class_exists( 'HT_CTC_Group' ) ) {
 			// group id
 			$ht_ctc_group['group_id'] = ( isset( $ht_ctc_pagelevel['group_id'] ) ) ? esc_attr( $ht_ctc_pagelevel['group_id'] ) : esc_attr( $options['group_id'] );
 			$ht_ctc_group['group_id'] = apply_filters( 'wpml_translate_single_string', $ht_ctc_group['group_id'], 'Click to Chat for WhatsApp', 'group_id__group' );
+
+			if ( '' === $ht_ctc_group['group_id'] ) {
+				return;
+			}
 
 			$ht_ctc_group['display_mobile']  = ( isset( $options['display_mobile'] ) ) ? esc_attr( $options['display_mobile'] ) : 'show';
 			$ht_ctc_group['display_desktop'] = ( isset( $options['display_desktop'] ) ) ? esc_attr( $options['display_desktop'] ) : 'show';

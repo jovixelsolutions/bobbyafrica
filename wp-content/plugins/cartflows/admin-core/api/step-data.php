@@ -99,7 +99,8 @@ class StepData extends ApiBase {
 		$meta_options = AdminHelper::get_step_meta_options( $step_id );
 
 		$step_type         = $meta_options['type'];
-		$flow_id           = get_post_meta( $step_id, 'wcf-flow-id', true );
+		$flow_id_meta      = get_post_meta( $step_id, 'wcf-flow-id', true );
+		$flow_id           = is_numeric( $flow_id_meta ) ? absint( $flow_id_meta ) : 0;
 		$edit_step         = get_edit_post_link( $step_id, 'edit' );
 		$view_step         = get_permalink( $step_id );
 		$page_builder_edit = \Cartflows_Helper::get_page_builder_edit_link( $step_id );
@@ -114,8 +115,9 @@ class StepData extends ApiBase {
 			'cartflows_admin_' . $step_type . '_step_data',
 			array(
 				'id'                => $step_id,
-				'flow_title'        => get_the_title( $flow_id ),
-				'title'             => get_the_title( $step_id ),
+				// Use the raw stored titles to avoid the_title filters (wptexturize) turning dashes into HTML entities.
+				'flow_title'        => get_post_field( 'post_title', $flow_id, 'raw' ),
+				'title'             => get_post_field( 'post_title', $step_id, 'raw' ),
 				'type'              => $step_type,
 				'tabs'              => isset( $settings_data['tabs'] ) ? $settings_data['tabs'] : '',
 				'settings_data'     => isset( $settings_data['settings'] ) ? $settings_data['settings'] : '',

@@ -49,63 +49,92 @@ class Authorization {
 	 * @return void
 	 */
 	public function register_routes() {
-		// POST /connect/authorize
-		register_rest_route(
-			$this->namespace,
-			'/' . $this->rest_base . '/authorize',
-			[
+		foreach ( $this->get_route_definitions() as $route => $definition ) {
+			register_rest_route(
+				$this->namespace,
+				'/' . $this->rest_base . '/' . $route,
 				[
-					'methods' => \WP_REST_Server::CREATABLE,
-					'callback' => [ $this, 'authorize' ],
-					'permission_callback' => [ $this, 'check_permission' ],
-					'args' => [
-						'clearSession' => [
-							'type' => 'boolean',
-							'required' => false,
-							'default' => false,
-						],
+					[
+						'methods' => $definition['methods'],
+						'callback' => $this->wrap_route_callback( $route, $definition['callback'] ),
+						'permission_callback' => [ $this, 'check_permission' ],
+						'args' => $definition['args'] ?? [],
+					],
+				]
+			);
+		}
+	}
+
+	/**
+	 * @return array<string, array{methods: string, callback: callable, args?: array}>
+	 */
+	private function get_route_definitions(): array {
+		return [
+			'authorize' => [
+				'methods' => \WP_REST_Server::CREATABLE,
+				'callback' => [ $this, 'authorize' ],
+				'args' => [
+					'clearSession' => [
+						'type' => 'boolean',
+						'required' => false,
+						'default' => false,
 					],
 				],
-			]
-		);
+			],
+			'disconnect' => [
+				'methods' => \WP_REST_Server::CREATABLE,
+				'callback' => [ $this, 'disconnect' ],
+			],
+			'switch-domain' => [
+				'methods' => \WP_REST_Server::CREATABLE,
+				'callback' => [ $this, 'switch_domain' ],
+			],
+			'deactivate' => [
+				'methods' => \WP_REST_Server::CREATABLE,
+				'callback' => [ $this, 'deactivate' ],
+			],
+		];
+	}
 
-		// POST /connect/disconnect
-		register_rest_route(
-			$this->namespace,
-			'/' . $this->rest_base . '/disconnect',
-			[
-				[
-					'methods' => \WP_REST_Server::CREATABLE,
-					'callback' => [ $this, 'disconnect' ],
-					'permission_callback' => [ $this, 'check_permission' ],
-				],
-			]
-		);
+	/**
+	 * @param string $route Route slug.
+	 * @param callable $default_callback Default route handler.
+	 * @return callable
+	 */
+	private function wrap_route_callback( string $route, callable $default_callback ): callable {
+		return function ( \WP_REST_Request $request ) use ( $route, $default_callback ) {
+			$callback = $this->resolve_route_callback( $route, $default_callback, $request );
 
-		// POST /connect/switch-domain
-		register_rest_route(
-			$this->namespace,
-			'/' . $this->rest_base . '/switch-domain',
-			[
-				[
-					'methods' => \WP_REST_Server::CREATABLE,
-					'callback' => [ $this, 'switch_domain' ],
-					'permission_callback' => [ $this, 'check_permission' ],
-				],
-			]
-		);
+			if ( ! is_callable( $callback ) ) {
+				return RestError::internal_server_error( 'Invalid connect route callback.' );
+			}
 
-		// POST /connect/deactivate
-		register_rest_route(
-			$this->namespace,
-			'/' . $this->rest_base . '/deactivate',
-			[
-				[
-					'methods' => \WP_REST_Server::CREATABLE,
-					'callback' => [ $this, 'deactivate' ],
-					'permission_callback' => [ $this, 'check_permission' ],
-				],
-			]
+			return call_user_func( $callback, $request );
+		};
+	}
+
+	/**
+	 * Filters:
+	 * - elementor_one/connect_rest_callback
+	 * - elementor_one/{app_prefix}_connect_rest_callback
+	 *
+	 * Return the default callback unchanged to keep legacy behavior.
+	 * Return a different callable to override the route handler.
+	 *
+	 * @param string $route Route slug.
+	 * @param callable $default_callback Default route handler.
+	 * @param \WP_REST_Request $request Incoming request.
+	 * @return callable
+	 */
+	private function resolve_route_callback( string $route, callable $default_callback, \WP_REST_Request $request ): callable {
+		$app_prefix = $this->facade->get_config( 'app_prefix' );
+
+		return apply_filters(
+			'elementor_one/' . $app_prefix . '_connect_rest_callback',
+			$default_callback,
+			$route,
+			$request,
+			$this->facade
 		);
 	}
 

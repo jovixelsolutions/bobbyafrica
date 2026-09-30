@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'HT_CTC_Hooks' ) ) {
 
 	/**
-	 * Registers hooks that drive Click to Chat behaviour.
+	 * Registers hooks that drive Click to Chat behavior.
 	 */
 	class HT_CTC_Hooks {
 
@@ -78,29 +78,25 @@ if ( ! class_exists( 'HT_CTC_Hooks' ) ) {
 			$greetings_settings = get_option( 'ht_ctc_greetings_settings' );
 
 			// Entry effects
-			// check: - entry effect - 'from center', 'from corner' - have to make work as similar to other effects
+			// check: - entry effect - 'center', 'corner' - have to make work as similar to other effects
 			$entry = ( isset( $othersettings['show_effect'] ) ) ? esc_attr( $othersettings['show_effect'] ) : '';
 
 			// if greetings dialog is modal, then dont add animations. its causing position issue i.e. due to animation-fill-mode: both;
+			// fix this. even if modal is added, animations have to work perfeclty
 			$is_greetings_modal = 'no';
 			if ( isset( $greetings_settings['g_position'] ) && 'modal' === $greetings_settings['g_position'] ) {
 				$is_greetings_modal = 'yes';
 			}
 
+			// todo: corner effect not added
 			if ( '' !== $entry && 'no-show-effects' !== $entry && 'no' === $is_greetings_modal ) {
-				// if ( '' !== $entry && 'no-show-effects' !== $entry && 'From Corner' !== $entry ) {
 
 				$an_duration = '1s';
 				$an_delay    = '0s';
 				$an_itr      = '1';
 
-				if ( 'From Center' === $entry ) {
-					$entry = 'center';
-				}
-
-				// From Corner animation handle from js
-				if ( 'From Corner' === $entry ) {
-					$entry       = 'corner';
+				// corner animation handle from js
+				if ( 'corner' === $entry ) {
 					$an_duration = '0.4s';
 				}
 
@@ -129,7 +125,7 @@ if ( ! class_exists( 'HT_CTC_Hooks' ) ) {
 		/**
 		 * Print a marker comment identifying plugin output.
 		 *
-		 * phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		 * phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- HTML comment marker; version is escaped via esc_attr
 		 *
 		 * @return void
 		 */
@@ -196,8 +192,8 @@ if ( ! class_exists( 'HT_CTC_Hooks' ) ) {
 
 			$ht_ctc_os['show_effect'] = ( isset( $othersettings['show_effect'] ) ) ? esc_attr( $othersettings['show_effect'] ) : '';
 
-			// show effect ? if 'From Corner' - then return time (for other effects - this->css_styles() handles)
-			if ( 'From Corner' === $ht_ctc_os['show_effect'] ) {
+			// show effect ? if 'corner' - then return time (for other effects - this->css_styles() handles)
+			if ( 'corner' === $ht_ctc_os['show_effect'] ) {
 				$ht_ctc_os['show_effect'] = 150;
 			}
 
@@ -222,20 +218,8 @@ if ( ! class_exists( 'HT_CTC_Hooks' ) ) {
 			 */
 			if ( '' !== $entry && 'no-show-effects' !== $entry ) {
 
-				if ( 'From Center' === $entry ) {
-					$entry = 'center';
-				}
-
-				if ( 'From Corner' === $entry ) {
-					$entry = 'corner';
-				}
-
-				// if $entry is not corner or center the return
-				// if ( 'corner' === $entry || 'center' === $entry ) {
 				$ht_ctc_os['class_names']  = ( isset( $ht_ctc_os['class_names'] ) ) ? esc_attr( $ht_ctc_os['class_names'] ) : '';
 				$ht_ctc_os['class_names'] .= " ht_ctc_entry_animation ht_ctc_an_entry_$entry";
-				// }
-
 			}
 
 			// Aria-hidden = true
