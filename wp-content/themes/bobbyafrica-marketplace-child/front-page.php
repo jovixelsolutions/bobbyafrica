@@ -19,7 +19,7 @@ $hero_products = array_values(
 $hero_products = array_slice( $hero_products, 0, 3 );
 $featured_products = wc_get_products(
 	array(
-		'limit'    => 8,
+		'limit'    => 4,
 		'status'   => 'publish',
 		'featured' => true,
 	)
@@ -30,6 +30,14 @@ $deals = wc_get_products(
 		'status'   => 'publish',
 		'on_sale'  => true,
 		'orderby'  => 'popularity',
+	)
+);
+$flash_sales = wc_get_products(
+	array(
+		'limit'    => 8,
+		'status'   => 'publish',
+		'on_sale'  => true,
+		'orderby'  => 'date',
 		'order'    => 'DESC',
 	)
 );
@@ -41,21 +49,6 @@ $new_arrivals = wc_get_products(
 		'order'   => 'DESC',
 	)
 );
-$flash_sales = wc_get_products(
-	array(
-		'limit'   => 8,
-		'status'  => 'publish',
-		'on_sale' => true,
-		'orderby' => 'date',
-		'order'   => 'DESC',
-	)
-);
-$recently_viewed_ids = array();
-if ( ! empty( $_COOKIE['woocommerce_recently_viewed'] ) ) {
-	$recently_viewed_ids = array_slice( array_reverse( array_filter( array_map( 'absint', explode( '|', sanitize_text_field( wp_unslash( $_COOKIE['woocommerce_recently_viewed'] ) ) ) ) ) ), 0, 8 );
-}
-$recently_viewed = $recently_viewed_ids ? wc_get_products( array( 'include' => $recently_viewed_ids, 'limit' => 8, 'status' => 'publish', 'orderby' => 'include' ) ) : array();
-$categories = bobbyafrica_get_product_categories();
 ?>
 <main>
 	<section class="marketplace-hero">
@@ -128,11 +121,24 @@ $categories = bobbyafrica_get_product_categories();
 		</div>
 	</section>
 
-	<?php bobbyafrica_render_product_carousel( 'marketplace-featured-products', __( 'Featured products', 'bobbyafrica-marketplace-child' ), $featured_products, add_query_arg( 'market_featured', '1', wc_get_page_permalink( 'shop' ) ), __( 'Explore all', 'bobbyafrica-marketplace-child' ) ); ?>
-	<?php bobbyafrica_render_product_carousel( 'marketplace-hot-deals', __( 'Hot deals', 'bobbyafrica-marketplace-child' ), $deals, add_query_arg( array( 'market_sale' => '1', 'orderby' => 'popularity' ), wc_get_page_permalink( 'shop' ) ), __( 'See more deals', 'bobbyafrica-marketplace-child' ) ); ?>
-	<?php bobbyafrica_render_product_carousel( 'marketplace-new-arrivals', __( 'New arrivals', 'bobbyafrica-marketplace-child' ), $new_arrivals, add_query_arg( 'market_new', '1', wc_get_page_permalink( 'shop' ) ), __( 'Shop new arrivals', 'bobbyafrica-marketplace-child' ) ); ?>
-	<?php bobbyafrica_render_product_carousel( 'marketplace-flash-sales', __( 'Flash sales', 'bobbyafrica-marketplace-child' ), $flash_sales, add_query_arg( array( 'market_sale' => '1', 'orderby' => 'date' ), wc_get_page_permalink( 'shop' ) ), __( 'Shop flash sales', 'bobbyafrica-marketplace-child' ) ); ?>
-	<?php bobbyafrica_render_product_carousel( 'marketplace-recently-viewed', __( 'Recently viewed', 'bobbyafrica-marketplace-child' ), $recently_viewed, wc_get_page_permalink( 'shop' ), __( 'Browse the shop', 'bobbyafrica-marketplace-child' ) ); ?>
+	<?php bobbyafrica_render_product_strip( __( 'Featured products', 'bobbyafrica-marketplace-child' ), $featured_products, add_query_arg( 'market_collection', 'featured', wc_get_page_permalink( 'shop' ) ), __( 'Explore all', 'bobbyafrica-marketplace-child' ) ); ?>
+	<?php bobbyafrica_render_product_strip( __( 'Hot deals', 'bobbyafrica-marketplace-child' ), $deals, add_query_arg( 'market_collection', 'hot-deals', wc_get_page_permalink( 'shop' ) ), __( 'See more deals', 'bobbyafrica-marketplace-child' ) ); ?>
+	<?php bobbyafrica_render_product_strip( __( 'New arrivals', 'bobbyafrica-marketplace-child' ), $new_arrivals, add_query_arg( 'market_collection', 'new-arrivals', wc_get_page_permalink( 'shop' ) ), __( 'Shop arrivals', 'bobbyafrica-marketplace-child' ) ); ?>
+	<?php bobbyafrica_render_product_strip( __( 'Flash sales', 'bobbyafrica-marketplace-child' ), $flash_sales, add_query_arg( 'market_collection', 'flash-sales', wc_get_page_permalink( 'shop' ) ), __( 'Shop flash sales', 'bobbyafrica-marketplace-child' ) ); ?>
+
+	<section class="marketplace-section marketplace-strip-section" data-marketplace-recent-products hidden>
+		<div class="container">
+			<div class="marketplace-section-header">
+				<h2><?php esc_html_e( 'Recently viewed', 'bobbyafrica-marketplace-child' ); ?></h2>
+				<div class="marketplace-strip-actions">
+					<a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>"><?php esc_html_e( 'Browse the shop', 'bobbyafrica-marketplace-child' ); ?></a>
+					<button type="button" data-strip-direction="previous" aria-controls="marketplace-strip-recent" aria-label="<?php esc_attr_e( 'Scroll recently viewed backward', 'bobbyafrica-marketplace-child' ); ?>">&#8592;</button>
+					<button type="button" data-strip-direction="next" aria-controls="marketplace-strip-recent" aria-label="<?php esc_attr_e( 'Scroll recently viewed forward', 'bobbyafrica-marketplace-child' ); ?>">&#8594;</button>
+				</div>
+			</div>
+			<div class="product-grid marketplace-product-strip" id="marketplace-strip-recent" data-marketplace-strip tabindex="0" role="region" aria-label="<?php esc_attr_e( 'Recently viewed products', 'bobbyafrica-marketplace-child' ); ?>"></div>
+		</div>
+	</section>
 
 	<section class="marketplace-section marketplace-section-trust">
 		<div class="container">

@@ -17,14 +17,14 @@ function bobbyafrica_child_enqueue_assets() {
 		'bobbyafrica-child-style',
 		get_stylesheet_uri(),
 		array( 'astra-theme-css', 'bobbyafrica-quicksand' ),
-		filemtime( get_stylesheet_directory() . '/style.css' )
+		wp_get_theme()->get( 'Version' )
 	);
 
 	wp_enqueue_style(
 		'bobbyafrica-child-main',
 		get_stylesheet_directory_uri() . '/assets/css/main.css',
 		array( 'bobbyafrica-child-style' ),
-		filemtime( get_stylesheet_directory() . '/assets/css/main.css' )
+	filemtime( get_stylesheet_directory() . '/assets/css/main.css' )
 	);
 
 	wp_enqueue_style(
@@ -41,6 +41,11 @@ function bobbyafrica_child_enqueue_assets() {
 		filemtime( get_stylesheet_directory() . '/assets/js/main.js' ),
 		true
 	);
+
+		if ( function_exists( 'WC' ) && is_front_page() ) {
+			wp_enqueue_script( 'wc-add-to-cart' );
+			wp_enqueue_script( 'wc-cart-fragments' );
+		}
 
 	wp_localize_script(
 		'bobbyafrica-child-main',

@@ -1,6 +1,6 @@
 <?php
 /**
- * Custom marketplace header for BobbyAfrica child theme.
+ * Custom marketplace header for Jovixels Solutions child theme.
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -42,6 +42,7 @@ $marketplace_shop_url = wc_get_page_permalink( 'shop' );
 		<div class="container">
 			<span><?php esc_html_e( 'Fast delivery across major cities', 'bobbyafrica-marketplace-child' ); ?></span>
 			<span><?php esc_html_e( 'Secure checkout', 'bobbyafrica-marketplace-child' ); ?></span>
+			<span><?php esc_html_e( '+254 700 000 000', 'bobbyafrica-marketplace-child' ); ?></span>
 			<span><?php esc_html_e( 'Support 24/7', 'bobbyafrica-marketplace-child' ); ?></span>
 		</div>
 	</div>
@@ -77,7 +78,7 @@ $marketplace_shop_url = wc_get_page_permalink( 'shop' );
 			<a class="marketplace-icon-link" href="<?php echo esc_url( wc_get_cart_url() ); ?>">
 				<span><?php esc_html_e( 'Cart', 'bobbyafrica-marketplace-child' ); ?></span>
 				<?php if ( WC()->cart ) : ?>
-					<span class="marketplace-badge"><?php echo esc_html( WC()->cart->get_cart_contents_count() ); ?></span>
+					<span class="marketplace-badge" data-marketplace-cart-count<?php echo WC()->cart->get_cart_contents_count() ? '' : ' hidden'; ?>><?php echo esc_html( WC()->cart->get_cart_contents_count() ); ?></span>
 				<?php endif; ?>
 			</a>
 		</div>
@@ -88,13 +89,13 @@ $marketplace_shop_url = wc_get_page_permalink( 'shop' );
 				<span class="marketplace-menu-bars" aria-hidden="true"><i></i><i></i><i></i></span>
 				<span><?php esc_html_e( 'Categories', 'bobbyafrica-marketplace-child' ); ?></span>
 			</button>
-			<a class="marketplace-nav-feature" href="<?php echo esc_url( add_query_arg( 'orderby', 'date', $marketplace_shop_url ) ); ?>">
+			<a class="marketplace-nav-feature" href="<?php echo esc_url( add_query_arg( 'market_collection', 'new-arrivals', $marketplace_shop_url ) ); ?>">
 				<span><?php esc_html_e( 'New Arrivals', 'bobbyafrica-marketplace-child' ); ?></span><span class="marketplace-nav-icon" aria-hidden="true">✦</span>
 			</a>
-			<a class="marketplace-nav-feature" href="<?php echo esc_url( add_query_arg( array( 'market_sale' => '1', 'orderby' => 'date' ), $marketplace_shop_url ) ); ?>">
+			<a class="marketplace-nav-feature" href="<?php echo esc_url( add_query_arg( 'market_collection', 'flash-sales', $marketplace_shop_url ) ); ?>">
 				<span><?php esc_html_e( 'Flash Sales', 'bobbyafrica-marketplace-child' ); ?></span><span class="marketplace-nav-icon" aria-hidden="true">ϟ</span>
 			</a>
-			<a class="marketplace-nav-feature" href="<?php echo esc_url( add_query_arg( array( 'market_sale' => '1', 'orderby' => 'popularity' ), $marketplace_shop_url ) ); ?>">
+			<a class="marketplace-nav-feature" href="<?php echo esc_url( add_query_arg( 'market_collection', 'hot-deals', $marketplace_shop_url ) ); ?>">
 				<span><?php esc_html_e( 'Hot Deals', 'bobbyafrica-marketplace-child' ); ?></span><span class="marketplace-nav-icon" aria-hidden="true">%</span>
 			</a>
 			<span class="marketplace-nav-feature marketplace-nav-static">

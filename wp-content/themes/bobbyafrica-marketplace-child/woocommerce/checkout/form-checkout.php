@@ -23,7 +23,9 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 }
 ?>
 
-	<section class="container marketplace-page-shell marketplace-checkout-shell">
+
+	<div class="marketplace-page marketplace-checkout">
+	<div class="container marketplace-page-shell">
 		<h1><?php esc_html_e( 'Secure checkout', 'bobbyafrica-marketplace-child' ); ?></h1>
 		<form name="checkout" method="post" class="checkout woocommerce-checkout" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data">
 			<?php if ( $checkout->get_checkout_fields() ) : ?>
@@ -46,6 +48,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 				</div>
 			<?php endif; ?>
 		</form>
-	</section>
+	</div>
+	</div>
 
 <?php do_action( 'woocommerce_after_checkout_form', $checkout ); ?>

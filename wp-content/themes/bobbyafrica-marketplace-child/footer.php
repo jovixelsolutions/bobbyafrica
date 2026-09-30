@@ -1,6 +1,6 @@
 <?php
 /**
- * Marketplace footer.
+ * Jovixels Marketplace footer.
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

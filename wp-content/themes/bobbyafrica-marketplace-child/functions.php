@@ -1,6 +1,6 @@
 <?php
 /**
- * BobbyAfrica Marketplace Child Theme
+ * Jovixels Marketplace Child Theme
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

@@ -16,7 +16,12 @@ function bobbyafrica_render_product_card( $product ) {
 	$stock_status = $product->is_in_stock() ? __( 'In stock', 'bobbyafrica-marketplace-child' ) : __( 'Out of stock', 'bobbyafrica-marketplace-child' );
 	$rating_count = $product->get_review_count();
 	$average      = $product->get_average_rating();
-	$is_simple_addable = $product->is_type( 'simple' ) && $product->is_purchasable() && $product->is_in_stock();
+	$previous_product = isset( $GLOBALS['product'] ) ? $GLOBALS['product'] : null;
+	$GLOBALS['product'] = $product;
+	ob_start();
+	woocommerce_template_loop_add_to_cart();
+	$add_to_cart_html = ob_get_clean();
+	$GLOBALS['product'] = $previous_product;
 
 	ob_start();
 	?>
@@ -40,7 +45,7 @@ function bobbyafrica_render_product_card( $product ) {
 			</div>
 			<div class="marketplace-inline-actions">
 				<a class="marketplace-button primary" href="<?php echo esc_url( $product_url ); ?>"><?php esc_html_e( 'View product', 'bobbyafrica-marketplace-child' ); ?></a>
-				<a class="marketplace-button secondary<?php echo $is_simple_addable ? ' add_to_cart_button ajax_add_to_cart' : ''; ?>" href="<?php echo esc_url( $is_simple_addable ? $product->add_to_cart_url() : $product_url ); ?>"<?php if ( $is_simple_addable ) : ?> data-product_id="<?php echo esc_attr( $product->get_id() ); ?>" data-product_sku="<?php echo esc_attr( $product->get_sku() ); ?>" data-quantity="1" data-product_type="simple" rel="nofollow"<?php endif; ?>><?php echo esc_html( $is_simple_addable ? $product->add_to_cart_text() : __( 'Choose options', 'bobbyafrica-marketplace-child' ) ); ?></a>
+				<?php echo $add_to_cart_html; ?>
 			</div>
 		</div>
 	</article>
@@ -48,22 +53,24 @@ function bobbyafrica_render_product_card( $product ) {
 	return ob_get_clean();
 }
 
-function bobbyafrica_render_product_carousel( $carousel_id, $title, $products, $url, $link_label ) {
+function bobbyafrica_render_product_strip( $title, $products, $collection_url, $link_label ) {
 	if ( empty( $products ) ) {
 		return;
 	}
+
+	$strip_id = 'marketplace-strip-' . sanitize_title( $title );
 	?>
-	<section class="marketplace-section marketplace-product-section">
+	<section class="marketplace-section marketplace-strip-section">
 		<div class="container">
 			<div class="marketplace-section-header">
 				<h2><?php echo esc_html( $title ); ?></h2>
-				<div class="marketplace-carousel-actions">
-					<a href="<?php echo esc_url( $url ); ?>"><?php echo esc_html( $link_label ); ?></a>
-					<button type="button" data-carousel-scroll="-1" aria-label="<?php echo esc_attr( sprintf( __( 'Scroll %s backwards', 'bobbyafrica-marketplace-child' ), $title ) ); ?>" aria-controls="<?php echo esc_attr( $carousel_id ); ?>">&#8592;</button>
-					<button type="button" data-carousel-scroll="1" aria-label="<?php echo esc_attr( sprintf( __( 'Scroll %s forwards', 'bobbyafrica-marketplace-child' ), $title ) ); ?>" aria-controls="<?php echo esc_attr( $carousel_id ); ?>">&#8594;</button>
+				<div class="marketplace-strip-actions">
+					<a href="<?php echo esc_url( $collection_url ); ?>"><?php echo esc_html( $link_label ); ?></a>
+					<button type="button" data-strip-direction="previous" aria-controls="<?php echo esc_attr( $strip_id ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Scroll %s backward', 'bobbyafrica-marketplace-child' ), $title ) ); ?>">&#8592;</button>
+					<button type="button" data-strip-direction="next" aria-controls="<?php echo esc_attr( $strip_id ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Scroll %s forward', 'bobbyafrica-marketplace-child' ), $title ) ); ?>">&#8594;</button>
 				</div>
 			</div>
-			<div class="marketplace-product-carousel" id="<?php echo esc_attr( $carousel_id ); ?>" data-marketplace-product-carousel tabindex="0" role="region" aria-label="<?php echo esc_attr( $title ); ?>">
+			<div class="product-grid marketplace-product-strip" id="<?php echo esc_attr( $strip_id ); ?>" data-marketplace-strip tabindex="0" role="region" aria-label="<?php echo esc_attr( $title ); ?>">
 				<?php foreach ( $products as $product ) : ?>
 					<?php echo bobbyafrica_render_product_card( $product ); ?>
 				<?php endforeach; ?>

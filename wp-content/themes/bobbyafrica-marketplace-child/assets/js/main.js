@@ -271,117 +271,6 @@ document.addEventListener('DOMContentLoaded', function () {
     startRotation();
   });
 
-  document.querySelectorAll('[data-marketplace-product-carousel]').forEach(function (carousel) {
-    const section = carousel.closest('.marketplace-product-section');
-    const buttons = section ? section.querySelectorAll('[data-carousel-scroll]') : [];
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const firstCard = carousel.querySelector('.product-card');
-    let timer = null;
-
-    if (!firstCard) {
-      return;
-    }
-
-    function scrollByCard(direction) {
-      const styles = window.getComputedStyle(carousel);
-      const gap = parseFloat(styles.columnGap || styles.gap) || 0;
-      const distance = firstCard.getBoundingClientRect().width + gap;
-      const atEnd = carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 4;
-      if (direction > 0 && atEnd) {
-        carousel.scrollTo({ left: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
-        return;
-      }
-      carousel.scrollBy({ left: direction * distance, behavior: reducedMotion ? 'auto' : 'smooth' });
-    }
-
-    function stopRotation() {
-      if (timer) {
-        window.clearInterval(timer);
-        timer = null;
-      }
-    }
-
-    function startRotation() {
-      stopRotation();
-      if (!reducedMotion && !document.hidden && !carousel.matches(':hover') && !carousel.contains(document.activeElement)) {
-        timer = window.setInterval(function () {
-          scrollByCard(1);
-        }, 3500);
-      }
-    }
-
-    buttons.forEach(function (button) {
-      button.addEventListener('click', function () {
-        scrollByCard(Number(button.getAttribute('data-carousel-scroll')) || 1);
-        startRotation();
-      });
-    });
-    carousel.addEventListener('mouseenter', stopRotation);
-    carousel.addEventListener('mouseleave', startRotation);
-    carousel.addEventListener('focusin', stopRotation);
-    carousel.addEventListener('focusout', function (event) {
-      if (!carousel.contains(event.relatedTarget)) {
-        startRotation();
-      }
-    });
-    document.addEventListener('visibilitychange', startRotation);
-    startRotation();
-  });
-
-  document.querySelectorAll('[data-marketplace-banner-carousel]').forEach(function (carousel) {
-    const slides = Array.from(carousel.querySelectorAll('[data-marketplace-banner-slide]'));
-    const buttons = carousel.querySelectorAll('[data-banner-step]');
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (slides.length < 2) {
-      return;
-    }
-
-    let activeIndex = 0;
-    let timer = null;
-
-    function showSlide(index) {
-      activeIndex = (index + slides.length) % slides.length;
-      slides.forEach(function (slide, slideIndex) {
-        const active = slideIndex === activeIndex;
-        slide.hidden = !active;
-        slide.setAttribute('aria-hidden', active ? 'false' : 'true');
-      });
-    }
-
-    function stopRotation() {
-      if (timer) {
-        window.clearInterval(timer);
-        timer = null;
-      }
-    }
-
-    function startRotation() {
-      stopRotation();
-      if (!reducedMotion && !document.hidden && !carousel.matches(':hover') && !carousel.contains(document.activeElement)) {
-        timer = window.setInterval(function () {
-          showSlide(activeIndex + 1);
-        }, 5000);
-      }
-    }
-
-    buttons.forEach(function (button) {
-      button.addEventListener('click', function () {
-        showSlide(activeIndex + Number(button.getAttribute('data-banner-step')));
-        startRotation();
-      });
-    });
-    carousel.addEventListener('mouseenter', stopRotation);
-    carousel.addEventListener('mouseleave', startRotation);
-    carousel.addEventListener('focusin', stopRotation);
-    carousel.addEventListener('focusout', function (event) {
-      if (!carousel.contains(event.relatedTarget)) {
-        startRotation();
-      }
-    });
-    document.addEventListener('visibilitychange', startRotation);
-    startRotation();
-  });
-
   const mobileBuyBar = document.querySelector('.marketplace-mobile-buy-bar');
   if (mobileBuyBar) {
     const mobileBuyButton = mobileBuyBar.querySelector('.marketplace-mobile-buy-button');
@@ -425,4 +314,129 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  const recentProductKey = 'bobbyafrica-recent-products';
+  const currentProductMatch = document.body.className.match(/\bpostid-(\d+)\b/);
+  if (currentProductMatch) {
+    try {
+      const recentProductIds = JSON.parse(window.localStorage.getItem(recentProductKey) || '[]');
+      const nextRecentIds = [Number(currentProductMatch[1])].concat(Array.isArray(recentProductIds) ? recentProductIds : [])
+        .filter(function (productId, index, productIds) {
+          return Number.isInteger(productId) && productId > 0 && productIds.indexOf(productId) === index;
+        })
+        .slice(0, 12);
+      window.localStorage.setItem(recentProductKey, JSON.stringify(nextRecentIds));
+    } catch (error) {
+    }
+  }
+
+  function initializeProductStrips() {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    document.querySelectorAll('[data-marketplace-strip]').forEach(function (strip) {
+      if (strip.dataset.stripInitialized === 'true') {
+        return;
+      }
+      strip.dataset.stripInitialized = 'true';
+
+      let timer = null;
+      function stopRotation() {
+        if (timer) {
+          window.clearTimeout(timer);
+          timer = null;
+        }
+      }
+
+      function startRotation() {
+        stopRotation();
+        if (reducedMotion || strip.children.length < 2 || document.hidden || strip.matches(':hover') || strip.contains(document.activeElement) || strip.closest('[hidden]')) {
+          return;
+        }
+        timer = window.setTimeout(function () {
+          const firstCard = strip.firstElementChild;
+          const styles = window.getComputedStyle(strip);
+          const gap = parseFloat(styles.columnGap || styles.gap) || 0;
+          const atEnd = strip.scrollLeft + strip.clientWidth >= strip.scrollWidth - 4;
+          strip.scrollTo({
+            left: atEnd ? 0 : strip.scrollLeft + firstCard.getBoundingClientRect().width + gap,
+            behavior: 'smooth'
+          });
+          startRotation();
+        }, 4200);
+      }
+
+      strip.addEventListener('mouseenter', stopRotation);
+      strip.addEventListener('mouseleave', startRotation);
+      strip.addEventListener('focusin', stopRotation);
+      strip.addEventListener('focusout', function (event) {
+        if (!strip.contains(event.relatedTarget)) {
+          startRotation();
+        }
+      });
+      strip.addEventListener('marketplace:products-loaded', startRotation);
+      document.addEventListener('visibilitychange', startRotation);
+
+      const section = strip.closest('.marketplace-strip-section');
+      if (section) {
+        section.querySelectorAll('[data-strip-direction]').forEach(function (button) {
+          button.addEventListener('click', function () {
+            const direction = button.getAttribute('data-strip-direction') === 'previous' ? -1 : 1;
+            const distance = Math.max(strip.clientWidth * 0.8, 220) * direction;
+            strip.scrollBy({ left: distance, behavior: reducedMotion ? 'auto' : 'smooth' });
+            stopRotation();
+            window.setTimeout(startRotation, 4500);
+          });
+        });
+      }
+
+      startRotation();
+    });
+  }
+
+  initializeProductStrips();
+
+  const recentProductsSection = document.querySelector('[data-marketplace-recent-products]');
+  if (recentProductsSection) {
+    let recentProductIds = [];
+    try {
+      recentProductIds = JSON.parse(window.localStorage.getItem(recentProductKey) || '[]');
+    } catch (error) {
+      recentProductIds = [];
+    }
+
+    if (!Array.isArray(recentProductIds) || !recentProductIds.length) {
+      recentProductsSection.remove();
+    } else {
+      const request = new FormData();
+      request.append('action', 'bobbyafrica_recent_products');
+      request.append('nonce', bobbyafricaMarketData.nonce);
+      recentProductIds.slice(0, 12).forEach(function (productId) {
+        request.append('product_ids[]', String(productId));
+      });
+
+      fetch(bobbyafricaMarketData.ajaxurl, {
+        method: 'POST',
+        credentials: 'same-origin',
+        body: request
+      })
+        .then(function (response) {
+          if (!response.ok) {
+            throw new Error('Recent products request failed');
+          }
+          return response.json();
+        })
+        .then(function (response) {
+          const strip = recentProductsSection.querySelector('[data-marketplace-strip]');
+          if (!response.success || !response.data.html || !strip) {
+            recentProductsSection.remove();
+            return;
+          }
+          strip.innerHTML = response.data.html;
+          recentProductsSection.hidden = false;
+          strip.dispatchEvent(new Event('marketplace:products-loaded'));
+        })
+        .catch(function () {
+          recentProductsSection.remove();
+        });
+    }
+  }
 });
