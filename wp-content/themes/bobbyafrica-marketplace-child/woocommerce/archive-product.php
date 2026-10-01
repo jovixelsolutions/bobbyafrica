@@ -63,13 +63,23 @@ $rating_value    = isset( $_GET['rating_filter'] ) && is_scalar( $_GET['rating_f
 						</div>
 					<?php endforeach; ?>
 				</div>
+				<div class="marketplace-carousel-controls" aria-label="<?php esc_attr_e( 'Featured product slides', 'bobbyafrica-marketplace-child' ); ?>">
+					<button class="marketplace-carousel-arrow" type="button" data-carousel-direction="previous" aria-label="<?php esc_attr_e( 'Previous featured product', 'bobbyafrica-marketplace-child' ); ?>">&#8592;</button>
+					<div class="marketplace-carousel-dots">
+						<?php foreach ( $banner_products as $index => $product ) : ?>
+							<button type="button" data-carousel-slide="<?php echo esc_attr( $index ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Show featured product %d', 'bobbyafrica-marketplace-child' ), $index + 1 ) ); ?>" aria-current="<?php echo 0 === $index ? 'true' : 'false'; ?>"></button>
+						<?php endforeach; ?>
+					</div>
+					<button class="marketplace-carousel-arrow" type="button" data-carousel-direction="next" aria-label="<?php esc_attr_e( 'Next featured product', 'bobbyafrica-marketplace-child' ); ?>">&#8594;</button>
+				</div>
 				<div class="marketplace-hero-progress" aria-hidden="true"><span class="marketplace-hero-progress-bar"></span></div>
 			</section>
 		<?php endif; ?>
 
 		<div class="marketplace-shop-grid">
 			<aside class="marketplace-sidebar" aria-label="<?php esc_attr_e( 'Shop filters', 'bobbyafrica-marketplace-child' ); ?>">
-				<form class="marketplace-filter-form" method="get" action="<?php echo esc_url( is_product_category() ? get_term_link( $queried_category ) : wc_get_page_permalink( 'shop' ) ); ?>">
+				<button class="marketplace-filter-toggle" type="button" aria-expanded="false" aria-controls="marketplace-filter-form"><?php esc_html_e( 'Filter products', 'bobbyafrica-marketplace-child' ); ?><span aria-hidden="true">+</span></button>
+				<form id="marketplace-filter-form" class="marketplace-filter-form" method="get" action="<?php echo esc_url( is_product_category() ? get_term_link( $queried_category ) : wc_get_page_permalink( 'shop' ) ); ?>">
 					<h2><?php esc_html_e( 'Filter products', 'bobbyafrica-marketplace-child' ); ?></h2>
 					<?php if ( $collection && isset( $collection_titles[ $collection ] ) ) : ?>
 						<input type="hidden" name="market_collection" value="<?php echo esc_attr( $collection ); ?>" />

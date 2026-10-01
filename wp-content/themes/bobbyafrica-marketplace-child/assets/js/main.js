@@ -200,6 +200,7 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('[data-marketplace-carousel]').forEach(function (carousel) {
     const copySlides = Array.from(carousel.querySelectorAll('[data-carousel-copy]'));
     const imageSlides = Array.from(carousel.querySelectorAll('[data-carousel-image]'));
+    const slideIndicators = Array.from(carousel.querySelectorAll('[data-carousel-slide]'));
     const progressBar = carousel.querySelector('.marketplace-hero-progress-bar');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -228,6 +229,10 @@ document.addEventListener('DOMContentLoaded', function () {
         if (link) {
           link.setAttribute('tabindex', active ? '0' : '-1');
         }
+      });
+
+      slideIndicators.forEach(function (indicator, slideIndex) {
+        indicator.setAttribute('aria-current', slideIndex === activeIndex ? 'true' : 'false');
       });
     }
 
@@ -258,6 +263,21 @@ document.addEventListener('DOMContentLoaded', function () {
       }, 6000);
     }
 
+    carousel.querySelectorAll('[data-carousel-direction]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        const direction = button.getAttribute('data-carousel-direction') === 'previous' ? -1 : 1;
+        showSlide(activeIndex + direction);
+        startRotation();
+      });
+    });
+
+    slideIndicators.forEach(function (indicator) {
+      indicator.addEventListener('click', function () {
+        showSlide(Number(indicator.getAttribute('data-carousel-slide')));
+        startRotation();
+      });
+    });
+
     carousel.addEventListener('mouseenter', stopRotation);
     carousel.addEventListener('mouseleave', startRotation);
     carousel.addEventListener('focusin', stopRotation);
@@ -269,6 +289,20 @@ document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('visibilitychange', startRotation);
 
     startRotation();
+  });
+
+  document.querySelectorAll('.marketplace-sidebar').forEach(function (sidebar) {
+    const filterToggle = sidebar.querySelector('.marketplace-filter-toggle');
+    if (!filterToggle) {
+      return;
+    }
+
+    sidebar.classList.add('has-filter-toggle');
+    filterToggle.addEventListener('click', function () {
+      const expanded = sidebar.classList.toggle('is-expanded');
+      filterToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      filterToggle.querySelector('span').textContent = expanded ? '\u2212' : '+';
+    });
   });
 
   const mobileBuyBar = document.querySelector('.marketplace-mobile-buy-bar');

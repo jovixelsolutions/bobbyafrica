@@ -7,7 +7,6 @@ use Automattic\WooCommerce\GoogleListingsAndAds\Vendor\GuzzleHttp\HandlerStack;
 use Automattic\WooCommerce\GoogleListingsAndAds\Vendor\GuzzleHttp\Promise as P;
 use Automattic\WooCommerce\GoogleListingsAndAds\Vendor\GuzzleHttp\Promise\PromiseInterface;
 use Automattic\WooCommerce\GoogleListingsAndAds\Vendor\GuzzleHttp\TransferStats;
-use Automattic\WooCommerce\GoogleListingsAndAds\Vendor\GuzzleHttp\Utils;
 use Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Psr\Http\Message\RequestInterface;
 use Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Psr\Http\Message\ResponseInterface;
 use Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Psr\Http\Message\StreamInterface;
@@ -160,7 +159,7 @@ class MockHandler implements \Countable
             ) {
                 $this->queue[] = $value;
             } else {
-                throw new \TypeError('Expected a Response, Promise, Throwable or callable. Found '.Utils::describeType($value));
+                throw new \TypeError('Expected a Response, Promise, Throwable or callable. Found '.\get_debug_type($value));
             }
         }
     }

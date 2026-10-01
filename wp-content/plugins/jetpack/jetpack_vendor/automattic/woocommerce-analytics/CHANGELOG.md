@@ -5,6 +5,42 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.17.0 - 2026-08-24
+### Security
+- Update wp-coding-standards/wpcs to 3.4.1 (security release). [#67036]
+
+### Changed
+- Update PHP development dependencies to versions that resolve reported security advisories. [#67595]
+- Use the tooling catalog for shared Babel, PostCSS, and webpack versions. [#67842]
+
+### Removed
+- Minimum supported PHP version is now 7.4. [#67983]
+
+## 0.16.7 - 2026-07-27
+### Security
+- Stop emitting request-derived properties into cacheable front-end page HTML. [#67003]
+
+### Changed
+- Update package dependencies. [#65999]
+
+### Fixed
+- Recognize active WooCommerce installations in custom plugin directories. [#66665]
+
+## 0.16.6 - 2026-06-17
+### Fixed
+- Stop minting throwaway anonymous IDs for events from clients without a persisted visitor cookie (e.g. UA-spoofing crawlers hitting add-to-cart), which inflated session counts. Such events are now skipped instead. [#65792]
+
+## 0.16.5 - 2026-06-02
+### Fixed
+- Guard cart hook handlers against missing cart item data to prevent PHP warnings. [#64963]
+
+## 0.16.4 - 2026-05-11
+### Changed
+- Update package dependencies. [#64040]
+
+### Fixed
+- Skip server-side analytics events from cookie-less contexts (REST API, XMLRPC, cron, WP-CLI) to prevent inflated session counts. [#64686]
+
 ## [0.16.3] - 2026-04-06
 ### Changed
 - Update dependencies. [#46383]
@@ -21,7 +57,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update package dependencies. [#47684]
 
 ### Fixed
-- Disable batched analytics requests when a SOCKS proxy is configured, falling back to wp_remote_get() which respects WP_PROXY_* settings. [#47707]
+- Disable batched analytics requests when a SOCKS proxy is configured, falling back to wp*remote_get() which respects WP_PROXY*\* settings. [#47707]
 
 ## [0.16.0] - 2026-03-16
 ### Changed
@@ -265,7 +301,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.9] - 2024-09-09
 ### Added
-- Add Store ID property in common woocommerce analytics  properties. [#38857]
+- Add Store ID property in common woocommerce analytics properties. [#38857]
 
 ## [0.1.8] - 2024-08-26
 ### Changed

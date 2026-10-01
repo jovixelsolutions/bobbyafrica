@@ -4,6 +4,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit( 0 );
 }
 
+use Automattic\Jetpack\VideoPress\Data as VideoPress_Data;
+
 /**
  * VideoPress Shortcode Handler
  *
@@ -63,7 +65,7 @@ class VideoPress_Shortcode {
 		/**
 		 * We only accept GUIDs as a first unnamed argument.
 		 */
-		$guid = isset( $attr[0] ) ? $attr[0] : null;
+		$guid = $attr[0] ?? null;
 
 		if ( isset( $attr['postid'] ) ) {
 			$guid = get_post_meta( $attr['postid'], 'videopress_guid', true );
@@ -106,6 +108,11 @@ class VideoPress_Shortcode {
 
 		if ( isset( $attr['preload'] ) ) {
 			$attr['preloadcontent'] = $attr['preload'];
+		}
+
+		// The site-wide opt-out wins over the shortcode's own preload attribute.
+		if ( VideoPress_Data::get_videopress_player_preload_disabled() ) {
+			$attr['preloadcontent'] = 'none';
 		}
 
 		$attr = shortcode_atts( $defaults, $attr, 'videopress' );

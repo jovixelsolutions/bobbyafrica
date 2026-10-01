@@ -19,22 +19,20 @@ class Block_Editor_Content {
 	 * This method should be called only once by the Initializer class. Do not call this method again.
 	 */
 	public static function init() {
-		if ( ! Status::is_standalone_plugin_active() ) {
-			return;
-		}
+		if ( Status::is_standalone_plugin_active() ) {
+			// Remove the videopress shortcodes added by the Jetpack plugin.
+			if ( shortcode_exists( 'videopress' ) ) {
+				remove_shortcode( 'videopress' );
+			}
+			if ( shortcode_exists( 'wpvideo' ) ) {
+				remove_shortcode( 'wpvideo' );
+			}
 
-		// Remove the videopress shortcodes added by the Jetpack plugin.
-		if ( shortcode_exists( 'videopress' ) ) {
-			remove_shortcode( 'videopress' );
-		}
-		if ( shortcode_exists( 'wpvideo' ) ) {
-			remove_shortcode( 'wpvideo' );
-		}
+			add_shortcode( 'videopress', array( static::class, 'videopress_embed_shortcode' ) );
+			add_shortcode( 'wpvideo', array( static::class, 'videopress_embed_shortcode' ) );
 
-		add_shortcode( 'videopress', array( static::class, 'videopress_embed_shortcode' ) );
-		add_shortcode( 'wpvideo', array( static::class, 'videopress_embed_shortcode' ) );
-
-		add_filter( 'wp_video_shortcode_override', array( static::class, 'video_shortcode_override' ), 10, 4 );
+			add_filter( 'wp_video_shortcode_override', array( static::class, 'video_shortcode_override' ), 10, 4 );
+		}
 
 		add_filter( 'default_content', array( static::class, 'videopress_video_block_by_guid' ), 10, 2 );
 	}
@@ -53,7 +51,7 @@ class Block_Editor_Content {
 		/**
 		 * We only accept GUIDs as a first unnamed argument.
 		 */
-		$guid = isset( $atts[0] ) ? $atts[0] : null;
+		$guid = $atts[0] ?? null;
 
 		/**
 		 * Make sure the GUID passed in matches how actual GUIDs are formatted.
@@ -94,6 +92,11 @@ class Block_Editor_Content {
 			unset( $atts['preloadcontent'] );
 		}
 
+		// The site-wide opt-out wins over the shortcode's own preload attribute.
+		if ( Data::get_videopress_player_preload_disabled() ) {
+			$atts['preloadcontent'] = 'none';
+		}
+
 		$atts = shortcode_atts( $defaults, $atts, 'videopress' );
 
 		$base_url     = 'https://videopress.com/embed/' . $guid;
@@ -126,10 +129,10 @@ class Block_Editor_Content {
 					'title="' . __( 'VideoPress Video Player', 'jetpack-videopress-pkg' ) . '" ' .
 					'aria-label="' . __( 'VideoPress Video Player', 'jetpack-videopress-pkg' ) . '" ' .
 					'src="%s" ' .
-					'width="%s"' .
+					'width="%s" ' .
 					'height="%s" ' .
 					'frameborder="0" ' .
-					'allowfullscreen%s allow="clipboard-write">' .
+					'allowfullscreen%s allow="clipboard-write; presentation">' .
 				'</iframe>' .
 			'</div>' .
 		'</figure>';

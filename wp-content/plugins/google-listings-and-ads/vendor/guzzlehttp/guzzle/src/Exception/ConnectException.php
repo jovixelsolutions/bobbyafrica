@@ -7,8 +7,6 @@ use Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Psr\Http\Message\RequestI
 
 /**
  * Exception thrown when a connection cannot be established.
- *
- * Note that no response is present for a ConnectException
  */
 class ConnectException extends TransferException implements NetworkExceptionInterface
 {

@@ -1528,6 +1528,65 @@ ins {
   background: var(--market-surface);
 }
 
+.marketplace-carousel-controls {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.marketplace-carousel-arrow,
+.marketplace-carousel-dots button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  min-width: 36px;
+  min-height: 36px;
+  border: 1px solid rgba(43, 36, 31, 0.18);
+  border-radius: 50%;
+  background: var(--market-surface);
+  color: var(--market-secondary);
+  cursor: pointer;
+}
+
+.marketplace-carousel-arrow {
+  font-size: 1rem;
+}
+
+.marketplace-carousel-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.marketplace-carousel-dots button {
+  min-width: 9px;
+  min-height: 9px;
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 0;
+  background: rgba(255, 253, 249, 0.76);
+  box-shadow: 0 1px 4px rgba(43, 36, 31, 0.2);
+}
+
+.marketplace-carousel-dots button[aria-current="true"] {
+  width: 22px;
+  border-radius: 8px;
+  background: var(--market-primary);
+}
+
+.marketplace-carousel-arrow:focus-visible,
+.marketplace-carousel-dots button:focus-visible,
+.marketplace-filter-toggle:focus-visible {
+  outline: 3px solid var(--market-primary);
+  outline-offset: 2px;
+}
+
 .marketplace-archive-image-slide {
   position: absolute;
   inset: 0;
@@ -1548,6 +1607,27 @@ ins {
 .marketplace-sidebar {
   position: sticky;
   top: 180px;
+}
+
+.marketplace-filter-toggle {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--market-secondary);
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.marketplace-filter-toggle span {
+  font-size: 1.3rem;
+  line-height: 1;
 }
 
 .marketplace-filter-form h2 {
@@ -1694,6 +1774,18 @@ ins {
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   }
 
+  .marketplace-sidebar {
+    padding: 12px 16px;
+  }
+
+  .marketplace-filter-toggle {
+    display: flex;
+  }
+
+  .marketplace-sidebar.has-filter-toggle:not(.is-expanded) .marketplace-filter-form {
+    display: none;
+  }
+
   .marketplace-sidebar,
   .woocommerce-checkout .checkout-summary-column {
     position: static;
@@ -1721,6 +1813,17 @@ ins {
 
   .marketplace-archive-banner-visual {
     min-height: 220px;
+  }
+
+  .marketplace-carousel-controls {
+    right: 10px;
+    bottom: 12px;
+    gap: 7px;
+  }
+
+  .marketplace-carousel-arrow {
+    min-width: 34px;
+    min-height: 34px;
   }
 
   .marketplace-strip-actions {

@@ -9,8 +9,9 @@ namespace Automattic\Jetpack\My_Jetpack\Products;
 
 use Automattic\Jetpack\Connection\Manager as Connection_Manager;
 use Automattic\Jetpack\My_Jetpack\Initializer;
-use Automattic\Jetpack\My_Jetpack\Product;
+use Automattic\Jetpack\My_Jetpack\Module_Product;
 use Automattic\Jetpack\My_Jetpack\Wpcom_Products;
+use Automattic\Jetpack\Status\Host;
 use WP_Post;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -20,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class responsible for handling the Jetpack AI product
  */
-class Jetpack_Ai extends Product {
+class Jetpack_Ai extends Module_Product {
 
 	const CURRENT_TIER_SLUG  = 'free';
 	const UPGRADED_TIER_SLUG = 'upgraded';
@@ -31,6 +32,13 @@ class Jetpack_Ai extends Product {
 	 * @var string
 	 */
 	public static $slug = 'jetpack-ai';
+
+	/**
+	 * The Jetpack module name associated with this product
+	 *
+	 * @var string
+	 */
+	public static $module_name = 'ai';
 
 	/**
 	 * The category of the product
@@ -192,7 +200,7 @@ class Jetpack_Ai extends Product {
 			return 0;
 		}
 
-		$current_tier = isset( $info['current-tier']['value'] ) ? $info['current-tier']['value'] : null;
+		$current_tier = $info['current-tier']['value'] ?? null;
 
 		return $current_tier;
 	}
@@ -217,7 +225,7 @@ class Jetpack_Ai extends Product {
 		}
 
 		// Trust the next tier provided by the feature data.
-		$next_tier = isset( $info['next-tier']['value'] ) ? $info['next-tier']['value'] : null;
+		$next_tier = $info['next-tier']['value'] ?? null;
 
 		return $next_tier;
 	}
@@ -234,17 +242,18 @@ class Jetpack_Ai extends Product {
 	/**
 	 * Get the internationalized usage tier long description by tier
 	 *
-	 * @param int $tier The usage tier.
+	 * @param int|null $tier The usage tier.
 	 * @return string
 	 */
 	public static function get_long_description_by_usage_tier( $tier ) {
-		$long_descriptions  = array(
-			1   => __( 'Jetpack AI Assistant brings the power of AI right into your WordPress editor, letting your content creation soar to new heights.', 'jetpack-my-jetpack' ),
-			100 => __( 'The most advanced AI technology Jetpack has to offer.', 'jetpack-my-jetpack' ),
-		);
-		$tiered_description = __( 'Upgrade and increase the amount of your available monthly requests to continue using the most advanced AI technology Jetpack has to offer.', 'jetpack-my-jetpack' );
-
-		return isset( $long_descriptions[ $tier ] ) ? $long_descriptions[ $tier ] : $tiered_description;
+		switch ( (int) $tier ) {
+			case 1:
+				return __( 'Jetpack AI Assistant brings the power of AI right into your WordPress editor, letting your content creation soar to new heights.', 'jetpack-my-jetpack' );
+			case 100:
+				return __( 'The most advanced AI technology Jetpack has to offer.', 'jetpack-my-jetpack' );
+			default:
+				return __( 'Upgrade and increase the amount of your available monthly requests to continue using the most advanced AI technology Jetpack has to offer.', 'jetpack-my-jetpack' );
+		}
 	}
 
 	/**
@@ -367,7 +376,7 @@ class Jetpack_Ai extends Product {
 			);
 		}
 
-		return isset( $prices[ $tier ] ) ? $prices[ $tier ] : array();
+		return $prices[ $tier ] ?? array();
 	}
 
 	/**
@@ -509,11 +518,46 @@ class Jetpack_Ai extends Product {
 	}
 
 	/**
-	 * Get the URL where the user manages the product
+	 * Whether My Jetpack should surface the AI feature controls.
+	 *
+	 * @return bool
+	 */
+	public static function is_feature_ui_enabled() {
+		if (
+			! self::is_plugin_active()
+			|| ! method_exists( '\\Jetpack', 'is_module' )
+			|| ! \Jetpack::is_module( 'ai' )
+			// @phan-suppress-next-line PhanUndeclaredClassReference -- Supplied by the optional Jetpack plugin.
+			|| ! method_exists( '\\Jetpack_AI_Settings', 'is_feature_enabled' )
+		) {
+			return false;
+		}
+
+		$connection = new Connection_Manager();
+		if ( ! $connection->is_connected() || ! $connection->has_connected_owner() ) {
+			return false;
+		}
+
+		$host = new Host();
+		if ( ! $host->is_wpcom_platform() ) {
+			return true;
+		}
+
+		return $host->is_woa_site()
+			&& function_exists( 'jetpack_is_internal_testing_environment' )
+			&& jetpack_is_internal_testing_environment();
+	}
+
+	/**
+	 * Get the URL where the user manages the product.
 	 *
 	 * @return ?string
 	 */
 	public static function get_manage_url() {
+		if ( self::is_feature_ui_enabled() ) {
+			return admin_url( 'admin.php?page=jetpack-ai' );
+		}
+
 		return admin_url( 'admin.php?page=my-jetpack#/jetpack-ai' );
 	}
 
@@ -538,7 +582,10 @@ class Jetpack_Ai extends Product {
 	/**
 	 * Checks whether the Product is active
 	 *
-	 * Overrides the parent method to respect the jetpack_ai_enabled filter.
+	 * Overrides Module_Product::is_active() to also respect the jetpack_ai_enabled
+	 * filter. The parent already checks that the Jetpack plugin and the 'ai' module
+	 * are active; this override layers the host/master-off signal on top so the
+	 * product card reflects it.
 	 *
 	 * @return boolean
 	 */
@@ -553,6 +600,19 @@ class Jetpack_Ai extends Product {
 		$is_enabled = apply_filters( 'jetpack_ai_enabled', true );
 
 		return $is_enabled && parent::is_active();
+	}
+
+	/**
+	 * Whether the 'ai' module backs this product's UI state.
+	 *
+	 * @return bool
+	 */
+	public static function is_module_active() {
+		if ( ! self::is_feature_ui_enabled() ) {
+			return true;
+		}
+
+		return parent::is_module_active();
 	}
 
 	/**

@@ -1,0 +1,3 @@
+.app-button{white-space:nowrap}.app-button svg{max-height:inherit;max-width:inherit}.app-button svg circle{stroke:currentcolor}.app-button[hidden]{display:none!important}.app-button--icon-position-right.has-icon svg:last-child{margin-left:8px}.app-button--icon-with-text.has-icon{padding:6px 12px}
+.app-spinner{display:flex;justify-content:center;padding:var(--main-gap)}
+.gla-google-ads-promo{background-color:#3858e908;border:1px solid #3858e929;border-radius:4px;margin:16px 0;padding:16px}.gla-google-ads-promo p:last-child{margin:0}.gla-google-ads-promo__logo{display:block}.gla-google-ads-promo__title{font-size:13px;font-weight:600;letter-spacing:0;line-height:20px;margin:0}
