@@ -39,10 +39,38 @@ $archive_title = isset( $collection_titles[ $collection ] ) && is_shop() ? $coll
 $min_price_value = isset( $_GET['min_price'] ) && is_scalar( $_GET['min_price'] ) ? wc_format_decimal( wp_unslash( $_GET['min_price'] ) ) : '';
 $max_price_value = isset( $_GET['max_price'] ) && is_scalar( $_GET['max_price'] ) ? wc_format_decimal( wp_unslash( $_GET['max_price'] ) ) : '';
 $rating_value    = isset( $_GET['rating_filter'] ) && is_scalar( $_GET['rating_filter'] ) ? absint( wp_unslash( $_GET['rating_filter'] ) ) : 0;
+$price_lookup_args = array(
+	'status' => 'publish',
+	'limit'  => -1,
+	'return' => 'objects',
+);
+if ( $queried_category instanceof WP_Term ) {
+	$price_lookup_args['category'] = array( $queried_category->slug );
+}
+$price_products = wc_get_products( $price_lookup_args );
+$price_values   = array_filter(
+	array_map(
+		function ( $product ) {
+			return $product instanceof WC_Product && '' !== $product->get_price() ? (float) $product->get_price() : null;
+		},
+		$price_products
+	),
+	function ( $value ) {
+		return null !== $value;
+	}
+);
+$price_min = $price_values ? (int) floor( min( $price_values ) ) : 0;
+$price_max = $price_values ? (int) ceil( max( $price_values ) ) : 1000;
+$price_max = max( $price_min + 1, $price_max );
+$selected_min_price = '' !== $min_price_value ? min( $price_max, max( $price_min, (float) $min_price_value ) ) : $price_min;
+$selected_max_price = '' !== $max_price_value ? min( $price_max, max( $price_min, (float) $max_price_value ) ) : $price_max;
+if ( $selected_min_price > $selected_max_price ) {
+	$selected_min_price = $selected_max_price;
+}
 ?>
 <main class="marketplace-page">
 	<div class="container">
-		<?php if ( count( $banner_products ) > 1 ) : ?>
+		<?php if ( count( $banner_products ) > 0 ) : ?>
 			<section class="marketplace-archive-banner" data-marketplace-carousel tabindex="0" role="region" aria-roledescription="carousel" aria-label="<?php esc_attr_e( 'Featured products', 'bobbyafrica-marketplace-child' ); ?>">
 				<div class="marketplace-archive-banner-copy">
 					<?php foreach ( $banner_products as $index => $product ) : ?>
@@ -89,8 +117,20 @@ $rating_value    = isset( $_GET['rating_filter'] ) && is_scalar( $_GET['rating_f
 					<?php endif; ?>
 					<fieldset>
 						<legend><?php esc_html_e( 'Price', 'bobbyafrica-marketplace-child' ); ?></legend>
-						<label><?php esc_html_e( 'Minimum', 'bobbyafrica-marketplace-child' ); ?><input type="number" name="min_price" min="0" step="0.01" value="<?php echo esc_attr( $min_price_value ); ?>" /></label>
-						<label><?php esc_html_e( 'Maximum', 'bobbyafrica-marketplace-child' ); ?><input type="number" name="max_price" min="0" step="0.01" value="<?php echo esc_attr( $max_price_value ); ?>" /></label>
+						<div class="marketplace-price-range" data-price-range>
+							<div class="marketplace-price-range-values" aria-live="polite">
+								<span><?php esc_html_e( 'From', 'bobbyafrica-marketplace-child' ); ?> <strong data-price-min-value><?php echo esc_html( wp_strip_all_tags( wc_price( $selected_min_price, array( 'decimals' => 0 ) ) ) ); ?></strong></span>
+								<span><?php esc_html_e( 'To', 'bobbyafrica-marketplace-child' ); ?> <strong data-price-max-value><?php echo esc_html( wp_strip_all_tags( wc_price( $selected_max_price, array( 'decimals' => 0 ) ) ) ); ?></strong></span>
+							</div>
+							<div class="marketplace-price-slider" data-price-slider>
+								<span class="marketplace-price-slider-track" aria-hidden="true"></span>
+								<span class="marketplace-price-slider-fill" data-price-slider-fill aria-hidden="true"></span>
+								<label class="screen-reader-text" for="marketplace-min-price"><?php esc_html_e( 'Minimum price', 'bobbyafrica-marketplace-child' ); ?></label>
+								<input id="marketplace-min-price" type="range" name="min_price" min="<?php echo esc_attr( $price_min ); ?>" max="<?php echo esc_attr( $price_max ); ?>" step="1" value="<?php echo esc_attr( $selected_min_price ); ?>" data-price-min />
+								<label class="screen-reader-text" for="marketplace-max-price"><?php esc_html_e( 'Maximum price', 'bobbyafrica-marketplace-child' ); ?></label>
+								<input id="marketplace-max-price" type="range" name="max_price" min="<?php echo esc_attr( $price_min ); ?>" max="<?php echo esc_attr( $price_max ); ?>" step="1" value="<?php echo esc_attr( $selected_max_price ); ?>" data-price-max />
+							</div>
+						</div>
 					</fieldset>
 					<fieldset>
 						<legend><?php esc_html_e( 'Customer rating', 'bobbyafrica-marketplace-child' ); ?></legend>
@@ -136,16 +176,27 @@ $rating_value    = isset( $_GET['rating_filter'] ) && is_scalar( $_GET['rating_f
 			</aside>
 
 			<div class="marketplace-results">
+				<div class="marketplace-mobile-listing-controls" aria-label="<?php esc_attr_e( 'Product listing controls', 'bobbyafrica-marketplace-child' ); ?>">
+					<button class="marketplace-mobile-filter-button" type="button" aria-expanded="false" aria-controls="marketplace-filter-form">
+						<span aria-hidden="true">&#9776;</span>
+						<?php esc_html_e( 'Filters', 'bobbyafrica-marketplace-child' ); ?>
+					</button>
+				</div>
 				<div class="marketplace-page-intro">
 					<?php woocommerce_breadcrumb(); ?>
 					<h1><?php echo esc_html( $archive_title ); ?></h1>
-					<?php if ( wc_get_loop_prop( 'total' ) ) : ?>
-						<div class="woocommerce-result-count-wrapper">
-							<?php woocommerce_result_count(); ?>
-							<?php woocommerce_catalog_ordering(); ?>
-						</div>
-					<?php endif; ?>
 				</div>
+				<?php if ( '' !== $min_price_value || '' !== $max_price_value || $rating_value ) : ?>
+					<div class="marketplace-active-filters" aria-label="<?php esc_attr_e( 'Active filters', 'bobbyafrica-marketplace-child' ); ?>">
+						<?php if ( '' !== $min_price_value || '' !== $max_price_value ) : ?>
+							<span class="marketplace-filter-chip"><?php echo esc_html( sprintf( __( 'Price: %1$s - %2$s', 'bobbyafrica-marketplace-child' ), $min_price_value ? $min_price_value : __( 'Any', 'bobbyafrica-marketplace-child' ), $max_price_value ? $max_price_value : __( 'Any', 'bobbyafrica-marketplace-child' ) ) ); ?></span>
+						<?php endif; ?>
+						<?php if ( $rating_value ) : ?>
+							<span class="marketplace-filter-chip"><?php echo esc_html( sprintf( _n( '%d star and up', '%d stars and up', $rating_value, 'bobbyafrica-marketplace-child' ), $rating_value ) ); ?></span>
+						<?php endif; ?>
+						<a class="marketplace-filter-clear" href="<?php echo esc_url( is_product_category() ? get_term_link( $queried_category ) : wc_get_page_permalink( 'shop' ) ); ?>"><?php esc_html_e( 'Clear all', 'bobbyafrica-marketplace-child' ); ?></a>
+					</div>
+				<?php endif; ?>
 				<?php if ( woocommerce_product_loop() ) : ?>
 					<?php do_action( 'woocommerce_before_shop_loop' ); ?>
 					<?php woocommerce_product_loop_start(); ?>
@@ -162,6 +213,7 @@ $rating_value    = isset( $_GET['rating_filter'] ) && is_scalar( $_GET['rating_f
 				<?php endif; ?>
 			</div>
 		</div>
+		<div class="marketplace-filter-backdrop" hidden></div>
 	</div>
 </main>
 <?php

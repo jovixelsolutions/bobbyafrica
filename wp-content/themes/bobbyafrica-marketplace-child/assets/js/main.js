@@ -293,15 +293,108 @@ document.addEventListener('DOMContentLoaded', function () {
 
   document.querySelectorAll('.marketplace-sidebar').forEach(function (sidebar) {
     const filterToggle = sidebar.querySelector('.marketplace-filter-toggle');
+    const mobileFilterButton = document.querySelector('.marketplace-mobile-filter-button');
+    const backdrop = document.querySelector('.marketplace-filter-backdrop');
+    const filterForm = sidebar.querySelector('.marketplace-filter-form');
     if (!filterToggle) {
       return;
     }
 
     sidebar.classList.add('has-filter-toggle');
+
+    if (filterForm) {
+      let filterTimer;
+      const priceRange = filterForm.querySelector('[data-price-range]');
+      const minPrice = priceRange && priceRange.querySelector('[data-price-min]');
+      const maxPrice = priceRange && priceRange.querySelector('[data-price-max]');
+      const minPriceValue = priceRange && priceRange.querySelector('[data-price-min-value]');
+      const maxPriceValue = priceRange && priceRange.querySelector('[data-price-max-value]');
+      const sliderFill = priceRange && priceRange.querySelector('[data-price-slider-fill]');
+
+      function updatePriceRange() {
+        if (!minPrice || !maxPrice) {
+          return;
+        }
+        if (Number(minPrice.value) > Number(maxPrice.value)) {
+          if (document.activeElement === minPrice) {
+            maxPrice.value = minPrice.value;
+          } else {
+            minPrice.value = maxPrice.value;
+          }
+        }
+        if (minPriceValue) {
+          minPriceValue.textContent = minPrice.value;
+        }
+        if (maxPriceValue) {
+          maxPriceValue.textContent = maxPrice.value;
+        }
+        if (sliderFill) {
+          const range = Number(maxPrice.max) - Number(maxPrice.min) || 1;
+          const start = ((Number(minPrice.value) - Number(minPrice.min)) / range) * 100;
+          const end = ((Number(maxPrice.value) - Number(maxPrice.min)) / range) * 100;
+          sliderFill.style.left = start + '%';
+          sliderFill.style.width = (end - start) + '%';
+        }
+      }
+
+      if (priceRange) {
+        priceRange.addEventListener('input', updatePriceRange);
+        updatePriceRange();
+      }
+      filterForm.addEventListener('change', function (event) {
+        if (!event.target.matches('input[type="range"], input[type="checkbox"], select')) {
+          return;
+        }
+        updatePriceRange();
+        window.clearTimeout(filterTimer);
+        filterTimer = window.setTimeout(function () {
+          if (filterForm.requestSubmit) {
+            filterForm.requestSubmit();
+          } else {
+            filterForm.submit();
+          }
+        }, 250);
+      });
+    }
+
+    function setFilterOpen(open) {
+      sidebar.classList.toggle('is-expanded', open);
+      document.body.classList.toggle('marketplace-filter-open', open);
+      filterToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (mobileFilterButton) {
+        mobileFilterButton.setAttribute('aria-expanded', open ? 'true' : 'false');
+      }
+      if (backdrop) {
+        backdrop.hidden = !open;
+      }
+      if (open && filterForm) {
+        const firstControl = filterForm.querySelector('input, select, button');
+        if (firstControl) {
+          firstControl.focus();
+        }
+      }
+    }
+
     filterToggle.addEventListener('click', function () {
-      const expanded = sidebar.classList.toggle('is-expanded');
-      filterToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-      filterToggle.querySelector('span').textContent = expanded ? '\u2212' : '+';
+      setFilterOpen(!sidebar.classList.contains('is-expanded'));
+    });
+    if (mobileFilterButton) {
+      mobileFilterButton.addEventListener('click', function () {
+        setFilterOpen(true);
+      });
+    }
+    if (backdrop) {
+      backdrop.addEventListener('click', function () {
+        setFilterOpen(false);
+      });
+    }
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && sidebar.classList.contains('is-expanded')) {
+        setFilterOpen(false);
+        if (mobileFilterButton) {
+          mobileFilterButton.focus();
+        }
+      }
     });
   });
 

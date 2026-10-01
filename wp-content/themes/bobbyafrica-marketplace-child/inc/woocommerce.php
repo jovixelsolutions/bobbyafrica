@@ -4,6 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
+add_filter( 'woocommerce_add_to_cart_redirect', 'bobbyafrica_buy_now_checkout_redirect', 20 );
 
 add_filter( 'loop_shop_per_page', function() {
 	return 12;
@@ -224,6 +225,53 @@ function bobbyafrica_category_products_ajax() {
 }
 
 add_action( 'woocommerce_single_product_summary', 'bobbyafrica_product_purchase_notes', 29 );
+add_action( 'woocommerce_single_product_summary', 'bobbyafrica_render_product_overview', 8 );
+add_action( 'woocommerce_after_add_to_cart_button', 'bobbyafrica_render_delivery_and_seller', 20 );
+
+function bobbyafrica_buy_now_checkout_redirect( $url ) {
+	if ( ! isset( $_REQUEST['buy_now'] ) || '1' !== sanitize_text_field( wp_unslash( $_REQUEST['buy_now'] ) ) ) {
+		return $url;
+	}
+
+	if ( function_exists( 'wc_get_checkout_url' ) ) {
+		return wc_get_checkout_url();
+	}
+
+	return $url;
+}
+
+function bobbyafrica_render_product_overview() {
+	global $product;
+	if ( ! $product ) {
+		return;
+	}
+
+	$overview_items = array();
+	$sku            = $product->get_sku();
+	if ( $sku ) {
+		$overview_items[] = sprintf( __( 'SKU: %s', 'bobbyafrica-marketplace-child' ), esc_html( $sku ) );
+	}
+
+	if ( $product->is_in_stock() ) {
+		$overview_items[] = __( 'In stock', 'bobbyafrica-marketplace-child' );
+	} else {
+		$overview_items[] = __( 'Out of stock', 'bobbyafrica-marketplace-child' );
+	}
+
+	if ( $product->get_review_count() ) {
+		$review_count = (int) $product->get_review_count();
+		$overview_items[] = sprintf( _n( '%s review', '%s reviews', $review_count, 'bobbyafrica-marketplace-child' ), number_format_i18n( $review_count ) );
+	}
+
+	if ( empty( $overview_items ) ) {
+		return;
+	}
+	?>
+	<div class="marketplace-product-overview" aria-label="<?php esc_attr_e( 'Product overview', 'bobbyafrica-marketplace-child' ); ?>">
+		<?php echo esc_html( implode( ' • ', $overview_items ) ); ?>
+	</div>
+	<?php
+}
 
 function bobbyafrica_product_purchase_notes() {
 	global $product;
@@ -238,6 +286,61 @@ function bobbyafrica_product_purchase_notes() {
 		<li><?php esc_html_e( 'Payment methods are available at checkout', 'bobbyafrica-marketplace-child' ); ?></li>
 		<li><?php esc_html_e( 'Product details and customer reviews are below', 'bobbyafrica-marketplace-child' ); ?></li>
 	</ul>
+	<?php
+}
+
+function bobbyafrica_render_delivery_and_seller() {
+	global $product;
+	if ( ! $product ) {
+		return;
+	}
+
+	$shop_name = get_bloginfo( 'name' );
+	$shop_url  = wc_get_page_permalink( 'shop' );
+	?>
+	<div class="marketplace-product-meta-panels">
+		<div class="marketplace-detail-panel" aria-label="<?php esc_attr_e( 'Delivery information', 'bobbyafrica-marketplace-child' ); ?>">
+			<h3><?php esc_html_e( 'Delivery', 'bobbyafrica-marketplace-child' ); ?></h3>
+			<div class="marketplace-detail-row">
+				<span><?php esc_html_e( 'Deliver to', 'bobbyafrica-marketplace-child' ); ?></span>
+				<strong><?php esc_html_e( 'Checkout for your location', 'bobbyafrica-marketplace-child' ); ?></strong>
+			</div>
+			<div class="marketplace-detail-row">
+				<span><?php esc_html_e( 'Shipping', 'bobbyafrica-marketplace-child' ); ?></span>
+				<strong><?php esc_html_e( 'Rates calculated at checkout', 'bobbyafrica-marketplace-child' ); ?></strong>
+			</div>
+			<div class="marketplace-detail-row">
+				<span><?php esc_html_e( 'Payment', 'bobbyafrica-marketplace-child' ); ?></span>
+				<strong><?php esc_html_e( 'Secure checkout available', 'bobbyafrica-marketplace-child' ); ?></strong>
+			</div>
+		</div>
+		<div class="marketplace-detail-panel" aria-label="<?php esc_attr_e( 'Seller information', 'bobbyafrica-marketplace-child' ); ?>">
+			<h3><?php esc_html_e( 'Sold by', 'bobbyafrica-marketplace-child' ); ?></h3>
+			<div class="marketplace-seller-card">
+				<strong><?php echo esc_html( $shop_name ); ?></strong>
+				<?php if ( $product->get_average_rating() ) : ?>
+					<span class="marketplace-product-rating">
+						<?php echo wp_kses_post( wc_get_rating_html( $product->get_average_rating(), $product->get_rating_count() ) ); ?>
+					</span>
+				<?php endif; ?>
+				<a href="<?php echo esc_url( $shop_url ); ?>"><?php esc_html_e( 'View store', 'bobbyafrica-marketplace-child' ); ?></a>
+			</div>
+		</div>
+	</div>
+	<?php
+}
+
+add_action( 'woocommerce_after_add_to_cart_button', 'bobbyafrica_render_buy_now_button', 25 );
+
+function bobbyafrica_render_buy_now_button() {
+	global $product;
+	if ( ! $product || ! $product->is_purchasable() || $product->is_type( 'external' ) ) {
+		return;
+	}
+	?>
+	<button type="submit" class="single_buy_now_button button alt" name="buy_now" value="1">
+		<?php esc_html_e( 'Buy Now', 'bobbyafrica-marketplace-child' ); ?>
+	</button>
 	<?php
 }
 
