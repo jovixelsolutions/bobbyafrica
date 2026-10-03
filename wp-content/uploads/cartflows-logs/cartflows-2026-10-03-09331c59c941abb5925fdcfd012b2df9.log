@@ -94,3 +94,7 @@
 2026-10-03T13:21:45+00:00 INFO Webhook dispatch: No webhooks found for event cartflows_step_visited
 2026-10-03T13:23:34+00:00 INFO Webhook event: checkout_initiated - Step 14
 2026-10-03T13:23:34+00:00 INFO Webhook dispatch: No webhooks found for event checkout_initiated
+2026-10-03T14:15:41+00:00 INFO Webhook event: cartflows_step_visited - Step 14 (Type: checkout)
+2026-10-03T14:15:41+00:00 INFO Webhook dispatch: No webhooks found for event cartflows_step_visited
+2026-10-03T14:17:01+00:00 INFO Webhook event: checkout_initiated - Step 14
+2026-10-03T14:17:01+00:00 INFO Webhook dispatch: No webhooks found for event checkout_initiated
