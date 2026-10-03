@@ -34,6 +34,25 @@ $marketplace_shop_url = wc_get_page_permalink( 'shop' );
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<?php wp_head(); ?>
+	<?php
+	if ( function_exists( '_is_wcf_checkout_type' ) && _is_wcf_checkout_type() ) {
+		$checkout_styles = array(
+			'bobbyafrica-child-style'      => array( get_stylesheet_uri(), get_stylesheet_directory() . '/style.css' ),
+			'bobbyafrica-child-main'       => array( get_stylesheet_directory_uri() . '/assets/css/main.css', get_stylesheet_directory() . '/assets/css/main.css' ),
+			'bobbyafrica-child-responsive' => array( get_stylesheet_directory_uri() . '/assets/css/responsive.css', get_stylesheet_directory() . '/assets/css/responsive.css' ),
+		);
+
+		foreach ( $checkout_styles as $handle => $style ) {
+			if ( ! wp_style_is( $handle, 'done' ) ) {
+				printf(
+					'<link rel="stylesheet" id="%1$s-css" href="%2$s" media="all" />' . "\n",
+					esc_attr( $handle ),
+					esc_url( add_query_arg( 'ver', filemtime( $style[1] ), $style[0] ) )
+				);
+			}
+		}
+	}
+	?>
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
