@@ -61,7 +61,7 @@ $marketplace_shop_url = wc_get_page_permalink( 'shop' );
 		<div class="container">
 			<span><?php esc_html_e( 'Fast delivery across major cities', 'bobbyafrica-marketplace-child' ); ?></span>
 			<span><?php esc_html_e( 'Secure checkout', 'bobbyafrica-marketplace-child' ); ?></span>
-			<span><?php esc_html_e( '+254 700 000 000', 'bobbyafrica-marketplace-child' ); ?></span>
+			<span><?php esc_html_e( '+254 725 676 566', 'bobbyafrica-marketplace-child' ); ?></span>
 			<span><?php esc_html_e( 'Support 24/7', 'bobbyafrica-marketplace-child' ); ?></span>
 		</div>
 	</div>

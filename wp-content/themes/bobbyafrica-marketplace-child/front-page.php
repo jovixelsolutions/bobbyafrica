@@ -150,5 +150,7 @@ $new_arrivals = wc_get_products(
 			</div>
 		</div>
 	</section>
+
+	<?php get_template_part( 'template-parts/homepage', 'story' ); ?>
 </main>
 <?php get_footer(); ?>
