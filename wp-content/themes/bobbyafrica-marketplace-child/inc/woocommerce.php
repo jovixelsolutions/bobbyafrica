@@ -226,7 +226,7 @@ function bobbyafrica_category_products_ajax() {
 
 add_action( 'woocommerce_single_product_summary', 'bobbyafrica_product_purchase_notes', 29 );
 add_action( 'woocommerce_single_product_summary', 'bobbyafrica_render_product_overview', 8 );
-add_action( 'woocommerce_after_add_to_cart_button', 'bobbyafrica_render_delivery_and_seller', 20 );
+add_action( 'woocommerce_after_single_product_summary', 'bobbyafrica_render_delivery_and_seller', 5 );
 
 function bobbyafrica_buy_now_checkout_redirect( $url ) {
 	if ( ! isset( $_REQUEST['buy_now'] ) || '1' !== sanitize_text_field( wp_unslash( $_REQUEST['buy_now'] ) ) ) {
