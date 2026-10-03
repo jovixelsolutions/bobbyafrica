@@ -15,10 +15,11 @@ body.single-product .ast-article-single.product {
   row-gap: 32px;
   width: calc(100% - 30px);
   max-width: 1120px;
-  margin: 24px 0px 48px 0px;
+  margin: 24px auto 48px;
   padding: 20px;
   box-sizing: border-box;
   background: var(--market-background);
+  border-radius: 16px;
 }
 
 body.single-product .ast-article-single.product > .onsale {
