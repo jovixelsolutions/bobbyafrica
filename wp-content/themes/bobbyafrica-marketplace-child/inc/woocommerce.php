@@ -12,6 +12,21 @@ add_filter( 'loop_shop_per_page', function() {
 
 add_action( 'woocommerce_before_main_content', 'bobbyafrica_marketplace_wrapper_start', 10 );
 add_action( 'woocommerce_after_main_content', 'bobbyafrica_marketplace_wrapper_end', 10 );
+add_filter( 'cartflows_page_template_file', 'bobbyafrica_cartflows_marketplace_checkout_template', 20 );
+
+function bobbyafrica_cartflows_marketplace_checkout_template( $file ) {
+	if ( ! function_exists( '_is_wcf_checkout_type' ) || ! _is_wcf_checkout_type() || ! function_exists( 'wcf' ) || ! wcf()->utils->is_step_post_type() ) {
+		return $file;
+	}
+
+	$flow_id = wcf()->utils->get_flow_id();
+	if ( ! $flow_id || ! class_exists( 'Cartflows_Helper' ) || ! Cartflows_Helper::is_instant_layout_enabled( (int) $flow_id ) ) {
+		return $file;
+	}
+
+	$theme_template = get_stylesheet_directory() . '/templates/cartflows-instant-checkout.php';
+	return is_readable( $theme_template ) ? $theme_template : $file;
+}
 
 function bobbyafrica_marketplace_wrapper_start() {
 	if ( is_product() || is_shop() || is_product_category() || is_product_tag() || is_cart() || is_checkout() || is_account_page() ) {
